@@ -1,0 +1,49 @@
+
+@mixin icons($color, $size){
+  @if $color == "white" {
+    color: #ffffff;
+  }
+  @if $size == "large"{
+    width: 50px;
+    height: 50px;
+  }@else if($size =="normal"){
+    width: 40px;
+    height: 40px;
+  }@else {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@mixin label_color($color){
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
+  line-height: 30px;
+  @if $color == "red"{
+    background: #CF4739;
+  }@else if($color =="pink"){
+    background: #D78681;
+  }@else if($color =="orange"){
+    background: #DF773A;
+  }@else if($color =="yellow"){
+    background: #EACC57;
+  }@else if($color =="emerald_green"){
+    background: #62BAAC;
+  }@else if($color =="green"){
+    background: #017263;
+  }
+}
+
+@mixin profile_image($size){
+  @if $size == "large"{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+  }@else if($size =="normal"){
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+  }
+}

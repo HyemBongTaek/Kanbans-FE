@@ -1,0 +1,74 @@
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
+@import "./src/style/common/commonStyle";
+
+.modal_container {
+  width: 800px;
+  height: 700px;
+  border-radius: 35px;
+  position: absolute;
+  top: 5%;
+  left: 15%;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  margin: 50px;
+  background: #ffffff;
+
+
+
+  .modal_header {
+    display: flex;
+    justify-content: flex-end;
+    background: $main_gray;
+    height: 60px;
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+
+    .modal_icon {
+      @include icons("white", "");
+      padding: 15px 20px 0;
+    }
+  }
+
+  .modal_contents {
+
+    .modal_logo {
+      margin: 45px auto;
+      display: flex;
+      justify-content: center;
+
+      & > div {
+        font-size: 50px;
+        font-weight: 600;
+        margin-left: 15px;
+      }
+    }
+
+    & > div:nth-child(1) {
+      text-align: center;
+      font-size: 35px;
+      font-weight: 600;
+      margin-top: -10px;
+    }
+
+    .modal_info {
+      font-size: 15px;
+      text-align: center;
+      margin-top: 60px;
+      font-weight: bold;
+    }
+
+    .modal_login_form {
+      margin-top: 40px;
+      margin-left: 20px;
+
+      & > div {
+        width: 280px;
+        height: 55px;
+        background: #d24444;
+        margin: 20px auto;
+
+      }
+    }
+  }
+}

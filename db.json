@@ -1,0 +1,65 @@
+{
+  "posts": {
+    "lists": [      {
+      "id": 1,
+      "title": "study",
+      "cards": [
+        {
+          "boardId": 1,
+          "id": "card1",
+          "title": "오늘도피곤하고",
+          "check": true
+        },
+        {
+          "boardId": 1,
+          "id": "card2",
+          "title": "내일도 피곤하고",
+          "check": false
+        },
+        {
+          "boardId": 1,
+          "id": "card3",
+          "title": "어제도 피곤하고",
+          "check": false
+        },
+        {
+          "boardId": 1,
+          "id": "card4",
+          "title": "모레도 피곤하고",
+          "check": true
+        }
+      ]
+    },
+      {
+        "id": 2,
+        "title": "hyemgu",
+        "cards": [
+          {
+            "boardId": 2,
+            "id": "card1",
+            "title": "오늘도피곤하고",
+            "check": true
+          },
+          {
+            "boardId": 2,
+            "id": "card2",
+            "title": "내일도 피곤하고",
+            "check": false
+          },
+          {
+            "boardId": 2,
+            "id": "card3",
+            "title": "어제도 피곤하고",
+            "check": false
+          },
+          {
+            "boardId": 2,
+            "id": "card4",
+            "title": "모레도 피곤하고",
+            "check": true
+          }
+        ]
+      }
+    ]
+  }
+}

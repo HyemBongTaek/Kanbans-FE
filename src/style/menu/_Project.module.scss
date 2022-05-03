@@ -1,0 +1,132 @@
+@import "../common/navStyle";
+@import "../common/colors";
+
+//Home.tsx
+.kanban_home {
+
+  border: 1px solid blue;
+}
+
+//HomeList.tsx
+.home_kanban_list {
+  display: grid;
+  margin-top: 100px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-row-gap: 30px;
+
+  .add_kanban {
+    width: 350px;
+    height: 260px;
+    border: 2px dashed $border_gray;
+    border-radius: 25px;
+
+    .add_kanban_style {
+      text-align: center;
+      margin-top: 80px;
+
+      & > div {
+        font-size: 25px;
+        font-weight: 600;
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
+
+//HomeCard.tsx
+.home_card {
+  width: 340px;
+  height: 260px;
+  border: 1px solid $border_gray;
+  border-radius: 25px;
+  padding-left: 20px;
+
+  .board_status {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    .public_private {
+      width: 60px;
+      height: 25px;
+      background: #EAEBE7;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    // 즐겨찾기 공통 css
+    .board_unfavorite, .board_favorite {
+      width: 30px;
+      height: 30px;
+      margin-right: 20px;
+    }
+
+    //즐겨찾기 전
+    .board_unfavorite {
+      color: $main_gray;
+    }
+
+    //즐겨찾기 후
+    .board_favorite {
+      color: #d24444;
+    }
+
+  }
+
+
+  .title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+
+  .home_profile {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+    margin-left: -10px;
+    margin-right: 20px;
+
+
+
+    .profile_image {
+      margin: auto;
+
+      & > img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50px;
+
+      }
+
+      & > div {
+        width: 60px;
+        height: 23px;
+        background: $main_gray;
+        border-radius: 10px;
+        color: white;
+        font-size: 13px;
+        text-align: center;
+        line-height: 23px;
+        position: fixed;
+        margin: 50px 0;
+
+      }
+    }
+  }
+
+}
+//HomeHeader.tsx
+.home_header{
+  display: flex;
+  justify-content: space-between;
+  margin-right: 33px;
+  font-size: 45px;
+  font-weight: 600;
+  margin-top: 40px;
+
+  & > div:nth-child(2){
+    padding-top: 15px;
+  }
+}

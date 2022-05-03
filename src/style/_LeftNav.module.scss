@@ -1,0 +1,88 @@
+@import "./common/colors";
+
+
+//LeftNav 공통 css
+
+//아이콘 전체 스타일
+.nav_icon {
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1.2rem;
+}
+
+.layout {
+  height: 30px;
+}
+
+.user {
+  display: flex;
+
+  //유저 이미지가 없는 경우 css
+  .user_none_image {
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 75px;
+    background: #d24444;
+    text-align: center;
+    line-height: 48px;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .user_name {
+    font-size: 12px;
+    margin-left: 10px;
+    color: $white_font;
+    line-height: 50px;
+
+  }
+
+  //유저 이미지가 있는 경우 css
+  .user_image {
+
+    & > img {
+      width: 45px;
+      height: 45px;
+      border-radius: 75px;
+    }
+  }
+}
+
+
+//네브바 펼친 후
+.left_nav_big {
+  background: $main_gray;
+  width: 10%;
+  min-width: 280px;
+  height: 100vh;
+  position: fixed;
+  padding-left: 23px;
+
+}
+
+//네브바 펼치기 전
+.left_nav_small {
+  background: $main_gray;
+  width: 5%;
+  min-width: 100px;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+
+
+  .big_logo {
+    width: 120px;
+    height: 50px;
+    background: #d24444;
+    margin-left: 10px;
+    margin-bottom: 1rem;
+  }
+
+
+}
+
+

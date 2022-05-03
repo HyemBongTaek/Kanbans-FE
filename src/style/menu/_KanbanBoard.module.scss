@@ -1,0 +1,134 @@
+@import "../common/colors";
+@import "../common/mixin";
+
+//Kanban.tsx
+
+//KanbanList.tsx
+.kanban_list{
+  display: flex;
+  overflow-x: scroll;
+  padding-bottom: 10px;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    border: 1px solid $border_gray;
+  }
+}
+
+
+//KanbanBoard.tsx
+.kanban_board {
+  width: 400px;
+  height: 780px;
+  //border: 1px solid #3F4650;
+  border-radius: 10px;
+  overflow-y: hidden;
+  margin-right: 20px;
+
+  .kanban_cards{
+    overflow-x: hidden;
+    height: 770px;
+    &::-webkit-scrollbar {
+      width: 15px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      border: 1px solid $border_gray;
+    }
+    & > div {
+      margin-bottom: 15px;
+    }
+
+  }
+}
+
+
+//KanbanCard.tsx
+.kanban_card {
+  width: 350px;
+  height: 180px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin: auto;
+  display: flex;
+
+  //카드앞에 상태를 나타내는 색
+  .kanban_status {
+    width: 20px;
+    height: 180px;
+    background-color: $main_gray;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  // 카드 label, title, task, date, d-day, comments 표시
+  .card_contents {
+    width: 100%;
+
+    //라벨과 체크박스를 위해 div로 두번감싸줌
+    .card_top {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 10px 0;
+
+      .labels {
+        display: flex;
+
+        .label {
+          width: 68px;
+          height: 28px;
+          @include label_color("red");
+          margin-right: 15px;
+        }
+      }
+
+    }
+    .card_title {
+      font-size: 30px;
+      margin: 5px 0 0 10px;
+      font-weight: bold;
+    }
+  }
+  .card_mid{
+    & > img{
+      @include profile_image("large");
+    }
+  }
+  .card_bottom{
+    display: flex;
+    margin-top: 10px;
+    .bottom_icon{
+      width: 15px;
+      height: 15px;
+      color: $sub_black;
+      padding-top: 3px;
+    }
+    .date, .task{
+      display: flex;
+      height: 22px;
+      border-radius: 10px;
+      background: $light_gray;
+      margin-right: 10px;
+    }
+    .task{
+      color: $gray;
+    }
+  }
+}
+
+//KanbanHeader.tsx
+.kanban_header{
+  display: flex;
+  justify-content: space-between;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+
+  & > div{
+    font-size: 40px;
+    font-weight: 600;
+  }
+}

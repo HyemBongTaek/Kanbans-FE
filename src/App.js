@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Main from "./page/Main";
+import Project from "./page/menu/Project";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import LeftNav from "./components/nav/LeftNav";
+import Login from "./components/login/Login";
 
 function App() {
+  const NavStatus = useSelector((state) => state.navSlice.openNav);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <LeftNav openNav={NavStatus} />
+        <Routes>
+          <Route path="/*" element={<Main openNav={NavStatus} />} />
+          <Route path="/project" element={<Project openNav={NavStatus} />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
