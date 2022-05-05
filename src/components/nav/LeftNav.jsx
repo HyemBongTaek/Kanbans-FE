@@ -102,7 +102,7 @@ const LeftNav = ({ openNav }) => {
                   className={styles.nav_icon}
                   icon="fa:home"
                   onClick={() => {
-                    navigate(`/home`, { replace: true });
+                    navigate(`/project`, { replace: true });
                   }}
                 />
               </div>

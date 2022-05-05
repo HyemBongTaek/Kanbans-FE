@@ -3,15 +3,19 @@ import React from "react";
 
 import KanbanHeader from "../../components/menu/kanban/KanbanHeader";
 import KanbanList from "../../components/menu/kanban/KanbanList";
+import { useLocation } from "react-router-dom";
+import styles from "../../style/_Main.module.scss";
 
-const Kanban = () => (
-  <div>
-    <div className={classNames("main_layout")}>
-      <KanbanHeader />
+const Kanban = ({ openNav }) => {
+  return (
+    <div className={openNav ? styles.main_big : styles.main_small}>
+      <div className={classNames("main_layout")}>
+        <KanbanHeader />
 
-      <KanbanList />
+        <KanbanList />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Kanban;
