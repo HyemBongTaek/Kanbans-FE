@@ -115,18 +115,24 @@ const KanbanList = () => {
 
   //카드 추가
   const addCardHandler = (title, boardId) => {
-    console.log("카드추가탭", title, boardId);
+    console.log("카드추가탭", data.columns[boardId]);
     const newCardId = uuid();
     const newCard = {
       id: newCardId,
-      title: title,
+      content: title,
       check: false,
     };
     const list = data.columns[boardId];
-    list.taskIds = [...list.taskIds, newCard];
+    console.log("리스트트트트", list);
+    list.taskIds = [...list.taskIds, newCardId];
+    // list.tasks = [...list.tasks, newCard];
 
     const newState = {
       ...data,
+      tasks: {
+        ...data.tasks,
+        [newCardId]: newCard,
+      },
       columns: {
         ...data.columns,
         [boardId]: list,
