@@ -7,26 +7,11 @@ import ProjectHeader from "./ProjectHeader";
 import { useNavigate } from "react-router-dom";
 
 const ProjectList = () => {
-  const [list, setList] = useState(null);
-  useEffect(() => {
-    //여기서는 async await 을 쓸 수 없다.
-    fetch("http://localhost:3000/posts")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setList(data);
-      });
-  }, []);
-
-  console.log(list);
   return (
     <div>
       <ProjectHeader />
       <div className={styles.home_kanban_list}>
-        {list?.lists.map((list) => (
-          <ProjectCard list={list} />
-        ))}
+        <ProjectCard />
 
         <div className={styles.add_kanban}>
           <div className={styles.add_kanban_style}>
