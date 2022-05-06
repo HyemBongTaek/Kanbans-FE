@@ -1,13 +1,22 @@
 import { Icon } from "@iconify/react";
-import React from "react";
+import React, { useContext } from "react";
 
 import Profile from "../../../image/profile.png";
 import styles from "../../../style/menu/_KanbanBoard.module.scss";
 import { Draggable } from "react-beautiful-dnd";
-import InputContainer from "./InputContainer";
+import store from "./store";
 
 const KanbanCard = (props) => {
   console.log("카드", props);
+  const { deleteCardHandler } = useContext(store);
+
+  const deleteCard = () => {
+    deleteCardHandler({
+      cardId: props.tasks.id,
+      boardId: props.boardId,
+    });
+  };
+
   return (
     <>
       <Draggable draggableId={props.tasks.id} index={props.index}>
@@ -29,6 +38,7 @@ const KanbanCard = (props) => {
                   <div className={styles.label}>라벨</div>
                   <div className={styles.label}>라벨</div>
                 </div>
+                <div onClick={deleteCard}>삭제</div>
                 <Icon
                   icon={
                     props.tasks.check

@@ -10,9 +10,9 @@ const ProjectCard = () => {
   return (
     <div
       className={styles.home_card}
-      // onClick={() => {
-      //   navigate(`/card`, { state: list });
-      // }}
+      onClick={() => {
+        navigate(`/card`);
+      }}
     >
       <div className={styles.board_status}>
         <div className={styles.public_private}>public</div>

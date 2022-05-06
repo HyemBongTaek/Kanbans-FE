@@ -3,7 +3,6 @@
 
 //Home.tsx
 .kanban_home {
-
   border: 1px solid blue;
 }
 
@@ -12,8 +11,11 @@
   display: grid;
   margin-top: 100px;
   grid-template-columns: repeat(4, 1fr);
+  column-gap: 20px;
   grid-template-rows: repeat(2, 1fr);
   grid-row-gap: 30px;
+  overflow-y: hidden;
+  float: left;
 
   .add_kanban {
     width: 350px;
@@ -97,10 +99,9 @@
         width: 60px;
         height: 60px;
         border-radius: 50px;
-
       }
 
-      & > div {
+     .profile_name{
         width: 60px;
         height: 23px;
         background: $main_gray;

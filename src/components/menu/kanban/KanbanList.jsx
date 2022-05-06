@@ -13,7 +13,35 @@ import uuid from "react-uuid";
 const KanbanList = () => {
   const [data, setData] = useState(KanbanData);
 
-  console.log("데이터", data);
+  const deleteCardHandler = ({ cardId, boardId }) => {
+    //우선 data.tasks에 같은 카드 제거함.
+    const newCard = data.tasks;
+    delete newCard[cardId];
+
+    const deleteTaskId = data.columns[boardId].taskIds.filter(
+      (taskId) => taskId !== cardId
+    );
+
+    //보드에 들어있는 카드 배열 제거해줌.
+    const newColumn = {
+      ...data.columns[boardId],
+      id: boardId,
+      title: data.columns[boardId].title,
+      taskIds: deleteTaskId,
+    };
+
+    const newState = {
+      columnOrder: [...data.columnOrder],
+      columns: {
+        ...data.columns,
+        [boardId]: newColumn,
+      },
+      tasks: {
+        ...newCard,
+      },
+    };
+    setData(newState);
+  };
 
   const onDragEnd = (result) => {
     //reorder our column
@@ -115,7 +143,6 @@ const KanbanList = () => {
 
   //카드 추가
   const addCardHandler = (title, boardId) => {
-    console.log("카드추가탭", data.columns[boardId]);
     const newCardId = uuid();
     const newCard = {
       id: newCardId,
@@ -123,9 +150,7 @@ const KanbanList = () => {
       check: false,
     };
     const list = data.columns[boardId];
-    console.log("리스트트트트", list);
     list.taskIds = [...list.taskIds, newCardId];
-    // list.tasks = [...list.tasks, newCard];
 
     const newState = {
       ...data,
@@ -143,7 +168,9 @@ const KanbanList = () => {
 
   return (
     <>
-      <store.Provider value={{ addBoardHandler, addCardHandler }}>
+      <store.Provider
+        value={{ addBoardHandler, addCardHandler, deleteCardHandler }}
+      >
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable
             droppableId="kanbanBoards"

@@ -12,6 +12,10 @@ const ProjectList = () => {
       <ProjectHeader />
       <div className={styles.home_kanban_list}>
         <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
 
         <div className={styles.add_kanban}>
           <div className={styles.add_kanban_style}>

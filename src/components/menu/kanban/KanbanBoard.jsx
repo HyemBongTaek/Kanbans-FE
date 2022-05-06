@@ -24,7 +24,12 @@ const KanbanBoard = (props) => {
               {(provided) => (
                 <div ref={provided.innerRef} {...provided.droppableProps}>
                   {props?.boards?.map((task, index) => (
-                    <KanbanCard key={task.id} tasks={task} index={index} />
+                    <KanbanCard
+                      key={task.id}
+                      tasks={task}
+                      index={index}
+                      boardId={props.column.id}
+                    />
                   ))}
                   {provided.placeholder}
                 </div>
