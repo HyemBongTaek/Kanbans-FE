@@ -38,7 +38,7 @@ const KanbanCard = (props) => {
                   <div className={styles.label}>라벨</div>
                   <div className={styles.label}>라벨</div>
                 </div>
-                <div onClick={deleteCard}>삭제</div>
+
                 <Icon
                   icon={
                     props.tasks.check
@@ -90,6 +90,7 @@ const KanbanCard = (props) => {
                   <Icon className={styles.bottom_icon} icon="ei:comment" />
                   &nbsp;2&nbsp;
                 </div>
+                <div onClick={deleteCard}>삭제</div>
               </div>
             </div>
           </div>

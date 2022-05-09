@@ -22,7 +22,8 @@
 
 //KanbanBoard.tsx
 .kanban_board {
-  width: 400px;
+  width: 380px;
+  min-width: 380px;
   height: 850px;
   border: 1px solid #3F4650;
   border-radius: 10px;
@@ -46,6 +47,9 @@
     font-weight: 600;
     margin-left: 20px;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10px;
     & > span {
       font-size: 20px;
       margin-left: 10px;
