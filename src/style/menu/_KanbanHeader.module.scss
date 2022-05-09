@@ -1,0 +1,33 @@
+@import "../common/colors";
+
+//KanbanHeader.tsx
+.kanban_header {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 20px;
+  margin-top: 30px;
+
+  & > div {
+    font-size: 40px;
+    font-weight: 600;
+  }
+}
+
+.kanban_nav{
+  display: flex;
+  font-size: 20px;
+  width: 300px;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+
+  & > div{
+    &:hover{
+      color: $main_gray;
+      font-weight: 600;
+    }
+  }
+
+
+}

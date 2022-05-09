@@ -5,22 +5,28 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 
 import { Icon } from "@iconify/react";
 import BoardDropDown from "./utils/BoardDropDown";
-import InputContainer from "./InputContainer";
+import InputContainer from "./utils/InputContainer";
 import KanbanCard from "./KanbanCard";
 
 import { useDetectOutsideClick } from "../../../hooks/useDetectOutsideClick";
 import store from "./store";
 
 const KanbanBoard = (props) => {
+  console.log(props.column.taskIds.length, "프롭쓰쓰쓰");
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const dropdownClick = () => setIsActive(!isActive);
 
-  const { clearAllCardsHandler } = useContext(store);
+  const { clearAllCardsHandler, deleteBoardHandler } = useContext(store);
+
+  const boardId = props.column.id;
   //카드모두지우기
   const clearAllCards = () => {
-    const boardId = props.column.id;
     clearAllCardsHandler(boardId);
+  };
+  //보드 삭제하기
+  const deleteBoard = () => {
+    deleteBoardHandler(boardId);
   };
 
   return (
@@ -34,8 +40,11 @@ const KanbanBoard = (props) => {
           >
             <div className={styles.kanban_title} {...provided.dragHandleProps}>
               <div>
+                {/*<input value={props.column.title}/>*/}
                 {props.column.title}
-                <span>3</span>
+                <span className={styles.kanban_count}>
+                  {props.column.taskIds.length}
+                </span>
               </div>
               <div ref={dropdownRef}>
                 <Icon
@@ -48,6 +57,7 @@ const KanbanBoard = (props) => {
                   <BoardDropDown
                     dropdownClick={dropdownClick}
                     clearAllCards={clearAllCards}
+                    deleteBoard={deleteBoard}
                   />
                 )}
               </div>

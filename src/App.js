@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LeftNav from "./components/nav/LeftNav";
 import Login from "./components/login/Login";
-import Kanban from "./page/menu/Kanban";
+import KanbanBoards from "./page/menu/kanban/KanbanBoards";
 
 function App() {
   const NavStatus = useSelector((state) => state.navSlice.openNav);
@@ -17,7 +17,7 @@ function App() {
         <LeftNav openNav={NavStatus} />
         <Routes>
           <Route path="/*" element={<Main openNav={NavStatus} />} />
-          <Route path="/card" element={<Kanban openNav={NavStatus} />} />
+          <Route path="/card" element={<KanbanBoards openNav={NavStatus} />} />
           <Route path="/project" element={<Project openNav={NavStatus} />} />
           <Route path="/login" element={<Login />} />
         </Routes>

@@ -53,9 +53,10 @@
 
 //네브바 펼친 후
 .left_nav_big {
+  z-index: 100;
   background: $main_gray;
-  width: 10%;
-  min-width: 280px;
+  width: 250px;
+  min-width: 250px;
   height: 100vh;
   position: fixed;
   padding-left: 23px;
@@ -70,6 +71,7 @@
   height: 100vh;
   position: fixed;
   display: flex;
+  z-index: 100;
   justify-content: center;
   padding-top: 30px;
 
