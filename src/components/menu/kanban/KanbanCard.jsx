@@ -1,14 +1,21 @@
 import { Icon } from "@iconify/react";
-import React, { useContext } from "react";
+import React, { useContext, useRef, useState } from "react";
 
 import Profile from "../../../image/profile.png";
 import styles from "../../../style/menu/_KanbanBoard.module.scss";
 import { Draggable } from "react-beautiful-dnd";
 import store from "./store";
+import KanBanCardDetail from "./cardDetail/KanbanCardDetail";
+import { useDetectOutsideClick } from "../../../hooks/useDetectOutsideClick";
 
 const KanbanCard = (props) => {
   console.log("카드", props);
   const { deleteCardHandler } = useContext(store);
+  const [openDetail, setOpenDetail] = useState(false);
+
+  const detailModal = () => {
+    setOpenDetail(!openDetail);
+  };
 
   const deleteCard = () => {
     deleteCardHandler({
@@ -17,12 +24,18 @@ const KanbanCard = (props) => {
     });
   };
 
+  console.log("이거", props);
+
   return (
     <>
+      {openDetail && (
+        <KanBanCardDetail setOpenDetail={setOpenDetail} items={props.tasks} />
+      )}
       <Draggable draggableId={props.tasks.id} index={props.index}>
         {/*완료(체크표시)가 된 경우에는 흐리게 변경해준다*/}
         {(provided) => (
           <div
+            onClick={detailModal}
             className={
               props.tasks.check ? styles.kanban_check : styles.kanban_card
             }

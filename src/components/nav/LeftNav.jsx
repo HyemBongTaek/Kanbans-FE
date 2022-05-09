@@ -12,8 +12,6 @@ const LeftNav = ({ openNav }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log("오픈", openNav);
-
   const navHandler = () => {
     dispatch(setOpenNavReducer());
   };

@@ -5,13 +5,13 @@ export const useDetectOutsideClick = (el, initialState) => {
 
   useEffect(() => {
     const onClick = (e) => {
-      // If the active element exists and is clicked outside of
+      //active element가 존재하고 외부에서 클릭된 경우
       if (el.current !== null && !el.current.contains(e.target)) {
         setIsActive(!isActive);
       }
     };
 
-    // If the item is active (ie open) then listen for clicks outside
+    // item이 이미 열려 있는 경우에 외부 클릭했을 경우.
     if (isActive) {
       window.addEventListener("click", onClick);
     }

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import store from "./store";
-import styles from "../../../style/menu/_InputContainer.module.scss";
+import store from "../store";
+import styles from "../../../../style/menu/utils/_InputContainer.module.scss";
 
 const InputContainer = ({ type, boardId }) => {
   console.log("칸반보드아이디", boardId);
@@ -36,7 +36,7 @@ const InputContainer = ({ type, boardId }) => {
             {type === "board" ? <div> + Add a Board </div> : " + Add a Card"}
           </div>
         )}
-        {open && type === "board" && (
+        {open && (
           <form onSubmit={addBoards}>
             <label>
               <input value={title} onChange={titleOnChange} />
@@ -47,17 +47,17 @@ const InputContainer = ({ type, boardId }) => {
             </button>
           </form>
         )}
-        {open && type === "card" && (
-          <form onSubmit={addCards}>
-            <label>
-              <input value={title} onChange={titleOnChange} />
-              <div onClick={() => setOpen(false)}>X</div>
-            </label>
-            <button type="button" onClick={addCards}>
-              등록하기
-            </button>
-          </form>
-        )}
+        {/*{open && type === "card" && (*/}
+        {/*  <form onSubmit={addCards}>*/}
+        {/*    <label>*/}
+        {/*      <input value={title} onChange={titleOnChange} />*/}
+        {/*      <div onClick={() => setOpen(false)}>X</div>*/}
+        {/*    </label>*/}
+        {/*    <button type="button" onClick={addCards}>*/}
+        {/*      등록하기*/}
+        {/*    </button>*/}
+        {/*  </form>*/}
+        {/*)}*/}
       </div>
     </>
   );

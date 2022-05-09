@@ -1,7 +1,7 @@
 @import "../common/colors";
 @import "../common/mixin";
 
-//Kanban.tsx
+//KanbanBoards.tsx
 
 //KanbanList.tsx
 .kanban_list {
@@ -50,7 +50,7 @@
     display: flex;
     justify-content: space-between;
     margin-right: 10px;
-    & > span {
+    .kanban_count {
       font-size: 20px;
       margin-left: 10px;
       font-weight: 400;
@@ -162,16 +162,3 @@
   }
 }
 
-//KanbanHeader.tsx
-.kanban_header {
-  display: flex;
-  justify-content: space-between;
-  margin-right: 20px;
-  margin-bottom: 30px;
-  margin-top: 30px;
-
-  & > div {
-    font-size: 40px;
-    font-weight: 600;
-  }
-}

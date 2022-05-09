@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import styles from "../../../style/menu/_KanbanBoard.module.scss";
 import KanbanBoard from "./KanbanBoard";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import KanbanData from "./KanbanData";
-import InputContainer from "./InputContainer";
+import InputContainer from "./utils/InputContainer";
 import store from "./store";
 import { Icon } from "@iconify/react";
 
@@ -64,6 +64,25 @@ const KanbanList = () => {
   };
 
   //보드 삭제하기
+  const deleteBoardHandler = (boardId) => {
+    console.log("보드삭제한다.", boardId);
+    const deleteBoard = data.columns;
+    delete deleteBoard[boardId];
+    const deleteBoardOrder = data.columnOrder.filter(
+      (board) => board !== boardId
+    );
+
+    const newState = {
+      ...data,
+      //우선 data.tasks에 같은 카드 제거함.
+      columnOrder: deleteBoardOrder,
+      columns: {
+        ...data.columns,
+        deleteBoard,
+      },
+    };
+    setData(newState);
+  };
 
   //칸반보드 이동(카드이동, 보드이동)
   const onDragEnd = (result) => {
@@ -197,6 +216,7 @@ const KanbanList = () => {
           addCardHandler,
           deleteCardHandler,
           clearAllCardsHandler,
+          deleteBoardHandler,
         }}
       >
         <DragDropContext onDragEnd={onDragEnd}>
