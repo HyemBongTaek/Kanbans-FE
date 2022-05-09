@@ -6,15 +6,66 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import KanbanData from "./KanbanData";
 import InputContainer from "./InputContainer";
 import store from "./store";
+import { Icon } from "@iconify/react";
 
 //테스트용 id정하기
 import uuid from "react-uuid";
 
 const KanbanList = () => {
+  //data에 mockData넣어준 후 진행
   const [data, setData] = useState(KanbanData);
 
-  console.log("데이터", data);
+  console.log("모든데이터", data);
 
+  //카드에서 삭제를 누를 경우
+  const deleteCardHandler = ({ cardId, boardId }) => {
+    //우선 data.tasks에 같은 카드 제거함.
+    const newCard = data.tasks;
+    delete newCard[cardId];
+
+    const deleteTaskId = data.columns[boardId].taskIds.filter(
+      (taskId) => taskId !== cardId
+    );
+
+    //보드에 들어있는 카드 배열 제거해줌.
+    const newColumn = {
+      ...data.columns[boardId],
+      taskIds: deleteTaskId,
+    };
+
+    const newState = {
+      ...data,
+      columns: {
+        ...data.columns,
+        [boardId]: newColumn,
+      },
+      tasks: {
+        ...newCard,
+      },
+    };
+    setData(newState);
+  };
+
+  //보드에서 게시판 카드 모두 삭제하기
+  const clearAllCardsHandler = (boardId) => {
+    const newColumn = {
+      ...data.columns[boardId],
+      taskIds: [],
+    };
+
+    const newState = {
+      ...data,
+      columns: {
+        ...data.columns,
+        [boardId]: newColumn,
+      },
+    };
+    setData(newState);
+  };
+
+  //보드 삭제하기
+
+  //칸반보드 이동(카드이동, 보드이동)
   const onDragEnd = (result) => {
     //reorder our column
     const { destination, source, draggableId, type } = result;
@@ -115,18 +166,21 @@ const KanbanList = () => {
 
   //카드 추가
   const addCardHandler = (title, boardId) => {
-    console.log("카드추가탭", title, boardId);
     const newCardId = uuid();
     const newCard = {
       id: newCardId,
-      title: title,
+      content: title,
       check: false,
     };
     const list = data.columns[boardId];
-    list.taskIds = [...list.taskIds, newCard];
+    list.taskIds = [...list.taskIds, newCardId];
 
     const newState = {
       ...data,
+      tasks: {
+        ...data.tasks,
+        [newCardId]: newCard,
+      },
       columns: {
         ...data.columns,
         [boardId]: list,
@@ -137,7 +191,14 @@ const KanbanList = () => {
 
   return (
     <>
-      <store.Provider value={{ addBoardHandler, addCardHandler }}>
+      <store.Provider
+        value={{
+          addBoardHandler,
+          addCardHandler,
+          deleteCardHandler,
+          clearAllCardsHandler,
+        }}
+      >
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable
             droppableId="kanbanBoards"

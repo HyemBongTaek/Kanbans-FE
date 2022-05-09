@@ -3,7 +3,7 @@ import store from "./store";
 import styles from "../../../style/menu/_InputContainer.module.scss";
 
 const InputContainer = ({ type, boardId }) => {
-  console.log(boardId);
+  console.log("칸반보드아이디", boardId);
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const { addBoardHandler, addCardHandler } = useContext(store);
@@ -16,6 +16,16 @@ const InputContainer = ({ type, boardId }) => {
     addBoardHandler(title);
     setTitle("");
     setOpen(false);
+  };
+
+  const addCards = () => {
+    if (boardId === undefined) {
+      return;
+    } else {
+      addCardHandler(title, boardId);
+      setTitle("");
+      setOpen(false);
+    }
   };
 
   return (
@@ -38,12 +48,14 @@ const InputContainer = ({ type, boardId }) => {
           </form>
         )}
         {open && type === "card" && (
-          <form>
+          <form onSubmit={addCards}>
             <label>
               <input value={title} onChange={titleOnChange} />
               <div onClick={() => setOpen(false)}>X</div>
             </label>
-            <button type="button">등록하기</button>
+            <button type="button" onClick={addCards}>
+              등록하기
+            </button>
           </form>
         )}
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import LoginModal from "./LoginModal";
-import KanBanCardDetail from "../menu/kanban/KanbanCardDetail";
+import KanBanCardDetail from "../menu/kanban/cardDetail/KanbanCardDetail";
 
 const Login = () => {
   const [isOpen, setIsOpen] = useState(false);
