@@ -4,8 +4,13 @@ import React from "react";
 import styles from "./_Login.module.scss";
 import { useDispatch } from "react-redux";
 
-const LoginModal = ({ setIsOpen }) => {
+import NaverLoginImage from "../../image/naver_login_image.png";
+import KaKaoLoginImage from "../../image/kakao_login_image.png";
+import { KAKAO_AUTH_URL } from "./KAKAO_AUTH_URL";
+
+const AuthModal = ({ setIsOpen }) => {
   const dispatch = useDispatch;
+
   return (
     <>
       <div className={styles.modal_container}>
@@ -31,8 +36,16 @@ const LoginModal = ({ setIsOpen }) => {
 
           <div className={styles.modal_login_form}>
             <div>구글</div>
-            <div>네이버</div>
-            <div>카카오</div>
+            <div>
+              <a href={"http://3.37.231.161:4000/oauth/naver"}>
+                <img src={NaverLoginImage} alt="naver_login" />
+              </a>
+            </div>
+            <div>
+              <a href={KAKAO_AUTH_URL}>
+                <img src={KaKaoLoginImage} alt="kakao_login" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -47,4 +60,4 @@ const LoginModal = ({ setIsOpen }) => {
   );
 };
 
-export default LoginModal;
+export default AuthModal;

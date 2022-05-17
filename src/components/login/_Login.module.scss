@@ -61,13 +61,14 @@
     .modal_login_form {
       margin-top: 40px;
       margin-left: 20px;
-
-      & > div {
+      div {
         width: 280px;
         height: 55px;
-        background: #d24444;
         margin: 20px auto;
-
+       img {
+          width: 300px;
+          height: 65px;
+        }
       }
     }
   }

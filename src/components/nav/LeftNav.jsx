@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import Profile from "../../image/profile.png";
-import { setOpenNavReducer } from "../../redux/Modules/navSlice";
+import { setOpenNavReducer } from "../../redux/Slice/navSlice";
 
 import styles from "./../../style/_LeftNav.module.scss";
 import { useDispatch } from "react-redux";
