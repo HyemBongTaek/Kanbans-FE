@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import LoginModal from "./LoginModal";
-import KanBanCardDetail from "../menu/kanban/cardDetail/KanbanCardDetail";
+import AuthModal from "./AuthModal";
+import KanbanCardDetail from "../../page/menu/kanban/KanbanCardDetail";
 
 const Login = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,8 +17,8 @@ const Login = () => {
       <button type="button" onClick={loginModal}>
         로그인
       </button>
-      {isOpen && <LoginModal setIsOpen={setIsOpen} />}
-      {isDetail && <KanBanCardDetail setIsDetail={setIsDetail} />}
+      {isOpen && <AuthModal setIsOpen={setIsOpen} />}
+      {isDetail && <KanbanCardDetail setIsDetail={setIsDetail} />}
       <button type="button" onClick={detailModal}>
         디테일
       </button>

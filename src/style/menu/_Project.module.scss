@@ -85,20 +85,18 @@
 
   .home_profile {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     margin-top: 50px;
-    margin-left: -10px;
     margin-right: 20px;
 
 
-
     .profile_image {
-      margin: auto;
-
+      margin-right: 10px;
       & > img {
         width: 60px;
         height: 60px;
         border-radius: 50px;
+
       }
 
      .profile_name{

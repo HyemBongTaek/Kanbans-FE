@@ -1,0 +1,158 @@
+@import "../../../../style/common/colors";
+@import "../../../../style/common/mixin";
+
+//디테일 카드는 css 많아서 따로 뺌.
+
+.card_detail_container {
+  width: 800px;
+  height: auto;
+  max-height: 80%;
+  position: absolute;
+  top: 5%;
+  left: 15%;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  margin: 50px;
+  background: #ffffff;
+
+
+  .header {
+    width: 800px;
+    height: 40px;
+    background-color: $main_gray;
+    position: fixed;
+  }
+
+
+  .title {
+    font-size: 20px;
+    display: flex;
+    //제목에 들어가는 아이콘
+    .title_icon{
+      @include icons($main_gray,"");
+    }
+  }
+
+  .title_form {
+    & > input {
+      width: 520px;
+      height: 30px;
+      font-size: 20px;
+      background-color: $white_font;
+      border: none;
+
+      &:focus {
+        outline: 1px solid $main_gray;
+      }
+    }
+
+    .detail_textarea {
+      width: 520px;
+      height: 80px;
+      resize: none;
+      border: none;
+      background-color: $white_font;
+
+      &:focus {
+        outline: 1px solid $main_gray;
+      }
+    }
+  }
+
+  .detail_attachments {
+    width: 525px;
+    height: 180px;
+    background-color: $white_font;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+
+    .attachments_image {
+      width: 200px;
+      height: 130px;
+      margin-right: 10px;
+    }
+  }
+}
+
+.main {
+  display: grid;
+  padding-top: 50px;
+  height: 700px;
+  grid-template-columns: repeat(2, 1fr);
+  overflow-y: auto;
+  border: 1px solid blue;
+  //스크롤바 디자인
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    border: 1px solid $border_gray;
+  }
+}
+
+
+.detail_overlay {
+  box-sizing: border-box;
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+}
+
+@mixin comment_profile{
+  & > img {
+    @include profile_image("normal");
+  }
+   div {
+    padding-top: 3px;
+     span{
+       font-size: 12px;
+       color: $comment_gray;
+     }
+
+  }
+}
+
+//DetailComments.jsx
+.comment_input{
+  display: flex;
+  @include comment_profile;
+}
+
+.comment_card{
+  display: flex;
+  @include comment_profile;
+  .content{
+    width: 480px;
+    height: 30px;
+    background: #FFFFFF;
+    border: 1px solid #898A8D;
+    border-radius: 5px;
+    line-height: 30px;
+    .edit_input{
+
+      width: 470px;
+      height: 28px;
+      border-radius: 5px;
+
+    }
+    input {
+      border: none;
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+  .comment_icon{
+    @include icons($border_gray, "small");
+    margin-right: 20px;
+    &:hover{
+      color: $main_gray;
+    }
+  }
+}

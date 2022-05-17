@@ -1,7 +1,10 @@
+@import "./colors";
 
 @mixin icons($color, $size){
   @if $color == "white" {
     color: #ffffff;
+  }@else{
+    color: $color;
   }
   @if $size == "large"{
     width: 50px;
@@ -9,7 +12,11 @@
   }@else if($size =="normal"){
     width: 40px;
     height: 40px;
-  }@else {
+  }@else if($size =="small"){
+    width: 20px;
+    height: 20px;
+  }
+  @else {
     width: 30px;
     height: 30px;
   }
@@ -42,8 +49,8 @@
     height: 50px;
     border-radius: 50px;
   }@else if($size =="normal"){
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 40px;
   }@else if($size =="small"){
     width: 30px;
@@ -51,3 +58,4 @@
     border-radius: 30px;
   }
 }
+

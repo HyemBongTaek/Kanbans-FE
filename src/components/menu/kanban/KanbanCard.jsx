@@ -5,7 +5,7 @@ import Profile from "../../../image/profile.png";
 import styles from "../../../style/menu/_KanbanBoard.module.scss";
 import { Draggable } from "react-beautiful-dnd";
 import store from "./store";
-import KanBanCardDetail from "./cardDetail/KanbanCardDetail";
+import KanbanCardDetail from "../../../page/menu/kanban/KanbanCardDetail";
 import { useDetectOutsideClick } from "../../../hooks/useDetectOutsideClick";
 
 const KanbanCard = (props) => {
@@ -29,7 +29,7 @@ const KanbanCard = (props) => {
   return (
     <>
       {openDetail && (
-        <KanBanCardDetail setOpenDetail={setOpenDetail} items={props.tasks} />
+        <KanbanCardDetail setOpenDetail={setOpenDetail} items={props.tasks} />
       )}
       <Draggable draggableId={props.tasks.id} index={props.index}>
         {/*완료(체크표시)가 된 경우에는 흐리게 변경해준다*/}
