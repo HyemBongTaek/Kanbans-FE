@@ -1,16 +1,21 @@
 import { Icon } from "@iconify/react";
 import React from "react";
 
-import styles from "./_Login.module.scss";
 import { useDispatch } from "react-redux";
-
-import NaverLoginImage from "../../image/naver_login_image.png";
-import KaKaoLoginImage from "../../image/kakao_login_image.png";
+import styles from "./_Login.module.scss";
+import NaverLoginImage from "../../../image/naver_login_image.png";
+import KaKaoLoginImage from "../../../image/kakao_login_image.png";
+import GoogleLoginImage from "../../../image/google_login_image.png";
 import { KAKAO_AUTH_URL } from "./KAKAO_AUTH_URL";
+import { GOOGLE_AUTH_URL } from "./GOOGLE_AUTH_URL";
+import { setOpenLoginReducer } from "../../../redux/Slice/modalSlice";
 
-const AuthModal = ({ setIsOpen }) => {
-  const dispatch = useDispatch;
+const AuthModal = () => {
+  const dispatch = useDispatch();
 
+  const openLoginModal = () => {
+    dispatch(setOpenLoginReducer(false));
+  };
   return (
     <>
       <div className={styles.modal_container}>
@@ -35,7 +40,11 @@ const AuthModal = ({ setIsOpen }) => {
           </div>
 
           <div className={styles.modal_login_form}>
-            <div>구글</div>
+            <div>
+              <a href={GOOGLE_AUTH_URL}>
+                <img src={GoogleLoginImage} alt="google_login" />
+              </a>
+            </div>
             <div>
               <a href={"http://3.37.231.161:4000/oauth/naver"}>
                 <img src={NaverLoginImage} alt="naver_login" />
@@ -52,9 +61,7 @@ const AuthModal = ({ setIsOpen }) => {
       <div
         className={styles.modal_overlay}
         aria-hidden="true"
-        onClick={() => {
-          setIsOpen(false);
-        }}
+        onClick={openLoginModal}
       />
     </>
   );

@@ -1,0 +1,16 @@
+
+.close_nav{
+  width: 100vw;
+  height: 99vh;
+  padding-left: 3%;
+  overflow: hidden;
+  z-index: 999;
+}
+.open_nav{
+  width: 80vw;
+  height: 99vh;
+  //border: 1px solid red;
+  margin-left: 300px;
+  overflow-y: hidden;
+  z-index: 999;
+}

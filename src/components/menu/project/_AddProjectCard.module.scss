@@ -1,0 +1,72 @@
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
+
+.add_kanban_style {
+  text-align: center;
+  margin-top: 80px;
+
+  div {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+}
+
+.add_project {
+
+  height: 200px;
+  margin-top: 30px;
+
+  form {
+    label {
+      display: flex;
+
+      .icon {
+        @include icons($main_gray, normal);
+      }
+
+      input {
+        border: 1px solid $comment_gray;
+        width: 200px;
+        height: 25px;
+        border-radius: 10px;
+        margin-top: 5px;
+        padding-left: 10px;
+
+        &:focus {
+          outline: 2px solid $main_gray;
+          border: none;
+          border-radius: 10px;
+        }
+
+        &::placeholder {
+          font-size: 14px;
+        }
+
+      }
+    }
+
+  }
+  .permission{
+    display: flex;
+    .icon {
+      @include icons($main_gray, normal);
+    }
+
+  }
+  button{
+    border: 1px solid $main_gray;
+    background-color: #FFFFFF;
+    color: $main_gray;
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    margin-left: 70px;
+    &:hover{
+      color: $white_font;
+      background-color: $main_gray;
+    }
+  }
+}
+
+

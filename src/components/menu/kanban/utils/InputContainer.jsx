@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import store from "../store";
+import store from "../../../contextStore";
 import styles from "../../../../style/menu/utils/_InputContainer.module.scss";
 
 const InputContainer = ({ type, boardId }) => {

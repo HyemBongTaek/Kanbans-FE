@@ -1,28 +1,63 @@
 import logo from "./logo.svg";
 import "./App.scss";
-import Main from "./page/Main";
+import Main from "./page/main/Main";
 import Project from "./page/menu/Project";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import LeftNav from "./components/nav/LeftNav";
-import Login from "./components/login/Login";
+
+import Layout from "./components/layout/Layout";
+
+import Login from "./components/menu/login/Login";
+import Profile from "./page/menu/Profile";
 import KanbanBoards from "./page/menu/kanban/KanbanBoards";
-import KaKaoRedirectHandler from "./components/login/KaKaoRedirectHandler";
+import KaKaoLoginHandler from "./components/menu/login/KaKaoLoginHandler";
+import { GoogleLoginHandler } from "./components/menu/login/GoogleLoginHandler";
+import React from "react";
 
 function App() {
   const NavStatus = useSelector((state) => state.navSlice.openNav);
 
+  //로그인이 되어있지 않는 경우 메인화면으로 돌아가게함.
+  function RequireAuth({ children, redirectTo }) {
+    const token = localStorage.getItem("token");
+    return token ? children : <Navigate to={redirectTo} />;
+  }
+
+  //로그인이 되어있는 경우
+  function RejectAuth({ children, redirectTo }) {
+    const token = localStorage.getItem("token");
+    return !token ? children : <Navigate to={redirectTo} />;
+  }
   return (
     <div className="App">
       <BrowserRouter>
-        <LeftNav openNav={NavStatus} />
-        <Routes>
-          <Route path="/*" element={<Main openNav={NavStatus} />} />
-          <Route path="/card" element={<KanbanBoards openNav={NavStatus} />} />
-          <Route path="/project" element={<Project openNav={NavStatus} />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/oauth/kakao/" element={<KaKaoRedirectHandler />} />
-        </Routes>
+        <Layout openNav={NavStatus}>
+          <Routes>
+            <Route path="/" element={<Main openNav={NavStatus} />} />
+            <Route path="/card" element={<KanbanBoards />} />
+            <Route
+              path="/profile"
+              element={
+                <RequireAuth redirectTo="/">
+                  <Profile openNav={NavStatus} />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/project/*"
+              element={
+                <RequireAuth redirectTo="/">
+                  <Project openNav={NavStatus} />
+                </RequireAuth>
+              }
+            >
+              {/*<Route path=":projectId" element={<KanbanBoards />} />*/}
+            </Route>
+            <Route path="/login" element={<Login />} />
+            <Route path="/oauth/kakao/" element={<KaKaoLoginHandler />} />
+            <Route path="/oauth/google/" element={<GoogleLoginHandler />} />
+          </Routes>
+        </Layout>
       </BrowserRouter>
     </div>
   );

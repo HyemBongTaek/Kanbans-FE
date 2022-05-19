@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import AuthModal from "./AuthModal";
-import KanbanCardDetail from "../../page/menu/kanban/KanbanCardDetail";
+import KanbanCardDetail from "../../../page/menu/kanban/KanbanCardDetail";
 
 const Login = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +13,7 @@ const Login = () => {
     setIsDetail(!isDetail);
   };
   return (
-    <div style={{ marginLeft: "200px" }}>
+    <div>
       <button type="button" onClick={loginModal}>
         로그인
       </button>

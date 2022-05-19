@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addProject, getProject } from "../Async/projects";
+import { addProject, deleteProject, getProject } from "../Async/projects";
 
 const ProjectsSlice = createSlice({
   name: "projects",

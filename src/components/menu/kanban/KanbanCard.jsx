@@ -4,9 +4,9 @@ import React, { useContext, useRef, useState } from "react";
 import Profile from "../../../image/profile.png";
 import styles from "../../../style/menu/_KanbanBoard.module.scss";
 import { Draggable } from "react-beautiful-dnd";
-import store from "./store";
+import store from "../../contextStore";
 import KanbanCardDetail from "../../../page/menu/kanban/KanbanCardDetail";
-import { useDetectOutsideClick } from "../../../hooks/useDetectOutsideClick";
+import classNames from "classnames";
 
 const KanbanCard = (props) => {
   console.log("카드", props);
@@ -24,6 +24,8 @@ const KanbanCard = (props) => {
     });
   };
 
+  console.log("칼라다", props.tasks.status);
+  const status = props.tasks.status;
   console.log("이거", props);
 
   return (
@@ -43,7 +45,13 @@ const KanbanCard = (props) => {
             {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
-            <div className={styles.kanban_status} />
+            <div
+              className={classNames(
+                status === "hold" && styles.kanban_hold,
+                status === "finish" && styles.kanban_finish,
+                status === "progress" && styles.kanban_progress
+              )}
+            />
             <div className={styles.card_contents}>
               <div className={styles.card_top}>
                 <div className={styles.labels}>
@@ -63,17 +71,20 @@ const KanbanCard = (props) => {
                 />
                 {/* <Icon icon= color="#545454" height="30" /> */}
               </div>
-              <div className={styles.card_title}>{props.tasks.content}</div>
-              <div
-                className={
-                  props.tasks.check ? styles.card_check_mid : styles.card_mid
-                }
-              >
-                <img src={Profile} alt="profile_img" />
-                <img src={Profile} alt="profile_img" />
-                <img src={Profile} alt="profile_img" />
-                <img src={Profile} alt="profile_img" />
+              <div className={styles.card_title}>
+                {props.tasks.content}
+                <div
+                  className={
+                    props.tasks.check ? styles.card_check_mid : styles.card_mid
+                  }
+                >
+                  <img src={Profile} alt="profile_img" />
+                  <img src={Profile} alt="profile_img" />
+                  <img src={Profile} alt="profile_img" />
+                  <img src={Profile} alt="profile_img" />
+                </div>
               </div>
+
               <div className={styles.card_bottom}>
                 <div
                   className={

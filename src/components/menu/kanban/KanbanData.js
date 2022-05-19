@@ -1,10 +1,30 @@
 const KanbanData = {
   tasks: {
-    "task-1": { id: "task-1", content: "하나둘", check: true },
-    "task-2": { id: "task-2", content: "셋넷", check: false },
-    "task-3": { id: "task-3", content: "다섯", check: false },
-    "task-4": { id: "task-4", content: "여섯", check: true },
-    "task-5": { id: "task-5", content: "일곱여덟", check: true },
+    "task-1": {
+      id: "task-1",
+      content: "하나둘",
+      check: true,
+      status: "finish",
+    },
+    "task-2": {
+      id: "task-2",
+      content: "셋넷",
+      check: false,
+      status: "progress",
+    },
+    "task-3": {
+      id: "task-3",
+      content: "다섯",
+      check: false,
+      status: "hold",
+    },
+    "task-4": { id: "task-4", content: "여섯", check: true, status: "finish" },
+    "task-5": {
+      id: "task-5",
+      content: "일곱여덟",
+      check: true,
+      status: "finish",
+    },
   },
   columns: {
     "column-1": {

@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
 import styles from "./_DetailInput.module.scss";
 import { Icon } from "@iconify/react";
-import store from "../store";
+import store from "../../../contextStore";
 import uuid from "react-uuid";
 
 const DetailInput = ({ type }) => {

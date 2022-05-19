@@ -3,7 +3,7 @@ import ProgressCard from "./ProgressCard";
 import ProgressData from "./ProgressData";
 import DetailInput from "./DetailInput";
 import styles from "./_DetailInput.module.scss";
-import store from "../store";
+import store from "../../../contextStore";
 
 const CardProgressBar = () => {
   const detailInputRef = useRef();
