@@ -9,7 +9,7 @@ import InputContainer from "./utils/InputContainer";
 import KanbanCard from "./KanbanCard";
 
 import { useDetectOutsideClick } from "../../../hooks/useDetectOutsideClick";
-import store from "./store";
+import store from "../../contextStore";
 
 const KanbanBoard = (props) => {
   console.log("ㅍㅁㄴㅇㄻㄴㄹ", props.index);

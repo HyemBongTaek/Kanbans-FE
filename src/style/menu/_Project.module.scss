@@ -3,10 +3,12 @@
 
 //Home.tsx
 .kanban_home {
-  border: 1px solid blue;
+  //border: 1px solid blue;
+  overflow-y: scroll;
+  height: 80vh;
 }
 
-//HomeList.tsx
+//ProjectList.tsx
 .home_kanban_list {
   display: grid;
   margin-top: 100px;
@@ -23,20 +25,10 @@
     border: 2px dashed $border_gray;
     border-radius: 25px;
 
-    .add_kanban_style {
-      text-align: center;
-      margin-top: 80px;
-
-      & > div {
-        font-size: 25px;
-        font-weight: 600;
-        margin-bottom: 30px;
-      }
-    }
   }
 }
 
-//HomeCard.tsx
+//ProjectCard.tsx
 .home_card {
   width: 340px;
   height: 260px;
@@ -114,7 +106,12 @@
       }
     }
   }
-
+  .delete{
+    //border: 1px solid blue;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+  }
 }
 //HomeHeader.tsx
 .home_header{

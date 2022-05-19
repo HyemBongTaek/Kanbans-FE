@@ -25,9 +25,9 @@
 @mixin label_color($color){
   color: #ffffff;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 12px;
   text-align: center;
-  line-height: 30px;
+  line-height: 20px;
   @if $color == "red"{
     background: #CF4739;
   }@else if($color =="pink"){
@@ -57,5 +57,17 @@
     height: 30px;
     border-radius: 30px;
   }
+}
+
+@mixin button_styles($width, $height, $color, $borderRadius, $fontColor, $fontSize){
+  width: $width;
+  height: $height;
+  background-color: $color;
+  border-radius: $borderRadius;
+  border: none;
+  color: $fontColor;
+  font-size: $fontSize;
+  cursor: pointer;
+
 }
 

@@ -1,0 +1,41 @@
+@import "./src/style/common/mixin";
+
+.header{
+  height: 50px;
+  border-bottom: 1px solid $main_gray;
+
+.header_login{
+  display: flex;
+  justify-content: space-between;
+  .icon{
+    @include icons($main_gray, normal);
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+  button{
+    margin-right: 50px;
+    margin-top: 5px;
+    display: flex;
+    @include button_styles(100px, 40px, $main_gray, 5px, white, 15px);
+    line-height:35px;
+    .icon{
+      margin-top: 8px;
+      margin-left: 7px;
+      margin-right: 2px;
+      @include icons($white_font, small);
+    }
+  }
+}
+.header_not_login{
+  display: flex;
+  justify-content: flex-end;
+  button{
+    margin: 5px 10px 0 5px;
+
+    @include button_styles(100px, 40px, $main_gray, 5px, white, 15px);
+    .icon{
+      @include icons($white_font, small);
+    }
+  }
+}
+}

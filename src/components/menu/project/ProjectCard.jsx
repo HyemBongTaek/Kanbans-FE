@@ -2,17 +2,33 @@ import { Icon } from "@iconify/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import profile from "../../../image/profile.png";
 import styles from "../../../style/menu/_Project.module.scss";
+import { useDispatch } from "react-redux";
+import { bookmarkProject, deleteProject } from "../../../redux/Async/projects";
 
 const ProjectCard = (props) => {
-  console.log("프로젝트", props);
+  const dispatch = useDispatch();
   const { items } = props;
+  console.log("프로젝트아이디", items.projectId);
+
+  console.log("이미지지지지지", props);
   const navigate = useNavigate();
   const [projectBookmark, setProjectBookmark] = useState(items.bookmark);
-  console.log("북마크", projectBookmark);
+
   const clickBookmarkHandler = () => {
     setProjectBookmark(!projectBookmark);
+    dispatch(
+      bookmarkProject({
+        projectId: items.projectId,
+      })
+    );
+  };
+  const clickDeleteProject = () => {
+    dispatch(
+      deleteProject({
+        projectId: items.projectId,
+      })
+    );
   };
 
   return (
@@ -50,15 +66,6 @@ const ProjectCard = (props) => {
                 </div>
               );
             })}
-
-          {/*<div className={styles.profile_image}>*/}
-          {/*  <div className={styles.profile_name}>헹구</div>*/}
-          {/*  <img src={profile} alt="profile_image" />*/}
-          {/*</div>*/}
-          {/*<div className={styles.profile_image}>*/}
-          {/*  <div className={styles.profile_name}>헹구</div>*/}
-          {/*  <img src={profile} alt="profile_image" />*/}
-          {/*</div>*/}
           <div className={styles.profile_image}>
             <Icon
               icon="ph:dots-three-circle-light"
@@ -67,6 +74,9 @@ const ProjectCard = (props) => {
             />
           </div>
         </div>
+      </div>
+      <div className={styles.delete} onClick={clickDeleteProject}>
+        <Icon icon="ant-design:delete-outlined" color="#8c8c8c" height="30" />
       </div>
     </div>
   );

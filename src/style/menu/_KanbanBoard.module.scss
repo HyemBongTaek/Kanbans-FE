@@ -8,6 +8,9 @@
   display: flex;
   overflow-x: scroll;
   padding-bottom: 10px;
+  //border: 1px solid blue;
+  height: 85vh;
+  overflow-y: hidden;
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -22,9 +25,9 @@
 
 //KanbanBoard.tsx
 .kanban_board {
-  width: 380px;
-  min-width: 380px;
-  height: 850px;
+  width: 300px;
+  min-width: 300px;
+  height: 83vh;
   border: 1px solid #3F4650;
   border-radius: 10px;
   margin-right: 20px;
@@ -67,8 +70,8 @@
 //KanbanCard.tsx
 
 .kanban_card, .kanban_check {
-  width: 350px;
-  height: 180px;
+  width: 280px;
+  height: 120px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   margin: 10px auto;
@@ -82,12 +85,20 @@
 }
 
 //카드앞에 상태를 나타내는 색
-.kanban_status {
-  width: 20px;
-  height: 180px;
+.kanban_hold, .kanban_progress, .kanban_finish {
+    width: 20px;
+    height: 120px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.kanban_hold{
+  background-color: $main_yellow ;
+}
+.kanban_progress{
   background-color: $main_gray;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+}
+.kanban_finish{
+  background-color: $main_green;
 }
 
 // 카드 label, title, task, date, d-day, comments 표시
@@ -102,10 +113,10 @@
 
     .labels {
       display: flex;
-
+      justify-content: flex-start;
       .label {
-        width: 68px;
-        height: 28px;
+        width: 45px;
+        height: 20px;
         @include label_color("red");
         margin-right: 15px;
       }
@@ -114,16 +125,18 @@
   }
 
   .card_title {
-    font-size: 25px;
+    font-size: 20px;
     margin: 5px 0 5px 10px;
     font-weight: bold;
+    display: flex;
+    justify-content: flex-start;
   }
 }
 
 .card_mid, .card_check_mid {
-  margin-left: 10px;
+  margin-left: 30px;
   & > img {
-    @include profile_image("large");
+    @include profile_image("small");
   }
 }
 //완료(체크표시) 이미지 흐리게
@@ -137,14 +150,16 @@
 
 .card_bottom {
   display: flex;
+  justify-content: flex-start;
   margin: 10px 0 0 10px;
-
+  font-size: 12px;
 
   .bottom_icon {
     width: 15px;
     height: 15px;
     color: $sub_black;
     padding-top: 3px;
+
   }
   .date, .task, .date_check {
     display: flex;

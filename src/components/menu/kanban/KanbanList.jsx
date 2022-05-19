@@ -5,7 +5,7 @@ import KanbanBoard from "./KanbanBoard";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import KanbanData from "./KanbanData";
 import InputContainer from "./utils/InputContainer";
-import store from "./store";
+import store from "../../contextStore";
 import { Icon } from "@iconify/react";
 
 //테스트용 id정하기
@@ -65,7 +65,6 @@ const KanbanList = () => {
 
   //보드 삭제하기
   const deleteBoardHandler = (boardId) => {
-    console.log("보드삭제한다.", boardId);
     const deleteBoard = data.columns;
     delete deleteBoard[boardId];
     const deleteBoardOrder = data.columnOrder.filter(

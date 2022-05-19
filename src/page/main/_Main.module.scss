@@ -1,0 +1,9 @@
+
+
+.main{
+  display: grid;
+  grid-template-columns: repeat(2, 40% 60%);
+  &:first-child{
+    font-size: 100px;
+  }
+}
