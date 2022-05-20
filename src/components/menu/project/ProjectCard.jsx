@@ -4,8 +4,14 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "../../../style/menu/_Project.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { bookmarkProject, deleteProject } from "../../../redux/Async/projects";
+import {
+  bookmarkProject,
+  deleteProject,
+  leaveProject,
+  leaveProjectReducer,
+} from "../../../redux/Async/projects";
 import EditableProjectCard from "./EditableProjectCard";
+import Swal from "sweetalert2";
 
 const ProjectCard = (props) => {
   const dispatch = useDispatch();
@@ -13,16 +19,16 @@ const ProjectCard = (props) => {
 
   const navigate = useNavigate();
   const [projectBookmark, setProjectBookmark] = useState(items.bookmark);
-  const [isOwner, setIsOwner] = useState(false);
   const [isEditable, setIsEditable] = useState(false);
 
   const userInfo = useSelector((state) => state.userSlice.userInfo.id);
+  const [isOwner, setIsOwner] = useState(false);
 
   useEffect(() => {
     if (userInfo === items.owner) {
       setIsOwner(true);
     }
-  }, [userInfo, isOwner]);
+  }, [userInfo, items]);
 
   const clickBookmarkHandler = () => {
     setProjectBookmark(!projectBookmark);
@@ -33,11 +39,24 @@ const ProjectCard = (props) => {
     );
   };
   const clickDeleteProject = () => {
-    dispatch(
-      deleteProject({
-        projectId: items.projectId,
-      })
-    );
+    Swal.fire({
+      title: "정말로 삭제하시겠습니까?",
+      // text: "다시는 되돌릴 수 없습니다!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(
+          deleteProject({
+            projectId: items.projectId,
+          })
+        );
+        Swal.fire("프로젝트가 삭제되었습니다!", "", "success");
+      }
+    });
   };
   const editableProject = () => {
     setIsEditable(true);
@@ -45,6 +64,27 @@ const ProjectCard = (props) => {
 
   const clickProject = () => {
     navigate(`/card`);
+  };
+
+  const clickLeaveProject = () => {
+    Swal.fire({
+      title: "프로젝트를 떠나시겠습니까?",
+      text: "프로젝트 초대를 받기 전까지는 다시 참가할 수 없습니다.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(
+          leaveProject({
+            projectId: items.projectId,
+          })
+        );
+        Swal.fire(`${items.title}을 떠났습니다.`, "", "success");
+      }
+    });
   };
 
   return (
@@ -116,7 +156,7 @@ const ProjectCard = (props) => {
           />
         </div>
       ) : (
-        <div className={styles.icons}>
+        <div className={styles.icons} onClick={clickLeaveProject}>
           <Icon className={styles.icon} icon="system-uicons:exit-right" />
         </div>
       )}

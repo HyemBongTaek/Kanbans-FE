@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { useEffect } from "react";
 import ProjectList from "../../components/menu/project/ProjectList";
-import styles from "../../components/menu/project/style/_AddProjectCard.module.scss";
+import styles from "../../style/menu/_Project.module.scss";
 import "../../style/common/commonStyle.scss";
 import ProjectHeader from "../../components/menu/project/ProjectHeader";
 

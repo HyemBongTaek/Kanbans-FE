@@ -14,9 +14,7 @@ const ProjectList = () => {
   useEffect(() => {
     dispatch(getProject());
   }, [dispatch]);
-
   const projectList = useSelector((state) => state.projectsSlice.projects);
-  console.log("프로젝트", projectList);
 
   return (
     <div>
