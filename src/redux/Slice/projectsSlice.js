@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addProject, deleteProject, getProject } from "../Async/projects";
+import modalSlice from "./modalSlice";
 
 const ProjectsSlice = createSlice({
   name: "projects",
@@ -12,9 +13,9 @@ const ProjectsSlice = createSlice({
       state.projects = action.payload.data.projects;
     });
     builder.addCase(addProject.fulfilled, (state, action) => {
-      state.projects.unshift(action.payload.data.project);
+      // state.projects.unshift(action.payload.data.project);
     });
   },
 });
-
+// export const {} = ProjectsSlice.actions;
 export default ProjectsSlice;

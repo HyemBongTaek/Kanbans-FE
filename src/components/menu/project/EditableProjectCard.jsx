@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import SwitchButton from "../../common/SwitchButton";
 import { useDispatch } from "react-redux";
-import { editProject } from "../../../redux/Async/projects";
+import { updateProject } from "../../../redux/Async/projects";
 const EditableProjectCard = ({ projectId, existingTitle }) => {
   const dispatch = useDispatch();
   const [isOn, setIsOn] = useState(false);
@@ -13,7 +13,7 @@ const EditableProjectCard = ({ projectId, existingTitle }) => {
     e.preventDefault();
     const permission = isOn ? "private" : "public";
     dispatch(
-      editProject({
+      updateProject({
         title: title,
         permission: permission,
         projectId: projectId,
