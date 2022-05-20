@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 const ProgressCard = (props) => {
-  console.log("카드프롭", props);
   const [isChecked, setIsChecked] = useState(props.items.checked);
 
   let checkCount = props.checkCount;

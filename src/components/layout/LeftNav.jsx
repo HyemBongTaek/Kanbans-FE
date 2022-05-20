@@ -13,7 +13,6 @@ const LeftNav = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { items } = props;
-  console.log(items);
 
   const navHandler = () => {
     dispatch(setOpenNavReducer());
@@ -124,7 +123,13 @@ const LeftNav = (props) => {
             <Icon className={styles.nav_icon} icon="ant-design:heart-filled" />
           </div>
           <div>
-            <Icon className={styles.nav_icon} icon="bi:calendar-check" />
+            <Icon
+              className={styles.nav_icon}
+              icon="bi:calendar-check"
+              onClick={() => {
+                navigate(`/timer`, { replace: true });
+              }}
+            />
           </div>
           <div>
             <Icon className={styles.nav_icon} icon="bi:chat-text" />

@@ -11,7 +11,7 @@ import {
 const Profile = () => {
   // const location = useLocation();
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.UserSlice.userInfo);
+  const userInfo = useSelector((state) => state.userSlice.userInfo);
 
   const [nickname, setNickname] = useState(userInfo.name);
   const changeNickname = (e) => {

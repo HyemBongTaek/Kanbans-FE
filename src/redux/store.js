@@ -15,8 +15,8 @@ import UserSlice from "./Slice/userSlice";
 
 const reducers = combineReducers({
   navSlice: modalSlice.reducer,
-  ProjectsSlice: ProjectsSlice.reducer,
-  UserSlice: UserSlice.reducer,
+  projectsSlice: ProjectsSlice.reducer,
+  userSlice: UserSlice.reducer,
 });
 
 const persistConfig = {

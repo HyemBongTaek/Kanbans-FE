@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import SwitchButton from "../../common/SwitchButton";
-import styles from "./_AddProjectCard.module.scss";
+import styles from "./style/_AddProjectCard.module.scss";
 import { Icon } from "@iconify/react";
 import { useDetectOutsideClick } from "../../../hooks/useDetectOutsideClick";
 import { addProject } from "../../../redux/Async/projects";

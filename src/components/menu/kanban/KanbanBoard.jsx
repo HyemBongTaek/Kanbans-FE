@@ -12,7 +12,6 @@ import { useDetectOutsideClick } from "../../../hooks/useDetectOutsideClick";
 import store from "../../contextStore";
 
 const KanbanBoard = (props) => {
-  console.log("ㅍㅁㄴㅇㄻㄴㄹ", props.index);
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const dropdownClick = () => setIsActive(!isActive);

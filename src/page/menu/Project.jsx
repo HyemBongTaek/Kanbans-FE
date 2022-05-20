@@ -1,13 +1,15 @@
 import classNames from "classnames";
 import React, { useEffect } from "react";
 import ProjectList from "../../components/menu/project/ProjectList";
-import styles from "../../style/menu/_Project.module.scss";
+import styles from "../../components/menu/project/style/_AddProjectCard.module.scss";
 import "../../style/common/commonStyle.scss";
+import ProjectHeader from "../../components/menu/project/ProjectHeader";
 
-const Project = ({ openNav }) => {
+const Project = () => {
   return (
-    <div className={openNav ? styles.main_big : styles.main_small}>
-      <div className={classNames(styles.kanban_home, "main_layout")}>
+    <div>
+      <div className={styles.kanban_home}>
+        <ProjectHeader />
         <ProjectList />
       </div>
     </div>

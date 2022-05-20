@@ -1,19 +1,28 @@
 import { Icon } from "@iconify/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import styles from "../../../style/menu/_Project.module.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bookmarkProject, deleteProject } from "../../../redux/Async/projects";
+import EditableProjectCard from "./EditableProjectCard";
 
 const ProjectCard = (props) => {
   const dispatch = useDispatch();
   const { items } = props;
-  console.log("프로젝트아이디", items.projectId);
 
-  console.log("이미지지지지지", props);
   const navigate = useNavigate();
   const [projectBookmark, setProjectBookmark] = useState(items.bookmark);
+  const [isOwner, setIsOwner] = useState(false);
+  const [isEditable, setIsEditable] = useState(false);
+
+  const userInfo = useSelector((state) => state.userSlice.userInfo.id);
+
+  useEffect(() => {
+    if (userInfo === items.owner) {
+      setIsOwner(true);
+    }
+  }, [userInfo, isOwner]);
 
   const clickBookmarkHandler = () => {
     setProjectBookmark(!projectBookmark);
@@ -29,6 +38,13 @@ const ProjectCard = (props) => {
         projectId: items.projectId,
       })
     );
+  };
+  const editableProject = () => {
+    setIsEditable(true);
+  };
+
+  const clickProject = () => {
+    navigate(`/card`);
   };
 
   return (
@@ -49,19 +65,29 @@ const ProjectCard = (props) => {
           />
         )}
       </div>
-      {/* <div>private</div> */}
-      <div
-        onClick={() => {
-          navigate(`/card`);
-        }}
-      >
-        <div className={styles.title}>{items.title}</div>
-        <div className={styles.home_profile}>
+      <div>
+        {isEditable ? (
+          <div className={styles.title}>
+            <EditableProjectCard
+              projectId={items.projectId}
+              existingTitle={items.title}
+            />
+          </div>
+        ) : (
+          <div className={styles.title} onClick={clickProject}>
+            {items.title}
+          </div>
+        )}
+
+        <div className={styles.home_profile} onClick={clickProject}>
+          {/*mysql은 아이디 값이 숫자로만 들어와서 계속 중복 key오류가 떠서 key값 고유값으로 변경함*/}
           {items &&
             items.users?.map((profile) => {
               return (
-                <div className={styles.profile_image} key={profile.userId}>
-                  {/*<div className={styles.profile_name}>{profile.name}</div>*/}
+                <div
+                  className={styles.profile_image}
+                  key={Math.ceil(Math.random() * Date.now())}
+                >
                   <img src={profile.profileImageURL} alt="profile_image" />
                 </div>
               );
@@ -75,9 +101,25 @@ const ProjectCard = (props) => {
           </div>
         </div>
       </div>
-      <div className={styles.delete} onClick={clickDeleteProject}>
-        <Icon icon="ant-design:delete-outlined" color="#8c8c8c" height="30" />
-      </div>
+      {/*오너일 경우 수정하기와 삭제하기, 아닐경우는 방 나가기가 나옴*/}
+      {isOwner ? (
+        <div className={styles.icons}>
+          <Icon
+            className={styles.icon}
+            icon="akar-icons:edit"
+            onClick={editableProject}
+          />
+          <Icon
+            className={styles.icon}
+            icon="ant-design:delete-outlined"
+            onClick={clickDeleteProject}
+          />
+        </div>
+      ) : (
+        <div className={styles.icons}>
+          <Icon className={styles.icon} icon="system-uicons:exit-right" />
+        </div>
+      )}
     </div>
   );
 };

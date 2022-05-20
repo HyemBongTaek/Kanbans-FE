@@ -9,7 +9,6 @@ import KanbanCardDetail from "../../../page/menu/kanban/KanbanCardDetail";
 import classNames from "classnames";
 
 const KanbanCard = (props) => {
-  console.log("카드", props);
   const { deleteCardHandler } = useContext(store);
   const [openDetail, setOpenDetail] = useState(false);
 
@@ -24,9 +23,7 @@ const KanbanCard = (props) => {
     });
   };
 
-  console.log("칼라다", props.tasks.status);
   const status = props.tasks.status;
-  console.log("이거", props);
 
   return (
     <>

@@ -12,9 +12,8 @@ const Header = ({ isOpen, setIsOpen }) => {
     setIsOpen(!isOpen);
   };
 
-  const userInfo = useSelector((state) => state.UserSlice.userInfo);
+  const userInfo = useSelector((state) => state.userSlice.userInfo);
   const isLoading = useSelector((state) => state.userSlice);
-  console.log("이즈로딩", isLoading);
 
   const logoutHandler = () => {
     localStorage.removeItem("token");

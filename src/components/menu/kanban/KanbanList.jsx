@@ -15,8 +15,6 @@ const KanbanList = () => {
   //data에 mockData넣어준 후 진행
   const [data, setData] = useState(KanbanData);
 
-  console.log("모든데이터", data);
-
   //카드에서 삭제를 누를 경우
   const deleteCardHandler = ({ cardId, boardId }) => {
     //우선 data.tasks에 같은 카드 제거함.
@@ -162,7 +160,7 @@ const KanbanList = () => {
   //보드 추가
   const addBoardHandler = (title) => {
     const newBoardId = uuid();
-    console.log("보드아이디", newBoardId, title);
+
     const newBoard = {
       id: newBoardId,
       title: title,
