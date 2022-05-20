@@ -13,6 +13,7 @@ import KanbanBoards from "./page/menu/kanban/KanbanBoards";
 import KaKaoLoginHandler from "./components/menu/login/KaKaoLoginHandler";
 import { GoogleLoginHandler } from "./components/menu/login/GoogleLoginHandler";
 import React from "react";
+import Timer from "./page/menu/Timer";
 
 function App() {
   const NavStatus = useSelector((state) => state.navSlice.openNav);
@@ -35,6 +36,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Main openNav={NavStatus} />} />
             <Route path="/card" element={<KanbanBoards />} />
+            <Route path="/timer" element={<Timer />} />
             <Route
               path="/profile"
               element={

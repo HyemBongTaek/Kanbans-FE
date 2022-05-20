@@ -7,8 +7,6 @@ const Apis = axios.create({
 //요청시 AccessToken 계속 보내주기
 Apis.interceptors.request.use(function (config) {
   const token = localStorage.getItem("token");
-  console.log("토큰", token.accessToken);
-  console.log("컨피그", config.headers);
 
   if (!token) {
     config.headers["accessToken"] = null;
@@ -51,7 +49,7 @@ Apis.interceptors.response.use(
           return await Apis.request(originalConfig);
         }
       } catch (err) {
-        console.log("또에러다");
+        console.log("토큰 갱신 에러");
       }
       return Promise.reject(err);
     }

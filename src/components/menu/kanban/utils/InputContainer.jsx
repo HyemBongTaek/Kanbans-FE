@@ -3,7 +3,6 @@ import store from "../../../contextStore";
 import styles from "../../../../style/menu/utils/_InputContainer.module.scss";
 
 const InputContainer = ({ type, boardId }) => {
-  console.log("칸반보드아이디", boardId);
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const { addBoardHandler, addCardHandler } = useContext(store);

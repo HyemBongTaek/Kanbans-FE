@@ -10,8 +10,6 @@ const CardProgressBar = () => {
   //데이터 불러오기
   const [progress, setProgress] = useState(ProgressData);
 
-  console.log(progress, "프로그래스 데이터");
-
   //진행바 진행율 구하기.
   function findCheck(el) {
     if (el.checked === true) {
@@ -25,7 +23,6 @@ const CardProgressBar = () => {
   const progressRate = Math.ceil((checkCount / checkedCountTotal) * 100);
 
   const addTaskHandler = ({ id, content }) => {
-    console.log("이거임", id, content);
     const newTask = {
       id,
       content,
@@ -33,8 +30,6 @@ const CardProgressBar = () => {
     };
     const newState = [...progress.progress];
     newState.push(newTask);
-    console.log("fsd", progress.progress);
-    console.log("프로그래스", newState);
     setProgress({ progress: newState });
   };
 

@@ -20,7 +20,6 @@ export const getProject = createAsyncThunk("project/getProject", async () => {
 export const addProject = createAsyncThunk(
   "project/addProject",
   async ({ title, permission }, thunkAPI) => {
-    console.log("타이틀", title, permission);
     try {
       const res = await Apis({
         url: "/project",
@@ -82,6 +81,30 @@ export const deleteProject = createAsyncThunk(
       console.log(
         "project를 삭제하는 도중 에러가 발생했습니다. 다시 시도해주세요"
       );
+    }
+  }
+);
+
+export const editProject = createAsyncThunk(
+  "project/editProject",
+  async ({ title, projectId, permission }, thunkAPI) => {
+    console.log("수정", title, permission, projectId);
+    try {
+      const res = await Apis({
+        url: `/project/${projectId}`,
+        method: "PATCH",
+        data: {
+          title: title,
+          permission: permission,
+        },
+      });
+      if (res.data.ok) {
+        console.log("수정완료", res.data);
+        // thunkAPI.dispatch(getProject());
+      }
+      return res;
+    } catch (err) {
+      console.log("수정도중 오류가 발생하였습니다.");
     }
   }
 );

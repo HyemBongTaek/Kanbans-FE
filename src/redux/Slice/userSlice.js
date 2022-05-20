@@ -5,7 +5,7 @@ const UserSlice = createSlice({
   name: "user",
   initialState: {
     userInfo: [],
-    // isLoading: false,
+    isLoading: false,
   },
   reducers: {},
   extraReducers: (builder) => {
