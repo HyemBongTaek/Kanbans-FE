@@ -3,7 +3,7 @@ import "./App.scss";
 import Main from "./page/main/Main";
 import Project from "./page/menu/Project";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Layout from "./components/layout/Layout";
 

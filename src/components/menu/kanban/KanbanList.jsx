@@ -98,6 +98,7 @@ const KanbanList = () => {
 
     //보드끼리 이동할 경우
     if (type === "column") {
+      console.log("소스", source.index);
       const newBoardOrder = data.columnOrder;
       newBoardOrder.splice(source.index, 1);
       newBoardOrder.splice(destination.index, 0, draggableId);

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Apis from "../apis";
+import Swal from "sweetalert2";
 
 export const getProject = createAsyncThunk("project/getProject", async () => {
   try {
@@ -31,8 +32,7 @@ export const addProject = createAsyncThunk(
       });
       if (res.data.ok) {
         console.log(res.data);
-        // 목록을 다시 불러와서 정렬하려고 했으나 새로 만든 프로젝트는 맨 위로 가게 바꿈.
-        // thunkAPI.dispatch(getProject());
+        thunkAPI.dispatch(getProject());
       }
       return res;
     } catch (err) {
@@ -85,8 +85,8 @@ export const deleteProject = createAsyncThunk(
   }
 );
 
-export const editProject = createAsyncThunk(
-  "project/editProject",
+export const updateProject = createAsyncThunk(
+  "project/updateProject",
   async ({ title, projectId, permission }, thunkAPI) => {
     console.log("수정", title, permission, projectId);
     try {
@@ -105,6 +105,24 @@ export const editProject = createAsyncThunk(
       return res;
     } catch (err) {
       console.log("수정도중 오류가 발생하였습니다.");
+    }
+  }
+);
+//
+export const leaveProject = createAsyncThunk(
+  "project/leaveProject",
+  async ({ projectId }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/project/leave/${projectId}`,
+        method: "Delete",
+      });
+      if (res.data.ok) {
+        thunkAPI.dispatch(getProject());
+      }
+      return res;
+    } catch (err) {
+      console.log("project 떠나기 도중 오류가 발생했습니다.");
     }
   }
 );
