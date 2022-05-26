@@ -3,9 +3,10 @@ import storage from "redux-persist/lib/storage/session";
 import { combineReducers } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 
-import modalSlice from "./Slice/modalSlice";
+import commonSlice from "./Slice/commonSlice";
 import ProjectsSlice from "./Slice/projectsSlice";
 import UserSlice from "./Slice/userSlice";
+import KanbanBoardSlice from "./Slice/kanbanBoardSlice";
 
 //A non-serializable value was detected in an action, in the path 오류 없애기
 // middleware: (getDefaultMiddleware) =>
@@ -14,14 +15,18 @@ import UserSlice from "./Slice/userSlice";
 //   }),
 
 const reducers = combineReducers({
-  navSlice: modalSlice.reducer,
+  commonSlice: commonSlice.reducer,
   projectsSlice: ProjectsSlice.reducer,
   userSlice: UserSlice.reducer,
+  kanbanSlice: KanbanBoardSlice.reducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
+
+  //persist제외
+  // blacklist: ["kanbanSlice"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

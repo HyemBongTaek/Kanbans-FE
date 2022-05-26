@@ -10,27 +10,17 @@ import KanbanCard from "./KanbanCard";
 
 import { useDetectOutsideClick } from "../../../hooks/useDetectOutsideClick";
 import store from "../../contextStore";
+import uuid from "react-uuid";
 
 const KanbanBoard = (props) => {
-  const dropdownRef = useRef(null);
-  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  const dropdownClick = () => setIsActive(!isActive);
-
-  const { clearAllCardsHandler, deleteBoardHandler } = useContext(store);
-
-  const boardId = props.column.id;
-  //카드모두지우기
-  const clearAllCards = () => {
-    clearAllCardsHandler(boardId);
-  };
-  //보드 삭제하기
-  const deleteBoard = () => {
-    deleteBoardHandler(boardId);
-  };
-
+  const [editable, setEditable] = useState(false);
   return (
     <>
-      <Draggable draggableId={props.column.id} index={props.index}>
+      <Draggable
+        draggableId={props.column.id.toString()}
+        index={props.index}
+        key={props.column.id}
+      >
         {(provided) => (
           <div
             className={styles.kanban_board}
@@ -38,45 +28,8 @@ const KanbanBoard = (props) => {
             ref={provided.innerRef}
           >
             <div className={styles.kanban_title} {...provided.dragHandleProps}>
-              <div>
-                {/*<input value={props.column.title}/>*/}
-                {props.column.title}
-                <span className={styles.kanban_count}>
-                  {props.column.taskIds.length}
-                </span>
-              </div>
-              <div ref={dropdownRef}>
-                <Icon
-                  icon="bi:three-dots"
-                  color="#8c8c8c"
-                  height="30"
-                  onClick={dropdownClick}
-                />
-                {isActive && (
-                  <BoardDropDown
-                    dropdownClick={dropdownClick}
-                    clearAllCards={clearAllCards}
-                    deleteBoard={deleteBoard}
-                  />
-                )}
-              </div>
+              <div>{props.column.title}</div>
             </div>
-            <Droppable droppableId={props.column.id}>
-              {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
-                  {props?.boards?.map((task, index) => (
-                    <KanbanCard
-                      key={task.id}
-                      tasks={task}
-                      index={index}
-                      boardId={props.column.id}
-                    />
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-            <InputContainer type="card" boardId={props.column.id} />
           </div>
         )}
       </Draggable>

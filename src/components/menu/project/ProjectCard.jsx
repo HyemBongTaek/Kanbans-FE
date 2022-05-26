@@ -8,7 +8,6 @@ import {
   bookmarkProject,
   deleteProject,
   leaveProject,
-  leaveProjectReducer,
 } from "../../../redux/Async/projects";
 import EditableProjectCard from "./EditableProjectCard";
 import Swal from "sweetalert2";
@@ -63,7 +62,7 @@ const ProjectCard = (props) => {
   };
 
   const clickProject = () => {
-    navigate(`/card`);
+    navigate(`/board/${items.projectId}`);
   };
 
   const clickLeaveProject = () => {

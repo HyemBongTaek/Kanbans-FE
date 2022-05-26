@@ -1,35 +1,59 @@
 @import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+
+
+.background{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  background: $main_gray;
+}
+.MenuButton{
+  outline: none;
+  border: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  cursor: pointer;
+  position: absolute;
+  top: 18px;
+  left: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: transparent;
+}
 
 .header{
-  height: 50px;
-  border-bottom: 1px solid $main_gray;
+  height: 70px;
+  width: 100vw;
 
 .header_login{
-  display: flex;
-  justify-content: space-between;
-  .icon{
-    @include icons($main_gray, normal);
-    margin-left: 20px;
-    margin-bottom: 10px;
-  }
-  button{
-    margin-right: 50px;
-    margin-top: 5px;
-    display: flex;
-    @include button_styles(100px, 40px, $main_gray, 5px, white, 15px);
-    line-height:35px;
-    .icon{
-      margin-top: 8px;
-      margin-left: 7px;
-      margin-right: 2px;
-      @include icons($white_font, small);
-    }
-  }
+  //.icon{
+  //  @include icons($main_gray, normal);
+  //  margin-left: 20px;
+  //  margin-bottom: 10px;
+  //}
+  //button{
+  //  margin-right: 50px;
+  //  margin-top: 5px;
+  //  display: flex;
+  //  @include button_styles(100px, 40px, $main_gray, 5px, white, 15px);
+  //  line-height:35px;
+  //  .icon{
+  //    margin-top: 8px;
+  //    margin-left: 7px;
+  //    margin-right: 2px;
+  //    @include icons($white_font, small);
+  //  }
+  //}
 }
 .header_not_login{
   display: flex;
   justify-content: flex-end;
-  button{
+  .button{
     margin: 5px 10px 0 5px;
 
     @include button_styles(100px, 40px, $main_gray, 5px, white, 15px);

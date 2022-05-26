@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addProject, deleteProject, getProject } from "../Async/projects";
-import modalSlice from "./modalSlice";
+import commonSlice from "./commonSlice";
 
 const ProjectsSlice = createSlice({
   name: "projects",

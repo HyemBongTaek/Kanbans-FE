@@ -1,11 +1,17 @@
-#cropperjs {
-  display: block;
-  max-width: 100%;
-}
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+.edit_profile{
 
-#preview {
-  width: 200px;
-  height: 200px;
-  margin-bottom: 10px;
-  border-radius: 100%;
+  .edit_icon{
+    @include icons($comment_gray, normal);
+    position: absolute;
+    margin-left: -40px;
+    margin-top: 150px;
+  }
+  img{
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+  }
+
 }
