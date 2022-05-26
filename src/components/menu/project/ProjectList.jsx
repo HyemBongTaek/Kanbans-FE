@@ -7,13 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProject } from "../../../redux/Async/projects";
 
 import AddProjectCard from "./AddProjectCard";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ProjectList = () => {
   const dispatch = useDispatch();
+  const params = useParams();
 
   useEffect(() => {
     dispatch(getProject());
-  }, [dispatch]);
+  }, [dispatch, params]);
   const projectList = useSelector((state) => state.projectsSlice.projects);
 
   return (

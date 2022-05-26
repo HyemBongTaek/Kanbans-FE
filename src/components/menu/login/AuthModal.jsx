@@ -8,7 +8,7 @@ import KaKaoLoginImage from "../../../image/kakao_login_image.png";
 import GoogleLoginImage from "../../../image/google_login_image.png";
 import { KAKAO_AUTH_URL } from "./KAKAO_AUTH_URL";
 import { GOOGLE_AUTH_URL } from "./GOOGLE_AUTH_URL";
-import { setOpenLoginReducer } from "../../../redux/Slice/modalSlice";
+import { setOpenLoginReducer } from "../../../redux/Slice/commonSlice";
 
 const AuthModal = () => {
   const dispatch = useDispatch();

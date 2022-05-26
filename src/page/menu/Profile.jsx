@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import EditProfile from "../../components/menu/profile/EditProfile";
+import EditProfileImage from "../../components/menu/profile/EditProfileImage";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -33,7 +33,7 @@ const Profile = () => {
 
   return (
     <div>
-      <EditProfile items={userInfo.profileImage} />
+      <EditProfileImage items={userInfo.profileImage} />
       <label>
         <input value={nickname} onChange={changeNickname} />
       </label>

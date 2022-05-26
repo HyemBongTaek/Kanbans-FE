@@ -4,20 +4,42 @@ import { getProject } from "./projects";
 import axios from "axios";
 
 //카카오로그인
-export const kakaoLogin = createAsyncThunk(
+export const authLogin = createAsyncThunk(
   "user/kakaoLogin",
-  async ({ code }) => {
-    try {
-      const res = await axios.get(
-        `http://3.37.231.161:4000/oauth/kakao/?code=${code}`
-      );
-      if (res.data.ok) {
-        return res.data;
+  async ({ code, types }) => {
+    console.log("타입", types);
+    switch (types) {
+      case "kakao": {
+        try {
+          const res = await axios.get(
+            `http://3.37.231.161:4000/oauth/kakao/?code=${code}`
+          );
+          if (res.data.ok) {
+            return res.data;
+          }
+        } catch (err) {
+          console.log(
+            "카카오 로그인 도중 에러가 발생하였습니다. 다시 시도해주세요."
+          );
+          return false;
+        }
+        break;
       }
-    } catch (err) {
-      console.log(
-        "카카오 로그인 도중 에러가 발생하였습니다. 다시 시도해주세요."
-      );
+      // case "google": {
+      //   try {
+      //     const res = await axios.get(
+      //       `http://3.37.231.161:4000/oauth/google/?code=${code}`
+      //     );
+      //     if (res.data.ok) {
+      //       return res.data;
+      //     }
+      //   } catch (err) {
+      //     console.log(
+      //       "구글 로그인 도중 에러가 발생하였습니다. 다시 시도해주세요."
+      //     );
+      //   }
+      //   break;
+      // }
     }
   }
 );

@@ -61,8 +61,10 @@ const AddProjectCard = () => {
               </div>
               <SwitchButton isOn={isOn} onClick={() => setIsOn(!isOn)} />
             </div>
+            <button className={styles.add_button} onClick={createProject}>
+              만들기
+            </button>
           </div>
-          <button onClick={createProject}>만들기</button>
         </div>
       ) : (
         <div

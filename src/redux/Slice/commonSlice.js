@@ -4,9 +4,10 @@ const initialState = {
   openNav: false,
   openLogin: false,
   isLoading: false,
+  isRestTime: false,
 };
 
-const modalSlice = createSlice({
+const commonSlice = createSlice({
   name: "nav",
   initialState,
   reducers: {
@@ -16,10 +17,14 @@ const modalSlice = createSlice({
     setOpenLoginReducer: (state, action) => {
       state.openLogin = action.payload;
     },
+    isRestTimeReducer: (state, action) => {
+      state.isRestTime = !state.isRestTime;
+    },
   },
   extraReducers: (builder) => {},
 });
 
-export const { setOpenNavReducer, setOpenLoginReducer } = modalSlice.actions;
+export const { setOpenNavReducer, setOpenLoginReducer, isRestTimeReducer } =
+  commonSlice.actions;
 
-export default modalSlice;
+export default commonSlice;

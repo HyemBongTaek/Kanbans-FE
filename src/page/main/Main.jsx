@@ -6,7 +6,7 @@ import BigLogo from "../../image/big_logo.png";
 import AuthModal from "../../components/menu/login/AuthModal";
 
 const Main = () => {
-  const loginModalOpen = useSelector((state) => state.navSlice.openLogin);
+  const loginModalOpen = useSelector((state) => state.commonSlice.openLogin);
 
   return (
     <div className={styles.main}>
