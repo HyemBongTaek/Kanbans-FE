@@ -25,8 +25,8 @@ const persistConfig = {
   key: "root",
   storage,
 
-  //persist제외
-  // blacklist: ["kanbanSlice"],
+  // persist제외
+  blacklist: ["kanbanSlice"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

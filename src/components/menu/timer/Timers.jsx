@@ -5,14 +5,15 @@ import RelaxTimer from "./RelaxTimer";
 
 const Timers = () => {
   const restTimer = useSelector((state) => state.commonSlice.isRestTime);
+  console.log(restTimer, "시간확인");
   return (
     <>
       {restTimer ? (
         <>
-          <WorkTimer />
+          <RelaxTimer />
         </>
       ) : (
-        <RelaxTimer />
+        <WorkTimer />
       )}
     </>
   );

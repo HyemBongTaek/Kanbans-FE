@@ -8,6 +8,7 @@ const KanbanHeader = () => (
   <>
     <div className={styles.kanban_header}>
       <div>Kanban Board</div>
+      <div>초대</div>
       <SearchInput />
     </div>
     <div>

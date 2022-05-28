@@ -1,24 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import styles from "../../../style/menu/_KanbanBoard.module.scss";
 
 import KanbanData from "./KanbanData";
 
+import ContextStore from "../../contextStore";
+
 import KanbanBoard from "./KanbanBoard";
-import InputContainer from "./utils/InputContainer";
+import InputContainer from "../utils/InputContainer";
 
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getKanbanBoard, sortKanban } from "../../../redux/Async/kanbanboard";
+import {
+  changeBoardTitle,
+  getKanbanBoard,
+  sortKanban,
+} from "../../../redux/Async/kanbanboard";
+import KanbanBoardFeatures from "./KanbanBoardFeatures";
 
 const KanbanList = () => {
   const params = useParams();
-  // const [data, setData] = useState(KanbanData);
   const dispatch = useDispatch();
   const boards = useSelector((state) => state.kanbanSlice.kanbans);
-  const a = useSelector((state) => state);
-  console.log("==========check", a);
+
+  console.log("보드", boards);
 
   //보드 불러오기
   useEffect(() => {
@@ -67,41 +73,44 @@ const KanbanList = () => {
 
   return (
     <>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable
-          droppableId="kanbanProject"
-          direction="horizontal"
-          type="column"
-        >
-          {(provided) => (
-            <div
-              className={styles.kanban_list}
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {boards &&
-                boards?.columnOrder?.map((boardId, index) => {
-                  const column = boards.board[boardId];
-                  // const cards = column.card_id?.map((cardId) => boards.card_id[cardId]);
-                  return (
-                    <KanbanBoard
-                      key={column.id}
-                      column={column}
-                      // cards={cards}
-                      index={index}
-                    />
-                  );
-                })}
-              {provided.placeholder}
-              <InputContainer
-                type="board"
-                projectId={params.projectId}
-                boards={boards}
-              />
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <KanbanBoardFeatures boards={boards}>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable
+            droppableId="kanbanProject"
+            direction="horizontal"
+            type="column"
+          >
+            {(provided) => (
+              <div
+                className={styles.kanban_list}
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {boards &&
+                  boards.columnOrders?.map((boardId, index) => {
+                    const column = boards.board[boardId];
+                    // const cards = column.card_id?.map((cardId) => boards.card_id[cardId]);
+                    return (
+                      <KanbanBoard
+                        key={column.id}
+                        column={column}
+                        // cards={cards}
+                        index={index}
+                      />
+                    );
+                  })}
+                {provided.placeholder}
+                <InputContainer
+                  type="board"
+                  projectId={params.projectId}
+                  boards={boards}
+                />
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+        {/*</ContextStore.Provider>*/}
+      </KanbanBoardFeatures>
     </>
   );
 };

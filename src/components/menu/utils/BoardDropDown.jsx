@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../../../style/menu/utils/_BoardDropDown.module.scss";
+import styles from "./style/_BoardDropDown.module.scss";
 
 const BoardDropDown = (props) => {
   return (

@@ -1,5 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Apis from "../apis";
+import { getProject } from "./projects";
+import { Switch } from "react-router-dom";
 
 export const getKanbanBoard = createAsyncThunk(
   "kanban/getKanbanBoard",
@@ -25,6 +27,7 @@ export const getKanbanBoard = createAsyncThunk(
 export const addKanbanBoard = createAsyncThunk(
   "kanban/addKanbanBoard",
   async ({ projectId, title }, thunkAPI) => {
+    console.log("작성", projectId, title);
     try {
       const res = await Apis({
         url: `/board`,
@@ -36,10 +39,36 @@ export const addKanbanBoard = createAsyncThunk(
       });
       if (res.data.ok) {
         console.log("데이터", res.data);
-        return { data: res.data };
+        thunkAPI.dispatch(getKanbanBoard({ projectId }));
       }
     } catch (err) {
       console.log("작성에러", err.response);
+      return thunkAPI.rejectWithValue(err.response);
+    }
+  }
+);
+//
+// export const deleteBoard = createAsyncThunk(
+//   "kanban/deleteBoard",
+//   asycn({ projectId })
+// );
+
+export const changeBoardTitle = createAsyncThunk(
+  "kanban/changeBoardTitle",
+  async ({ boardId, title, boards }, thunkAPI) => {
+    console.log("이거확인점", title, boardId, boards);
+    try {
+      const res = await Apis({
+        url: `/board/${boardId}`,
+        method: "PATCH",
+        data: {
+          title,
+        },
+      });
+      if (res.data.ok) {
+        return { data: res.data, boards: boards };
+      }
+    } catch (err) {
       return thunkAPI.rejectWithValue(err.response);
     }
   }
