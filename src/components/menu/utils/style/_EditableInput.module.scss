@@ -1,0 +1,40 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+
+.editable {
+  height: 40px;
+  width: 250px;
+  margin: 10px auto;
+  border: 1px solid $border_gray;
+  border-radius: 10px;
+
+  label {
+    display: flex;
+    padding-top: 4px;
+    justify-content: space-between;
+
+    .icons {
+      @include icons($comment_gray, freesize);
+    }
+    .icons_x{
+      &:hover{
+        color: $main_red;
+      }
+    }
+     .icons_check{
+       &:hover{
+         color: $main_green;
+       }
+     }
+
+    input {
+      border: none;
+      border-radius: 10px;
+      padding-left: 5px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

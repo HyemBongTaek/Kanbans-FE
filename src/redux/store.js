@@ -25,7 +25,7 @@ const persistConfig = {
   key: "root",
   storage,
 
-  //persist제외
+  // persist제외
   // blacklist: ["kanbanSlice"],
 };
 

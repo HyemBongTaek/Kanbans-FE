@@ -21,8 +21,8 @@ const variants = {
   },
 };
 
-const colors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF", "#4400FF"];
-const menus = [];
+// const colors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF", "#4400FF"];
+const menus = ["home", "profile", "project", "timer", "모르게따"];
 const icons = [
   "fa:home",
   "ph:users",
@@ -30,11 +30,11 @@ const icons = [
   "fa:home",
   "fa:home",
 ];
-const navigation = ["/", "/profile", "/project", "/project", "/timer"];
+const navigation = ["/", "/profile", "/project", "/timer", "/timer"];
 
 export const MenuItem = ({ i }) => {
   const navigate = useNavigate();
-  const style = { border: `2px solid ${colors[i]}` };
+  // const style = { border: `2px solid ${colors[i]}` };
   return (
     <motion.li
       onClick={() => {
@@ -46,7 +46,7 @@ export const MenuItem = ({ i }) => {
     >
       <Icon className={styles.icons} icon={icons[i]} />
 
-      <div className="text-placeholder" style={style} />
+      <div className="text-placeholder">{menus[i]}</div>
     </motion.li>
   );
 };

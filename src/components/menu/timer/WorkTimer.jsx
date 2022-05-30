@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import { useDispatch } from "react-redux";
-import { isRestTimeReducer } from "../../redux/Slice/commonSlice";
-import notiSound from "../../image/audio/Ascending 4.mp3";
+import { isRestTimeReducer } from "../../../redux/Slice/commonSlice";
+import notiSound from "../../../image/audio/Ascending 4.mp3";
 import Swal from "sweetalert2";
 import useSound from "use-sound";
 
@@ -63,10 +63,10 @@ const WorkTimer = () => {
 
   const resetTimer = () => {
     setIsPlay(false);
-    time.current = 1500;
+    time.current = 5;
     stopTimer();
-    setSeconds(0);
-    setMin(25);
+    setSeconds(5);
+    setMin(0);
   };
 
   return (

@@ -1,6 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import {
   addKanbanBoard,
+  changeBoardTitle,
+  deleteBoard,
   getKanbanBoard,
   sortKanban,
 } from "../Async/kanbanboard";
@@ -10,34 +12,15 @@ const KanbanBoardSlice = createSlice({
   initialState: {
     kanbans: [
       {
-        board: {},
-        cards: {},
-        columnOrder: [],
+        // board: {},
+        // cards: {},
+        // columnOrder: [],
       },
     ],
     isFetching: false,
     errorMessage: null,
   },
   reducers: {},
-  // columnOrderReducer: (state, action) => {
-  //   console.log("액션", action);
-  //   switch (action.payload.type) {
-  //     case "column": {
-  //       console.log("스마일");
-  //     }
-  //   },
-  // const newboard = items;
-  // console.log("확인점", newboard);
-  // const newColumnOrder = newboard.columnOrder;
-  // console.log("확인용", newColumnOrder);
-  // newColumnOrder.splice(items.source.index, 1);
-  // newColumnOrder.splice(items.destination.index, 0, items.draggableId);
-  //
-  // const newKanbans = {
-  //   ...items,
-  //   columnOrder: newColumnOrder,
-  // };
-  // state.kanbans = [...newKanbans];
   extraReducers: (builder) => {
     builder
       .addCase(getKanbanBoard.fulfilled, (state, action) => {
@@ -56,17 +39,39 @@ const KanbanBoardSlice = createSlice({
         state.isFetching = false;
         state.errorMessage = action.payload.message;
       })
-
-      .addCase(addKanbanBoard.fulfilled, (state, action) => {
-        console.log("addKanbanBoard", action.payload);
+      .addCase(changeBoardTitle.fulfilled, (state, action) => {
+        const newBoard = action.payload.data.updateBoard;
+        const newKanbans = {
+          cards: state.kanbans.cards,
+          board: newBoard,
+          columnOrders: state.kanbans.columnOrders,
+        };
+        state.kanbans = newKanbans;
       })
-
+      .addCase(deleteBoard.fulfilled, (state, action) => {
+        const boardId = action.payload.boardId;
+        const newBoard = state.kanbans.board;
+        delete newBoard[boardId];
+        const newColumnOrder = state.kanbans.columnOrders.filter(
+          (board) => board !== boardId.toString()
+        );
+        const newKanbans = {
+          cards: state.kanbans.cards,
+          board: newBoard,
+          columnOrders: newColumnOrder,
+        };
+        state.kanbans = newKanbans;
+        console.log("완성", state.kanbans);
+      })
       .addCase(sortKanban.fulfilled, (state, action) => {
         const items = action.payload;
+        console.log("소트칸반", items);
         switch (items.type) {
           case "column": {
-            state.kanbans.columnOrder = items.newBoardOrder;
-            console.log("오더", state.kanbans.columnOrder);
+            state.kanbans.columnOrders = items.newBoardOrder;
+            break;
+          }
+          case "card": {
           }
         }
       });

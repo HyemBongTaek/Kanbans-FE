@@ -7,11 +7,20 @@ import {
   deleteAccount,
   getUserInfo,
 } from "../../redux/Async/user";
+import { setOpenLoginReducer } from "../../redux/Slice/commonSlice";
 
 const Profile = () => {
   // const location = useLocation();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setOpenLoginReducer());
+    dispatch(getUserInfo());
+  }, [dispatch, getUserInfo]);
+
   const userInfo = useSelector((state) => state.userSlice.userInfo);
+
+  console.log("프로필", userInfo);
 
   const [nickname, setNickname] = useState(userInfo.name);
   const changeNickname = (e) => {

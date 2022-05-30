@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 const ProjectCard = (props) => {
   const dispatch = useDispatch();
   const { items } = props;
+  console.log("프로젝트카드", items.projectId);
 
   const navigate = useNavigate();
   const [projectBookmark, setProjectBookmark] = useState(items.bookmark);

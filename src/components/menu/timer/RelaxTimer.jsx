@@ -1,5 +1,5 @@
 import React from "react";
-import { isRestTimeReducer } from "../../redux/Slice/commonSlice";
+import { isRestTimeReducer } from "../../../redux/Slice/commonSlice";
 import { useDispatch } from "react-redux";
 
 const RelaxTimer = () => {

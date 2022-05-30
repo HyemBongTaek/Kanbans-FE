@@ -11,12 +11,10 @@ import Login from "./components/menu/login/Login";
 import Profile from "./page/menu/Profile";
 import KanbanBoards from "./page/menu/kanban/KanbanBoards";
 import KaKaoLoginHandler from "./components/menu/login/KaKaoLoginHandler";
-import { GoogleLoginHandler } from "./components/menu/login/GoogleLoginHandler";
+import GoogleLoginHandler from "./components/menu/login/GoogleLoginHandler";
 import React from "react";
 import Timer from "./page/menu/Timer";
-import { persistStore } from "redux-persist";
-import store from "./redux/store";
-import { PersistGate } from "redux-persist/integration/react";
+import LoadingSpinner from "./components/menu/utils/LoadingSpinner";
 
 function App() {
   const NavStatus = useSelector((state) => state.commonSlice.openNav);
@@ -64,6 +62,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/oauth/kakao/" element={<KaKaoLoginHandler />} />
             <Route path="/oauth/google/" element={<GoogleLoginHandler />} />
+            <Route path="/test" element={<LoadingSpinner />} />
           </Routes>
         </Layout>
       </BrowserRouter>

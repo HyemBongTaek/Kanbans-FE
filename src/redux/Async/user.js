@@ -25,21 +25,21 @@ export const authLogin = createAsyncThunk(
         }
         break;
       }
-      // case "google": {
-      //   try {
-      //     const res = await axios.get(
-      //       `http://3.37.231.161:4000/oauth/google/?code=${code}`
-      //     );
-      //     if (res.data.ok) {
-      //       return res.data;
-      //     }
-      //   } catch (err) {
-      //     console.log(
-      //       "구글 로그인 도중 에러가 발생하였습니다. 다시 시도해주세요."
-      //     );
-      //   }
-      //   break;
-      // }
+      case "google": {
+        try {
+          const res = await axios.get(
+            `http://3.37.231.161:4000/oauth/google/?code=${code}`
+          );
+          if (res.data.ok) {
+            return res.data;
+          }
+        } catch (err) {
+          console.log(
+            "구글 로그인 도중 에러가 발생하였습니다. 다시 시도해주세요."
+          );
+        }
+        break;
+      }
     }
   }
 );
@@ -52,6 +52,7 @@ export const getUserInfo = createAsyncThunk("user/getUserInfo", async () => {
       method: "GET",
     });
     if (res.data.ok) {
+      console.log("아 이건먼가");
       return res.data.user;
     }
   } catch (err) {
@@ -67,15 +68,17 @@ export const changeUserInfo = createAsyncThunk(
     console.log("타입", type);
     try {
       if (type === "changeImage") {
-        console.log("이미지 변경");
         const res = await Apis({
           url: "/user/profile",
           method: "PATCH",
           data: formData,
         });
         if (res.data.ok) {
-          thunkAPI.dispatch(getProject());
-          console.log("성공인가여", res.data);
+          setTimeout(() => {
+            console.log("2초만하자");
+            return thunkAPI.dispatch(getUserInfo());
+          }, 1000);
+          return type;
         }
       }
       if (type === "nickname") {
@@ -88,8 +91,8 @@ export const changeUserInfo = createAsyncThunk(
           },
         });
         if (res.data.ok) {
-          thunkAPI.dispatch(getProject());
-          console.log("닉네임변경", res.data);
+          // thunkAPI.dispatch(getProject());
+          return { data: res.data, type };
         }
       }
     } catch (err) {

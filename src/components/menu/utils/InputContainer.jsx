@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import store from "../../../contextStore";
-import styles from "../../../../style/menu/utils/_InputContainer.module.scss";
+import styles from "./style/_InputContainer.module.scss";
 import { useDispatch } from "react-redux";
-import { addKanbanBoard } from "../../../../redux/Async/kanbanboard";
+import { addKanbanBoard } from "../../../redux/Async/kanbanboard";
+import { addKanbanCard } from "../../../redux/Async/KanbanCard";
 
-const InputContainer = ({ type, boardId, projectId, boards }) => {
+const InputContainer = ({ type, boardId, projectId }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
@@ -13,24 +13,24 @@ const InputContainer = ({ type, boardId, projectId, boards }) => {
     setTitle(e.target.value);
   };
 
-  const addBoards = () => {
+  // const addBoards = () => {
+  //   setTitle("");
+  //   setOpen(false);
+  // };
+  //
+  const addCards = () => {
+    console.log("카드인풋", title, boardId);
+    if (boardId === undefined) {
+      return;
+    } else {
+      dispatch(addKanbanCard({ title, boardId }));
+    }
     setTitle("");
     setOpen(false);
   };
 
-  const addCards = () => {
-    if (boardId === undefined) {
-      return;
-    } else {
-      // addCardHandler(title, boardId);
-      setTitle("");
-      setOpen(false);
-    }
-  };
-
   const addsHandler = () => {
     if (type === "board") {
-      console.log("눌러");
       dispatch(
         addKanbanBoard({
           title,
