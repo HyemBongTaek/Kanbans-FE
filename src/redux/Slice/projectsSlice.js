@@ -12,9 +12,6 @@ const ProjectsSlice = createSlice({
     builder.addCase(getProject.fulfilled, (state, action) => {
       state.projects = action.payload.data.projects;
     });
-    builder.addCase(addProject.fulfilled, (state, action) => {
-      // state.projects.unshift(action.payload.data.project);
-    });
   },
 });
 // export const {} = ProjectsSlice.actions;

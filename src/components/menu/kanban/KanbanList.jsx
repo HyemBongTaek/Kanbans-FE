@@ -17,7 +17,7 @@ import {
   getKanbanBoard,
   sortKanban,
 } from "../../../redux/Async/kanbanboard";
-import KanbanBoardFeatures from "./KanbanBoardFeatures";
+import KanbanFeatures from "./KanbanFeatures";
 
 const KanbanList = () => {
   const params = useParams();
@@ -33,7 +33,7 @@ const KanbanList = () => {
         projectId: params.projectId,
       })
     );
-  }, [dispatch]);
+  }, [dispatch, getKanbanBoard]);
 
   //칸반보드 이동(카드이동, 보드이동)
   const onDragEnd = (result) => {
@@ -53,12 +53,13 @@ const KanbanList = () => {
       return;
     }
     if (type === "column") {
-      const newBoardOrder = [...boards.columnOrder];
+      const newBoardOrder = [...boards.columnOrders];
+      console.log("===========진짜확인용", newBoardOrder);
       newBoardOrder.splice(source.index, 1);
       newBoardOrder.splice(destination.index, 0, draggableId);
       dispatch(
         sortKanban({
-          columnOrder: boards.columnOrder,
+          columnOrder: boards.columnOrders,
           newBoardOrder,
           sourceId: source.droppableId,
           destinationId: destination.droppableId,
@@ -66,6 +67,8 @@ const KanbanList = () => {
           destinationIndex: destination.index,
           draggableId,
           type,
+          projectId: params.projectId,
+          boards,
         })
       );
     }
@@ -73,7 +76,7 @@ const KanbanList = () => {
 
   return (
     <>
-      <KanbanBoardFeatures boards={boards}>
+      <KanbanFeatures boards={boards}>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable
             droppableId="kanbanProject"
@@ -110,7 +113,7 @@ const KanbanList = () => {
           </Droppable>
         </DragDropContext>
         {/*</ContextStore.Provider>*/}
-      </KanbanBoardFeatures>
+      </KanbanFeatures>
     </>
   );
 };

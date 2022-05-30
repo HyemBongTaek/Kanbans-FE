@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import styles from "./style/_InputContainer.module.scss";
 import { useDispatch } from "react-redux";
 import { addKanbanBoard } from "../../../redux/Async/kanbanboard";
+import { addKanbanCard } from "../../../redux/Async/KanbanCard";
 
 const InputContainer = ({ type, boardId, projectId }) => {
   const dispatch = useDispatch();
@@ -17,15 +18,16 @@ const InputContainer = ({ type, boardId, projectId }) => {
   //   setOpen(false);
   // };
   //
-  // const addCards = () => {
-  //   if (boardId === undefined) {
-  //     return;
-  //   } else {
-  //     // addCardHandler(title, boardId);
-  //     setTitle("");
-  //     setOpen(false);
-  //   }
-  // };
+  const addCards = () => {
+    console.log("카드인풋", title, boardId);
+    if (boardId === undefined) {
+      return;
+    } else {
+      dispatch(addKanbanCard({ title, boardId }));
+    }
+    setTitle("");
+    setOpen(false);
+  };
 
   const addsHandler = () => {
     if (type === "board") {
@@ -59,17 +61,17 @@ const InputContainer = ({ type, boardId, projectId }) => {
             </button>
           </form>
         )}
-        {/*{open && type === "card" && (*/}
-        {/*  <form onSubmit={addCards}>*/}
-        {/*    <label>*/}
-        {/*      <input value={title} onChange={titleOnChange} />*/}
-        {/*      <div onClick={() => setOpen(false)}>X</div>*/}
-        {/*    </label>*/}
-        {/*    <button type="button" onClick={addCards}>*/}
-        {/*      등록하기*/}
-        {/*    </button>*/}
-        {/*  </form>*/}
-        {/*)}*/}
+        {open && type === "card" && (
+          <form onSubmit={addCards}>
+            <label>
+              <input value={title} onChange={titleOnChange} />
+              <div onClick={() => setOpen(false)}>X</div>
+            </label>
+            <button type="button" onClick={addCards}>
+              등록하기
+            </button>
+          </form>
+        )}
       </div>
     </>
   );

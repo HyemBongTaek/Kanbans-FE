@@ -18,6 +18,8 @@ const ProjectList = () => {
   }, [dispatch, params]);
   const projectList = useSelector((state) => state.projectsSlice.projects);
 
+  console.log("프로젝트리스트", projectList);
+
   return (
     <div>
       <div className={styles.home_kanban_list}>

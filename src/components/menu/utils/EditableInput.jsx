@@ -11,7 +11,6 @@ const EditableInput = ({ boardTitle, editable, setEditable, boardId }) => {
   const { changeTitle } = useContext(ContextStore);
 
   const titleChangeHandler = (e) => {
-    console.log(title);
     setTitle(e.target.value);
   };
 
