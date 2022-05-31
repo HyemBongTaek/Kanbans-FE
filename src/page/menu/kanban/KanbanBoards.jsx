@@ -3,8 +3,7 @@ import React from "react";
 
 import KanbanHeader from "../../../components/menu/kanban/KanbanHeader";
 import KanbanList from "../../../components/menu/kanban/KanbanList";
-
-const KanbanBoards = ({ openNav }) => {
+const KanbanBoards = () => {
   return (
     <div>
       <div className={classNames("main_layout")}>

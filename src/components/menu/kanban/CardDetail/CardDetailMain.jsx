@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./_KanbanCardDetail.module.scss";
 import { Icon } from "@iconify/react";
-import Test from "../../../../image/test.png";
+import Test from "../../../../static/image/test.png";
 import CardProgressBar from "./CardProgressBar";
 import DetailComments from "./DetailComments";
 

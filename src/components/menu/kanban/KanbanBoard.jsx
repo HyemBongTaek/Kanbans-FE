@@ -8,12 +8,11 @@ import InputContainer from "../utils/InputContainer";
 import KanbanCard from "./KanbanCard";
 
 import { useDetectOutsideClick } from "../../../hooks/useDetectOutsideClick";
-import store from "../../contextStore";
-import uuid from "react-uuid";
 import EditableInput from "../utils/EditableInput";
 import BoardDropDown from "../utils/BoardDropDown";
 
 const KanbanBoard = (props) => {
+  console.log("====kanbanBoardProps", props);
   const dropdownRef = useRef(null);
   const [editable, setEditable] = useState(false);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -63,16 +62,27 @@ const KanbanBoard = (props) => {
                     )}
                   </div>
                 </div>
-                <div>
-                  {boards &&
-                    boards.cardId?.map((task, index) => (
-                      <KanbanCard
-                        tasks={task}
-                        index={index}
-                        boardId={props.id}
-                      />
-                    ))}
-                </div>
+                <Droppable
+                  droppableId={boards.id.toString()}
+                  index={props.index}
+                >
+                  {(provided) => (
+                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                      {boards &&
+                        props.cards?.map((cards, index) => {
+                          return (
+                            <KanbanCard
+                              key={cards.id}
+                              cards={cards}
+                              index={index}
+                              boardId={props.id}
+                            />
+                          );
+                        })}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
                 <InputContainer type="card" boardId={props.column.id} />
               </div>
             )}

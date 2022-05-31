@@ -20,8 +20,6 @@ const Profile = () => {
 
   const userInfo = useSelector((state) => state.userSlice.userInfo);
 
-  console.log("프로필", userInfo);
-
   const [nickname, setNickname] = useState(userInfo.name);
   const changeNickname = (e) => {
     setNickname(e.target.value);

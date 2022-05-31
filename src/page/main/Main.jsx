@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import styles from "./_Main.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import BigLogo from "../../image/big_logo.png";
+import { useSelector } from "react-redux";
+import BigLogo from "../../static/image/big_logo.png";
 import AuthModal from "../../components/menu/login/AuthModal";
 
 const Main = () => {

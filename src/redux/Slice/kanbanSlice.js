@@ -6,8 +6,9 @@ import {
   getKanbanBoard,
   sortKanban,
 } from "../Async/kanbanboard";
+import { addKanbanCard } from "../Async/KanbanCard";
 
-const KanbanBoardSlice = createSlice({
+const KanbanSlice = createSlice({
   name: "kanbanBoard",
   initialState: {
     kanbans: [
@@ -30,7 +31,6 @@ const KanbanBoardSlice = createSlice({
       })
       .addCase(getKanbanBoard.pending, (state) => {
         state.isFetching = true;
-        console.log(state.isFetching, "펜딩 아 왜");
       })
       .addCase(getKanbanBoard.rejected, (state, action) => {
         if (action.payload.status === 400) {
@@ -61,11 +61,28 @@ const KanbanBoardSlice = createSlice({
           columnOrders: newColumnOrder,
         };
         state.kanbans = newKanbans;
-        console.log("완성", state.kanbans);
       })
+      .addCase(addKanbanCard.fulfilled, (state, action) => {
+        const boardId = action.payload.boardId;
+        const card = state.kanbans.board[boardId];
+        card.cardId = [...card.cardId, action.payload.data.cardId];
+
+        const newState = {
+          ...state.kanbans,
+          cards: {
+            ...state.kanbans.cards,
+            [action.payload.data.cardId]: action.payload.data,
+          },
+          board: {
+            ...state.kanbans.board,
+            [boardId]: card,
+          },
+        };
+        state.kanbans = newState;
+      })
+
       .addCase(sortKanban.fulfilled, (state, action) => {
         const items = action.payload;
-        console.log("소트칸반", items);
         switch (items.type) {
           case "column": {
             state.kanbans.columnOrders = items.newBoardOrder;
@@ -78,6 +95,6 @@ const KanbanBoardSlice = createSlice({
   },
 });
 
-export const {} = KanbanBoardSlice.actions;
+export const {} = KanbanSlice.actions;
 
-export default KanbanBoardSlice;
+export default KanbanSlice;
