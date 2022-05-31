@@ -27,11 +27,9 @@ const UserSlice = createSlice({
       })
       .addCase(changeUserInfo.fulfilled, (state, action) => {
         state.isFetching = false;
-        console.log("이미지변경", action.payload);
 
         switch (action.payload) {
           case "changeImage": {
-            console.log("이거부터나오나여?");
             break;
           }
           case "nickname": {

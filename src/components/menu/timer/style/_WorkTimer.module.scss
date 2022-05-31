@@ -1,0 +1,19 @@
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
+
+.work_timer{
+  width: 500px;
+  height: 300px;
+  border-radius: 10px;
+  background-color: $main_red;
+  color: $white_font;
+  font-size: 50px;
+  margin: auto;
+  text-align: center;
+  line-height: 100px;
+  font-family: "LABDegital", serif;
+
+  .icon{
+    @include icons($white_font, normal);
+  }
+}

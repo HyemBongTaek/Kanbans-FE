@@ -2,13 +2,13 @@ import React from "react";
 import {
   changeBoardTitle,
   deleteBoard,
+  sortKanban,
 } from "../../../redux/Async/kanbanboard";
 import { useDispatch, useSelector } from "react-redux";
 
 import ContextStore from "../../contextStore";
 
 const KanbanFeatures = (props) => {
-  console.log("확인용", props);
   const { boards } = props;
   const dispatch = useDispatch();
 

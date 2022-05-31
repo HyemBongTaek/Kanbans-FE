@@ -1,43 +1,38 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useRef, useState } from "react";
 import styles from "../../../style/menu/_KanbanBoard.module.scss";
-
-import KanbanData from "./KanbanData";
-
-import ContextStore from "../../contextStore";
 
 import KanbanBoard from "./KanbanBoard";
 import InputContainer from "../utils/InputContainer";
 
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  changeBoardTitle,
-  getKanbanBoard,
-  sortKanban,
-} from "../../../redux/Async/kanbanboard";
+import { getKanbanBoard, sortKanban } from "../../../redux/Async/kanbanboard";
 import KanbanFeatures from "./KanbanFeatures";
+import { ScrollMenu } from "react-horizontal-scrolling-menu";
 
 const KanbanList = () => {
+  //주소에서 projectId불러오기
   const params = useParams();
+  const projectId = params.projectId;
   const dispatch = useDispatch();
-  const boards = useSelector((state) => state.kanbanSlice.kanbans);
 
-  console.log("보드", boards);
+  //보드 내용 불러오기
+
+  const boards = useSelector((state) => state.kanbanSlice.kanbans);
+  console.log("=====보드내용", boards);
 
   //보드 불러오기
   useEffect(() => {
     dispatch(
       getKanbanBoard({
-        projectId: params.projectId,
+        projectId,
       })
     );
   }, [dispatch, getKanbanBoard]);
 
   //칸반보드 이동(카드이동, 보드이동)
   const onDragEnd = (result) => {
-    //보드이동
     const { destination, source, draggableId, type } = result;
     console.log("destination", destination);
     console.log("source", source);
@@ -54,7 +49,6 @@ const KanbanList = () => {
     }
     if (type === "column") {
       const newBoardOrder = [...boards.columnOrders];
-      console.log("===========진짜확인용", newBoardOrder);
       newBoardOrder.splice(source.index, 1);
       newBoardOrder.splice(destination.index, 0, draggableId);
       dispatch(
@@ -67,10 +61,18 @@ const KanbanList = () => {
           destinationIndex: destination.index,
           draggableId,
           type,
-          projectId: params.projectId,
+          projectId,
           boards,
         })
       );
+    }
+    const start = boards.board[source.droppableId];
+    const finish = boards.board[destination.droppableId];
+
+    //카드가 다른보드로 이동하지 않을 경우
+    if (start === finish) {
+      const newCardIds = Array.from(start.cards);
+      console.log("카드", newCardIds);
     }
   };
 
@@ -85,24 +87,29 @@ const KanbanList = () => {
           >
             {(provided) => (
               <div
-                className={styles.kanban_list}
                 {...provided.droppableProps}
                 ref={provided.innerRef}
+                className={styles.kanban_list}
               >
                 {boards &&
                   boards.columnOrders?.map((boardId, index) => {
                     const column = boards.board[boardId];
-                    // const cards = column.card_id?.map((cardId) => boards.card_id[cardId]);
+                    const cards = column?.cardId?.map(
+                      (cardId) => boards.cards[cardId]
+                    );
+
+                    console.log("======카드확인", cards);
                     return (
                       <KanbanBoard
                         key={column.id}
                         column={column}
-                        // cards={cards}
+                        cards={cards}
                         index={index}
                       />
                     );
                   })}
                 {provided.placeholder}
+
                 <InputContainer
                   type="board"
                   projectId={params.projectId}
@@ -112,7 +119,6 @@ const KanbanList = () => {
             )}
           </Droppable>
         </DragDropContext>
-        {/*</ContextStore.Provider>*/}
       </KanbanFeatures>
     </>
   );

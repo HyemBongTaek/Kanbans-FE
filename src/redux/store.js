@@ -6,7 +6,7 @@ import { persistReducer } from "redux-persist";
 import commonSlice from "./Slice/commonSlice";
 import ProjectsSlice from "./Slice/projectsSlice";
 import UserSlice from "./Slice/userSlice";
-import KanbanBoardSlice from "./Slice/kanbanBoardSlice";
+import KanbanSlice from "./Slice/kanbanSlice";
 
 //A non-serializable value was detected in an action, in the path 오류 없애기
 // middleware: (getDefaultMiddleware) =>
@@ -18,7 +18,7 @@ const reducers = combineReducers({
   commonSlice: commonSlice.reducer,
   projectsSlice: ProjectsSlice.reducer,
   userSlice: UserSlice.reducer,
-  kanbanSlice: KanbanBoardSlice.reducer,
+  kanbanSlice: KanbanSlice.reducer,
 });
 
 const persistConfig = {

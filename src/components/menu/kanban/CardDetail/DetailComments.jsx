@@ -1,5 +1,5 @@
 import React from "react";
-import Profile from "../../../../image/profile.png";
+import Profile from "../../../../static/image/profile.png";
 import DetailInput from "./DetailInput";
 import styles from "./_KanbanCardDetail.module.scss";
 import { Icon } from "@iconify/react";

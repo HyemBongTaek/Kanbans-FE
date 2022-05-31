@@ -15,7 +15,6 @@ import Swal from "sweetalert2";
 const ProjectCard = (props) => {
   const dispatch = useDispatch();
   const { items } = props;
-  console.log("프로젝트카드", items.projectId);
 
   const navigate = useNavigate();
   const [projectBookmark, setProjectBookmark] = useState(items.bookmark);
@@ -40,8 +39,8 @@ const ProjectCard = (props) => {
   };
   const clickDeleteProject = () => {
     Swal.fire({
-      title: "정말로 삭제하시겠습니까?",
-      // text: "다시는 되돌릴 수 없습니다!",
+      title: "프로젝트를 떠나시겠습니까?",
+      text: "프로젝트 초대를 받기 전까지는 다시 참가할 수 없습니다.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -54,7 +53,7 @@ const ProjectCard = (props) => {
             projectId: items.projectId,
           })
         );
-        Swal.fire("프로젝트가 삭제되었습니다!", "", "success");
+        Swal.fire(`${items.title}을 떠났습니다.`, "", "success");
       }
     });
   };

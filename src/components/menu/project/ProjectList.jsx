@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProject } from "../../../redux/Async/projects";
 
 import AddProjectCard from "./AddProjectCard";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const ProjectList = () => {
   const dispatch = useDispatch();
@@ -17,8 +17,6 @@ const ProjectList = () => {
     dispatch(getProject());
   }, [dispatch, params]);
   const projectList = useSelector((state) => state.projectsSlice.projects);
-
-  console.log("프로젝트리스트", projectList);
 
   return (
     <div>

@@ -3,9 +3,9 @@ import React from "react";
 
 import { useDispatch } from "react-redux";
 import styles from "./_Login.module.scss";
-import NaverLoginImage from "../../../image/naver_login_image.png";
-import KaKaoLoginImage from "../../../image/kakao_login_image.png";
-import GoogleLoginImage from "../../../image/google_login_image.png";
+import NaverLoginImage from "../../../static/image/naver_login_image.png";
+import KaKaoLoginImage from "../../../static/image/kakao_login_image.png";
+import GoogleLoginImage from "../../../static/image/google_login_image.png";
 import { KAKAO_AUTH_URL } from "./KAKAO_AUTH_URL";
 import { GOOGLE_AUTH_URL } from "./GOOGLE_AUTH_URL";
 import { setOpenLoginReducer } from "../../../redux/Slice/commonSlice";

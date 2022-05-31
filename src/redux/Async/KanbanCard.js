@@ -13,7 +13,7 @@ export const addKanbanCard = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        console.log("데이터", res.data);
+        return { data: res.data.newCard, boardId };
       }
     } catch (err) {
       console.log("에러", err);

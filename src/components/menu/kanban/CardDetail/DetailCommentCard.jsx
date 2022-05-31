@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./_KanbanCardDetail.module.scss";
-import Profile from "../../../../image/profile.png";
+import Profile from "../../../../static/image/profile.png";
 import { Icon } from "@iconify/react";
 
 const DetailCommentCard = () => {
