@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import styles from "./style/_InputContainer.module.scss";
 import { useDispatch } from "react-redux";
-import { addKanbanBoard } from "../../../redux/Async/kanbanboard";
-import { addKanbanCard } from "../../../redux/Async/KanbanCard";
+import { addKanbanBoard } from "../../../redux/Async/kanban";
+import { addKanbanCard } from "../../../redux/Async/kanban";
 
 const InputContainer = ({ type, boardId, projectId }) => {
   const dispatch = useDispatch();
@@ -13,13 +13,7 @@ const InputContainer = ({ type, boardId, projectId }) => {
     setTitle(e.target.value);
   };
 
-  // const addBoards = () => {
-  //   setTitle("");
-  //   setOpen(false);
-  // };
-  //
   const addCards = () => {
-    console.log("카드인풋", title, boardId);
     if (boardId === undefined) {
       return;
     } else {

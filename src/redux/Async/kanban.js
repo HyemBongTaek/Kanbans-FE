@@ -86,9 +86,30 @@ export const changeBoardTitle = createAsyncThunk(
   }
 );
 
+//카드 등록
+export const addKanbanCard = createAsyncThunk(
+  "kanban/addKanbanCard",
+  async ({ boardId, title }) => {
+    try {
+      const res = await Apis({
+        url: `board/${boardId}/card`,
+        method: "POST",
+        data: {
+          title,
+        },
+      });
+      if (res.data.ok) {
+        return { data: res.data.newCard, boardId };
+      }
+    } catch (err) {
+      console.log("에러", err);
+    }
+  }
+);
+
 //칸반보드 이동
 
-export const sortKanban = createAsyncThunk(
+export const sortKanbanBoard = createAsyncThunk(
   "kanban/sortKanban",
   async ({
     newBoardOrder,
@@ -126,5 +147,27 @@ export const sortKanban = createAsyncThunk(
     } catch (err) {
       console.log("칸반보드 이동 에러");
     }
+  }
+);
+
+export const sortKanbanCard = createAsyncThunk(
+  "kanban/sortKanbanCard",
+  async ({
+    newFinish,
+    newStartId,
+    newStart,
+    newFinishId,
+    newBoard,
+    boardMove,
+  }) => {
+    console.log("ㄴㅇㄹㅇㅁㄴㄹxdsdsㅇㅁㄴㅁㄴㅇ", boardMove);
+    return {
+      newBoard,
+      boardMove,
+      newFinish,
+      newStartId,
+      newStart,
+      newFinishId,
+    };
   }
 );

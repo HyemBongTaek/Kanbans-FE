@@ -3,7 +3,7 @@ import styles from "./style/_EditableInput.module.scss";
 import { Icon } from "@iconify/react";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
-import { changeBoardTitle } from "../../../redux/Async/kanbanboard";
+import { changeBoardTitle } from "../../../redux/Async/kanban";
 import ContextStore from "../../contextStore";
 
 const EditableInput = ({ boardTitle, editable, setEditable, boardId }) => {

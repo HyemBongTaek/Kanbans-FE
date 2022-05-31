@@ -7,7 +7,11 @@ import InputContainer from "../utils/InputContainer";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getKanbanBoard, sortKanban } from "../../../redux/Async/kanbanboard";
+import {
+  getKanbanBoard,
+  sortKanbanBoard,
+  sortKanbanCard,
+} from "../../../redux/Async/kanban";
 import KanbanFeatures from "./KanbanFeatures";
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 
@@ -20,7 +24,6 @@ const KanbanList = () => {
   //보드 내용 불러오기
 
   const boards = useSelector((state) => state.kanbanSlice.kanbans);
-  console.log("=====보드내용", boards);
 
   //보드 불러오기
   useEffect(() => {
@@ -34,10 +37,8 @@ const KanbanList = () => {
   //칸반보드 이동(카드이동, 보드이동)
   const onDragEnd = (result) => {
     const { destination, source, draggableId, type } = result;
-    console.log("destination", destination);
-    console.log("source", source);
-    console.log("draggableId", draggableId);
-    console.log("type", type);
+
+    console.log("=====================result", result);
     if (!destination) {
       return;
     }
@@ -52,7 +53,7 @@ const KanbanList = () => {
       newBoardOrder.splice(source.index, 1);
       newBoardOrder.splice(destination.index, 0, draggableId);
       dispatch(
-        sortKanban({
+        sortKanbanBoard({
           columnOrder: boards.columnOrders,
           newBoardOrder,
           sourceId: source.droppableId,
@@ -66,13 +67,54 @@ const KanbanList = () => {
         })
       );
     }
+
     const start = boards.board[source.droppableId];
     const finish = boards.board[destination.droppableId];
 
     //카드가 다른보드로 이동하지 않을 경우
-    if (start === finish) {
-      const newCardIds = Array.from(start.cards);
-      console.log("카드", newCardIds);
+    if (type === "card") {
+      if (start === finish) {
+        const newCardIds = Array.from(start.cardId);
+        newCardIds.splice(source.index, 1);
+        newCardIds.splice(destination.index, 0, draggableId);
+
+        const newBoard = {
+          ...start,
+          cardId: newCardIds,
+        };
+
+        dispatch(
+          sortKanbanCard({
+            newBoard,
+            boardMove: false,
+          })
+        );
+      }
+      //카드를 드래그해서 다른 보드로 이동할 경우.
+      const startCardId = Array.from(start.cardId);
+      startCardId.splice(source.index, 1);
+      const newStart = {
+        ...start,
+        cardId: startCardId,
+      };
+      const finishCardId = Array.from(finish.cardId);
+      finishCardId.splice(destination.index, 0, draggableId);
+
+      const newFinish = {
+        ...finish,
+        cardId: finishCardId,
+      };
+
+      console.log("test", newFinish);
+      dispatch(
+        sortKanbanCard({
+          newFinish: newFinish,
+          newStartId: newStart.id,
+          newStart: newStart,
+          newFinishId: newFinish.id,
+          boardMove: true,
+        })
+      );
     }
   };
 
@@ -97,8 +139,6 @@ const KanbanList = () => {
                     const cards = column?.cardId?.map(
                       (cardId) => boards.cards[cardId]
                     );
-
-                    console.log("======카드확인", cards);
                     return (
                       <KanbanBoard
                         key={column.id}
