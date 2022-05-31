@@ -4,9 +4,10 @@ import {
   changeBoardTitle,
   deleteBoard,
   getKanbanBoard,
-  sortKanban,
-} from "../Async/kanbanboard";
-import { addKanbanCard } from "../Async/KanbanCard";
+  addKanbanCard,
+  sortKanbanBoard,
+  sortKanbanCard,
+} from "../Async/kanban";
 
 const KanbanSlice = createSlice({
   name: "kanbanBoard",
@@ -81,15 +82,37 @@ const KanbanSlice = createSlice({
         state.kanbans = newState;
       })
 
-      .addCase(sortKanban.fulfilled, (state, action) => {
+      .addCase(sortKanbanBoard.fulfilled, (state, action) => {
         const items = action.payload;
-        switch (items.type) {
-          case "column": {
-            state.kanbans.columnOrders = items.newBoardOrder;
-            break;
-          }
-          case "card": {
-          }
+        state.kanbans.columnOrders = items.newBoardOrder;
+      })
+
+      .addCase(sortKanbanCard.fulfilled, (state, action) => {
+        console.log("ㄴㄴㄴㄴㄴㄴㄴ", action.payload);
+        if (action.payload.boardMove === false) {
+          const newBoard = action.payload.newBoard;
+          console.log(newBoard);
+          const newKanban = {
+            ...state.kanbans,
+            board: {
+              ...state.kanbans.board,
+              [newBoard?.id]: newBoard,
+            },
+          };
+          state.kanbans = newKanban;
+        }
+        if (action.payload.boardMove === true) {
+          const items = action.payload;
+          console.log("===카드", items.newStartId);
+          const newKanban = {
+            ...state.kanbans,
+            board: {
+              ...state.kanbans.board,
+              [items.newStartId]: items.newStart,
+              [items.newFinishId]: items.newFinish,
+            },
+          };
+          state.kanbans = newKanban;
         }
       });
   },

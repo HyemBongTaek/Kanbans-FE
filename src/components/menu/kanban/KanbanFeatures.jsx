@@ -3,7 +3,7 @@ import {
   changeBoardTitle,
   deleteBoard,
   sortKanban,
-} from "../../../redux/Async/kanbanboard";
+} from "../../../redux/Async/kanban";
 import { useDispatch, useSelector } from "react-redux";
 
 import ContextStore from "../../contextStore";

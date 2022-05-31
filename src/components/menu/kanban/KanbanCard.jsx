@@ -9,7 +9,6 @@ import KanbanCardDetail from "../../../page/menu/kanban/KanbanCardDetail";
 import classNames from "classnames";
 
 const KanbanCard = (props) => {
-  console.log("=====카드내용", props);
   const { deleteCardHandler } = useContext(store);
   const [openDetail, setOpenDetail] = useState(false);
 
@@ -25,6 +24,8 @@ const KanbanCard = (props) => {
   };
 
   const status = props.cards.status;
+
+  console.log("카드아이디", props.cards.id.toString());
 
   return (
     <>

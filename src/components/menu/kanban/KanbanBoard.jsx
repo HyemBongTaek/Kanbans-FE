@@ -12,7 +12,6 @@ import EditableInput from "../utils/EditableInput";
 import BoardDropDown from "../utils/BoardDropDown";
 
 const KanbanBoard = (props) => {
-  console.log("====kanbanBoardProps", props);
   const dropdownRef = useRef(null);
   const [editable, setEditable] = useState(false);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -20,15 +19,12 @@ const KanbanBoard = (props) => {
   const dropdownClick = () => setIsActive(!isActive);
   return (
     <>
-      <Draggable
-        draggableId={boards.id.toString()}
-        index={props.index}
-        key={boards.id}
-      >
+      <Draggable draggableId={boards.id.toString()} index={props.index}>
         {(provided) => (
           <div
             className={styles.kanban_board}
             {...provided.draggableProps}
+            {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
             {editable ? (
@@ -42,8 +38,11 @@ const KanbanBoard = (props) => {
                 />
               </div>
             ) : (
-              <div {...provided.dragHandleProps}>
-                <div className={styles.kanban_title}>
+              <>
+                <div
+                  className={styles.kanban_title}
+                  {...provided.dragHandleProps}
+                >
                   <div onClick={() => setEditable(!editable)}>
                     {props.column.title}
                   </div>
@@ -62,10 +61,7 @@ const KanbanBoard = (props) => {
                     )}
                   </div>
                 </div>
-                <Droppable
-                  droppableId={boards.id.toString()}
-                  index={props.index}
-                >
+                <Droppable droppableId={boards.id.toString()} type="card">
                   {(provided) => (
                     <div ref={provided.innerRef} {...provided.droppableProps}>
                       {boards &&
@@ -84,7 +80,7 @@ const KanbanBoard = (props) => {
                   )}
                 </Droppable>
                 <InputContainer type="card" boardId={props.column.id} />
-              </div>
+              </>
             )}
           </div>
         )}
