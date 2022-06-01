@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getKanbanBoard,
+  moveSortKanbanCard,
   sortKanbanBoard,
   sortKanbanCard,
 } from "../../../redux/Async/kanban";
@@ -71,25 +72,25 @@ const KanbanList = () => {
     const start = boards.board[source.droppableId];
     const finish = boards.board[destination.droppableId];
 
+    console.log("==========start, finish", start, finish);
+
     //카드가 다른보드로 이동하지 않을 경우
-    if (type === "card") {
-      if (start === finish) {
-        const newCardIds = Array.from(start.cardId);
-        newCardIds.splice(source.index, 1);
-        newCardIds.splice(destination.index, 0, draggableId);
+    if (start === finish) {
+      const newCardIds = Array.from(start.cardId);
+      newCardIds.splice(source.index, 1);
+      newCardIds.splice(destination.index, 0, draggableId);
 
-        const newBoard = {
-          ...start,
-          cardId: newCardIds,
-        };
+      const newBoard = {
+        ...start,
+        cardId: newCardIds,
+      };
 
-        dispatch(
-          sortKanbanCard({
-            newBoard,
-            boardMove: false,
-          })
-        );
-      }
+      dispatch(
+        sortKanbanCard({
+          newBoard,
+        })
+      );
+    } else {
       //카드를 드래그해서 다른 보드로 이동할 경우.
       const startCardId = Array.from(start.cardId);
       startCardId.splice(source.index, 1);
@@ -97,6 +98,7 @@ const KanbanList = () => {
         ...start,
         cardId: startCardId,
       };
+      console.log("뉴스타트", newStart);
       const finishCardId = Array.from(finish.cardId);
       finishCardId.splice(destination.index, 0, draggableId);
 
@@ -104,15 +106,14 @@ const KanbanList = () => {
         ...finish,
         cardId: finishCardId,
       };
+      console.log("뉴피니시", newFinish);
 
-      console.log("test", newFinish);
       dispatch(
-        sortKanbanCard({
+        moveSortKanbanCard({
           newFinish: newFinish,
           newStartId: newStart.id,
           newStart: newStart,
           newFinishId: newFinish.id,
-          boardMove: true,
         })
       );
     }
@@ -134,7 +135,8 @@ const KanbanList = () => {
                 className={styles.kanban_list}
               >
                 {boards &&
-                  boards.columnOrders?.map((boardId, index) => {
+                  boards?.columnOrders?.map((boardId, index) => {
+                    console.log("ddddddddd", boardId);
                     const column = boards.board[boardId];
                     const cards = column?.cardId?.map(
                       (cardId) => boards.cards[cardId]

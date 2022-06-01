@@ -6,13 +6,15 @@ const BoardDropDown = ({ boardId }) => {
   // onClick={props.deleteBoard}
   // onClick={props.clearAllCards}
 
-  const { deleteBoardClick } = useContext(ContextStore);
+  const { deleteBoardClick, clearCards } = useContext(ContextStore);
 
   return (
     <>
       <div className={styles.dropdown}>
         <div onClick={() => deleteBoardClick({ boardId })}>게시판 삭제하기</div>
-        <div>게시판 카드 모두 삭제하기</div>
+        <div onClick={() => clearCards({ boardId })}>
+          게시판 카드 모두 삭제하기
+        </div>
       </div>
     </>
   );
