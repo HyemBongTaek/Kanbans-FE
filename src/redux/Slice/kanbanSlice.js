@@ -7,7 +7,9 @@ import {
   addKanbanCard,
   sortKanbanBoard,
   sortKanbanCard,
+  moveSortKanbanCard,
 } from "../Async/kanban";
+import { Switch } from "react-router-dom";
 
 const KanbanSlice = createSlice({
   name: "kanbanBoard",
@@ -64,56 +66,72 @@ const KanbanSlice = createSlice({
         state.kanbans = newKanbans;
       })
       .addCase(addKanbanCard.fulfilled, (state, action) => {
-        const boardId = action.payload.boardId;
+        console.log("확인용", action.payload);
+        const newCardId = action.payload.data.id;
+        const boardId = action.payload.data.boardId;
         const card = state.kanbans.board[boardId];
-        card.cardId = [...card.cardId, action.payload.data.cardId];
+        card.cardId = [...card.cardId, newCardId];
 
-        const newState = {
+        const newKanban = {
           ...state.kanbans,
           cards: {
             ...state.kanbans.cards,
-            [action.payload.data.cardId]: action.payload.data,
+            [newCardId]: action.payload.data,
           },
           board: {
             ...state.kanbans.board,
             [boardId]: card,
           },
         };
-        state.kanbans = newState;
+        state.kanbans = newKanban;
       })
 
       .addCase(sortKanbanBoard.fulfilled, (state, action) => {
         const items = action.payload;
         state.kanbans.columnOrders = items.newBoardOrder;
       })
+      .addCase(moveSortKanbanCard.fulfilled, (state, action) => {
+        const items = action.payload;
+        console.log("===카드", items.newStartId);
 
+        const newKanban = {
+          ...state.kanbans,
+          board: {
+            ...state.kanbans.board,
+            [items.newStartId]: items.newStart,
+            [items.newFinishId]: items.newFinish,
+          },
+        };
+        console.log("========뉴칸반", newKanban);
+        state.kanbans = newKanban;
+      })
       .addCase(sortKanbanCard.fulfilled, (state, action) => {
         console.log("ㄴㄴㄴㄴㄴㄴㄴ", action.payload);
-        if (action.payload.boardMove === false) {
-          const newBoard = action.payload.newBoard;
-          console.log(newBoard);
-          const newKanban = {
-            ...state.kanbans,
-            board: {
-              ...state.kanbans.board,
-              [newBoard?.id]: newBoard,
-            },
-          };
-          state.kanbans = newKanban;
-        }
-        if (action.payload.boardMove === true) {
-          const items = action.payload;
-          console.log("===카드", items.newStartId);
-          const newKanban = {
-            ...state.kanbans,
-            board: {
-              ...state.kanbans.board,
-              [items.newStartId]: items.newStart,
-              [items.newFinishId]: items.newFinish,
-            },
-          };
-          state.kanbans = newKanban;
-        }
+
+        const newBoard = action.payload.newBoard;
+        console.log("왜오류가나냐", newBoard);
+        console.log("sdfsdfsdf", current(state.kanbans.board));
+        const newKanban = {
+          ...state.kanbans.board,
+          [newBoard.id]: newBoard,
+        };
+        state.kanbans.board = newKanban;
+
+        //   else {
+        //     const items = action.payload;
+        //     console.log("===카드", items.newStartId);
+        //
+        //     const newKanban = {
+        //       ...state.kanbans,
+        //       board: {
+        //         ...state.kanbans.board,
+        //         [items.newStartId]: items.newStart,
+        //         [items.newFinishId]: items.newFinish,
+        //       },
+        //     };
+        //     console.log("========뉴칸반", newKanban);
+        //     state.kanbans = newKanban;
+        //   }
       });
   },
 });

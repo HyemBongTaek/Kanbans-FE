@@ -99,10 +99,46 @@ export const addKanbanCard = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        return { data: res.data.newCard, boardId };
+        return { data: res.data.newCard };
       }
     } catch (err) {
       console.log("에러", err);
+    }
+  }
+);
+
+//카드 전체 삭제
+export const clearAllKanbanCards = createAsyncThunk(
+  "kanban/clearAllKanbanCards",
+  async ({ boardId }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/board/${boardId}/cards`,
+        method: "DELETE",
+      });
+      if (res.data.ok) {
+        return res.data;
+      }
+    } catch (err) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+//카드 삭제
+export const deleteKanbanCard = createAsyncThunk(
+  "kanban/deleteKanbanCard",
+  async ({ boardId, cardId }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/board/${boardId}/card/${cardId}`,
+        method: "DELETE",
+      });
+      if (res.data.ok) {
+        return res.data;
+      }
+    } catch (err) {
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -161,6 +197,27 @@ export const sortKanbanCard = createAsyncThunk(
     boardMove,
   }) => {
     console.log("ㄴㅇㄹㅇㅁㄴㄹxdsdsㅇㅁㄴㅁㄴㅇ", boardMove);
+    return {
+      newBoard,
+      boardMove,
+      newFinish,
+      newStartId,
+      newStart,
+      newFinishId,
+    };
+  }
+);
+
+export const moveSortKanbanCard = createAsyncThunk(
+  "kanban/moveSortKanbanCard",
+  async ({
+    newFinish,
+    newStartId,
+    newStart,
+    newFinishId,
+    newBoard,
+    boardMove,
+  }) => {
     return {
       newBoard,
       boardMove,

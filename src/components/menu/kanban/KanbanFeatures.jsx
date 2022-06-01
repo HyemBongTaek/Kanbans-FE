@@ -1,6 +1,7 @@
 import React from "react";
 import {
   changeBoardTitle,
+  clearAllKanbanCards,
   deleteBoard,
   sortKanban,
 } from "../../../redux/Async/kanban";
@@ -8,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ContextStore from "../../contextStore";
 
+//kanban에서 사용할 context
 const KanbanFeatures = (props) => {
   const { boards } = props;
   const dispatch = useDispatch();
@@ -38,10 +40,15 @@ const KanbanFeatures = (props) => {
     console.log("카드등록", boardId);
     dispatch();
   };
+  const clearCards = ({ boardId }) => {
+    dispatch(clearAllKanbanCards({ boardId }));
+  };
 
   return (
     <>
-      <ContextStore.Provider value={{ changeTitle, deleteBoardClick }}>
+      <ContextStore.Provider
+        value={{ changeTitle, deleteBoardClick, clearCards }}
+      >
         {props.children}
       </ContextStore.Provider>
     </>

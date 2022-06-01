@@ -47,7 +47,7 @@ const InputContainer = ({ type, boardId, projectId }) => {
         {open && type === "board" && (
           <form onSubmit={addsHandler}>
             <label>
-              <input value={title} onChange={titleOnChange} />
+              <input value={title || ""} onChange={titleOnChange} />
               <div onClick={() => setOpen(false)}>X</div>
             </label>
             <button type="button" onClick={addsHandler}>
@@ -58,7 +58,7 @@ const InputContainer = ({ type, boardId, projectId }) => {
         {open && type === "card" && (
           <form onSubmit={addCards}>
             <label>
-              <input value={title} onChange={titleOnChange} />
+              <input value={title || ""} onChange={titleOnChange} />
               <div onClick={() => setOpen(false)}>X</div>
             </label>
             <button type="button" onClick={addCards}>
