@@ -143,8 +143,9 @@ export const deleteKanbanCard = createAsyncThunk(
   }
 );
 
-//칸반보드 이동
+//카드 완료시 체크
 
+//칸반보드 이동
 export const sortKanbanBoard = createAsyncThunk(
   "kanban/sortKanban",
   async ({

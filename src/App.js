@@ -14,7 +14,7 @@ import KaKaoLoginHandler from "./components/menu/login/KaKaoLoginHandler";
 import GoogleLoginHandler from "./components/menu/login/GoogleLoginHandler";
 import React from "react";
 import Timer from "./page/menu/Timer";
-import LoadingSpinner from "./components/menu/utils/LoadingSpinner";
+import KanbanInvite from "./components/menu/kanban/KanbanInvite";
 
 function App() {
   const NavStatus = useSelector((state) => state.commonSlice.openNav);
@@ -37,10 +37,31 @@ function App() {
         <Layout openNav={NavStatus}>
           <Routes>
             <Route path="/" element={<Main openNav={NavStatus} />} />
-            <Route path="/board" element={<KanbanBoards />}>
-              <Route path=":projectId" element={<KanbanBoards />} />
+            <Route
+              path="/board"
+              element={
+                <RequireAuth redirectTo="/">
+                  <KanbanBoards />
+                </RequireAuth>
+              }
+            >
+              <Route
+                path=":projectId"
+                element={
+                  <RequireAuth redirectTo="/">
+                    <KanbanBoards />
+                  </RequireAuth>
+                }
+              />
             </Route>
-            <Route path="/timer" element={<Timer />} />
+            <Route
+              path="/timer"
+              element={
+                <RequireAuth redirectTo="/">
+                  <Timer />{" "}
+                </RequireAuth>
+              }
+            />
             <Route
               path="/profile"
               element={
@@ -62,7 +83,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/oauth/kakao/" element={<KaKaoLoginHandler />} />
             <Route path="/oauth/google/" element={<GoogleLoginHandler />} />
-            <Route path="/test" element={<LoadingSpinner />} />
+            <Route path="/test" element={<KanbanInvite />} />
           </Routes>
         </Layout>
       </BrowserRouter>

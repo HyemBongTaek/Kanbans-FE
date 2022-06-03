@@ -1,0 +1,10 @@
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
+
+.KanbanInvite{
+  @include modal_container(800px, 300px);
+}
+
+.overlay{
+  @include overlay_container;
+}

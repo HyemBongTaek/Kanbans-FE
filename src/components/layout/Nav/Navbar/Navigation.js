@@ -1,6 +1,6 @@
 import * as React from "react";
 import { motion } from "framer-motion";
-import "../_text.scss";
+import "../Style/_Navbar.scss";
 import { MenuItem } from "./MenuItem";
 import CocoriLogo from "../../../../static/image/cocoli_white.png";
 import { useNavigate } from "react-router-dom";
@@ -23,15 +23,27 @@ const Navigation = ({ isOpen, toggleOpen }) => {
     <>
       {toggleOpen && isOpen && (
         <motion.ul variants={variants}>
-          <div>
+          <motion.li
+            className="nav_logo"
+            variants={variants}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
             <img
               src={CocoriLogo}
               alt="logo_image"
               onClick={() => navigate("/")}
             />
+          </motion.li>
+          <motion.li
+            className="nav_profile"
+            variants={variants}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
             <img src={userInfo.profileImage} alt="profile_image" />
             <div>{userInfo.name}님 어서오세요</div>
-          </div>
+          </motion.li>
           {itemIds.map((i) => (
             <MenuItem i={i} key={i} />
           ))}

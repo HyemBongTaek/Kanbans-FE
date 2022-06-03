@@ -12,20 +12,23 @@ const KanbanCard = (props) => {
   const { deleteCardHandler } = useContext(store);
   const [openDetail, setOpenDetail] = useState(false);
 
-  console.log("칸반카드", props);
+  const cardId = props.cards.id;
+  const status = props.cards.status;
+
   const detailModal = () => {
     setOpenDetail(!openDetail);
   };
 
   const deleteCard = () => {
     deleteCardHandler({
-      cardId: props.cards.id,
+      cardId: cardId,
       boardId: props.boardId,
     });
   };
-  const cardId = props.cards.id;
-  const status = props.cards.status;
-  console.log("아 이게왜?", typeof props.cards.id);
+
+  // const cardCompleted = () => {
+  //
+  // }
   return (
     <>
       {openDetail && (
