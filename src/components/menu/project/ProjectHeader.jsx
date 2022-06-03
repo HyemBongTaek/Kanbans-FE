@@ -1,7 +1,7 @@
 import React from "react";
 
 import styles from "../../../style/menu/_Project.module.scss";
-import SearchInput from "../../common/SearchInput.tsx.jsx";
+import SearchInput from "../../common/SearchInput";
 
 const ProjectHeader = () => {
   return (

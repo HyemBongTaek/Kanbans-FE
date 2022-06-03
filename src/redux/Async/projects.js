@@ -101,8 +101,8 @@ export const updateProject = createAsyncThunk(
       if (res.data.ok) {
         console.log("수정완료", res.data);
         // thunkAPI.dispatch(getProject());
+        return res;
       }
-      return res;
     } catch (err) {
       console.log("수정도중 오류가 발생하였습니다.");
     }

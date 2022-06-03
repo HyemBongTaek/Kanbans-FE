@@ -5,7 +5,7 @@ const KanbanNav = () => {
     <div className={styles.kanban_nav}>
       <div>Boards</div>
       <div>Member</div>
-      <div>헹구</div>
+      <div>invite</div>
       <div>헹구</div>
     </div>
   );

@@ -136,7 +136,6 @@ const KanbanList = () => {
               >
                 {boards &&
                   boards?.columnOrders?.map((boardId, index) => {
-                    console.log("ddddddddd", boardId);
                     const column = boards.board[boardId];
                     const cards = column?.cardId?.map(
                       (cardId) => boards.cards[cardId]

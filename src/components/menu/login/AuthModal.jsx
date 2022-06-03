@@ -18,7 +18,7 @@ const AuthModal = () => {
   };
   return (
     <>
-      <div className={styles.modal_container}>
+      <div className={styles.login_modal}>
         <div className={styles.modal_header}>
           <Icon className={styles.modal_icon} icon="octicon:x-16" />
         </div>

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { motion } from "framer-motion";
-import "../_text.scss";
+import "../Style/_Navbar.scss";
 import styles from "../Style/_AfterLogin.module.scss";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";

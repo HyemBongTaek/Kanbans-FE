@@ -3,9 +3,6 @@ import styles from "./style/_BoardDropDown.module.scss";
 import ContextStore from "../../contextStore";
 
 const BoardDropDown = ({ boardId }) => {
-  // onClick={props.deleteBoard}
-  // onClick={props.clearAllCards}
-
   const { deleteBoardClick, clearCards } = useContext(ContextStore);
 
   return (

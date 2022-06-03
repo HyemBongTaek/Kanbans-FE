@@ -6,25 +6,6 @@ import { Icon } from "@iconify/react";
 import styles from "../Style/_AfterLogin.module.scss";
 import { useDimensions } from "../../../../hooks/useDemenstions";
 
-const sideNav = {
-  open: (height = 1000) => ({
-    clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
-    transition: {
-      type: "spring",
-      stiffness: 20,
-      restDelta: 2,
-    },
-  }),
-  closed: {
-    clipPath: "circle(30px at 40px 40px)",
-    transition: {
-      delay: -1,
-      type: "spring",
-      stiffness: 400,
-      damping: 40,
-    },
-  },
-};
 const AfterLogin = ({ isOpen, toggleOpen }) => {
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
@@ -57,6 +38,26 @@ const AfterLogin = ({ isOpen, toggleOpen }) => {
       </div>
     </>
   );
+};
+
+const sideNav = {
+  open: (height = 1000) => ({
+    clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
+    transition: {
+      type: "spring",
+      stiffness: 20,
+      restDelta: 2,
+    },
+  }),
+  closed: {
+    clipPath: "circle(30px at 40px 40px)",
+    transition: {
+      delay: -1,
+      type: "spring",
+      stiffness: 400,
+      damping: 40,
+    },
+  },
 };
 
 export default AfterLogin;
