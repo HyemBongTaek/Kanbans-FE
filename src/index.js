@@ -7,13 +7,16 @@ import store from "./redux/store";
 import "./index.scss";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
+import { CookiesProvider } from "react-cookie";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 let persistor = persistStore(store);
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
+      {/*<CookiesProvider>*/}
       <App />
+      {/*</CookiesProvider>*/}
     </PersistGate>
   </Provider>
 );

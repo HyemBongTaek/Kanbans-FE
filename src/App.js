@@ -16,19 +16,20 @@ import NaverLoginHandler from "./components/menu/login/NaverLoginHandler";
 import React from "react";
 import Timer from "./page/menu/Timer";
 import KanbanInvite from "./components/menu/kanban/KanbanInvite";
+import { getCookie } from "./components/menu/login/utils/cookie";
 
 function App() {
   const NavStatus = useSelector((state) => state.commonSlice.openNav);
 
   //로그인이 되어있지 않는 경우 메인화면으로 돌아가게함.
   function RequireAuth({ children, redirectTo }) {
-    const token = localStorage.getItem("token");
+    const token = getCookie("cocoriLogin");
     return token ? children : <Navigate to={redirectTo} />;
   }
 
   //로그인이 되어있는 경우
   function RejectAuth({ children, redirectTo }) {
-    const token = localStorage.getItem("token");
+    const token = getCookie("cocoriLogin");
     return !token ? children : <Navigate to={redirectTo} />;
   }
 
