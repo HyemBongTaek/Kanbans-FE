@@ -9,26 +9,29 @@ import AfterLogin from "./Navbar/AfterLogin";
 
 const Header = ({ isOpen, toggleOpen }) => {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.userSlice.userInfo);
 
+  const userInfo = useSelector((state) => state.userSlice.userInfo);
   const openLoginModal = () => {
     dispatch(setOpenLoginReducer(true));
   };
-  //로그인 정보 불러오기
+  const token = localStorage.getItem("token");
+  //로그인 정보 불러오기 토큰이 없을 경우 api에서 인증이 안됐다고 떠서 if에다가 토큰이 있을 경우에만 실행하게 바꾸어줌.
   useEffect(() => {
-    dispatch(setOpenLoginReducer());
-    dispatch(getUserInfo());
+    if (token) {
+      dispatch(setOpenLoginReducer());
+      dispatch(getUserInfo());
+    }
   }, [dispatch, getUserInfo]);
 
   return (
     <nav className={styles.header}>
       {/*로그인 되어있지 않으면 보이지 않게 가려놓음*/}
-      {userInfo && (
+      {token && (
         <div className={styles.header_login}>
           <AfterLogin isOpen={isOpen} toggleOpen={toggleOpen} />
         </div>
       )}
-      {!userInfo && (
+      {!token && (
         <>
           <nav className={styles.header_not_login}>
             <button className={styles.button} onClick={openLoginModal}>

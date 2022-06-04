@@ -6,7 +6,7 @@ import axios from "axios";
 //카카오로그인
 export const authLogin = createAsyncThunk(
   "user/kakaoLogin",
-  async ({ code, types }) => {
+  async ({ code, types }, thunkAPI) => {
     console.log("타입", types);
     switch (types) {
       case "kakao": {
@@ -39,6 +39,20 @@ export const authLogin = createAsyncThunk(
           );
         }
         break;
+      }
+      case "naver": {
+        try {
+          console.log("여기보내는거지?");
+          const res = await axios.get(
+            `http://3.37.231.161:4000/oauth/naver/?code=${code}`
+          );
+          if (res.data.ok) {
+            return res.data;
+          }
+        } catch (err) {
+          console.log("에러");
+          return thunkAPI.rejectWithValue();
+        }
       }
     }
   }

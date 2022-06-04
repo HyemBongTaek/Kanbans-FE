@@ -12,6 +12,7 @@ import Profile from "./page/menu/Profile";
 import KanbanBoards from "./page/menu/kanban/KanbanBoards";
 import KaKaoLoginHandler from "./components/menu/login/KaKaoLoginHandler";
 import GoogleLoginHandler from "./components/menu/login/GoogleLoginHandler";
+import NaverLoginHandler from "./components/menu/login/NaverLoginHandler";
 import React from "react";
 import Timer from "./page/menu/Timer";
 import KanbanInvite from "./components/menu/kanban/KanbanInvite";
@@ -83,6 +84,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/oauth/kakao/" element={<KaKaoLoginHandler />} />
             <Route path="/oauth/google/" element={<GoogleLoginHandler />} />
+            <Route path="/oauth/naver/" element={<NaverLoginHandler />} />
             <Route path="/test" element={<KanbanInvite />} />
           </Routes>
         </Layout>
