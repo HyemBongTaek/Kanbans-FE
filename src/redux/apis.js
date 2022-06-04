@@ -42,8 +42,6 @@ Apis.interceptors.response.use(
           },
         });
         if (data) {
-          console.log("데이터ㄴㄴ", data);
-
           const expires = new Date();
           expires.setDate(expires.getDate() + 14);
           setCookie("cocoriLogin", data.data.refreshToken, {

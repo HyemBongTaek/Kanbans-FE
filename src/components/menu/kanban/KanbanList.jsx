@@ -38,7 +38,6 @@ const KanbanList = () => {
   const onDragEnd = (result) => {
     const { destination, source, draggableId, type } = result;
 
-    console.log("=====================result", result);
     if (!destination) {
       return;
     }
@@ -75,6 +74,7 @@ const KanbanList = () => {
 
     //카드가 다른보드로 이동하지 않을 경우
     if (start === finish) {
+      console.log("스타트", start, finish);
       const newCardIds = Array.from(start.cardId);
       newCardIds.splice(source.index, 1);
       newCardIds.splice(destination.index, 0, draggableId);
@@ -83,6 +83,8 @@ const KanbanList = () => {
         ...start,
         cardId: newCardIds,
       };
+      console.log("스타트", start);
+      console.log("피니시", finish);
 
       dispatch(
         sortKanbanCard({
@@ -105,7 +107,8 @@ const KanbanList = () => {
         cardId: finishCardId,
       };
       console.log("뉴피니시", newFinish);
-
+      console.log("스타트", start);
+      console.log("피니시", finish);
       dispatch(
         moveSortKanbanCard({
           newFinish: newFinish,

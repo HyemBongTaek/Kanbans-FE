@@ -11,6 +11,7 @@ export const getKanbanBoard = createAsyncThunk(
         method: "GET",
       });
       if (res.data.ok) {
+        console.log("aa", res.data);
         return res.data;
       }
     } catch (err) {
@@ -162,7 +163,7 @@ export const sortKanbanBoard = createAsyncThunk(
     try {
       if (type === "column") {
         const res = await Apis({
-          url: `/board/${projectId}/board-location`,
+          url: `/project/${projectId}/board-location`,
           method: "PATCH",
           data: {
             boardOrder: newBoardOrder,

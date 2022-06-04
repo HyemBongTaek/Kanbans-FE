@@ -11,7 +11,7 @@ import classNames from "classnames";
 const KanbanCard = (props) => {
   const { deleteCardHandler } = useContext(store);
   const [openDetail, setOpenDetail] = useState(false);
-
+  const [complete, setComplete] = useState(false);
   const cardId = props.cards.id;
   const status = props.cards.status;
 
@@ -26,9 +26,6 @@ const KanbanCard = (props) => {
     });
   };
 
-  // const cardCompleted = () => {
-  //
-  // }
   return (
     <>
       {openDetail && (
