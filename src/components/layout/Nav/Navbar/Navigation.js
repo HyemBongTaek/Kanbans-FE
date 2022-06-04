@@ -4,7 +4,7 @@ import "../Style/_Navbar.scss";
 import { MenuItem } from "./MenuItem";
 import CocoriLogo from "../../../../static/image/cocoli_white.png";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 const variants = {
   open: {
@@ -17,8 +17,11 @@ const variants = {
 
 const Navigation = ({ isOpen, toggleOpen }) => {
   const navigate = useNavigate();
-  const userInfo = useSelector((state) => state.userSlice.userInfo);
-  console.log(userInfo);
+  const userInfo = useSelector(
+    (state) => state.userSlice.userInfo,
+    shallowEqual
+  );
+
   return (
     <>
       {toggleOpen && isOpen && (

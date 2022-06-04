@@ -5,13 +5,17 @@ import { MenuToggle } from "./MenuToggle";
 import { Icon } from "@iconify/react";
 import styles from "../Style/_AfterLogin.module.scss";
 import { useDimensions } from "../../../../hooks/useDemenstions";
+import { useCookies } from "react-cookie";
 
 const AfterLogin = ({ isOpen, toggleOpen }) => {
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
 
+  //쿠키정의, 재정의, 쿠키제거를 한번에 넣어주지 않으면 제거가 되지 않아서 모두다 넣어줌.
+  const [cookies, setCookie, removeCookie] = useCookies(["cocoriLogin"]);
   const logoutHandler = () => {
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
+    removeCookie("cocoriLogin", { path: "/" });
     window.location.replace("/");
   };
   // const navHandler = () => {

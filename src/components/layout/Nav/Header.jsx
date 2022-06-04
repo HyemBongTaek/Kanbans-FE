@@ -6,22 +6,22 @@ import styles from "../styles/_Header.module.scss";
 import { setOpenLoginReducer } from "../../../redux/Slice/commonSlice";
 
 import AfterLogin from "./Navbar/AfterLogin";
+import { getCookie } from "../../menu/login/utils/cookie";
 
 const Header = ({ isOpen, toggleOpen }) => {
   const dispatch = useDispatch();
 
-  const userInfo = useSelector((state) => state.userSlice.userInfo);
   const openLoginModal = () => {
     dispatch(setOpenLoginReducer(true));
   };
-  const token = localStorage.getItem("token");
+  const token = getCookie("cocoriLogin");
   //로그인 정보 불러오기 토큰이 없을 경우 api에서 인증이 안됐다고 떠서 if에다가 토큰이 있을 경우에만 실행하게 바꾸어줌.
   useEffect(() => {
     if (token) {
       dispatch(setOpenLoginReducer());
       dispatch(getUserInfo());
     }
-  }, [dispatch, getUserInfo]);
+  }, [getUserInfo]);
 
   return (
     <nav className={styles.header}>
