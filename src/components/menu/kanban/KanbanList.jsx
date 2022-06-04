@@ -14,7 +14,6 @@ import {
   sortKanbanCard,
 } from "../../../redux/Async/kanban";
 import KanbanFeatures from "./KanbanFeatures";
-import { ScrollMenu } from "react-horizontal-scrolling-menu";
 
 const KanbanList = () => {
   //주소에서 projectId불러오기
@@ -98,7 +97,6 @@ const KanbanList = () => {
         ...start,
         cardId: startCardId,
       };
-      console.log("뉴스타트", newStart);
       const finishCardId = Array.from(finish.cardId);
       finishCardId.splice(destination.index, 0, draggableId);
 

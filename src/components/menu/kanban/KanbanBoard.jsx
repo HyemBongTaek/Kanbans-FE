@@ -67,7 +67,6 @@ const KanbanBoard = (props) => {
                       {boards &&
                         props?.cards?.map((cards, index) => {
                           const cardID = cards?.id;
-                          console.log("카드아이디ss", cardID);
                           return (
                             <KanbanCard
                               key={cardID}

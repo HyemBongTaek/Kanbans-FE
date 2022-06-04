@@ -81,9 +81,9 @@ const KanbanCard = (props) => {
                         : styles.card_mid
                     }
                   >
-                    <img src={Profile} alt="profile_img" />
-                    <img src={Profile} alt="profile_img" />
-                    <img src={Profile} alt="profile_img" />
+                    {/*<img src={Profile} alt="profile_img" />*/}
+                    {/*<img src={Profile} alt="profile_img" />*/}
+                    {/*<img src={Profile} alt="profile_img" />*/}
                   </div>
                 </div>
 

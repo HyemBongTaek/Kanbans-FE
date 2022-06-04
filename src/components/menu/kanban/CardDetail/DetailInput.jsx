@@ -2,7 +2,6 @@ import React, { useContext, useRef, useState } from "react";
 import styles from "./_DetailInput.module.scss";
 import { Icon } from "@iconify/react";
 import store from "../../../contextStore";
-import uuid from "react-uuid";
 
 const DetailInput = ({ type }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,9 +23,8 @@ const DetailInput = ({ type }) => {
   const addTask = (e) => {
     e.preventDefault();
     if (type === "progress") {
-      const newTaskId = uuid();
       addTaskHandler({
-        id: newTaskId,
+        id: 1,
         content: content.progress,
       });
       setIsOpen(false);
