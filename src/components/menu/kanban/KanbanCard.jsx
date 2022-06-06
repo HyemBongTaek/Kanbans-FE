@@ -7,11 +7,15 @@ import { Draggable } from "react-beautiful-dnd";
 import store from "../../contextStore";
 import KanbanCardDetail from "../../../page/menu/kanban/KanbanCardDetail";
 import classNames from "classnames";
+import { useDispatch } from "react-redux";
+import { checkKanbanCard } from "../../../redux/Async/kanban";
 
 const KanbanCard = (props) => {
+  console.log("카드", props);
+  const dispatch = useDispatch();
   const { deleteCardHandler } = useContext(store);
   const [openDetail, setOpenDetail] = useState(false);
-  const [complete, setComplete] = useState(false);
+  const [complete, setComplete] = useState(props.cards.check);
   const cardId = props.cards.id;
   const status = props.cards.status;
 
@@ -26,6 +30,16 @@ const KanbanCard = (props) => {
     });
   };
 
+  const completeCheckCard = () => {
+    setComplete(!complete);
+    dispatch(
+      checkKanbanCard({
+        cardId: cardId,
+        boardId: props.boardId,
+      })
+    );
+  };
+
   return (
     <>
       {openDetail && (
@@ -36,9 +50,7 @@ const KanbanCard = (props) => {
           {/*완료(체크표시)가 된 경우에는 흐리게 변경해준다*/}
           {(provided) => (
             <div
-              className={
-                props.cards.check ? styles.kanban_check : styles.kanban_card
-              }
+              className={complete ? styles.kanban_check : styles.kanban_card}
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
@@ -59,17 +71,23 @@ const KanbanCard = (props) => {
                   </div>
 
                   <Icon
+                    onClick={completeCheckCard}
                     icon={
-                      props.cards.check
+                      complete
                         ? "akar-icons:check-box-fill"
                         : "akar-icons:check-box"
                     }
-                    color={props.cards.check ? "#01CD6B" : "#545454"}
+                    color={complete ? "#01CD6B" : "#545454"}
                     height="30"
                   />
                   {/* <Icon icon= color="#545454" height="30" /> */}
                 </div>
-                <div className={styles.card_title} onClick={detailModal}>
+                <div
+                  className={
+                    complete ? styles.card_title_complete : styles.card_title
+                  }
+                  onClick={detailModal}
+                >
                   {props.cards.title}
                   <div
                     className={

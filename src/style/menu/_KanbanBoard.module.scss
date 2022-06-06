@@ -125,7 +125,7 @@
 
   }
 
-  .card_title {
+  .card_title, .card_title_complete {
     font-size: 15px;
     margin: 5px 0 5px 10px;
     font-weight: bold;
@@ -133,6 +133,9 @@
     justify-content: space-between;
 
     //justify-content: flex-start;
+  }
+  .card_title_complete{
+    text-decoration: line-through;
   }
 }
 
