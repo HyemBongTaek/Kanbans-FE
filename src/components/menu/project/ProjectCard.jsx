@@ -39,8 +39,8 @@ const ProjectCard = (props) => {
   };
   const clickDeleteProject = () => {
     Swal.fire({
-      title: "프로젝트를 떠나시겠습니까?",
-      text: "프로젝트 초대를 받기 전까지는 다시 참가할 수 없습니다.",
+      title: "프로젝트를 삭제하시겠습니까??",
+      text: "프로젝트 삭제하면 다시 복구할 수 없습니다.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",

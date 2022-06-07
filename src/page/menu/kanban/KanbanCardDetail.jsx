@@ -4,7 +4,8 @@ import styles from "../../../components/menu/kanban/CardDetail/_KanbanCardDetail
 import CardDetailMain from "../../../components/menu/kanban/CardDetail/CardDetailMain";
 import CardDetailLeft from "../../../components/menu/kanban/CardDetail/CardDetailLeft";
 
-const KanbanCardDetail = ({ setOpenDetail, items }) => {
+const KanbanCardDetail = ({ setOpenDetail, items, cardId }) => {
+  console.log(cardId);
   return (
     <>
       <div className={styles.card_detail_container}>

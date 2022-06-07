@@ -94,14 +94,16 @@
 
 
 .detail_overlay {
-  box-sizing: border-box;
-  position: fixed;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 2;
+  //box-sizing: border-box;
+  //position: fixed;
+  //width: 100vw;
+  //top: 0;
+  //left: 0;
+  //bottom: 0;
+  //right: 0;
+  //z-index: 2;
+  @include overlay_container();
+
 }
 
 @mixin comment_profile{

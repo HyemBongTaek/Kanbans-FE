@@ -108,7 +108,7 @@ export const updateProject = createAsyncThunk(
     }
   }
 );
-//
+//oner아닌 사람 프로젝트 떠나기
 export const leaveProject = createAsyncThunk(
   "project/leaveProject",
   async ({ projectId }, thunkAPI) => {
@@ -123,6 +123,24 @@ export const leaveProject = createAsyncThunk(
       return res;
     } catch (err) {
       console.log("project 떠나기 도중 오류가 발생했습니다.");
+    }
+  }
+);
+
+//invite
+export const showInviteCode = createAsyncThunk(
+  "project/showInviteCode",
+  async ({ projectId }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/project/${projectId}/invite-code`,
+        method: "GET",
+      });
+      if (res.data.ok) {
+        return res.data;
+      }
+    } catch (err) {
+      console.log("초대코드 보기 오류");
     }
   }
 );

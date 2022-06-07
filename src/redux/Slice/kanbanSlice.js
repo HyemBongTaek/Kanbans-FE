@@ -8,6 +8,9 @@ import {
   sortKanbanBoard,
   sortKanbanCard,
   moveSortKanbanCard,
+  checkKanbanCard,
+  statusChangeKanbanCard,
+  deleteKanbanCard,
 } from "../Async/kanban";
 import { Switch } from "react-router-dom";
 
@@ -24,7 +27,17 @@ const KanbanSlice = createSlice({
     isFetching: false,
     errorMessage: null,
   },
-  reducers: {},
+  reducers: {
+    //카드가 이동할때 번쩍거림 방지를 위해 두개로 나눠줌.
+    sortKanbanCardReducer(state, action) {
+      const newBoard = action.payload.newBoard;
+      const newKanban = {
+        ...state.kanbans.board,
+        [newBoard.id]: newBoard,
+      };
+      state.kanbans.board = newKanban;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getKanbanBoard.fulfilled, (state, action) => {
@@ -85,6 +98,28 @@ const KanbanSlice = createSlice({
         };
         state.kanbans = newKanban;
       })
+      .addCase(deleteKanbanCard.fulfilled, (state, action) => {
+        const newCards = state.kanbans.cards;
+        delete newCards[action.payload.cardId];
+        const deleteCardId = state.kanbans.board[
+          action.payload.boardId
+        ].cardId.filter((card) => card !== action.payload.cardId);
+        const newBoard = {
+          ...state.kanbans.board[action.payload.boardId],
+          cardId: deleteCardId,
+        };
+        const newKanbans = {
+          ...state.kanbans,
+          board: {
+            ...state.kanbans.board,
+            [action.payload.boardId]: newBoard,
+          },
+          cards: {
+            ...newCards,
+          },
+        };
+        state.kanbans = newKanbans;
+      })
 
       .addCase(sortKanbanBoard.fulfilled, (state, action) => {
         const items = action.payload;
@@ -92,7 +127,6 @@ const KanbanSlice = createSlice({
       })
       .addCase(moveSortKanbanCard.fulfilled, (state, action) => {
         const items = action.payload;
-        console.log("===카드", items.newStartId);
 
         const newKanban = {
           ...state.kanbans,
@@ -102,40 +136,32 @@ const KanbanSlice = createSlice({
             [items.newFinishId]: items.newFinish,
           },
         };
-        console.log("========뉴칸반", newKanban);
         state.kanbans = newKanban;
       })
-      .addCase(sortKanbanCard.fulfilled, (state, action) => {
-        console.log("ㄴㄴㄴㄴㄴㄴㄴ", action.payload);
-
-        const newBoard = action.payload.newBoard;
-        console.log("왜오류가나냐", newBoard);
-        console.log("sdfsdfsdf", current(state.kanbans.board));
-        const newKanban = {
-          ...state.kanbans.board,
-          [newBoard.id]: newBoard,
-        };
-        state.kanbans.board = newKanban;
-
-        //   else {
-        //     const items = action.payload;
-        //     console.log("===카드", items.newStartId);
-        //
-        //     const newKanban = {
-        //       ...state.kanbans,
-        //       board: {
-        //         ...state.kanbans.board,
-        //         [items.newStartId]: items.newStart,
-        //         [items.newFinishId]: items.newFinish,
-        //       },
-        //     };
-        //     console.log("========뉴칸반", newKanban);
-        //     state.kanbans = newKanban;
-        //   }
+      // .addCase(sortKanbanCard.fulfilled, (state, action) => {
+      //   const newBoard = action.payload.newBoard;
+      //   const newKanban = {
+      //     ...state.kanbans.board,
+      //     [newBoard.id]: newBoard,
+      //   };
+      //   state.kanbans.board = newKanban;
+      // })
+      .addCase(checkKanbanCard.fulfilled, (state, action) => {
+        const currentCard = state.kanbans.cards[action.payload.cardId];
+        console.log("체크에욤", action.payload.res);
+        currentCard.check = action.payload.res.check;
+        currentCard.status = action.payload.res.status;
+      })
+      .addCase(statusChangeKanbanCard.fulfilled, (state, action) => {
+        console.log(action.payload);
+        const currentCard = state.kanbans.cards[action.payload.cardId];
+        console.log("체크에욤", action.payload.res);
+        currentCard.check = action.payload.res.check;
+        currentCard.status = action.payload.res.changedStatus;
       });
   },
 });
 
-export const {} = KanbanSlice.actions;
+export const { sortKanbanCardReducer } = KanbanSlice.actions;
 
 export default KanbanSlice;

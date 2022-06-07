@@ -15,7 +15,8 @@ const KanbanBoard = (props) => {
   const dropdownRef = useRef(null);
   const [editable, setEditable] = useState(false);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  const boards = props.column;
+  const boards = props.boards;
+
   const dropdownClick = () => setIsActive(!isActive);
   return (
     <>
@@ -44,7 +45,7 @@ const KanbanBoard = (props) => {
                   {...provided.dragHandleProps}
                 >
                   <div onClick={() => setEditable(!editable)}>
-                    {props.column.title}
+                    {props.boards.title}
                   </div>
                   <div ref={dropdownRef}>
                     <Icon
@@ -56,7 +57,7 @@ const KanbanBoard = (props) => {
                     {isActive && (
                       <BoardDropDown
                         dropdownClick={dropdownClick}
-                        boardId={props.column.id}
+                        boardId={props.boards.id}
                       />
                     )}
                   </div>
@@ -72,7 +73,8 @@ const KanbanBoard = (props) => {
                               key={cardID}
                               cards={cards}
                               index={index}
-                              boardId={props.id}
+                              boardId={boards.id}
+                              projectId={boards.projectId}
                             />
                           );
                         })}
@@ -80,7 +82,7 @@ const KanbanBoard = (props) => {
                     </div>
                   )}
                 </Droppable>
-                <InputContainer type="card" boardId={props.column.id} />
+                <InputContainer type="card" boardId={props.boards.id} />
               </>
             )}
           </div>

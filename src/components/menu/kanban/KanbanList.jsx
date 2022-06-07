@@ -13,7 +13,8 @@ import {
   sortKanbanBoard,
   sortKanbanCard,
 } from "../../../redux/Async/kanban";
-import KanbanFeatures from "./KanbanFeatures";
+import KanbanFeatures from "./utils/KanbanFeatures";
+import { sortKanbanCardReducer } from "../../../redux/Slice/kanbanSlice";
 
 const KanbanList = () => {
   //주소에서 projectId불러오기
@@ -24,6 +25,15 @@ const KanbanList = () => {
   //보드 내용 불러오기
 
   const boards = useSelector((state) => state.kanbanSlice.kanbans);
+
+  const { board, card, columnOrders } = useSelector((state) => ({
+    board: state.kanbanSlice.kanbans.board,
+    card: state.kanbanSlice.kanbans.cards,
+    columnOrders: state.kanbanSlice.kanbans.columnOrders,
+  }));
+  console.log("보드", board);
+  console.log("카드", card);
+  console.log("콜롬오더", columnOrders);
 
   //보드 불러오기
   useEffect(() => {
@@ -38,7 +48,6 @@ const KanbanList = () => {
   const onDragEnd = (result) => {
     const { destination, source, draggableId, type } = result;
 
-    console.log("=====================result", result);
     if (!destination) {
       return;
     }
@@ -71,26 +80,35 @@ const KanbanList = () => {
     const start = boards.board[source.droppableId];
     const finish = boards.board[destination.droppableId];
 
-    console.log("==========start, finish", start, finish);
-
     //카드가 다른보드로 이동하지 않을 경우
     if (start === finish) {
       const newCardIds = Array.from(start.cardId);
       newCardIds.splice(source.index, 1);
       newCardIds.splice(destination.index, 0, draggableId);
-
       const newBoard = {
         ...start,
         cardId: newCardIds,
       };
 
+      //카드 번쩍거리는 이미지를 위해 서버로 전달하는 리덕스와 기존 배열을 변경하는 리덕스를 양쪽으로 나눠서 사용함.
+      dispatch(
+        sortKanbanCardReducer({
+          newBoard,
+        })
+      );
+
       dispatch(
         sortKanbanCard({
+          boardId: source.droppableId,
           newBoard,
+          startCards: start,
         })
       );
     } else {
       //카드를 드래그해서 다른 보드로 이동할 경우.
+      console.log("스타트아이디", start.cardId);
+      console.log("피니쉬아이디", finish);
+
       const startCardId = Array.from(start.cardId);
       startCardId.splice(source.index, 1);
       const newStart = {
@@ -104,10 +122,12 @@ const KanbanList = () => {
         ...finish,
         cardId: finishCardId,
       };
-      console.log("뉴피니시", newFinish);
-
       dispatch(
         moveSortKanbanCard({
+          startBoardId: source.droppableId,
+          startCardIds: start.cardId,
+          finishBoardId: destination.droppableId,
+          finishCardIds: finishCardId,
           newFinish: newFinish,
           newStartId: newStart.id,
           newStart: newStart,
@@ -132,16 +152,15 @@ const KanbanList = () => {
                 ref={provided.innerRef}
                 className={styles.kanban_list}
               >
-                {boards &&
-                  boards?.columnOrders?.map((boardId, index) => {
-                    const column = boards.board[boardId];
-                    const cards = column?.cardId?.map(
-                      (cardId) => boards.cards[cardId]
-                    );
+                {columnOrders &&
+                  columnOrders?.map((boardId, index) => {
+                    const boards = board[boardId];
+                    const cards = boards?.cardId?.map((cardId) => card[cardId]);
                     return (
                       <KanbanBoard
-                        key={column.id}
-                        column={column}
+                        key={boards.id}
+                        boardsNewId={`board_${boards.id}`}
+                        boards={boards}
                         cards={cards}
                         index={index}
                       />

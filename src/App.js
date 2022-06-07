@@ -17,6 +17,7 @@ import React from "react";
 import Timer from "./page/menu/Timer";
 import KanbanInvite from "./components/menu/kanban/KanbanInvite";
 import { getCookie } from "./components/menu/login/utils/cookie";
+import TestCheck from "./components/menu/kanban/testcheck";
 
 function App() {
   const NavStatus = useSelector((state) => state.commonSlice.openNav);
@@ -87,6 +88,7 @@ function App() {
             <Route path="/oauth/google/" element={<GoogleLoginHandler />} />
             <Route path="/oauth/naver/" element={<NaverLoginHandler />} />
             <Route path="/test" element={<KanbanInvite />} />
+            <Route path="/tests" element={<TestCheck />} />
           </Routes>
         </Layout>
       </BrowserRouter>

@@ -8,7 +8,6 @@ const Apis = axios.create({
 //요청시 AccessToken 계속 보내주기
 Apis.interceptors.request.use(function (config) {
   const token = sessionStorage.getItem("token");
-  const refreshToken = getCookie("cocoriLogin");
 
   if (!token) {
     config.headers["accessToken"] = null;
@@ -18,8 +17,6 @@ Apis.interceptors.request.use(function (config) {
   if (config.headers && token) {
     const accessToken = JSON.parse(token);
     config.headers["Authorization"] = `Bearer ${accessToken}`;
-    config.headers["refreshToken"] = `Bearer ${refreshToken}`;
-
     return config;
   }
 });
@@ -33,20 +30,24 @@ Apis.interceptors.response.use(
     const originalConfig = err.config;
 
     if (err.response && err.response.status === 401) {
-      const refreshToken = originalConfig.headers["refreshToken"];
+      console.log("여기에러?");
+      const refreshToken = getCookie("cocoriLogin");
+      console.log(originalConfig);
       try {
-        // err.config.headers.Authorization = `Bearer ${token.refreshToken}`;
         const data = await axios({
           url: `http://3.37.231.161:4000/oauth/refresh`,
           method: "GET",
           headers: {
-            Authorization: refreshToken,
+            Authorization: `Bearer ${refreshToken}`,
           },
         });
         if (data) {
+          const expires = new Date();
+          expires.setDate(expires.getDate() + 14);
           setCookie("cocoriLogin", data.data.refreshToken, {
             path: "/",
             secure: true,
+            expires,
           });
           sessionStorage.setItem(
             "token",

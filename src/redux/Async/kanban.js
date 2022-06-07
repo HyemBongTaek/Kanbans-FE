@@ -125,6 +125,25 @@ export const clearAllKanbanCards = createAsyncThunk(
   }
 );
 
+//카드 체크박스 변경
+export const checkKanbanCard = createAsyncThunk(
+  "kanban/checkKanbanCard",
+  async ({ boardId, cardId }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/board/${boardId}/card/${cardId}/check`,
+        method: "PATCH",
+      });
+      if (res.data.ok) {
+        console.log("레스", res.data);
+        return { res: res.data, cardId };
+      }
+    } catch (err) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
 //카드 삭제
 export const deleteKanbanCard = createAsyncThunk(
   "kanban/deleteKanbanCard",
@@ -135,7 +154,8 @@ export const deleteKanbanCard = createAsyncThunk(
         method: "DELETE",
       });
       if (res.data.ok) {
-        return res.data;
+        console.log("카드삭제", res.data);
+        return { boardId, cardId };
       }
     } catch (err) {
       return thunkAPI.rejectWithValue();
@@ -143,7 +163,26 @@ export const deleteKanbanCard = createAsyncThunk(
   }
 );
 
-//카드 완료시 체크
+//카드 status 변경
+export const statusChangeKanbanCard = createAsyncThunk(
+  "kanban/statusChangeKanbanCard",
+  async ({ boardId, cardId, status }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/board/${boardId}/card/${cardId}/status`,
+        method: "PATCH",
+        data: {
+          status,
+        },
+      });
+      if (res.data.ok) {
+        return { res: res.data, cardId };
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
 
 //칸반보드 이동
 export const sortKanbanBoard = createAsyncThunk(
@@ -162,7 +201,7 @@ export const sortKanbanBoard = createAsyncThunk(
     try {
       if (type === "column") {
         const res = await Apis({
-          url: `/board/${projectId}/board-location`,
+          url: `/project/${projectId}/board-location`,
           method: "PATCH",
           data: {
             boardOrder: newBoardOrder,
@@ -189,39 +228,71 @@ export const sortKanbanBoard = createAsyncThunk(
 
 export const sortKanbanCard = createAsyncThunk(
   "kanban/sortKanbanCard",
-  async ({
-    newFinish,
-    newStartId,
-    newStart,
-    newFinishId,
-    newBoard,
-    boardMove,
-  }) => {
-    console.log("ㄴㅇㄹㅇㅁㄴㄹxdsdsㅇㅁㄴㅁㄴㅇ", boardMove);
-    return {
-      newBoard,
-      boardMove,
-      newFinish,
-      newStartId,
-      newStart,
-      newFinishId,
-    };
+  async ({ boardId, newBoard, startCards }) => {
+    try {
+      const res = await Apis({
+        url: `/board/card/location`,
+        method: "PATCH",
+        data: {
+          start: {
+            boardId,
+            cards: startCards.cardId,
+          },
+          end: {
+            boardId,
+            cards: newBoard.cardId,
+          },
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 );
 
 export const moveSortKanbanCard = createAsyncThunk(
   "kanban/moveSortKanbanCard",
   async ({
+    startBoardId,
+    startCardIds,
+    finishBoardId,
+    finishCardIds,
     newFinish,
     newStartId,
     newStart,
     newFinishId,
-    newBoard,
-    boardMove,
   }) => {
+    console.log("startBoardId", startBoardId);
+    console.log("finishBoardId", finishBoardId);
+    // console.log("확인용", newFinish);
+    // console.log("sss", newStart);
+    // console.log("sdfkdjsajasf", startCardId);
+    // console.log("sdfkdjsajasf", finishCardId);
+    // console.log("확인ㄴㄴㄴ", start, finish);
+    //
+    try {
+      const res = await Apis({
+        url: `/board/card/location`,
+        method: "PATCH",
+        data: {
+          start: {
+            boardId: startBoardId,
+            cards: newStart.cardId,
+          },
+          end: {
+            boardId: finishBoardId,
+            cards: finishCardIds,
+          },
+        },
+      });
+      if (res.data.ok) {
+        console.log(res.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
     return {
-      newBoard,
-      boardMove,
       newFinish,
       newStartId,
       newStart,

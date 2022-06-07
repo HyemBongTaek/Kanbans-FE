@@ -4,14 +4,17 @@ import React, { useContext, useRef, useState } from "react";
 import Profile from "../../../static/image/profile.png";
 import styles from "../../../style/menu/_KanbanBoard.module.scss";
 import { Draggable } from "react-beautiful-dnd";
-import store from "../../contextStore";
 import KanbanCardDetail from "../../../page/menu/kanban/KanbanCardDetail";
 import classNames from "classnames";
+import { useDispatch } from "react-redux";
+import { checkKanbanCard, deleteKanbanCard } from "../../../redux/Async/kanban";
+import TestCheck from "./testcheck";
 
 const KanbanCard = (props) => {
-  const { deleteCardHandler } = useContext(store);
+  console.log("카드", props);
+  const dispatch = useDispatch();
   const [openDetail, setOpenDetail] = useState(false);
-
+  const [isStatus, setIsStatus] = useState(false);
   const cardId = props.cards.id;
   const status = props.cards.status;
 
@@ -20,19 +23,31 @@ const KanbanCard = (props) => {
   };
 
   const deleteCard = () => {
-    deleteCardHandler({
-      cardId: cardId,
-      boardId: props.boardId,
-    });
+    dispatch(
+      deleteKanbanCard({
+        cardId: cardId,
+        boardId: props.boardId,
+      })
+    );
   };
 
-  // const cardCompleted = () => {
-  //
-  // }
+  const completeCheckCard = () => {
+    dispatch(
+      checkKanbanCard({
+        cardId: cardId,
+        boardId: props.boardId,
+      })
+    );
+  };
+
   return (
     <>
       {openDetail && (
-        <KanbanCardDetail setOpenDetail={setOpenDetail} items={props.cards} />
+        <KanbanCardDetail
+          setOpenDetail={setOpenDetail}
+          items={props.cards}
+          cardId={cardId}
+        />
       )}
       {cardId && (
         <Draggable draggableId={cardId.toString()} index={props.index}>
@@ -47,12 +62,17 @@ const KanbanCard = (props) => {
               ref={provided.innerRef}
             >
               <div
+                onClick={() => setIsStatus(!isStatus)}
                 className={classNames(
                   status === "hold" && styles.kanban_hold,
                   status === "finish" && styles.kanban_finish,
                   status === "progress" && styles.kanban_progress
                 )}
-              />
+              >
+                {isStatus && (
+                  <TestCheck boardId={props.boardId} cardId={cardId} />
+                )}
+              </div>
               <div className={styles.card_contents}>
                 <div className={styles.card_top}>
                   <div className={styles.labels}>
@@ -62,6 +82,7 @@ const KanbanCard = (props) => {
                   </div>
 
                   <Icon
+                    onClick={completeCheckCard}
                     icon={
                       props.cards.check
                         ? "akar-icons:check-box-fill"
@@ -72,7 +93,14 @@ const KanbanCard = (props) => {
                   />
                   {/* <Icon icon= color="#545454" height="30" /> */}
                 </div>
-                <div className={styles.card_title} onClick={detailModal}>
+                <div
+                  className={
+                    props.cards.check
+                      ? styles.card_title_complete
+                      : styles.card_title
+                  }
+                  onClick={detailModal}
+                >
                   {props.cards.title}
                   <div
                     className={
