@@ -1,0 +1,37 @@
+@import "./src/style/common/colors";
+$colors: $main_gray, $main_yellow, $main_green;
+
+.add_color {
+  width: 20px;
+  position: absolute;
+  margin-left: -30px;
+  & > button {
+
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    margin: 10px 0 0 50px;
+    border: none;
+    @each $color in $colors {
+      $i: index($colors, $color);
+      &:nth-child(#{$i}) {
+        background: $color;
+      }
+    }
+
+  }
+  & > div {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    margin: 10px 0 0 50px;
+
+    @each $color in $colors {
+      $i: index($colors, $color);
+      &:nth-child(#{$i}) {
+        background: $color;
+      }
+    }
+
+  }
+}

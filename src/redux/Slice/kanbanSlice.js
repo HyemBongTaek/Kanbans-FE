@@ -9,6 +9,8 @@ import {
   sortKanbanCard,
   moveSortKanbanCard,
   checkKanbanCard,
+  statusChangeKanbanCard,
+  deleteKanbanCard,
 } from "../Async/kanban";
 import { Switch } from "react-router-dom";
 
@@ -96,6 +98,28 @@ const KanbanSlice = createSlice({
         };
         state.kanbans = newKanban;
       })
+      .addCase(deleteKanbanCard.fulfilled, (state, action) => {
+        const newCards = state.kanbans.cards;
+        delete newCards[action.payload.cardId];
+        const deleteCardId = state.kanbans.board[
+          action.payload.boardId
+        ].cardId.filter((card) => card !== action.payload.cardId);
+        const newBoard = {
+          ...state.kanbans.board[action.payload.boardId],
+          cardId: deleteCardId,
+        };
+        const newKanbans = {
+          ...state.kanbans,
+          board: {
+            ...state.kanbans.board,
+            [action.payload.boardId]: newBoard,
+          },
+          cards: {
+            ...newCards,
+          },
+        };
+        state.kanbans = newKanbans;
+      })
 
       .addCase(sortKanbanBoard.fulfilled, (state, action) => {
         const items = action.payload;
@@ -127,6 +151,13 @@ const KanbanSlice = createSlice({
         console.log("체크에욤", action.payload.res);
         currentCard.check = action.payload.res.check;
         currentCard.status = action.payload.res.status;
+      })
+      .addCase(statusChangeKanbanCard.fulfilled, (state, action) => {
+        console.log(action.payload);
+        const currentCard = state.kanbans.cards[action.payload.cardId];
+        console.log("체크에욤", action.payload.res);
+        currentCard.check = action.payload.res.check;
+        currentCard.status = action.payload.res.changedStatus;
       });
   },
 });

@@ -32,6 +32,8 @@
   border-radius: 10px;
   margin-right: 20px;
   overflow-y: auto;
+  z-index: auto;
+  
   &::-webkit-scrollbar {
     width: 15px;
   }

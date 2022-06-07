@@ -13,7 +13,7 @@ import {
   sortKanbanBoard,
   sortKanbanCard,
 } from "../../../redux/Async/kanban";
-import KanbanFeatures from "./KanbanFeatures";
+import KanbanFeatures from "./utils/KanbanFeatures";
 import { sortKanbanCardReducer } from "../../../redux/Slice/kanbanSlice";
 
 const KanbanList = () => {

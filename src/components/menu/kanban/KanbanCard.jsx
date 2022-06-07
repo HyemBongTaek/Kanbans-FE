@@ -4,18 +4,17 @@ import React, { useContext, useRef, useState } from "react";
 import Profile from "../../../static/image/profile.png";
 import styles from "../../../style/menu/_KanbanBoard.module.scss";
 import { Draggable } from "react-beautiful-dnd";
-import store from "../../contextStore";
 import KanbanCardDetail from "../../../page/menu/kanban/KanbanCardDetail";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
-import { checkKanbanCard } from "../../../redux/Async/kanban";
+import { checkKanbanCard, deleteKanbanCard } from "../../../redux/Async/kanban";
+import TestCheck from "./testcheck";
 
 const KanbanCard = (props) => {
   console.log("카드", props);
   const dispatch = useDispatch();
-  const { deleteCardHandler } = useContext(store);
   const [openDetail, setOpenDetail] = useState(false);
-  const [complete, setComplete] = useState(props.cards.check);
+  const [isStatus, setIsStatus] = useState(false);
   const cardId = props.cards.id;
   const status = props.cards.status;
 
@@ -24,14 +23,15 @@ const KanbanCard = (props) => {
   };
 
   const deleteCard = () => {
-    deleteCardHandler({
-      cardId: cardId,
-      boardId: props.boardId,
-    });
+    dispatch(
+      deleteKanbanCard({
+        cardId: cardId,
+        boardId: props.boardId,
+      })
+    );
   };
 
   const completeCheckCard = () => {
-    setComplete(!complete);
     dispatch(
       checkKanbanCard({
         cardId: cardId,
@@ -43,25 +43,36 @@ const KanbanCard = (props) => {
   return (
     <>
       {openDetail && (
-        <KanbanCardDetail setOpenDetail={setOpenDetail} items={props.cards} />
+        <KanbanCardDetail
+          setOpenDetail={setOpenDetail}
+          items={props.cards}
+          cardId={cardId}
+        />
       )}
       {cardId && (
         <Draggable draggableId={cardId.toString()} index={props.index}>
           {/*완료(체크표시)가 된 경우에는 흐리게 변경해준다*/}
           {(provided) => (
             <div
-              className={complete ? styles.kanban_check : styles.kanban_card}
+              className={
+                props.cards.check ? styles.kanban_check : styles.kanban_card
+              }
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
             >
               <div
+                onClick={() => setIsStatus(!isStatus)}
                 className={classNames(
                   status === "hold" && styles.kanban_hold,
                   status === "finish" && styles.kanban_finish,
                   status === "progress" && styles.kanban_progress
                 )}
-              />
+              >
+                {isStatus && (
+                  <TestCheck boardId={props.boardId} cardId={cardId} />
+                )}
+              </div>
               <div className={styles.card_contents}>
                 <div className={styles.card_top}>
                   <div className={styles.labels}>
@@ -73,18 +84,20 @@ const KanbanCard = (props) => {
                   <Icon
                     onClick={completeCheckCard}
                     icon={
-                      complete
+                      props.cards.check
                         ? "akar-icons:check-box-fill"
                         : "akar-icons:check-box"
                     }
-                    color={complete ? "#01CD6B" : "#545454"}
+                    color={props.cards.check ? "#01CD6B" : "#545454"}
                     height="30"
                   />
                   {/* <Icon icon= color="#545454" height="30" /> */}
                 </div>
                 <div
                   className={
-                    complete ? styles.card_title_complete : styles.card_title
+                    props.cards.check
+                      ? styles.card_title_complete
+                      : styles.card_title
                   }
                   onClick={detailModal}
                 >

@@ -136,7 +136,7 @@ export const checkKanbanCard = createAsyncThunk(
       });
       if (res.data.ok) {
         console.log("레스", res.data);
-        return { res: res.data, boardId, cardId };
+        return { res: res.data, cardId };
       }
     } catch (err) {
       return thunkAPI.rejectWithValue();
@@ -154,10 +154,32 @@ export const deleteKanbanCard = createAsyncThunk(
         method: "DELETE",
       });
       if (res.data.ok) {
-        return res.data;
+        console.log("카드삭제", res.data);
+        return { boardId, cardId };
       }
     } catch (err) {
       return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+//카드 status 변경
+export const statusChangeKanbanCard = createAsyncThunk(
+  "kanban/statusChangeKanbanCard",
+  async ({ boardId, cardId, status }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/board/${boardId}/card/${cardId}/status`,
+        method: "PATCH",
+        data: {
+          status,
+        },
+      });
+      if (res.data.ok) {
+        return { res: res.data, cardId };
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
 );
