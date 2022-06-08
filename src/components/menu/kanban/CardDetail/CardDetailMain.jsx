@@ -1,14 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./_KanbanCardDetail.module.scss";
 import { Icon } from "@iconify/react";
 import Test from "../../../../static/image/test.png";
 import CardProgressBar from "./CardProgressBar";
 import DetailComments from "./DetailComments";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getKanbanCardDetail } from "../../../../redux/Async/KanbanCardDetail";
 
-const CardDetailMain = ({ items }) => {
+const CardDetailMain = ({ cardId }) => {
   //input 한번에 관리.
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(
+      getKanbanCardDetail({
+        cardId,
+      })
+    );
+  }, [cardId, dispatch]);
+
+  const cardContent = useSelector((state) => state.cardDetailSlice.card);
+
   const [inputs, setInputs] = useState({
-    title: items.content,
+    title: "ggg",
     subTitle: "셋넷",
     description: "오늘은",
   });
@@ -90,7 +104,7 @@ const CardDetailMain = ({ items }) => {
           Tasks
         </div>
         <div>
-          <CardProgressBar />
+          <CardProgressBar cardId={cardId} />
         </div>
         <div className={styles.title}>
           <Icon
@@ -100,7 +114,7 @@ const CardDetailMain = ({ items }) => {
           Comments
         </div>
         <div>
-          <DetailComments />
+          <DetailComments cardId={cardId} />
         </div>
       </div>
     </>

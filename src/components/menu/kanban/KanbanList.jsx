@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
-import styles from "../../../style/menu/_KanbanBoard.module.scss";
+import styles from "./style/_KanbanBoard.module.scss";
 
 import KanbanBoard from "./KanbanBoard";
 import InputContainer from "../utils/InputContainer";
@@ -15,6 +15,7 @@ import {
 } from "../../../redux/Async/kanban";
 import KanbanFeatures from "./utils/KanbanFeatures";
 import { sortKanbanCardReducer } from "../../../redux/Slice/kanbanSlice";
+import KanbanCardDetail from "../../../page/menu/kanban/KanbanCardDetail";
 
 const KanbanList = () => {
   //주소에서 projectId불러오기
@@ -31,9 +32,6 @@ const KanbanList = () => {
     card: state.kanbanSlice.kanbans.cards,
     columnOrders: state.kanbanSlice.kanbans.columnOrders,
   }));
-  console.log("보드", board);
-  console.log("카드", card);
-  console.log("콜롬오더", columnOrders);
 
   //보드 불러오기
   useEffect(() => {
@@ -106,9 +104,6 @@ const KanbanList = () => {
       );
     } else {
       //카드를 드래그해서 다른 보드로 이동할 경우.
-      console.log("스타트아이디", start.cardId);
-      console.log("피니쉬아이디", finish);
-
       const startCardId = Array.from(start.cardId);
       startCardId.splice(source.index, 1);
       const newStart = {

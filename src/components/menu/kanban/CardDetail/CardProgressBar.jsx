@@ -2,45 +2,31 @@ import React, { useEffect, useRef, useState } from "react";
 import ProgressCard from "./ProgressCard";
 import ProgressData from "./ProgressData";
 import DetailInput from "./DetailInput";
-import styles from "./_DetailInput.module.scss";
+import styles from "../style/_CardProgressBar.module.scss";
 import store from "../../../contextStore";
+import { useSelector } from "react-redux";
 
-const CardProgressBar = () => {
-  const detailInputRef = useRef();
-  //데이터 불러오기
-  const [progress, setProgress] = useState(ProgressData);
+const CardProgressBar = ({ cardId }) => {
+  const progressData = useSelector((state) => state.cardDetailSlice.tasks);
 
   //진행바 진행율 구하기.
   function findCheck(el) {
-    if (el.checked === true) {
+    if (el.check === true) {
       return true;
     }
   }
-  const dataCount = progress.progress.filter(findCheck);
+  const dataCount = progressData.filter(findCheck);
+
   const [checkCount, setCheckCount] = useState(dataCount.length);
-  let checkedCountTotal = progress.progress.length;
+
+  let checkedCountTotal = progressData.length;
 
   const progressRate = Math.ceil((checkCount / checkedCountTotal) * 100);
 
-  const addTaskHandler = ({ id, content }) => {
-    const newTask = {
-      id,
-      content,
-      checked: false,
-    };
-    const newState = [...progress.progress];
-    newState.push(newTask);
-    setProgress({ progress: newState });
-  };
-
   return (
-    <store.Provider
-      value={{
-        addTaskHandler,
-      }}
-    >
-      <div>
-        <div style={{ width: "520px", background: "#C4C4C4", height: "25px" }}>
+    <div>
+      {progressRate > 0 && (
+        <div className={styles.progress_bar}>
           <div
             style={{
               width: `${progressRate}%`,
@@ -49,8 +35,11 @@ const CardProgressBar = () => {
             }}
           />
         </div>
-        <div className={styles.progress_area}>
-          {progress.progress.map((task) => {
+      )}
+
+      <div className={styles.progress_area}>
+        {progressData &&
+          progressData?.map((task) => {
             return (
               <ProgressCard
                 key={task.id}
@@ -60,10 +49,14 @@ const CardProgressBar = () => {
               />
             );
           })}
-        </div>
-        <DetailInput type="progress" />
       </div>
-    </store.Provider>
+      <DetailInput
+        type="progress"
+        cardId={cardId}
+        checkCount={checkCount}
+        setCheckCount={setCheckCount}
+      />
+    </div>
   );
 };
 

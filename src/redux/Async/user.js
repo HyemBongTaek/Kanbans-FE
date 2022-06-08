@@ -7,7 +7,6 @@ import axios from "axios";
 export const authLogin = createAsyncThunk(
   "user/kakaoLogin",
   async ({ code, types }, thunkAPI) => {
-    console.log("타입", types);
     switch (types) {
       case "kakao": {
         try {
@@ -42,7 +41,6 @@ export const authLogin = createAsyncThunk(
       }
       case "naver": {
         try {
-          console.log("여기보내는거지?");
           const res = await axios.get(
             `http://3.37.231.161:4000/oauth/naver/?code=${code}`
           );
@@ -66,7 +64,6 @@ export const getUserInfo = createAsyncThunk("user/getUserInfo", async () => {
       method: "GET",
     });
     if (res.data.ok) {
-      console.log("아 이건먼가");
       return res.data.user;
     }
   } catch (err) {
@@ -79,7 +76,6 @@ export const getUserInfo = createAsyncThunk("user/getUserInfo", async () => {
 export const changeUserInfo = createAsyncThunk(
   "user/changeProfileImage",
   async ({ formData, nickname, type }, thunkAPI) => {
-    console.log("타입", type);
     try {
       if (type === "changeImage") {
         const res = await Apis({
@@ -89,14 +85,12 @@ export const changeUserInfo = createAsyncThunk(
         });
         if (res.data.ok) {
           setTimeout(() => {
-            console.log("2초만하자");
             return thunkAPI.dispatch(getUserInfo());
           }, 1000);
           return type;
         }
       }
       if (type === "nickname") {
-        console.log("아이디 변경");
         const res = await Apis({
           url: "/user/profile",
           method: "PATCH",

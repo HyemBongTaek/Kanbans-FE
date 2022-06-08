@@ -2,24 +2,28 @@ import { Icon } from "@iconify/react";
 import React, { useContext, useRef, useState } from "react";
 
 import Profile from "../../../static/image/profile.png";
-import styles from "../../../style/menu/_KanbanBoard.module.scss";
+import styles from "./style/_KanbanBoard.module.scss";
+
 import { Draggable } from "react-beautiful-dnd";
 import KanbanCardDetail from "../../../page/menu/kanban/KanbanCardDetail";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
 import { checkKanbanCard, deleteKanbanCard } from "../../../redux/Async/kanban";
 import TestCheck from "./testcheck";
+import { cardOpenReducer } from "../../../redux/Slice/kanbanSlice";
+import { useNavigate } from "react-router-dom";
 
 const KanbanCard = (props) => {
-  console.log("카드", props);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [openDetail, setOpenDetail] = useState(false);
   const [isStatus, setIsStatus] = useState(false);
   const cardId = props.cards.id;
   const status = props.cards.status;
 
   const detailModal = () => {
-    setOpenDetail(!openDetail);
+    // dispatch(cardOpenReducer(cardId));
+    navigate(`/card/${cardId}`, { state: cardId });
   };
 
   const deleteCard = () => {
@@ -39,16 +43,19 @@ const KanbanCard = (props) => {
       })
     );
   };
+  {
+    /*// <KanbanCardDetail*/
+  }
+  //   setOpenDetail={setOpenDetail}
+  //   items={props.cards}
+  //   cardId={cardId}
+  // />
+  {
+    /*)}*/
+  }
 
   return (
     <>
-      {openDetail && (
-        <KanbanCardDetail
-          setOpenDetail={setOpenDetail}
-          items={props.cards}
-          cardId={cardId}
-        />
-      )}
       {cardId && (
         <Draggable draggableId={cardId.toString()} index={props.index}>
           {/*완료(체크표시)가 된 경우에는 흐리게 변경해준다*/}
@@ -76,8 +83,8 @@ const KanbanCard = (props) => {
               <div className={styles.card_contents}>
                 <div className={styles.card_top}>
                   <div className={styles.labels}>
-                    <div className={styles.label}>라벨</div>
-                    <div className={styles.label}>라벨</div>
+                    <div className={styles.label}>공부하기</div>
+                    <div className={styles.label}>sometimes</div>
                     <div className={styles.label}>라벨</div>
                   </div>
 

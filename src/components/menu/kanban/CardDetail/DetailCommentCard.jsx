@@ -3,8 +3,9 @@ import styles from "./_KanbanCardDetail.module.scss";
 import Profile from "../../../../static/image/profile.png";
 import { Icon } from "@iconify/react";
 
-const DetailCommentCard = () => {
+const DetailCommentCard = ({ items }) => {
   const [edit, setEdit] = useState(false);
+
   return (
     <div className={styles.comment_card}>
       <img src={Profile} alt="profile_image" />
@@ -14,9 +15,9 @@ const DetailCommentCard = () => {
           <label>
             {/*수정 누르지 않을경우 readOnly 사용하여 수정 불가능하게 막음*/}
             {edit ? (
-              <input className={styles.edit_input} value="헹굽니다" />
+              <input className={styles.edit_input} value={items.content} />
             ) : (
-              <input value="헹굽니다" readOnly />
+              <input value={items.content} readOnly />
             )}
           </label>
         </form>

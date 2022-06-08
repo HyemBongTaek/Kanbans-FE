@@ -35,7 +35,6 @@ const TestCheck = ({ boardId, cardId }) => {
   };
 
   const statusClick = (e) => {
-    console.log("value", e.target.value);
     dispatch(
       statusChangeKanbanCard({
         boardId,

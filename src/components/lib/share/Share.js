@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import KaKaoShare from "./KAKAOShareButton";
 
-const Share = () => {
+const Share = ({ inviteCode }) => {
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://developers.kakao.com/sdk/js/kakao.js";
@@ -17,7 +17,7 @@ const Share = () => {
 
   return (
     <div>
-      <KaKaoShare />
+      <KaKaoShare inviteCode={inviteCode} />
     </div>
   );
 };

@@ -1,13 +1,19 @@
 import React, { useContext, useRef, useState } from "react";
-import styles from "./_DetailInput.module.scss";
+import styles from "../style/_DetailInput.module.scss";
 import { Icon } from "@iconify/react";
 import store from "../../../contextStore";
+import { useDispatch } from "react-redux";
+import {
+  addCardComment,
+  addCardTask,
+} from "../../../../redux/Async/KanbanCardDetail";
 
-const DetailInput = ({ type }) => {
+const DetailInput = ({ type, cardId }) => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [content, setContent] = useState({
-    progress: "하나둘",
-    comments: "셋넷",
+    progress: "",
+    comments: "",
   });
 
   const { progress, comments } = content;
@@ -20,22 +26,31 @@ const DetailInput = ({ type }) => {
     });
   };
 
-  const addTask = (e) => {
-    e.preventDefault();
+  const addTask = () => {
     if (type === "progress") {
-      addTaskHandler({
-        id: 1,
-        content: content.progress,
-      });
       setIsOpen(false);
-      return;
+      dispatch(
+        addCardTask({
+          cardId,
+          content: progress,
+          checked: false,
+        })
+      );
     }
     if (type === "comments") {
-      console.log("댓글", content);
+      dispatch(
+        addCardComment({
+          cardId,
+          content: comments,
+        })
+      );
     }
+    setContent({
+      progress: "",
+      comments: "",
+    });
   };
 
-  const { addTaskHandler } = useContext(store);
   return (
     <>
       <div className={styles.detail_input}>
@@ -50,7 +65,12 @@ const DetailInput = ({ type }) => {
         {isOpen && type === "progress" && (
           <form className={styles.progress_form} onSubmit={addTask}>
             <label className={styles.progress_label}>
-              <input name="progress" onChange={contentOnChange} />
+              <input
+                name="progress"
+                type="progress"
+                onChange={contentOnChange}
+                value={progress || ""}
+              />
               <Icon
                 className={styles.icon}
                 icon="bi:check-lg"
@@ -67,7 +87,12 @@ const DetailInput = ({ type }) => {
         {type === "comments" && (
           <form className={styles.comments}>
             <label>
-              <input type="text" name="comments" onChange={contentOnChange} />
+              <input
+                type="text"
+                name="comments"
+                onChange={contentOnChange}
+                value={comments || ""}
+              />
               <Icon
                 className={styles.icon}
                 icon="bi:check-lg"

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const KAKAOShareButton = () => {
+const KAKAOShareButton = ({ inviteCode }) => {
   useEffect(() => {
     initKakao();
   }, []);
@@ -19,7 +19,7 @@ const KAKAOShareButton = () => {
       objectType: "feed",
       content: {
         title: "Cocori 칸반보드",
-        description: "협업사이트 Cocori",
+        description: `초대코드 : ${inviteCode}`,
         imageUrl:
           "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbzGQZp%2FbtrDThRmiDj%2FnCkeIKWiIdQqJ4nY8ziQ0k%2Fimg.png",
         link: {

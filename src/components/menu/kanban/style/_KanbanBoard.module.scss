@@ -1,5 +1,5 @@
-@import "../common/colors";
-@import "../common/mixin";
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
 
 //KanbanBoards.tsx
 
@@ -118,7 +118,7 @@
       display: flex;
       justify-content: flex-start;
       .label {
-        width: 45px;
+        width: 55px;
         height: 20px;
         @include label_color("red");
         margin-right: 15px;

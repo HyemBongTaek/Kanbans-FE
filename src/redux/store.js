@@ -7,6 +7,7 @@ import commonSlice from "./Slice/commonSlice";
 import ProjectsSlice from "./Slice/projectsSlice";
 import UserSlice from "./Slice/userSlice";
 import KanbanSlice from "./Slice/kanbanSlice";
+import KanbanCardDetailSlice from "./Slice/KanbanCardDetailSlice";
 
 //A non-serializable value was detected in an action, in the path 오류 없애기
 // middleware: (getDefaultMiddleware) =>
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   projectsSlice: ProjectsSlice.reducer,
   userSlice: UserSlice.reducer,
   kanbanSlice: KanbanSlice.reducer,
+  cardDetailSlice: KanbanCardDetailSlice.reducer,
 });
 
 const persistConfig = {

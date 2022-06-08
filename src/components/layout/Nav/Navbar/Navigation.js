@@ -22,6 +22,7 @@ const Navigation = ({ isOpen, toggleOpen }) => {
     shallowEqual
   );
 
+  console.log("유저정보", userInfo);
   return (
     <>
       {toggleOpen && isOpen && (
