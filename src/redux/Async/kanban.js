@@ -37,7 +37,6 @@ export const addKanbanBoard = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        console.log("데이터", res.data);
         thunkAPI.dispatch(getKanbanBoard({ projectId }));
       }
     } catch (err) {
@@ -50,7 +49,6 @@ export const addKanbanBoard = createAsyncThunk(
 export const deleteBoard = createAsyncThunk(
   "kanban/deleteBoard",
   async ({ boardId, boards }, thunkAPI) => {
-    console.log("이거 보드아이디 맞음?", boardId);
     try {
       const res = await Apis({
         url: `/board/${boardId}`,
@@ -135,7 +133,6 @@ export const checkKanbanCard = createAsyncThunk(
         method: "PATCH",
       });
       if (res.data.ok) {
-        console.log("레스", res.data);
         return { res: res.data, cardId };
       }
     } catch (err) {
@@ -298,5 +295,23 @@ export const moveSortKanbanCard = createAsyncThunk(
       newStart,
       newFinishId,
     };
+  }
+);
+
+//칸반 초대코드 확인하기
+export const getKanbanInviteCode = createAsyncThunk(
+  "kanban/getKanbanInviteCode",
+  async ({ projectId }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/project/${projectId}/invite-code`,
+        method: "GET",
+      });
+      if (res.data.ok) {
+        return res.data.inviteCode;
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 );

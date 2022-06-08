@@ -13,8 +13,6 @@ const EditProfileImage = (props) => {
   const profileImageChange = (e) => {
     setProfileImage(e.target.files[0]);
   };
-  const a = useSelector((state) => state.userSlice.isFetching);
-  console.log("로딩확인점", a);
 
   useEffect(() => {
     if (profileImage !== null) {

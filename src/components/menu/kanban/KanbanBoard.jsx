@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import styles from "./../../../style/menu/_KanbanBoard.module.scss";
+import styles from "./style/_KanbanBoard.module.scss";
 
 import { Draggable, Droppable } from "react-beautiful-dnd";
 

@@ -11,6 +11,7 @@ import {
   checkKanbanCard,
   statusChangeKanbanCard,
   deleteKanbanCard,
+  getKanbanInviteCode,
 } from "../Async/kanban";
 import { Switch } from "react-router-dom";
 
@@ -26,6 +27,7 @@ const KanbanSlice = createSlice({
     ],
     isFetching: false,
     errorMessage: null,
+    inviteCode: "",
   },
   reducers: {
     //카드가 이동할때 번쩍거림 방지를 위해 두개로 나눠줌.
@@ -79,7 +81,6 @@ const KanbanSlice = createSlice({
         state.kanbans = newKanbans;
       })
       .addCase(addKanbanCard.fulfilled, (state, action) => {
-        console.log("확인용", action.payload);
         const newCardId = action.payload.data.id;
         const boardId = action.payload.data.boardId;
         const card = state.kanbans.board[boardId];
@@ -148,7 +149,6 @@ const KanbanSlice = createSlice({
       // })
       .addCase(checkKanbanCard.fulfilled, (state, action) => {
         const currentCard = state.kanbans.cards[action.payload.cardId];
-        console.log("체크에욤", action.payload.res);
         currentCard.check = action.payload.res.check;
         currentCard.status = action.payload.res.status;
       })
@@ -158,10 +158,13 @@ const KanbanSlice = createSlice({
         console.log("체크에욤", action.payload.res);
         currentCard.check = action.payload.res.check;
         currentCard.status = action.payload.res.changedStatus;
+      })
+      .addCase(getKanbanInviteCode.fulfilled, (state, action) => {
+        state.inviteCode = action.payload;
       });
   },
 });
 
-export const { sortKanbanCardReducer } = KanbanSlice.actions;
+export const { sortKanbanCardReducer, cardOpenReducer } = KanbanSlice.actions;
 
 export default KanbanSlice;

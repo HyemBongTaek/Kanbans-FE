@@ -30,7 +30,6 @@ Apis.interceptors.response.use(
     const originalConfig = err.config;
 
     if (err.response && err.response.status === 401) {
-      console.log("여기에러?");
       const refreshToken = getCookie("cocoriLogin");
       console.log(originalConfig);
       try {

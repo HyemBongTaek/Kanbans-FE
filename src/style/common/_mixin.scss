@@ -25,7 +25,7 @@
 @mixin label_color($color){
   color: #ffffff;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 10px;
   text-align: center;
   line-height: 20px;
   @if $color == "red"{

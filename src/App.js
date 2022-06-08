@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.scss";
 import Main from "./page/main/Main";
 import Project from "./page/menu/Project";
@@ -18,6 +17,7 @@ import Timer from "./page/menu/Timer";
 import KanbanInvite from "./components/menu/kanban/KanbanInvite";
 import { getCookie } from "./components/menu/login/utils/cookie";
 import TestCheck from "./components/menu/kanban/testcheck";
+import KanbanCardDetail from "./page/menu/kanban/KanbanCardDetail";
 
 function App() {
   const NavStatus = useSelector((state) => state.commonSlice.openNav);
@@ -58,6 +58,23 @@ function App() {
               />
             </Route>
             <Route
+              path="/card"
+              element={
+                <RequireAuth redirectTo="/">
+                  <KanbanCardDetail />
+                </RequireAuth>
+              }
+            >
+              <Route
+                path=":cardId"
+                element={
+                  <RequireAuth redirectTo="/">
+                    <KanbanCardDetail />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route
               path="/timer"
               element={
                 <RequireAuth redirectTo="/">
@@ -80,9 +97,7 @@ function App() {
                   <Project openNav={NavStatus} />
                 </RequireAuth>
               }
-            >
-              {/*<Route path=":projectId" element={<KanbanBoards />} />*/}
-            </Route>
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/oauth/kakao/" element={<KaKaoLoginHandler />} />
             <Route path="/oauth/google/" element={<GoogleLoginHandler />} />
