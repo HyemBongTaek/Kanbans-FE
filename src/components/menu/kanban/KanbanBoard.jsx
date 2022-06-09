@@ -67,6 +67,7 @@ const KanbanBoard = (props) => {
                     <div ref={provided.innerRef} {...provided.droppableProps}>
                       {boards &&
                         props?.cards?.map((cards, index) => {
+                          console.log("dddd", cards);
                           const cardID = cards?.id;
                           return (
                             <KanbanCard

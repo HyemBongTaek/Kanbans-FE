@@ -93,7 +93,7 @@ export const getCardComment = createAsyncThunk(
         method: "GET",
       });
       if (res.data.ok) {
-        return res.data.comment;
+        return res.data;
       }
     } catch (err) {
       thunkAPI.rejectWithValue();
@@ -120,6 +120,47 @@ export const addCardComment = createAsyncThunk(
       }
     } catch (err) {
       console.log(err);
+    }
+  }
+);
+
+//카드 디테일 댓글 삭제하기
+export const deleteCardComment = createAsyncThunk(
+  "kanbanCardDetail/deleteCardComment",
+  async ({ id }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/comment/${id}`,
+        method: "DELETE",
+      });
+      if (res.data.ok) {
+        console.log(res.data);
+        return id;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+//카드 디테일 댓글 수정하기
+export const editCardComment = createAsyncThunk(
+  "kanbanCardDetail/editCardComment",
+  async ({ id, content, index }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/comment/${id}`,
+        method: "PATCH",
+        data: {
+          content,
+        },
+      });
+      if (res.data.ok) {
+        console.log(res.data);
+        return res.data.comment;
+      }
+    } catch (err) {
+      thunkAPI.rejectWithValue();
     }
   }
 );

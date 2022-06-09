@@ -126,21 +126,3 @@ export const leaveProject = createAsyncThunk(
     }
   }
 );
-
-//invite
-export const showInviteCode = createAsyncThunk(
-  "project/showInviteCode",
-  async ({ projectId }, thunkAPI) => {
-    try {
-      const res = await Apis({
-        url: `/project/${projectId}/invite-code`,
-        method: "GET",
-      });
-      if (res.data.ok) {
-        return res.data;
-      }
-    } catch (err) {
-      console.log("초대코드 보기 오류");
-    }
-  }
-);

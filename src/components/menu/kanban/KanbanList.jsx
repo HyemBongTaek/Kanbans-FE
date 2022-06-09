@@ -26,6 +26,7 @@ const KanbanList = () => {
   //보드 내용 불러오기
 
   const boards = useSelector((state) => state.kanbanSlice.kanbans);
+  console.log("보드내용", boards);
 
   const { board, card, columnOrders } = useSelector((state) => ({
     board: state.kanbanSlice.kanbans.board,
@@ -151,6 +152,7 @@ const KanbanList = () => {
                   columnOrders?.map((boardId, index) => {
                     const boards = board[boardId];
                     const cards = boards?.cardId?.map((cardId) => card[cardId]);
+                    console.log("보드아이디", boardId);
                     return (
                       <KanbanBoard
                         key={boards.id}

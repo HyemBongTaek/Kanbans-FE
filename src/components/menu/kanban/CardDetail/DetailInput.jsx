@@ -26,7 +26,8 @@ const DetailInput = ({ type, cardId }) => {
     });
   };
 
-  const addTask = () => {
+  const addTask = (e) => {
+    e.preventDefault();
     if (type === "progress") {
       setIsOpen(false);
       dispatch(
@@ -85,7 +86,7 @@ const DetailInput = ({ type, cardId }) => {
           </form>
         )}
         {type === "comments" && (
-          <form className={styles.comments}>
+          <form className={styles.comments} onSubmit={addTask}>
             <label>
               <input
                 type="text"
