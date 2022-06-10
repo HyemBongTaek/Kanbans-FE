@@ -81,8 +81,10 @@ const KanbanSlice = createSlice({
         state.kanbans = newKanbans;
       })
       .addCase(addKanbanCard.fulfilled, (state, action) => {
+        console.log("이거 확인좀하자", action.payload);
         const newCardId = action.payload.data.id;
-        const boardId = action.payload.data.boardId;
+
+        const boardId = action.payload.boardId;
         const card = state.kanbans.board[boardId];
         card.cardId = [...card.cardId, newCardId];
 
@@ -100,7 +102,9 @@ const KanbanSlice = createSlice({
         state.kanbans = newKanban;
       })
       .addCase(deleteKanbanCard.fulfilled, (state, action) => {
+        console.log("삭제", action.payload);
         const newCards = state.kanbans.cards;
+        delete newCards[action.payload.cardId];
         delete newCards[action.payload.cardId];
         const deleteCardId = state.kanbans.board[
           action.payload.boardId

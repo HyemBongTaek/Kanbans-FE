@@ -97,7 +97,7 @@ export const addKanbanCard = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        return { data: res.data.newCard };
+        return { data: res.data.newCard, boardId };
       }
     } catch (err) {
       console.log("에러", err);

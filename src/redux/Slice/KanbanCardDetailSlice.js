@@ -54,7 +54,6 @@ const KanbanCardDetailSlice = createSlice({
         const findIndex = state.comments.findIndex(
           (comment) => comment.id === action.payload.id
         );
-
         let newComments = state.comments;
         newComments[findIndex] = {
           ...newComments[findIndex],

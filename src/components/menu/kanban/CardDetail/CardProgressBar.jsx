@@ -25,17 +25,17 @@ const CardProgressBar = ({ cardId }) => {
 
   return (
     <div>
-      {progressRate > 0 && (
-        <div className={styles.progress_bar}>
-          <div
-            style={{
-              width: `${progressRate}%`,
-              background: "#01CD6B",
-              height: "25px",
-            }}
-          />
-        </div>
-      )}
+      {/*{progressRate > 0 && (*/}
+      <div className={styles.progress_bar}>
+        <div
+          style={{
+            width: `${progressRate}%`,
+            background: "#01CD6B",
+            height: "25px",
+          }}
+        />
+      </div>
+      {/*)}*/}
 
       <div className={styles.progress_area}>
         {progressData &&

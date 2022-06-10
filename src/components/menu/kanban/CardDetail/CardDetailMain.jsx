@@ -7,6 +7,7 @@ import DetailComments from "./DetailComments";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getKanbanCardDetail } from "../../../../redux/Async/KanbanCardDetail";
+import CardDetailImage from "./CardDetailImage";
 
 const CardDetailMain = ({ cardId }) => {
   //input 한번에 관리.
@@ -86,13 +87,7 @@ const CardDetailMain = ({ cardId }) => {
           Attachments
         </div>
         <div>
-          <input type="file" />
-          <div className={styles.detail_attachments}>
-            <img className={styles.attachments_image} src={Test} alt="img" />
-            <img className={styles.attachments_image} src={Test} alt="img" />
-            <img className={styles.attachments_image} src={Test} alt="img" />
-            <img className={styles.attachments_image} src={Test} alt="img" />
-          </div>
+          <CardDetailImage />
         </div>
       </div>
       <div>
