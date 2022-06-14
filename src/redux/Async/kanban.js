@@ -115,7 +115,8 @@ export const clearAllKanbanCards = createAsyncThunk(
         method: "DELETE",
       });
       if (res.data.ok) {
-        return res.data;
+        console.log(res.data);
+        return boardId;
       }
     } catch (err) {
       return thunkAPI.rejectWithValue();

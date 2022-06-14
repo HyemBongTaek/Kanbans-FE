@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Helmet } from "react-helmet";
+
 import KaKaoShare from "./KAKAOShareButton";
 
 const Share = ({ inviteCode }) => {

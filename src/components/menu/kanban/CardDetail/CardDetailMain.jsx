@@ -22,10 +22,12 @@ const CardDetailMain = ({ cardId }) => {
 
   const cardContent = useSelector((state) => state.cardDetailSlice.card);
 
+  console.log("카드내용", cardContent);
+
   const [inputs, setInputs] = useState({
-    title: "ggg",
-    subTitle: "셋넷",
-    description: "오늘은",
+    title: cardContent.title,
+    subTitle: "",
+    description: "",
   });
   const { title, subTitle, description } = inputs;
 
@@ -36,6 +38,9 @@ const CardDetailMain = ({ cardId }) => {
       [name]: value,
     });
   };
+
+  const editContents = () => {};
+
   return (
     <>
       <div>

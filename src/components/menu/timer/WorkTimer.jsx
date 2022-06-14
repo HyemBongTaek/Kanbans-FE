@@ -37,7 +37,7 @@ const WorkTimer = () => {
           toast: true,
           position: "top-end",
           showConfirmButton: false,
-          timer: 3000,
+          timer: 2000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -47,7 +47,7 @@ const WorkTimer = () => {
 
         Toast.fire({
           icon: "success",
-          title: "Signed in successfully",
+          title: "잠시 휴식시간입니다!",
         });
       }
     }, 1000);

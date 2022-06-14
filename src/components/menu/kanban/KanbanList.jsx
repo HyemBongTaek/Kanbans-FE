@@ -13,9 +13,8 @@ import {
   sortKanbanBoard,
   sortKanbanCard,
 } from "../../../redux/Async/kanban";
-import KanbanFeatures from "./utils/KanbanFeatures";
+import KanbanFeatures from "../utils/KanbanFeatures";
 import { sortKanbanCardReducer } from "../../../redux/Slice/kanbanSlice";
-import KanbanCardDetail from "../../../page/menu/kanban/KanbanCardDetail";
 
 const KanbanList = () => {
   //주소에서 projectId불러오기

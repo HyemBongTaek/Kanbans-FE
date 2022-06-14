@@ -164,3 +164,24 @@ export const editCardComment = createAsyncThunk(
     }
   }
 );
+
+//D-day설정날짜 서버에 저장하기
+export const addDaySelected = createAsyncThunk(
+  "kanbanCardDetail/addDaySelected",
+  async ({ cardId, dDay }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/card/${cardId}/card-details`,
+        method: "PATCH",
+        data: {
+          dDay,
+        },
+      });
+      if (res.data.ok) {
+        console.log(res.data);
+      }
+    } catch (err) {
+      thunkAPI.rejectWithValue();
+    }
+  }
+);

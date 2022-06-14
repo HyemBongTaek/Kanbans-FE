@@ -2,9 +2,7 @@ import React, { useContext, useState } from "react";
 import styles from "./style/_EditableInput.module.scss";
 import { Icon } from "@iconify/react";
 import classNames from "classnames";
-import { useDispatch } from "react-redux";
-import { changeBoardTitle } from "../../../redux/Async/kanban";
-import ContextStore from "../../contextStore";
+import ContextStore from "./ContextStore";
 
 const EditableInput = ({ boardTitle, editable, setEditable, boardId }) => {
   const [title, setTitle] = useState(boardTitle);

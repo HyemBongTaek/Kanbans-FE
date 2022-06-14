@@ -1,11 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./style/_InputContainer.module.scss";
 import { useDispatch } from "react-redux";
 import { addKanbanBoard } from "../../../redux/Async/kanban";
 import { addKanbanCard } from "../../../redux/Async/kanban";
+import { Icon } from "@iconify/react";
+import { useDetectOutsideClick } from "../../../hooks/useDetectOutsideClick";
 
 const InputContainer = ({ type, boardId, projectId }) => {
   const dispatch = useDispatch();
+  const inputRef = useRef();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
 
@@ -36,34 +39,72 @@ const InputContainer = ({ type, boardId, projectId }) => {
     }
   };
 
+  const cancleClick = () => {
+    setOpen(false);
+    setTitle("");
+  };
+
+  //외부클릭 감지
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (inputRef.current && !inputRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [inputRef]);
+
   return (
     <>
       <div>
         {!open && (
-          <div className={styles.add_input} onClick={() => setOpen(true)}>
-            {type === "board" ? <div> + Add a Board </div> : " + Add a Card"}
+          <div className={styles.add_button} onClick={() => setOpen(true)}>
+            {type === "board" ? "+ Add a Board" : " + Add a Card"}
           </div>
         )}
         {open && type === "board" && (
-          <form onSubmit={addsHandler}>
+          <form
+            className={styles.add_form}
+            onSubmit={addsHandler}
+            ref={inputRef}
+          >
             <label>
               <input value={title || ""} onChange={titleOnChange} />
-              <div onClick={() => setOpen(false)}>X</div>
+              <div>
+                <Icon
+                  className={styles.icon_check}
+                  onClick={addsHandler}
+                  icon="bi:check-lg"
+                />
+                <Icon
+                  className={styles.icon_cancle}
+                  onClick={cancleClick}
+                  icon="heroicons-outline:x"
+                />
+              </div>
             </label>
-            <button type="button" onClick={addsHandler}>
-              등록하기
-            </button>
           </form>
         )}
         {open && type === "card" && (
-          <form onSubmit={addCards}>
+          <form className={styles.add_form} onSubmit={addCards} ref={inputRef}>
             <label>
               <input value={title || ""} onChange={titleOnChange} />
-              <div onClick={() => setOpen(false)}>X</div>
+              <div>
+                <Icon
+                  className={styles.icon_check}
+                  onClick={addCards}
+                  icon="bi:check-lg"
+                />
+                <Icon
+                  className={styles.icon_cancle}
+                  onClick={cancleClick}
+                  icon="heroicons-outline:x"
+                />
+              </div>
             </label>
-            <button type="button" onClick={addCards}>
-              등록하기
-            </button>
           </form>
         )}
       </div>

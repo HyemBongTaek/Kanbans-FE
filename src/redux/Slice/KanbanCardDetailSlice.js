@@ -61,15 +61,22 @@ const KanbanCardDetailSlice = createSlice({
         };
 
         state.comments = newComments;
+      })
+      .addCase(checkCardTask.fulfilled, (state, action) => {
+        console.log(action.payload);
+        const findIndex = state.tasks.findIndex(
+          (task) => task.id === action.payload.task.id
+        );
+        console.log(findIndex);
+
+        let newTasks = state.tasks;
+        newTasks[findIndex] = {
+          ...newTasks[findIndex],
+          check: action.payload.task.check,
+        };
+
+        state.tasks = newTasks;
       });
-    // .addCase(checkCardTask.fulfilled, (state, action) => {
-    //   const newTasks = state.tasks.filter(
-    //     (task) => task.id === action.payload.task.id
-    //   );
-    //   console.log(current(newTasks));
-    //
-    //   console.log("sddsdfsddsffsds", action.payload.task.id);
-    // });
   },
 });
 

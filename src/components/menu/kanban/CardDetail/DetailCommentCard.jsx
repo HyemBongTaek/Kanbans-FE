@@ -9,6 +9,7 @@ import {
 } from "../../../../redux/Async/KanbanCardDetail";
 
 const DetailCommentCard = ({ items, index }) => {
+  console.log("카드", items);
   const dispatch = useDispatch();
 
   const [edit, setEdit] = useState(false);
@@ -39,9 +40,9 @@ const DetailCommentCard = ({ items, index }) => {
 
   return (
     <div className={styles.comment_card}>
-      <img src={Profile} alt="profile_image" />
+      <img src={items.profileImage} alt="profile_image" />
       <div>
-        <a>헹구</a> <span>May 5, 2022 at 5:31 PM</span>
+        <a>{items.name}</a> <span>May 5, 2022 at 5:31 PM</span>
         <form className={styles.content} onSubmit={editCardClick}>
           <label>
             {/*수정 누르지 않을경우 readOnly 사용하여 수정 불가능하게 막음*/}

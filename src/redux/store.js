@@ -28,7 +28,7 @@ const persistConfig = {
   storage,
 
   // persist제외
-  blacklist: ["cardDetailSlice"],
+  // blacklist: ["cardDetailSlice"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

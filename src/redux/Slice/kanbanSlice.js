@@ -12,6 +12,7 @@ import {
   statusChangeKanbanCard,
   deleteKanbanCard,
   getKanbanInviteCode,
+  clearAllKanbanCards,
 } from "../Async/kanban";
 import { Switch } from "react-router-dom";
 
@@ -101,6 +102,7 @@ const KanbanSlice = createSlice({
         };
         state.kanbans = newKanban;
       })
+
       .addCase(deleteKanbanCard.fulfilled, (state, action) => {
         console.log("삭제", action.payload);
         const newCards = state.kanbans.cards;
@@ -126,6 +128,10 @@ const KanbanSlice = createSlice({
         state.kanbans = newKanbans;
       })
 
+      .addCase(clearAllKanbanCards.fulfilled, (state, action) => {
+        state.kanbans.board[action.payload].cardId = [];
+      })
+
       .addCase(sortKanbanBoard.fulfilled, (state, action) => {
         const items = action.payload;
         state.kanbans.columnOrders = items.newBoardOrder;
@@ -143,23 +149,13 @@ const KanbanSlice = createSlice({
         };
         state.kanbans = newKanban;
       })
-      // .addCase(sortKanbanCard.fulfilled, (state, action) => {
-      //   const newBoard = action.payload.newBoard;
-      //   const newKanban = {
-      //     ...state.kanbans.board,
-      //     [newBoard.id]: newBoard,
-      //   };
-      //   state.kanbans.board = newKanban;
-      // })
       .addCase(checkKanbanCard.fulfilled, (state, action) => {
         const currentCard = state.kanbans.cards[action.payload.cardId];
         currentCard.check = action.payload.res.check;
         currentCard.status = action.payload.res.status;
       })
       .addCase(statusChangeKanbanCard.fulfilled, (state, action) => {
-        console.log(action.payload);
         const currentCard = state.kanbans.cards[action.payload.cardId];
-        console.log("체크에욤", action.payload.res);
         currentCard.check = action.payload.res.check;
         currentCard.status = action.payload.res.changedStatus;
       })
