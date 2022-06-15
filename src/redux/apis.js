@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getCookie, setCookie } from "../components/menu/login/utils/cookie";
+import { useCookies } from "react-cookie";
 
 const Apis = axios.create({
   baseURL: "http://3.37.231.161:4000",
@@ -56,7 +57,7 @@ Apis.interceptors.response.use(
           return await Apis.request(originalConfig);
         }
       } catch (err) {
-        console.log("토큰 갱신 에러");
+        console.log("refresh토큰 에러");
       }
       return Promise.reject(err);
     }

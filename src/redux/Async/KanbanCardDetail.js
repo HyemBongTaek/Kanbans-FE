@@ -174,11 +174,55 @@ export const addDaySelected = createAsyncThunk(
         url: `/card/${cardId}/card-details`,
         method: "PATCH",
         data: {
-          dDay,
+          dDay: dDay,
         },
       });
       if (res.data.ok) {
         console.log(res.data);
+      }
+    } catch (err) {
+      thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+//카드 디테일 title, subtitle, description 설정하기.
+export const editContent = createAsyncThunk(
+  "KanbanCardDetail/editContent",
+  async ({ cardId, title, subTitle, description, type }, thunkAPI) => {
+    console.log("타입", subTitle);
+    try {
+      switch (type) {
+        case "title": {
+          const res = await Apis({
+            url: `/card/${cardId}/card-details`,
+            method: "PATCH",
+            data: {
+              title,
+            },
+          });
+          return console.log(res.data);
+        }
+        case "subTitle": {
+          const res = await Apis({
+            url: `/card/${cardId}/card-details`,
+            method: "PATCH",
+            data: {
+              subtitle: subTitle,
+            },
+          });
+          return console.log(res.data);
+        }
+        case "description": {
+          const res = await Apis({
+            url: `/card/${cardId}/card-details`,
+            method: "PATCH",
+            data: {
+              description,
+            },
+          });
+          return console.log(res.data);
+        }
       }
     } catch (err) {
       thunkAPI.rejectWithValue();

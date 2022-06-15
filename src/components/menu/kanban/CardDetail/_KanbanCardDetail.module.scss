@@ -46,18 +46,42 @@
         outline: 1px solid $main_gray;
       }
     }
-
-    .detail_textarea {
-      width: 520px;
-      height: 80px;
-      resize: none;
-      border: none;
-      background-color: $white_font;
-
-      &:focus {
-        outline: 1px solid $main_gray;
+.title_textarea{
+  width: 520px;
+  height: 80px;
+  .active_btn{
+    border: none;
+    .icon{
+      @include icons($main_gray, normally);
+    }
+    &:hover{
+      @include icons($main_green, normally);
+    }
+  }
+  .unactive_btn{
+    display: none;
+  &:focus{
+      .icon{
+        @include icons($main_green, normally);
       }
     }
+  }
+  textarea {
+    width: 520px;
+    height: 50px;
+    resize: none;
+    border: none;
+    background-color: $white_font;
+
+
+    &:focus {
+      outline: 1px solid $main_gray;
+    }
+  }
+
+
+}
+
   }
 
   .detail_attachments {
@@ -95,14 +119,6 @@
 
 
 .detail_overlay {
-  //box-sizing: border-box;
-  //position: fixed;
-  //width: 100vw;
-  //top: 0;
-  //left: 0;
-  //bottom: 0;
-  //right: 0;
-  //z-index: 2;
   @include overlay_container();
 
 }
