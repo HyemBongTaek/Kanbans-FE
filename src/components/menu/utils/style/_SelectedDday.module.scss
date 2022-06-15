@@ -1,0 +1,13 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+
+
+.date_input{
+  border: none;
+  height: 30px;
+  font-size: 20px;
+
+  a{
+    font-size: 13px;
+  }
+}

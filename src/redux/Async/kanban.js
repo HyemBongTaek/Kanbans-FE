@@ -97,7 +97,7 @@ export const addKanbanCard = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        return { data: res.data.newCard };
+        return { data: res.data.newCard, boardId };
       }
     } catch (err) {
       console.log("에러", err);
@@ -115,7 +115,8 @@ export const clearAllKanbanCards = createAsyncThunk(
         method: "DELETE",
       });
       if (res.data.ok) {
-        return res.data;
+        console.log(res.data);
+        return boardId;
       }
     } catch (err) {
       return thunkAPI.rejectWithValue();

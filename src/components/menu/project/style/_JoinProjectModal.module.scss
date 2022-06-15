@@ -1,0 +1,12 @@
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
+
+
+.join_modal{
+  text-align: center;
+  @include modal_container(800px, 700px);
+}
+
+.modal_overlay{
+  @include overlay_container;
+}

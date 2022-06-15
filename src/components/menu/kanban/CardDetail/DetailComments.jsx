@@ -31,9 +31,16 @@ const DetailComments = ({ cardId }) => {
         </div>
         <div className={styles.comment_box}>
           {commentData &&
-            commentData?.map((card) => {
-              return <DetailCommentCard key={card.id} items={card} />;
+            commentData?.map((card, index) => {
+              return (
+                <DetailCommentCard key={card.id} items={card} index={index} />
+              );
             })}
+          {/*{commentData &&*/}
+          {/*  Object.keys(commentData)?.map((key, value) => {*/}
+          {/*    console.log("카아아드", { [key]: value });*/}
+          {/*    // return <DetailCommentCard key={card.id} items={card} />;*/}
+          {/*  })}*/}
         </div>
       </div>
     </>

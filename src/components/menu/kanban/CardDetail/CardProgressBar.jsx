@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ProgressCard from "./ProgressCard";
-import ProgressData from "./ProgressData";
 import DetailInput from "./DetailInput";
 import styles from "../style/_CardProgressBar.module.scss";
-import store from "../../../contextStore";
 import { useSelector } from "react-redux";
 
 const CardProgressBar = ({ cardId }) => {
@@ -25,17 +23,15 @@ const CardProgressBar = ({ cardId }) => {
 
   return (
     <div>
-      {progressRate > 0 && (
-        <div className={styles.progress_bar}>
-          <div
-            style={{
-              width: `${progressRate}%`,
-              background: "#01CD6B",
-              height: "25px",
-            }}
-          />
-        </div>
-      )}
+      <div className={styles.progress_bar}>
+        <div
+          style={{
+            width: `${progressRate}%`,
+            background: "#01CD6B",
+            height: "25px",
+          }}
+        />
+      </div>
 
       <div className={styles.progress_area}>
         {progressData &&

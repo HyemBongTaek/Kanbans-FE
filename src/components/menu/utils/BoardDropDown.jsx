@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styles from "./style/_BoardDropDown.module.scss";
-import ContextStore from "../../contextStore";
+import ContextStore from "./ContextStore";
 
 const BoardDropDown = ({ boardId }) => {
   const { deleteBoardClick, clearCards } = useContext(ContextStore);

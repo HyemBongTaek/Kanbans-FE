@@ -28,7 +28,7 @@ const persistConfig = {
   storage,
 
   // persist제외
-  // blacklist: ["kanbanSlice"],
+  // blacklist: ["cardDetailSlice"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

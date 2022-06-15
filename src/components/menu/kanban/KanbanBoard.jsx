@@ -70,7 +70,7 @@ const KanbanBoard = (props) => {
                           const cardID = cards?.id;
                           return (
                             <KanbanCard
-                              key={cardID}
+                              key={index}
                               cards={cards}
                               index={index}
                               boardId={boards.id}

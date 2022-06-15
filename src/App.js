@@ -18,12 +18,18 @@ import KanbanInvite from "./components/menu/kanban/KanbanInvite";
 import { getCookie } from "./components/menu/login/utils/cookie";
 import TestCheck from "./components/menu/kanban/testcheck";
 import KanbanCardDetail from "./page/menu/kanban/KanbanCardDetail";
+import JoinProject from "./page/menu/JoinProject";
 
 function App() {
   const NavStatus = useSelector((state) => state.commonSlice.openNav);
 
   //로그인이 되어있지 않는 경우 메인화면으로 돌아가게함.
   function RequireAuth({ children, redirectTo }) {
+    const token = getCookie("cocoriLogin");
+    return token ? children : <Navigate to={redirectTo} />;
+  }
+  //로그인으로 다시넘어가게
+  function LoginAuth({ children, redirectTo }) {
     const token = getCookie("cocoriLogin");
     return token ? children : <Navigate to={redirectTo} />;
   }
@@ -98,6 +104,7 @@ function App() {
                 </RequireAuth>
               }
             />
+            <Route path="/join/project/*" element={<JoinProject />} />
             <Route path="/login" element={<Login />} />
             <Route path="/oauth/kakao/" element={<KaKaoLoginHandler />} />
             <Route path="/oauth/google/" element={<GoogleLoginHandler />} />

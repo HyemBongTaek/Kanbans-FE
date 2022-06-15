@@ -79,10 +79,10 @@
 .main {
   display: grid;
   padding-top: 50px;
+  padding-left: 20px;
   height: 72vh;
   grid-template-columns: repeat(2, 1fr);
   overflow-y: auto;
-  //border: 1px solid blue;
   //스크롤바 디자인
   &::-webkit-scrollbar {
     width: 15px;
@@ -129,7 +129,6 @@
 }
 .comment_box{
   margin-top: 10px;
-  border: 1px solid blue;
   height: 50vh;
   overflow-y: scroll;
   &::-webkit-scrollbar {

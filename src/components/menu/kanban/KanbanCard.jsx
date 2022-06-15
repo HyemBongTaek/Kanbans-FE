@@ -12,20 +12,29 @@ import { checkKanbanCard, deleteKanbanCard } from "../../../redux/Async/kanban";
 import TestCheck from "./testcheck";
 import { cardOpenReducer } from "../../../redux/Slice/kanbanSlice";
 import { useNavigate } from "react-router-dom";
+import {
+  format,
+  formatDistance,
+  formatRelative,
+  subDays,
+  differenceInDays,
+  formatDistanceToNowStrict,
+  parseISO,
+} from "date-fns";
+import isAfter from "date-fns/isAfter";
 
 const KanbanCard = (props) => {
+  console.log("헹구", props);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [openDetail, setOpenDetail] = useState(false);
   const [isStatus, setIsStatus] = useState(false);
   const cardId = props.cards.id;
   const status = props.cards.status;
-
   const detailModal = () => {
-    // dispatch(cardOpenReducer(cardId));
     navigate(`/card/${cardId}`, { state: cardId });
   };
 
+  console.log(typeof props.cards.dDay);
   const deleteCard = () => {
     dispatch(
       deleteKanbanCard({
@@ -43,17 +52,16 @@ const KanbanCard = (props) => {
       })
     );
   };
-  {
-    /*// <KanbanCardDetail*/
-  }
-  //   setOpenDetail={setOpenDetail}
-  //   items={props.cards}
-  //   cardId={cardId}
-  // />
-  {
-    /*)}*/
-  }
 
+  const dDay =
+    props.cards.dDay &&
+    formatDistanceToNowStrict(new Date(parseISO(props.cards.dDay))).split(
+      "days" || "day"
+    );
+
+  const dateAfter =
+    props.cards.dDay && isAfter(new Date(), parseISO(props.cards.dDay));
+  console.log(dateAfter);
   return (
     <>
       {cardId && (
@@ -132,14 +140,18 @@ const KanbanCard = (props) => {
                     <Icon className={styles.bottom_icon} icon="uit:calender" />
                     &nbsp;28 April &nbsp;
                   </div>
-                  <div
-                    className={
-                      props.cards.check ? styles.date_check : styles.date
-                    }
-                  >
-                    <Icon className={styles.bottom_icon} icon="bi:clock" />
-                    &nbsp;D-3&nbsp;
-                  </div>
+                  {props.cards.dDay && (
+                    <div
+                      className={
+                        props.cards.check ? styles.date_check : styles.date
+                      }
+                    >
+                      <Icon className={styles.bottom_icon} icon="bi:clock" />
+                      &nbsp;{dateAfter ? " D+" : "D-"}
+                      {dDay}&nbsp;
+                    </div>
+                  )}
+
                   <div className={styles.task}>
                     <Icon
                       className={styles.bottom_icon}

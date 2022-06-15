@@ -13,9 +13,8 @@ import {
   sortKanbanBoard,
   sortKanbanCard,
 } from "../../../redux/Async/kanban";
-import KanbanFeatures from "./utils/KanbanFeatures";
+import KanbanFeatures from "../utils/KanbanFeatures";
 import { sortKanbanCardReducer } from "../../../redux/Slice/kanbanSlice";
-import KanbanCardDetail from "../../../page/menu/kanban/KanbanCardDetail";
 
 const KanbanList = () => {
   //주소에서 projectId불러오기
@@ -26,6 +25,7 @@ const KanbanList = () => {
   //보드 내용 불러오기
 
   const boards = useSelector((state) => state.kanbanSlice.kanbans);
+  console.log("보드내용", boards);
 
   const { board, card, columnOrders } = useSelector((state) => ({
     board: state.kanbanSlice.kanbans.board,
@@ -151,6 +151,7 @@ const KanbanList = () => {
                   columnOrders?.map((boardId, index) => {
                     const boards = board[boardId];
                     const cards = boards?.cardId?.map((cardId) => card[cardId]);
+                    console.log("보드아이디", boardId);
                     return (
                       <KanbanBoard
                         key={boards.id}

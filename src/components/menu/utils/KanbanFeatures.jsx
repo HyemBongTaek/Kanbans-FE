@@ -3,10 +3,9 @@ import {
   changeBoardTitle,
   clearAllKanbanCards,
   deleteBoard,
-} from "../../../../redux/Async/kanban";
+} from "../../../redux/Async/kanban";
+import ContextStore from "./ContextStore";
 import { useDispatch, useSelector } from "react-redux";
-
-import ContextStore from "../../../contextStore";
 
 //kanban에서 사용할 context
 const KanbanFeatures = (props) => {
