@@ -104,7 +104,7 @@ function App() {
                 </RequireAuth>
               }
             />
-            <Route path="/join/project/*" element={<JoinProject />} />
+            <Route path="/join/project/" element={<JoinProject />} />
             <Route path="/login" element={<Login />} />
             <Route path="/oauth/kakao/" element={<KaKaoLoginHandler />} />
             <Route path="/oauth/google/" element={<GoogleLoginHandler />} />

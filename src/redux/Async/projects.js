@@ -126,3 +126,25 @@ export const leaveProject = createAsyncThunk(
     }
   }
 );
+
+//프로젝트 초대받은 코드 입력해서 프로젝트 입장하기
+export const joinProject = createAsyncThunk(
+  "project/joinProject",
+  async ({ inviteCode }, thunkAPI) => {
+    console.log("코드", inviteCode);
+    try {
+      const res = await Apis({
+        url: `/project/join`,
+        method: "POST",
+        data: {
+          inviteCode,
+        },
+      });
+      if (res.data.ok) {
+        console.log(res.data);
+      }
+    } catch (err) {
+      thunkAPI.rejectWithValue();
+    }
+  }
+);

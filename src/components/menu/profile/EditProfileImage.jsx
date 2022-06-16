@@ -12,12 +12,14 @@ const EditProfileImage = (props) => {
 
   const profileImageChange = (e) => {
     setProfileImage(e.target.files[0]);
+    console.log("확인", profileImage);
   };
 
   useEffect(() => {
     if (profileImage !== null) {
       const formData = new FormData();
       formData.append("profileImage", profileImage);
+      console.log("프로필", formData);
       dispatch(
         changeUserInfo({
           type: "changeImage",

@@ -28,13 +28,12 @@ const KanbanCard = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isStatus, setIsStatus] = useState(false);
-  const cardId = props.cards.id;
-  const status = props.cards.status;
+  const cardId = props.cards?.id;
+  const status = props.cards?.status;
   const detailModal = () => {
     navigate(`/card/${cardId}`, { state: cardId });
   };
 
-  console.log(typeof props.cards.dDay);
   const deleteCard = () => {
     dispatch(
       deleteKanbanCard({
@@ -54,13 +53,21 @@ const KanbanCard = (props) => {
   };
 
   const dDay =
-    props.cards.dDay &&
-    formatDistanceToNowStrict(new Date(parseISO(props.cards.dDay))).split(
-      "days" || "day"
-    );
+    props.cards?.dDay &&
+    (formatDistanceToNowStrict(new Date(parseISO(props.cards.dDay))).includes(
+      "day" || "days"
+    )
+      ? formatDistanceToNowStrict(new Date(parseISO(props.cards.dDay)))
+          .split("ays")
+          .join(" ")
+          .split("days")
+      : formatDistanceToNowStrict(new Date(parseISO(props.cards.dDay)))
+          .split("days")
+          .join(" ")
+          .split("ours"));
 
   const dateAfter =
-    props.cards.dDay && isAfter(new Date(), parseISO(props.cards.dDay));
+    props.cards?.dDay && isAfter(new Date(), parseISO(props.cards.dDay));
   console.log(dateAfter);
   return (
     <>

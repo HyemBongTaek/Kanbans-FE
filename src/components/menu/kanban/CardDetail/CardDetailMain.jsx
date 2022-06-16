@@ -6,7 +6,10 @@ import CardProgressBar from "./CardProgressBar";
 import DetailComments from "./DetailComments";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getKanbanCardDetail } from "../../../../redux/Async/KanbanCardDetail";
+import {
+  editContent,
+  getKanbanCardDetail,
+} from "../../../../redux/Async/KanbanCardDetail";
 import CardDetailImage from "./CardDetailImage";
 
 const CardDetailMain = ({ cardId }) => {
@@ -26,11 +29,16 @@ const CardDetailMain = ({ cardId }) => {
 
   const [inputs, setInputs] = useState({
     title: cardContent.title,
-    subTitle: "",
-    description: "",
+    subTitle: cardContent ? cardContent.subtitle : "",
+    description: cardContent ? cardContent.description : "",
   });
   const { title, subTitle, description } = inputs;
 
+  const [isActive, setIsActive] = useState(false);
+
+  const isActiveButton = () => {
+    return description !== "" ? setIsActive(true) : setIsActive(false);
+  };
   const onChange = (e) => {
     const { name, value } = e.target;
     setInputs({
@@ -39,7 +47,37 @@ const CardDetailMain = ({ cardId }) => {
     });
   };
 
-  const editContents = () => {};
+  const editTitle = (e) => {
+    e.preventDefault();
+    dispatch(
+      editContent({
+        cardId,
+        title,
+        type: "title",
+      })
+    );
+  };
+
+  const editSubTitle = (e) => {
+    e.preventDefault();
+    dispatch(
+      editContent({
+        cardId,
+        subTitle,
+        type: "subTitle",
+      })
+    );
+  };
+  const editDescription = (e) => {
+    e.preventDefault();
+    dispatch(
+      editContent({
+        cardId,
+        description,
+        type: "description",
+      })
+    );
+  };
 
   return (
     <>
@@ -51,8 +89,13 @@ const CardDetailMain = ({ cardId }) => {
           />
           Title
         </div>
-        <form className={styles.title_form}>
-          <input name="title" defaultValue={title} onChange={onChange} />
+        <form className={styles.title_form} onSubmit={editTitle}>
+          <input
+            type="title"
+            name="title"
+            defaultValue={title}
+            onChange={onChange}
+          />
         </form>
       </div>
       <div>
@@ -63,8 +106,13 @@ const CardDetailMain = ({ cardId }) => {
           />
           subTitle
         </div>
-        <form className={styles.title_form}>
-          <input name="subTitle" defaultValue={subTitle} />
+        <form className={styles.title_form} onSubmit={editSubTitle}>
+          <input
+            type="subTitle"
+            name="subTitle"
+            defaultValue={subTitle}
+            onChange={onChange}
+          />
         </form>
       </div>
       <div>
@@ -75,12 +123,22 @@ const CardDetailMain = ({ cardId }) => {
           />
           description
         </div>
-        <form className={styles.title_form}>
-          <textarea
-            className={styles.detail_textarea}
-            name="description"
-            defaultValue={description}
-          />
+        <form className={styles.title_form} onSubmit={editDescription}>
+          <label className={styles.title_textarea}>
+            <textarea
+              onKeyUp={isActiveButton}
+              type="description"
+              name="description"
+              defaultValue={description}
+              onChange={onChange}
+            />
+            <button
+              className={isActive ? styles.active_btn : styles.unactive_btn}
+              onSubmit={editDescription}
+            >
+              <Icon className={styles.icon} icon="bi:check-lg" />
+            </button>
+          </label>
         </form>
       </div>
       <div>
@@ -92,7 +150,7 @@ const CardDetailMain = ({ cardId }) => {
           Attachments
         </div>
         <div>
-          <CardDetailImage />
+          <CardDetailImage cardId={cardId} />
         </div>
       </div>
       <div>

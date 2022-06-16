@@ -174,8 +174,74 @@ export const addDaySelected = createAsyncThunk(
         url: `/card/${cardId}/card-details`,
         method: "PATCH",
         data: {
-          dDay,
+          dDay: dDay,
         },
+      });
+      if (res.data.ok) {
+        console.log(res.data);
+      }
+    } catch (err) {
+      thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+//카드 디테일 title, subtitle, description 설정하기.
+export const editContent = createAsyncThunk(
+  "KanbanCardDetail/editContent",
+  async ({ cardId, title, subTitle, description, type }, thunkAPI) => {
+    console.log("타입", subTitle);
+    try {
+      switch (type) {
+        case "title": {
+          const res = await Apis({
+            url: `/card/${cardId}/card-details`,
+            method: "PATCH",
+            data: {
+              title,
+            },
+          });
+          return console.log(res.data);
+        }
+        case "subTitle": {
+          const res = await Apis({
+            url: `/card/${cardId}/card-details`,
+            method: "PATCH",
+            data: {
+              subtitle: subTitle,
+            },
+          });
+          return console.log(res.data);
+        }
+        case "description": {
+          const res = await Apis({
+            url: `/card/${cardId}/card-details`,
+            method: "PATCH",
+            data: {
+              description,
+            },
+          });
+          return console.log(res.data);
+        }
+      }
+    } catch (err) {
+      thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+//카드 디테일 이미지 업로드
+
+export const imageUpload = createAsyncThunk(
+  "kanbanCardDetail/imageUpload",
+  async ({ cardId, formData }, thunkAPI) => {
+    console.log(formData);
+    console.log(cardId);
+    try {
+      const res = await Apis({
+        url: `/card/${cardId}/images`,
+        method: "POST",
+        data: formData,
       });
       if (res.data.ok) {
         console.log(res.data);

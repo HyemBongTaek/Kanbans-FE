@@ -158,17 +158,19 @@
 .card_bottom {
   display: flex;
   justify-content: flex-start;
-  margin: 10px 0 0 10px;
-  font-size: 12px;
+  margin: 20px 0 0 10px;
+  font-size: 10px;
+
 
   .bottom_icon {
-    width: 15px;
+    width: 18px;
     height: 15px;
     color: $sub_black;
-    padding-top: 3px;
+    margin-top: 4px;
   }
 
   .date, .task, .date_check {
+    line-height: 22px;
     display: flex;
     height: 22px;
     border-radius: 10px;
