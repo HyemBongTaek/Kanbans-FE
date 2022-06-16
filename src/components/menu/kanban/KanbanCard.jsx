@@ -54,9 +54,17 @@ const KanbanCard = (props) => {
 
   const dDay =
     props.cards?.dDay &&
-    formatDistanceToNowStrict(new Date(parseISO(props.cards.dDay))).split(
-      "days" || "day"
-    );
+    (formatDistanceToNowStrict(new Date(parseISO(props.cards.dDay))).includes(
+      "day" || "days"
+    )
+      ? formatDistanceToNowStrict(new Date(parseISO(props.cards.dDay)))
+          .split("ays")
+          .join(" ")
+          .split("days")
+      : formatDistanceToNowStrict(new Date(parseISO(props.cards.dDay)))
+          .split("days")
+          .join(" ")
+          .split("ours"));
 
   const dateAfter =
     props.cards?.dDay && isAfter(new Date(), parseISO(props.cards.dDay));

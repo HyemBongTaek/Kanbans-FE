@@ -76,6 +76,7 @@ export const getUserInfo = createAsyncThunk("user/getUserInfo", async () => {
 export const changeUserInfo = createAsyncThunk(
   "user/changeProfileImage",
   async ({ formData, nickname, type }, thunkAPI) => {
+    console.log(formData);
     try {
       if (type === "changeImage") {
         const res = await Apis({

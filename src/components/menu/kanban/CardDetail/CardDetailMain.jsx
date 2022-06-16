@@ -150,7 +150,7 @@ const CardDetailMain = ({ cardId }) => {
           Attachments
         </div>
         <div>
-          <CardDetailImage />
+          <CardDetailImage cardId={cardId} />
         </div>
       </div>
       <div>

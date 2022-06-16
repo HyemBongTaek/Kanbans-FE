@@ -229,3 +229,25 @@ export const editContent = createAsyncThunk(
     }
   }
 );
+
+//카드 디테일 이미지 업로드
+
+export const imageUpload = createAsyncThunk(
+  "kanbanCardDetail/imageUpload",
+  async ({ cardId, formData }, thunkAPI) => {
+    console.log(formData);
+    console.log(cardId);
+    try {
+      const res = await Apis({
+        url: `/card/${cardId}/images`,
+        method: "POST",
+        data: formData,
+      });
+      if (res.data.ok) {
+        console.log(res.data);
+      }
+    } catch (err) {
+      thunkAPI.rejectWithValue();
+    }
+  }
+);

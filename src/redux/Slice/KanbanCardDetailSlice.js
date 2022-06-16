@@ -50,6 +50,7 @@ const KanbanCardDetailSlice = createSlice({
         );
         state.comments = newComments;
       })
+
       .addCase(editCardComment.fulfilled, (state, action) => {
         const findIndex = state.comments.findIndex(
           (comment) => comment.id === action.payload.id
