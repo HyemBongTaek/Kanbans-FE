@@ -8,6 +8,8 @@ import {
   editCardComment,
   getCardComment,
   getKanbanCardDetail,
+  ImageDelete,
+  imageUpload,
 } from "../Async/KanbanCardDetail";
 
 const KanbanCardDetailSlice = createSlice({
@@ -16,14 +18,17 @@ const KanbanCardDetailSlice = createSlice({
     card: [],
     user: [],
     tasks: [],
+    images: [],
     comments: [],
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getKanbanCardDetail.fulfilled, (state, action) => {
+        console.log("sdsdsddssdds", action.payload);
         state.card = action.payload.card;
         state.tasks = action.payload.tasks;
+        state.images = action.payload.images;
       })
       .addCase(addCardTask.fulfilled, (state, action) => {
         const newTasks = [...state.tasks];
@@ -77,6 +82,17 @@ const KanbanCardDetailSlice = createSlice({
         };
 
         state.tasks = newTasks;
+      })
+      .addCase(imageUpload.fulfilled, (state, action) => {
+        state.images.unshift(action.payload);
+        console.log("이미지업로드", action.payload);
+      })
+      .addCase(ImageDelete.fulfilled, (state, action) => {
+        console.log("이미지삭제", action.payload);
+        const deleteImage = state.images?.filter(
+          (el) => el.id !== action.payload.imageId
+        );
+        state.images = deleteImage;
       });
   },
 });

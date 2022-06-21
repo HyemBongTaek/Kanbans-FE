@@ -4,10 +4,12 @@ import { Icon } from "@iconify/react";
 
 import { changeUserInfo } from "../../../redux/Async/user";
 import { useDispatch, useSelector } from "react-redux";
+import LoadingSpinner from "../utils/LoadingSpinner";
 
 const EditProfileImage = (props) => {
   const dispatch = useDispatch();
   const [profileImage, setProfileImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const userImage = props.items;
 
   const profileImageChange = (e) => {
@@ -17,6 +19,7 @@ const EditProfileImage = (props) => {
 
   useEffect(() => {
     if (profileImage !== null) {
+      setIsLoading(true);
       const formData = new FormData();
       formData.append("profileImage", profileImage);
       console.log("프로필", formData);
@@ -26,23 +29,30 @@ const EditProfileImage = (props) => {
           formData,
         })
       );
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
     }
   }, [profileImage]);
 
   return (
     <div className={styles.edit_profile}>
-      <label>
-        <img src={userImage} alt="profile_image" />
-        <Icon
-          className={styles.edit_icon}
-          icon="fluent:camera-edit-20-filled"
-        />
-        <input
-          type="file"
-          style={{ display: "none" }}
-          onChange={profileImageChange}
-        />
-      </label>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <label>
+          <img src={userImage} alt="profile_image" />
+          <Icon
+            className={styles.edit_icon}
+            icon="fluent:camera-edit-20-filled"
+          />
+          <input
+            type="file"
+            style={{ display: "none" }}
+            onChange={profileImageChange}
+          />
+        </label>
+      )}
     </div>
   );
 };

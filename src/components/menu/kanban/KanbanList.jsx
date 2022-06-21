@@ -22,6 +22,8 @@ const KanbanList = () => {
   const projectId = params.projectId;
   const dispatch = useDispatch();
 
+  console.log("프로젝트아이디", projectId);
+
   //보드 내용 불러오기
 
   const boards = useSelector((state) => state.kanbanSlice.kanbans);
@@ -155,10 +157,11 @@ const KanbanList = () => {
                     return (
                       <KanbanBoard
                         key={boards.id}
-                        boardsNewId={`board_${boards.id}`}
+                        // boardsNewId={`board_${boards.id}`}
                         boards={boards}
                         cards={cards}
                         index={index}
+                        projectId={projectId}
                       />
                     );
                   })}
