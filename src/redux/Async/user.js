@@ -85,11 +85,9 @@ export const changeUserInfo = createAsyncThunk(
           data: formData,
         });
         if (res.data.ok) {
-          setTimeout(() => {
-            return thunkAPI.dispatch(getUserInfo());
-          }, 1000);
-          return type;
+          thunkAPI.dispatch(getUserInfo());
         }
+        return type;
       }
       if (type === "nickname") {
         const res = await Apis({

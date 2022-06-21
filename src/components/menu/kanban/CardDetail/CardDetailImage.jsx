@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./_KanbanCardDetail.module.scss";
-import Test from "../../../../static/image/test.png";
-import { changeUserInfo } from "../../../../redux/Async/user";
-import { useDispatch } from "react-redux";
-import { imageUpload } from "../../../../redux/Async/KanbanCardDetail";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  ImageDelete,
+  imageUpload,
+} from "../../../../redux/Async/KanbanCardDetail";
 
 const CardDetailImage = ({ cardId }) => {
   const dispatch = useDispatch();
@@ -28,6 +29,10 @@ const CardDetailImage = ({ cardId }) => {
       );
     }
   }, [image]);
+
+  const imageLists = useSelector((state) => state.cardDetailSlice.images);
+
+  console.log("이미지리스트", imageLists);
   // useEffect(() => {
   //   const handlePasteAnywhere = (e) => {
   //     console.log(e.clipboardData.getData("file"));
@@ -57,16 +62,41 @@ const CardDetailImage = ({ cardId }) => {
   //   const item = e.clipboardData.items[0];
   //   console.log(item);
   // };
+
+  const deleteClick = (el) => {
+    dispatch(
+      ImageDelete({
+        imageId: el.id,
+        cardId,
+      })
+    );
+  };
   return (
     <div>
       {/*onPaste={handlePaste}*/}
       <input type="file" onChange={changeImage} multiple="multiple" />
-      <div className={styles.detail_attachments}>
-        <img className={styles.attachments_image} src={Test} alt="img" />
-        {/*<img className={styles.attachments_image} src={Test} alt="img" />*/}
-        {/*<img className={styles.attachments_image} src={Test} alt="img" />*/}
-        {/*<img className={styles.attachments_image} src={Test} alt="img" />*/}
-      </div>
+      {imageLists && (
+        <div className={styles.detail_attachments}>
+          {imageLists?.map((el) => {
+            return (
+              <div key={el.id}>
+                <img
+                  key={el.index}
+                  className={styles.attachments_image}
+                  src={el.url}
+                  alt="img"
+                />
+                <div onClick={() => deleteClick(el)}>삭제</div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/*<img className={styles.attachments_image} src={Test} alt="img" />*/}
+      {/*<img className={styles.attachments_image} src={Test} alt="img" />*/}
+      {/*<img className={styles.attachments_image} src={Test} alt="img" />*/}
+
       {/*style={{ display: "none" }}*/}
     </div>
   );

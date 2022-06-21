@@ -19,12 +19,14 @@ const DetailComments = ({ cardId }) => {
   }, [dispatch]);
 
   const commentData = useSelector((state) => state.cardDetailSlice.comments);
+  const myInfo = useSelector((state) => state.userSlice.userInfo);
+  console.log("내인포", myInfo);
   console.log("데이터", commentData);
   return (
     <>
       <div>
         <div className={styles.comment_input}>
-          <img src={Profile} alt="profile_image" />
+          <img src={myInfo.profileImage} alt="profile_image" />
           <div>
             <DetailInput type="comments" cardId={cardId} />
           </div>

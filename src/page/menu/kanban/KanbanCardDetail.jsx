@@ -8,11 +8,10 @@ import { cardOpenReducer } from "../../../redux/Slice/kanbanSlice";
 import { useNavigate, useParams } from "react-router-dom";
 
 const KanbanCardDetail = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const params = useParams();
-  console.log(params);
+  console.log("파람스", params.state);
 
   // useEffect();
   // const cardId = useSelector((state) => state.kanbanslice?.cardId);

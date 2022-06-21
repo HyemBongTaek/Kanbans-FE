@@ -5,17 +5,10 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import styles from "./style/_RelaxTimer.module.scss";
 import { Icon } from "@iconify/react";
 import Swal from "sweetalert2";
-
-const formatRemainingTime = (time) => {
-  const minutes = Math.floor((time % 3600) / 60);
-  const seconds = time % 60;
-
-  return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
-};
+import { formatRemainingTime } from "./utils/FormatTime";
 
 const RelaxTimer = () => {
-  const minuteSeconds = 60;
-  const hourSeconds = 10;
+  const hourSeconds = 300;
 
   const dispatch = useDispatch();
   const [play, setPlay] = useState(false);
@@ -79,8 +72,6 @@ const RelaxTimer = () => {
             {renderTime}
           </CountdownCircleTimer>
         </div>
-
-        <div onClick={() => setPlay(true)}>다시시작</div>
         <div onClick={clickTimer}>휴식시간끝내기</div>
       </div>
     </>

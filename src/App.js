@@ -1,24 +1,25 @@
+import React from "react";
 import "./App.scss";
-import Main from "./page/main/Main";
-import Project from "./page/menu/Project";
+
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { getCookie } from "./components/menu/login/utils/cookie";
 
 import Layout from "./components/layout/Layout";
-
+import Main from "./page/main/Main";
+import Project from "./page/menu/Project";
 import Login from "./components/menu/login/Login";
 import Profile from "./page/menu/Profile";
 import KanbanBoards from "./page/menu/kanban/KanbanBoards";
 import KaKaoLoginHandler from "./components/menu/login/KaKaoLoginHandler";
 import GoogleLoginHandler from "./components/menu/login/GoogleLoginHandler";
 import NaverLoginHandler from "./components/menu/login/NaverLoginHandler";
-import React from "react";
 import Timer from "./page/menu/Timer";
 import KanbanInvite from "./components/menu/kanban/KanbanInvite";
-import { getCookie } from "./components/menu/login/utils/cookie";
 import TestCheck from "./components/menu/kanban/testcheck";
 import KanbanCardDetail from "./page/menu/kanban/KanbanCardDetail";
 import JoinProject from "./page/menu/JoinProject";
+import LoadingSpinner from "./components/menu/utils/LoadingSpinner";
 
 function App() {
   const NavStatus = useSelector((state) => state.commonSlice.openNav);
@@ -111,6 +112,7 @@ function App() {
             <Route path="/oauth/naver/" element={<NaverLoginHandler />} />
             <Route path="/test" element={<KanbanInvite />} />
             <Route path="/tests" element={<TestCheck />} />
+            <Route path="/testss" element={<LoadingSpinner />} />
           </Routes>
         </Layout>
       </BrowserRouter>

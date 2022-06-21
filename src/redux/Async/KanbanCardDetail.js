@@ -231,7 +231,6 @@ export const editContent = createAsyncThunk(
 );
 
 //카드 디테일 이미지 업로드
-
 export const imageUpload = createAsyncThunk(
   "kanbanCardDetail/imageUpload",
   async ({ cardId, formData }, thunkAPI) => {
@@ -244,7 +243,27 @@ export const imageUpload = createAsyncThunk(
         data: formData,
       });
       if (res.data.ok) {
-        console.log(res.data);
+        return res.data.images;
+      }
+    } catch (err) {
+      thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+//카드 디테일 이미지 삭제
+export const ImageDelete = createAsyncThunk(
+  "kanbanCardDetail/ImageDelete",
+  async ({ cardId, imageId }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/card/${cardId}/image/${imageId}`,
+        method: "DELETE",
+      });
+      if (res.data.ok) {
+        return {
+          imageId,
+        };
       }
     } catch (err) {
       thunkAPI.rejectWithValue();

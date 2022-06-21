@@ -316,3 +316,21 @@ export const getKanbanInviteCode = createAsyncThunk(
     }
   }
 );
+
+//프로젝트 참가자 조회
+export const getProjectUserList = createAsyncThunk(
+  "kanban/getProjectUserList",
+  async ({ projectId }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/project/${projectId}/members`,
+        method: "GET",
+      });
+      if (res.data.ok) {
+        console.log(res.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
