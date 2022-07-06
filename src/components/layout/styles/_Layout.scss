@@ -1,18 +1,19 @@
 .main{
-  margin-top: 10px;
 }
 .close_nav{
   width: 100vw;
-  height: 99vh;
+  height: 100vh;
   padding-left: 3%;
   overflow: hidden;
   z-index: 999;
+  //background-color: #E9E9E9;
 }
 .open_nav{
-  width: 80vw;
+  width: 90vw;
   height: 99vh;
   //border: 1px solid red;
-  margin-left: 320px;
+  margin-left: 18vw;
   overflow-y: hidden;
   z-index: 999;
+  //background-color: #E9E9E9;
 }

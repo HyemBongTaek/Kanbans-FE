@@ -1,0 +1,48 @@
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
+
+$colors: ($label_red, $label_pink, $label_orange, $label_yellow, $label_emerald_green, $label_green);
+.wrapper {
+  margin-right: 10px;
+  display: flex;
+  .red{
+    width: 80px;
+    height: 20px;
+    text-align: center;
+    background: $label_red;
+  }
+  .pink{
+    @extend .red;
+    background: $label_pink;
+  }
+  .orange{
+    @extend .red;
+    background: $label_orange;
+  }
+  .yellow{
+    @extend .red;
+    background: $label_yellow;
+  }
+  .emerald_green{
+    @extend .red;
+    background: $label_emerald_green;
+  }
+  .green{
+    @extend .red;
+    background: $label_green;
+  }
+
+  .delete{
+    display: none;
+    position: fixed;
+    margin-left: 70px;
+    margin-top: -5px;
+
+  }
+  &:hover{
+    .delete{
+      display: block;
+      cursor: pointer;
+    }
+  }
+}

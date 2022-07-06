@@ -3,14 +3,15 @@ import React from "react";
 
 import KanbanHeader from "../../../components/menu/kanban/KanbanHeader";
 import KanbanList from "../../../components/menu/kanban/KanbanList";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 const KanbanBoards = () => {
   const params = useParams();
-  console.log("uss", params);
+  const { state } = useLocation();
+  console.log("uss", params, state);
   return (
     <div>
       <div className={classNames("main_layout")}>
-        <KanbanHeader projectId={params.projectId} />
+        <KanbanHeader projectId={params.projectId} title={state} />
         <KanbanList />
       </div>
     </div>

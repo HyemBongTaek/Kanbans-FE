@@ -24,14 +24,15 @@ import {
 import isAfter from "date-fns/isAfter";
 
 const KanbanCard = (props) => {
-  console.log("헹구", props);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isStatus, setIsStatus] = useState(false);
   const cardId = props.cards?.id;
   const status = props.cards?.status;
   const detailModal = () => {
-    navigate(`/card/${cardId}`, { state: cardId });
+    navigate(`/card/${cardId}`, {
+      state: { cardId: cardId, projectId: props.projectId },
+    });
   };
 
   const deleteCard = () => {
@@ -72,7 +73,11 @@ const KanbanCard = (props) => {
   return (
     <>
       {cardId && (
-        <Draggable draggableId={cardId.toString()} index={props.index}>
+        <Draggable
+          draggableId={cardId.toString()}
+          index={props.index}
+          key={cardId}
+        >
           {/*완료(체크표시)가 된 경우에는 흐리게 변경해준다*/}
           {(provided) => (
             <div

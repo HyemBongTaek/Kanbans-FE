@@ -4,7 +4,6 @@ const initialState = {
   openNav: false,
   openLogin: false,
   isLoading: false,
-  isRestTime: false,
 };
 
 const commonSlice = createSlice({
@@ -16,9 +15,6 @@ const commonSlice = createSlice({
     },
     setOpenLoginReducer: (state, action) => {
       state.openLogin = action.payload;
-    },
-    isRestTimeReducer: (state, action) => {
-      state.isRestTime = !state.isRestTime;
     },
   },
   extraReducers: (builder) => {},

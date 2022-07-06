@@ -1,12 +1,10 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import {
-  addKanbanBoard,
   changeBoardTitle,
   deleteBoard,
   getKanbanBoard,
   addKanbanCard,
   sortKanbanBoard,
-  sortKanbanCard,
   moveSortKanbanCard,
   checkKanbanCard,
   statusChangeKanbanCard,
@@ -34,17 +32,18 @@ const KanbanSlice = createSlice({
     //카드가 이동할때 번쩍거림 방지를 위해 두개로 나눠줌.
     sortKanbanCardReducer(state, action) {
       const newBoard = action.payload.newBoard;
+      console.log("뉴보드", newBoard);
       const newKanban = {
         ...state.kanbans.board,
         [newBoard.id]: newBoard,
       };
+      console.log("ssss", newKanban);
       state.kanbans.board = newKanban;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getKanbanBoard.fulfilled, (state, action) => {
-        console.log("겟", action.payload);
         state.isFetching = false;
         state.kanbans = action.payload.kanbans;
       })
@@ -59,7 +58,9 @@ const KanbanSlice = createSlice({
         state.errorMessage = action.payload.message;
       })
       .addCase(changeBoardTitle.fulfilled, (state, action) => {
+        console.log("확인", action.payload.data.updateBoard);
         const newBoard = action.payload.data.updateBoard;
+        console.log("카드가왜안보임까", current(state.kanbans.cards));
         const newKanbans = {
           cards: state.kanbans.cards,
           board: newBoard,
@@ -82,7 +83,6 @@ const KanbanSlice = createSlice({
         state.kanbans = newKanbans;
       })
       .addCase(addKanbanCard.fulfilled, (state, action) => {
-        console.log("이거 확인좀하자", action.payload);
         const newCardId = action.payload.data.id;
 
         const boardId = action.payload.boardId;

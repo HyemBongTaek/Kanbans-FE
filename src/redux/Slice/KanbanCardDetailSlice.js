@@ -2,33 +2,41 @@ import { createSlice, current } from "@reduxjs/toolkit";
 import {
   addCardComment,
   addCardTask,
+  cardShowMembers,
   checkCardTask,
   deleteCardComment,
   deleteCardTask,
+  deleteProjectLabel,
   editCardComment,
   getCardComment,
   getKanbanCardDetail,
   ImageDelete,
   imageUpload,
+  searchLabel,
 } from "../Async/KanbanCardDetail";
 
 const KanbanCardDetailSlice = createSlice({
   name: "KanbanCardDetailSlice",
   initialState: {
     card: [],
-    user: [],
+    users: [],
     tasks: [],
     images: [],
     comments: [],
+    label: [],
+    saveLabel: [],
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
+      //칸반보드 카드 상세보기 눌렀을 경우 데이터 불러오기
       .addCase(getKanbanCardDetail.fulfilled, (state, action) => {
-        console.log("sdsdsddssdds", action.payload);
+        console.log("카드디테일내용불러오기", action.payload);
         state.card = action.payload.card;
         state.tasks = action.payload.tasks;
         state.images = action.payload.images;
+        state.saveLabel = action.payload.labels;
+        state.users = action.payload.users;
       })
       .addCase(addCardTask.fulfilled, (state, action) => {
         const newTasks = [...state.tasks];
@@ -89,10 +97,24 @@ const KanbanCardDetailSlice = createSlice({
       })
       .addCase(ImageDelete.fulfilled, (state, action) => {
         console.log("이미지삭제", action.payload);
-        const deleteImage = state.images?.filter(
+        const deleteImages = state.images?.filter(
           (el) => el.id !== action.payload.imageId
         );
-        state.images = deleteImage;
+        state.images = deleteImages;
+      })
+      .addCase(searchLabel.fulfilled, (state, action) => {
+        state.label = action.payload;
+      })
+      .addCase(deleteProjectLabel.fulfilled, (state, action) => {
+        console.log("확인용", action.payload);
+        const newDeleteProjectLagel = state.label?.filter(
+          (el) => el.id !== action.payload
+        );
+        state.label = newDeleteProjectLagel;
+      })
+      .addCase(cardShowMembers.fulfilled, (state, action) => {
+        console.log("확인좀ㄴㅇㄴㅇㄴㅇㄴㅇㄴㅇㄴㅇ", action.payload);
+        state.showMembers = action.payload.members;
       });
   },
 });

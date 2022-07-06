@@ -1,5 +1,7 @@
-import React, { createContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./style/_KanbanBoard.module.scss";
+import io from "socket.io-client";
+import { history } from "../../../history";
 
 import KanbanBoard from "./KanbanBoard";
 import InputContainer from "../utils/InputContainer";
@@ -15,6 +17,7 @@ import {
 } from "../../../redux/Async/kanban";
 import KanbanFeatures from "../utils/KanbanFeatures";
 import { sortKanbanCardReducer } from "../../../redux/Slice/kanbanSlice";
+import { socket } from "../../../components/layout/Nav/Header";
 
 const KanbanList = () => {
   //주소에서 projectId불러오기
@@ -22,13 +25,64 @@ const KanbanList = () => {
   const projectId = params.projectId;
   const dispatch = useDispatch();
 
-  console.log("프로젝트아이디", projectId);
+  let socket;
+  useEffect(() => {
+    socket = io.connect("http://3.37.231.161:4000", {
+      extraHeaders: {
+        authorization: `Bearer ${JSON.parse(token)}`,
+      },
+    });
+    socket.emit("join", projectId);
+  }, []);
 
+  //페이지를 떠나거나 뒤로갈 경우 소켓 자동으로 해제되게 만들었음.
+  useEffect(() => {
+    return history.listen(() => {
+      console.log("액션확인", history.action);
+      socket.emit("leave", projectId);
+      socket.disconnect();
+    });
+  }, [history]);
+
+  const [selectEl, setSelectEl] = useState("");
+  const [isDrag, setIsDrag] = useState(true);
+
+  const token = localStorage.getItem("token");
+  console.log("토큰", token);
+  useEffect(() => {
+    socket.emit("join", projectId);
+  }, []);
+
+  useEffect(() => {
+    socket?.on("connect", () => {
+      console.log("소켓연결완료", socket.connected);
+    });
+
+    socket?.on("connect_error", (err) => {
+      console.log("에러메세지", err.message);
+    });
+
+    socket?.on("isDrag", (payload) => {
+      setIsDrag(payload);
+    });
+
+    socket?.on("duplicatedDrag", ({ message }) => {
+      console.log("드레그중복");
+      console.log(message);
+    });
+  }, [socket]);
+
+  // console.log("프로젝트아이디", projectId);
+  const leaveSocket = () => {
+    socket.emit("leave", projectId);
+    socket.disconnect();
+  };
   //보드 내용 불러오기
 
   const boards = useSelector((state) => state.kanbanSlice.kanbans);
-  console.log("보드내용", boards);
+  // const boards = useCallback(data && data.kanbans);
 
+  console.log("ggggggggg", boards);
   const { board, card, columnOrders } = useSelector((state) => ({
     board: state.kanbanSlice.kanbans.board,
     card: state.kanbanSlice.kanbans.cards,
@@ -42,7 +96,7 @@ const KanbanList = () => {
         projectId,
       })
     );
-  }, [dispatch, getKanbanBoard]);
+  }, [dispatch, getKanbanBoard, params]);
 
   //칸반보드 이동(카드이동, 보드이동)
   const onDragEnd = (result) => {
@@ -58,6 +112,11 @@ const KanbanList = () => {
       return;
     }
     if (type === "column") {
+      socket.emit("dragStart", {
+        type: "board",
+        id: draggableId,
+        room: projectId,
+      });
       const newBoardOrder = [...boards.columnOrders];
       newBoardOrder.splice(source.index, 1);
       newBoardOrder.splice(destination.index, 0, draggableId);
@@ -104,8 +163,18 @@ const KanbanList = () => {
           startCards: start,
         })
       );
+
+      socket.emit("dragStart", {
+        type: "card",
+        id: draggableId,
+        room: projectId,
+      });
+
+      setIsDrag(true);
+      setSelectEl("");
     } else {
       //카드를 드래그해서 다른 보드로 이동할 경우.
+
       const startCardId = Array.from(start.cardId);
       startCardId.splice(source.index, 1);
       const newStart = {
@@ -131,6 +200,11 @@ const KanbanList = () => {
           newFinishId: newFinish.id,
         })
       );
+      socket.emit("dragStart", {
+        type: "card",
+        id: draggableId,
+        room: projectId,
+      });
     }
   };
 
@@ -157,7 +231,6 @@ const KanbanList = () => {
                     return (
                       <KanbanBoard
                         key={boards.id}
-                        // boardsNewId={`board_${boards.id}`}
                         boards={boards}
                         cards={cards}
                         index={index}

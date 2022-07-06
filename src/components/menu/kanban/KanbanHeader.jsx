@@ -4,11 +4,11 @@ import styles from "../../../style/menu/_KanbanHeader.module.scss";
 import SearchInput from "../../common/SearchInput";
 import KanbanNav from "./KanbanNav";
 
-const KanbanHeader = ({ projectId }) => {
+const KanbanHeader = ({ projectId, title }) => {
   return (
     <>
       <div className={styles.kanban_header}>
-        <div>Kanban Board</div>
+        <div>{title}</div>
         <SearchInput />
       </div>
       <div>

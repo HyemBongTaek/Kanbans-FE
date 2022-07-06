@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useLayoutEffect, useState } from "react";
 import "./App.scss";
 
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Router,
+  Routes,
+} from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getCookie } from "./components/menu/login/utils/cookie";
 
@@ -20,6 +26,26 @@ import TestCheck from "./components/menu/kanban/testcheck";
 import KanbanCardDetail from "./page/menu/kanban/KanbanCardDetail";
 import JoinProject from "./page/menu/JoinProject";
 import LoadingSpinner from "./components/menu/utils/LoadingSpinner";
+
+import { history } from "./history";
+
+const CustomRouter = ({ history, ...props }) => {
+  const [state, setState] = useState({
+    action: history.action,
+    location: history.location,
+  });
+
+  useLayoutEffect(() => history.listen(setState), [history]);
+
+  return (
+    <Router
+      {...props}
+      location={state.location}
+      navigationType={state.action}
+      navigator={history}
+    />
+  );
+};
 
 function App() {
   const NavStatus = useSelector((state) => state.commonSlice.openNav);
@@ -43,7 +69,7 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <CustomRouter history={history}>
         <Layout openNav={NavStatus}>
           <Routes>
             <Route path="/" element={<Main openNav={NavStatus} />} />
@@ -115,7 +141,7 @@ function App() {
             <Route path="/testss" element={<LoadingSpinner />} />
           </Routes>
         </Layout>
-      </BrowserRouter>
+      </CustomRouter>
     </div>
   );
 }

@@ -1,21 +1,31 @@
 import React, { useEffect } from "react";
 
-import styles from "../../../components/menu/kanban/CardDetail/_KanbanCardDetail.module.scss";
-import CardDetailMain from "../../../components/menu/kanban/CardDetail/CardDetailMain";
-import CardDetailLeft from "../../../components/menu/kanban/CardDetail/CardDetailLeft";
+import styles from "../../../components/menu/CardDetail/style/_KanbanCardDetail.module.scss";
+import CardDetailMain from "../../../components/menu/CardDetail/CardDetailMain";
+import CardDetailLeft from "../../../components/menu/CardDetail/CardDetailLeft";
 import { useDispatch, useSelector } from "react-redux";
 import { cardOpenReducer } from "../../../redux/Slice/kanbanSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { getKanbanCardDetail } from "../../../redux/Async/KanbanCardDetail";
 
 const KanbanCardDetail = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
 
-  const params = useParams();
-  console.log("파람스", params.state);
+  const cardId = location.state.cardId;
+  const projectId = location.state.projectId;
 
-  // useEffect();
-  // const cardId = useSelector((state) => state.kanbanslice?.cardId);
-  // console.log("카드아이디", cardId);
+  useEffect(() => {
+    dispatch(
+      getKanbanCardDetail({
+        cardId: cardId,
+      })
+    );
+  }, [dispatch]);
+
+  const cardContent = useSelector((state) => state.cardDetailSlice?.card);
+  const cardLabel = useSelector((state) => state.cardDetailSlice?.saveLabel);
 
   const closeDetailCard = () => {
     navigate(-1);
@@ -26,10 +36,10 @@ const KanbanCardDetail = () => {
         <div className={styles.header} />
         <div className={styles.main}>
           <div>
-            <CardDetailMain cardId={params.cardId} />
+            <CardDetailMain cardContent={cardContent} cardLabel={cardLabel} />
           </div>
           <div>
-            <CardDetailLeft />
+            <CardDetailLeft cardId={cardId} projectId={projectId} />
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@ const UserSlice = createSlice({
           expires,
         });
 
-        sessionStorage.setItem("token", JSON.stringify(accessToken));
+        localStorage.setItem("token", JSON.stringify(accessToken));
         window.location.replace("/");
       })
       .addCase(changeUserInfo.pending, (state, action) => {

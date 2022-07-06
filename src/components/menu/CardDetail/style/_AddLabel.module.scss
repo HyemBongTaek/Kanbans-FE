@@ -1,0 +1,69 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+
+$colors: ($label_red, $label_pink, $label_orange, $label_yellow, $label_emerald_green, $label_green);
+//$colors: ($label_emerald_green, $label_green);
+
+
+.label_main {
+  @include modal_container(300px, 300px);
+  margin-left: -10px;
+}
+
+.label_form {
+
+  label {
+    .label_colors{
+      display: flex;
+      margin-top: 10px;
+
+    .label_red {
+      width: 100px;
+      height: 20px;
+      border: none;
+      background-color: $label_red;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .label_pink {
+      @extend .label_red;
+      background-color: $label_pink;
+    }
+
+    .label_orange {
+      @extend .label_red;
+      background-color: $label_orange;
+    }
+
+    .label_yellow {
+      @extend .label_red;
+      background-color: $label_yellow;
+    }
+
+    .label_emerald_green {
+      @extend .label_red;
+      background-color: $label_emerald_green;
+    }
+
+    .label_green {
+      @extend .label_red;
+      background-color: $label_green;
+    }
+  }
+  }
+}
+
+.label_overlay {
+  box-sizing: border-box;
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 99;
+  //background-color: rgba(0, 0, 0, 0.7);
+}

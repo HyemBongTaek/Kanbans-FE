@@ -10,5 +10,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="kakao" level="application" />
+    <orderEntry type="library" name="nanum-square-round" level="application" />
   </component>
 </module>

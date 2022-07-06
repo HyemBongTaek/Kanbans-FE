@@ -1,0 +1,34 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+.label_color{
+  display: flex;
+}
+.div_style{
+  width: 100px;
+  height: 20px;
+  display: flex;
+}
+.red{
+  @extend .div_style;
+  background-color: $label_red;
+}
+.pink{
+  @extend .div_style;
+  background-color: $label_pink;
+}
+.orange{
+  @extend .div_style;
+  background-color: $label_orange;
+}
+.yellow{
+  @extend .div_style;
+  background-color: $label_yellow;
+}
+.emerald_green{
+  @extend .div_style;
+  background-color: $label_emerald_green;
+}
+.green{
+  @extend .div_style;
+  background-color: $label_green;
+}
