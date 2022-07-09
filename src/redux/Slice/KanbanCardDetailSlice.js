@@ -5,9 +5,11 @@ import {
   cardShowMembers,
   checkCardTask,
   deleteCardComment,
+  deleteCardLabel,
   deleteCardTask,
   deleteProjectLabel,
   editCardComment,
+  exitCardMember,
   getCardComment,
   getKanbanCardDetail,
   ImageDelete,
@@ -93,10 +95,8 @@ const KanbanCardDetailSlice = createSlice({
       })
       .addCase(imageUpload.fulfilled, (state, action) => {
         state.images.unshift(action.payload);
-        console.log("이미지업로드", action.payload);
       })
       .addCase(ImageDelete.fulfilled, (state, action) => {
-        console.log("이미지삭제", action.payload);
         const deleteImages = state.images?.filter(
           (el) => el.id !== action.payload.imageId
         );
@@ -106,15 +106,28 @@ const KanbanCardDetailSlice = createSlice({
         state.label = action.payload;
       })
       .addCase(deleteProjectLabel.fulfilled, (state, action) => {
-        console.log("확인용", action.payload);
-        const newDeleteProjectLagel = state.label?.filter(
+        const newDeleteProjectLabel = state.saveLabel?.filter(
           (el) => el.id !== action.payload
         );
-        state.label = newDeleteProjectLagel;
+        state.label = newDeleteProjectLabel;
       })
       .addCase(cardShowMembers.fulfilled, (state, action) => {
-        console.log("확인좀ㄴㅇㄴㅇㄴㅇㄴㅇㄴㅇㄴㅇ", action.payload);
         state.showMembers = action.payload.members;
+      })
+
+      //카드에 등록되어 있는 라벨 삭제
+      .addCase(deleteCardLabel.fulfilled, (state, action) => {
+        console.log(current(state.saveLabel));
+        const deleteLabel = state.saveLabel?.filter(
+          (label) => label.id !== action.payload
+        );
+        state.saveLabel = deleteLabel;
+      })
+      .addCase(exitCardMember.fulfilled, (state, action) => {
+        const exitMember = state.users?.filter(
+          (user) => user.id !== action.payload
+        );
+        state.users = exitMember;
       });
   },
 });

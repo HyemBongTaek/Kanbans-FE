@@ -11,6 +11,7 @@ import {
   deleteKanbanCard,
   getKanbanInviteCode,
   clearAllKanbanCards,
+  getProjectUserList,
 } from "../Async/kanban";
 import { Switch } from "react-router-dom";
 
@@ -44,6 +45,7 @@ const KanbanSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getKanbanBoard.fulfilled, (state, action) => {
+        console.log("확인", action.payload);
         state.isFetching = false;
         state.kanbans = action.payload.kanbans;
       })
@@ -58,9 +60,7 @@ const KanbanSlice = createSlice({
         state.errorMessage = action.payload.message;
       })
       .addCase(changeBoardTitle.fulfilled, (state, action) => {
-        console.log("확인", action.payload.data.updateBoard);
         const newBoard = action.payload.data.updateBoard;
-        console.log("카드가왜안보임까", current(state.kanbans.cards));
         const newKanbans = {
           cards: state.kanbans.cards,
           board: newBoard,
@@ -104,7 +104,6 @@ const KanbanSlice = createSlice({
       })
 
       .addCase(deleteKanbanCard.fulfilled, (state, action) => {
-        console.log("삭제", action.payload);
         const newCards = state.kanbans.cards;
         delete newCards[action.payload.cardId];
         delete newCards[action.payload.cardId];
@@ -161,6 +160,9 @@ const KanbanSlice = createSlice({
       })
       .addCase(getKanbanInviteCode.fulfilled, (state, action) => {
         state.inviteCode = action.payload;
+      })
+      .addCase(getProjectUserList.fulfilled, (state, action) => {
+        state.members = action.payload;
       });
   },
 });

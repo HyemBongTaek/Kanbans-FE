@@ -352,6 +352,7 @@ export const addCardLabels = createAsyncThunk(
   }
 );
 
+//카드에 추가되어 있지 않은 user확인하기.
 export const cardShowMembers = createAsyncThunk(
   "kanbanCardDetail/cardShowMembers",
   async ({ projectId, cardId }, thunkAPI) => {
@@ -369,6 +370,7 @@ export const cardShowMembers = createAsyncThunk(
   }
 );
 
+//카드에 user초대하기
 export const cardInviteMembers = createAsyncThunk(
   "kanbanCardDetail/cardInviteMembers",
   async ({ cardId, members }, thunkAPI) => {
@@ -382,6 +384,42 @@ export const cardInviteMembers = createAsyncThunk(
       });
       if (res.data.ok) {
         console.log(res.data);
+      }
+    } catch (err) {
+      thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+//카드에 등록된 라벨 삭제(프로젝트에 등록되어 있는 라벨 삭제가 아닌 카드에서만 삭제함)
+export const deleteCardLabel = createAsyncThunk(
+  "kanbanCardDetail/deleteCardLabel",
+  async ({ cardId, labelId }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `card/${cardId}/label/${labelId}`,
+        method: "DELETE",
+      });
+      if (res.data.ok) {
+        return labelId;
+      }
+    } catch (err) {
+      thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+//카드에 초대되어있는 유저 삭제하기
+export const exitCardMember = createAsyncThunk(
+  "kanbanCardDetail/exitCardMember",
+  async ({ cardId, userId }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/card/${cardId}/exit/${userId}`,
+        method: "DELETE",
+      });
+      if (res.data.ok) {
+        return userId;
       }
     } catch (err) {
       thunkAPI.rejectWithValue();

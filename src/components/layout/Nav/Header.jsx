@@ -14,7 +14,7 @@ import io from "socket.io-client";
 const Header = ({ isOpen, toggleOpen }) => {
   const dispatch = useDispatch();
 
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   const openLoginModal = () => {
     dispatch(setOpenLoginReducer(true));
   };

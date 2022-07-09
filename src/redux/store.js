@@ -10,20 +10,24 @@ import UserSlice from "./Slice/userSlice";
 import KanbanSlice from "./Slice/kanbanSlice";
 import KanbanCardDetailSlice from "./Slice/KanbanCardDetailSlice";
 import { kanbanApi } from "./Slice/kanbanApi";
-
+import SocketClient from "./SocketClient";
+import { socketMiddleware } from "./SocketMiddleWare";
+import SocketSlice from "./Slice/socketSlice";
 //A non-serializable value was detected in an action, in the path 오류 없애기
 // middleware: (getDefaultMiddleware) =>
 //   getDefaultMiddleware({
 //     serializableCheck: false,
 //   }),
 
+export const socket = new SocketClient();
+
 const reducers = combineReducers({
-  [kanbanApi.reducerPath]: kanbanApi.reducer,
   commonSlice: commonSlice.reducer,
   projectsSlice: ProjectsSlice.reducer,
   userSlice: UserSlice.reducer,
   kanbanSlice: KanbanSlice.reducer,
   cardDetailSlice: KanbanCardDetailSlice.reducer,
+  socketSlice: SocketSlice.reducer,
 });
 
 const persistConfig = {
@@ -35,13 +39,16 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
-const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }).concat(kanbanApi.middleware),
-});
+const store = configureStore(
+  {
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: false,
+      }).concat(kanbanApi.middleware),
+  },
+  [socketMiddleware(socket)]
+);
 
 // setupListeners(store.dispatch);
 export default store;

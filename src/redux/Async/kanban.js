@@ -11,6 +11,7 @@ export const getKanbanBoard = createAsyncThunk(
         method: "GET",
       });
       if (res.data.ok) {
+        console.log(res.data);
         return res.data;
       }
     } catch (err) {
@@ -320,7 +321,7 @@ export const getProjectUserList = createAsyncThunk(
         method: "GET",
       });
       if (res.data.ok) {
-        console.log(res.data);
+        return res.data.members;
       }
     } catch (err) {
       console.log(err);

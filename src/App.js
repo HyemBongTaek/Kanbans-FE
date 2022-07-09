@@ -16,16 +16,17 @@ import Main from "./page/main/Main";
 import Project from "./page/menu/Project";
 import Login from "./components/menu/login/Login";
 import Profile from "./page/menu/Profile";
-import KanbanBoards from "./page/menu/kanban/KanbanBoards";
+import KanbanBoards from "./page/menu/KanbanBoards";
 import KaKaoLoginHandler from "./components/menu/login/KaKaoLoginHandler";
 import GoogleLoginHandler from "./components/menu/login/GoogleLoginHandler";
 import NaverLoginHandler from "./components/menu/login/NaverLoginHandler";
 import Timer from "./page/menu/Timer";
-import KanbanInvite from "./components/menu/kanban/KanbanInvite";
-import TestCheck from "./components/menu/kanban/testcheck";
-import KanbanCardDetail from "./page/menu/kanban/KanbanCardDetail";
+import KanbanInvite from "./components/Kanban/KanbanInvite";
+import StatusCheck from "./components/Kanban/StatusCheck";
+import KanbanCardDetail from "./page/menu/KanbanCardDetail";
 import JoinProject from "./page/menu/JoinProject";
 import LoadingSpinner from "./components/menu/utils/LoadingSpinner";
+import MemberPage from "./page/menu/MemberPage";
 
 import { history } from "./history";
 
@@ -131,13 +132,21 @@ function App() {
                 </RequireAuth>
               }
             />
+            <Route
+              path="/member"
+              element={
+                <RequireAuth redirectTo="/">
+                  <MemberPage openNav={NavStatus} />
+                </RequireAuth>
+              }
+            />
             <Route path="/join/project/" element={<JoinProject />} />
             <Route path="/login" element={<Login />} />
             <Route path="/oauth/kakao/" element={<KaKaoLoginHandler />} />
             <Route path="/oauth/google/" element={<GoogleLoginHandler />} />
             <Route path="/oauth/naver/" element={<NaverLoginHandler />} />
             <Route path="/test" element={<KanbanInvite />} />
-            <Route path="/tests" element={<TestCheck />} />
+            <Route path="/tests" element={<StatusCheck />} />
             <Route path="/testss" element={<LoadingSpinner />} />
           </Routes>
         </Layout>
