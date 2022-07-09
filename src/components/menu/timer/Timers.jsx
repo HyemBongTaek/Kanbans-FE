@@ -1,20 +1,10 @@
-import React, { useState } from "react";
-import WorkTimer from "./WorkTimer";
-import { useSelector } from "react-redux";
-import RelaxTimer from "./RelaxTimer";
+import React from "react";
+import FocusRestTimer from "./FocusRestTimer";
 
 const Timers = () => {
-  const restTimer = useSelector((state) => state.commonSlice.isRestTime);
-
   return (
     <>
-      {restTimer ? (
-        <>
-          <RelaxTimer />
-        </>
-      ) : (
-        <WorkTimer />
-      )}
+      <FocusRestTimer />
     </>
   );
 };

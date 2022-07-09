@@ -1,18 +1,17 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import {
-  addKanbanBoard,
   changeBoardTitle,
   deleteBoard,
   getKanbanBoard,
   addKanbanCard,
   sortKanbanBoard,
-  sortKanbanCard,
   moveSortKanbanCard,
   checkKanbanCard,
   statusChangeKanbanCard,
   deleteKanbanCard,
   getKanbanInviteCode,
   clearAllKanbanCards,
+  getProjectUserList,
 } from "../Async/kanban";
 import { Switch } from "react-router-dom";
 
@@ -34,17 +33,19 @@ const KanbanSlice = createSlice({
     //카드가 이동할때 번쩍거림 방지를 위해 두개로 나눠줌.
     sortKanbanCardReducer(state, action) {
       const newBoard = action.payload.newBoard;
+      console.log("뉴보드", newBoard);
       const newKanban = {
         ...state.kanbans.board,
         [newBoard.id]: newBoard,
       };
+      console.log("ssss", newKanban);
       state.kanbans.board = newKanban;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getKanbanBoard.fulfilled, (state, action) => {
-        console.log("겟", action.payload);
+        console.log("확인", action.payload);
         state.isFetching = false;
         state.kanbans = action.payload.kanbans;
       })
@@ -82,7 +83,6 @@ const KanbanSlice = createSlice({
         state.kanbans = newKanbans;
       })
       .addCase(addKanbanCard.fulfilled, (state, action) => {
-        console.log("이거 확인좀하자", action.payload);
         const newCardId = action.payload.data.id;
 
         const boardId = action.payload.boardId;
@@ -104,7 +104,6 @@ const KanbanSlice = createSlice({
       })
 
       .addCase(deleteKanbanCard.fulfilled, (state, action) => {
-        console.log("삭제", action.payload);
         const newCards = state.kanbans.cards;
         delete newCards[action.payload.cardId];
         delete newCards[action.payload.cardId];
@@ -161,6 +160,9 @@ const KanbanSlice = createSlice({
       })
       .addCase(getKanbanInviteCode.fulfilled, (state, action) => {
         state.inviteCode = action.payload;
+      })
+      .addCase(getProjectUserList.fulfilled, (state, action) => {
+        state.members = action.payload;
       });
   },
 });

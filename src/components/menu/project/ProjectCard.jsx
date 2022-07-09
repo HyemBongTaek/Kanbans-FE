@@ -62,7 +62,7 @@ const ProjectCard = (props) => {
   };
 
   const clickProject = () => {
-    navigate(`/board/${items.projectId}`);
+    navigate(`/board/${items.projectId}`, { state: items.title });
   };
 
   const clickLeaveProject = () => {

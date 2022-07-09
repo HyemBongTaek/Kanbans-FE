@@ -1,0 +1,47 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+
+
+.detail_left{
+  margin-top: -75px;
+  font-size: 18px;
+  li{
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid $main_gray;
+
+    //padding-left: 10px;
+    a{
+      margin-left: 10px;
+    }
+  }
+  .member{
+    border: none;
+    height: 25px;
+    margin-bottom: 0;
+  }
+  .user{
+    display: flex;
+
+    .profile{
+      .members_icon{
+      }
+      .user_image{
+        img{
+          @include profile_image("large");
+        }
+        .user_icon{
+          position: fixed;
+          margin-left: -13px;
+        }
+      }
+
+      .name{
+        font-size: 13px;
+        text-align: center;
+      }
+    }
+
+  }
+}

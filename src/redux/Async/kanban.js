@@ -11,6 +11,7 @@ export const getKanbanBoard = createAsyncThunk(
         method: "GET",
       });
       if (res.data.ok) {
+        console.log(res.data);
         return res.data;
       }
     } catch (err) {
@@ -206,6 +207,7 @@ export const sortKanbanBoard = createAsyncThunk(
           },
         });
         if (res.data.ok) {
+          console.log(res.data);
           return {
             sourceId,
             destinationId,
@@ -252,7 +254,6 @@ export const moveSortKanbanCard = createAsyncThunk(
   "kanban/moveSortKanbanCard",
   async ({
     startBoardId,
-    startCardIds,
     finishBoardId,
     finishCardIds,
     newFinish,
@@ -262,11 +263,6 @@ export const moveSortKanbanCard = createAsyncThunk(
   }) => {
     console.log("startBoardId", startBoardId);
     console.log("finishBoardId", finishBoardId);
-    // console.log("확인용", newFinish);
-    // console.log("sss", newStart);
-    // console.log("sdfkdjsajasf", startCardId);
-    // console.log("sdfkdjsajasf", finishCardId);
-    // console.log("확인ㄴㄴㄴ", start, finish);
     //
     try {
       const res = await Apis({
@@ -284,18 +280,16 @@ export const moveSortKanbanCard = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        console.log(res.data);
+        return {
+          newFinish,
+          newStartId,
+          newStart,
+          newFinishId,
+        };
       }
     } catch (err) {
       console.log(err);
     }
-
-    return {
-      newFinish,
-      newStartId,
-      newStart,
-      newFinishId,
-    };
   }
 );
 
@@ -327,7 +321,7 @@ export const getProjectUserList = createAsyncThunk(
         method: "GET",
       });
       if (res.data.ok) {
-        console.log(res.data);
+        return res.data.members;
       }
     } catch (err) {
       console.log(err);

@@ -14,9 +14,7 @@ let persistor = persistStore(store);
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      {/*<CookiesProvider>*/}
       <App />
-      {/*</CookiesProvider>*/}
     </PersistGate>
   </Provider>
 );

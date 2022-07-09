@@ -1,0 +1,115 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+//margin-left: 20px;
+//position: absolute;
+//width:70px;
+//border-radius:20px;
+//height: 500px;
+//box-shadow: 0 15px 25px rgba(0, 0,0,0.1);
+//box-sizing: border-box;
+//background: $main_gray;
+
+.navigation {
+  position: relative;
+  width: 70px;
+  height: 350px;
+  background: $main_gray;
+  border-radius: 35px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+  margin-left: 20px;
+
+  ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;;
+    display: flex;
+    flex-direction: column;
+    .active{
+      color: #ffffff;
+    }
+    .list {
+      position: relative;
+      list-style: none;
+      width: 70px;
+      height: 70px;
+      z-index: 1;
+      //justify-content: center;
+      //text-align: center;
+      color: #FFFFFF;
+      &:hover a .title{
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-25px) translateY(-50%);
+
+      }
+      & > a .title::before{
+        content: '';
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: $main_gray;
+        left: -8px;
+        top: 50%;
+        transform: rotate(45deg) translateY(-50%);
+        border-radius: 2px;
+      }
+
+      a {
+        position: relative;
+        display: flex;
+
+        align-items: center;
+        width: 100%;
+        text-align: center;
+        color: #f3f3f3;
+        font-weight: 500;
+
+        .icons {
+          position: relative;
+          display: block;
+          line-height: 75px;
+          margin-left: -4px;
+          @include icons(#ffffff, 30px);
+        }
+        .title {
+          position: absolute;
+          top: 50%;
+          left: 80px;
+          transform: translateY(-30%);
+          padding: 5px 10px;
+          border-radius: 6px;
+          transition: 0.5s;
+          background: $main_gray;
+          color: #ffffff;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+    }
+    .indicator{
+      position: absolute;
+      left: 0;
+      width: 70px;
+      height: 70px;
+      transition: 0.5s;
+
+      &:before{
+        width: 50px;
+        height: 50px;
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%);
+        background: #333;
+        border-radius: 50%;
+        transition: 0.5s;
+
+      }
+    }
+  }
+}

@@ -5,6 +5,7 @@ import { MenuItem } from "./MenuItem";
 import CocoriLogo from "../../../../static/image/cocoli_white.png";
 import { useNavigate } from "react-router-dom";
 import { shallowEqual, useSelector } from "react-redux";
+import { history } from "../../../../history";
 
 const variants = {
   open: {
@@ -21,8 +22,6 @@ const Navigation = ({ isOpen, toggleOpen }) => {
     (state) => state.userSlice.userInfo,
     shallowEqual
   );
-
-  console.log("유저정보", userInfo);
   return (
     <>
       {toggleOpen && isOpen && (
@@ -36,7 +35,7 @@ const Navigation = ({ isOpen, toggleOpen }) => {
             <img
               src={CocoriLogo}
               alt="logo_image"
-              onClick={() => navigate("/")}
+              onClick={() => history("/")}
             />
           </motion.li>
           <motion.li

@@ -1,9 +1,27 @@
-
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
 
 .main{
   display: grid;
-  grid-template-columns: repeat(2, 40% 60%);
-  &:first-child{
-    font-size: 100px;
+  grid-template-columns: repeat(2, 50% 50%);
+  margin-left: 100px;
+  .big_title{
+    margin-top: 150px;
+    font-size: 70px;
+    color: $bold_gray;
+    font-family: "Jalnan", "NanumSquare", serif;
+    span{
+      color: $sub_black;
+    }
   }
+  .sub_title{
+    margin-top: 50px;
+    font-family: "NanumSquareRound", serif;
+    font-size: 30px;
+    color: $bold_gray;
+    span{
+      color: $sub_black;
+    }
+  }
+
 }

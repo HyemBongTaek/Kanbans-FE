@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import styles from "../Style/_AfterLogin.module.scss";
 import { useDimensions } from "../../../../hooks/useDemenstions";
 import { useCookies } from "react-cookie";
+import sessionStorage from "redux-persist/es/storage/session";
 
 const AfterLogin = ({ isOpen, toggleOpen }) => {
   const containerRef = useRef(null);

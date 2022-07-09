@@ -36,24 +36,27 @@ const EditProfileImage = (props) => {
   }, [profileImage]);
 
   return (
-    <div className={styles.edit_profile}>
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : (
-        <label>
-          <img src={userImage} alt="profile_image" />
-          <Icon
-            className={styles.edit_icon}
-            icon="fluent:camera-edit-20-filled"
-          />
-          <input
-            type="file"
-            style={{ display: "none" }}
-            onChange={profileImageChange}
-          />
-        </label>
-      )}
-    </div>
+    <>
+      <div className={styles.edit_profile}>
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <label>
+            <img src={userImage} alt="profile_image" />
+            <Icon
+              className={styles.edit_icon}
+              icon="fluent:camera-edit-20-filled"
+            />
+            <input
+              type="file"
+              style={{ display: "none" }}
+              onChange={profileImageChange}
+            />
+          </label>
+        )}
+      </div>
+      <div />
+    </>
   );
 };
 

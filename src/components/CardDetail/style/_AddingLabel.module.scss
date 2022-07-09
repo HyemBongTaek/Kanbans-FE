@@ -1,0 +1,22 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+
+
+.label_main {
+  @include modal_container(300px, 300px);
+  margin-left: -10px;
+  .orange{
+    border: 1px solid blue;
+  }
+}
+.label_overlay {
+  box-sizing: border-box;
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 99;
+  //background-color: rgba(0, 0, 0, 0.7);
+}
