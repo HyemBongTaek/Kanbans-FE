@@ -1,19 +1,25 @@
-.main{
-}
-.close_nav{
-  width: 100vw;
+.layout_wrapper{
+  width: 94vw;
   height: 100vh;
-  padding-left: 3%;
-  overflow: hidden;
-  z-index: 999;
-  //background-color: #E9E9E9;
+  border: 1px solid blue;
+  margin-left: 100px;
+
 }
-.open_nav{
-  width: 90vw;
-  height: 99vh;
-  //border: 1px solid red;
-  margin-left: 18vw;
-  overflow-y: hidden;
-  z-index: 999;
-  //background-color: #E9E9E9;
-}
+
+//.close_nav{
+//  width: 100vw;
+//  height: 100vh;
+//  margin-left: 8vw;
+//  overflow: hidden;
+//  z-index: 999;
+//  //background-color: #E9E9E9;
+//}
+//.open_nav{
+//  width: 90vw;
+//  height: 99vh;
+//  //border: 1px solid red;
+//  margin-left: 18vw;
+//  overflow-y: hidden;
+//  z-index: 999;
+//  //background-color: #E9E9E9;
+//}

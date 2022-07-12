@@ -15,9 +15,17 @@ import {
   sortKanbanCard,
 } from "../../redux/Async/kanban";
 import KanbanFeatures from "../menu/utils/KanbanFeatures";
-import { sortKanbanCardReducer } from "../../redux/Slice/kanbanSlice";
+import {
+  moveKanbanBoardReducer,
+  sortKanbanCardMoveReducer,
+  sortKanbanCardReducer,
+} from "../../redux/Slice/kanbanSlice";
 import { socket } from "../../redux/store";
-import { EndDragSocket, startDragSocket } from "../../redux/Slice/socketSlice";
+import {
+  startDragSocket,
+  endDragSocket,
+  moveResultSocket,
+} from "../../redux/Slice/socketSlice";
 
 const KanbanList = () => {
   //주소에서 projectId불러오기
@@ -42,15 +50,13 @@ const KanbanList = () => {
   const [selectEl, setSelectEl] = useState("");
   const [isDrag, setIsDrag] = useState(true);
 
-  const token = sessionStorage.getItem("token");
-  console.log("토큰", token);
   useEffect(() => {
     socket.emit("join", projectId);
-  }, []);
+  }, [params]);
 
   useEffect(() => {
     socket?.on("connect", () => {
-      console.log("소켓연결완료", socket.connected);
+      console.log("소켓연결완료");
     });
 
     socket?.on("connect_error", (err) => {
@@ -65,19 +71,45 @@ const KanbanList = () => {
       console.log("드레그중복");
       console.log(message);
     });
-  }, [socket]);
+    socket.on("moveResult", (payload) => {
+      console.log("카드움직임 발견", payload);
+      if (payload.type === "card" && payload.startOrder !== null) {
+        dispatch(
+          sortKanbanCardMoveReducer({
+            startPoint: payload.startPoint,
+            endPoint: payload.endPoint,
+            startOrder: payload.startOrder,
+            endOrder: payload.endOrder,
+          })
+        );
+      }
+      if (payload.type === "card" && payload.startOrder === null) {
+        dispatch(
+          sortKanbanCardReducer({
+            endPoint: payload.endPoint,
+            endOrder: payload.endOrder,
+          })
+        );
+      }
+      if (payload.type === "column") {
+        dispatch(
+          moveKanbanBoardReducer({
+            order: payload.order,
+          })
+        );
+      }
+    });
+  }, []);
 
   // console.log("프로젝트아이디", projectId);
-  const leaveSocket = () => {
-    socket.emit("leave", projectId);
-    socket.disconnect();
-  };
+  // const leaveSocket = () => {
+  //   socket.emit("leave", projectId);
+  //   socket.disconnect();
+  // };
   //보드 내용 불러오기
 
   const boards = useSelector((state) => state.kanbanSlice.kanbans);
   // const boards = useCallback(data && data.kanbans);
-
-  console.log("ggggggggg", boards);
   const { board, card, columnOrders } = useSelector((state) => ({
     board: state.kanbanSlice.kanbans.board,
     card: state.kanbanSlice.kanbans.cards,
@@ -110,24 +142,30 @@ const KanbanList = () => {
       const newBoardOrder = [...boards.columnOrders];
       newBoardOrder.splice(source.index, 1);
       newBoardOrder.splice(destination.index, 0, draggableId);
+
+      console.log("확인", newBoardOrder);
       dispatch(
         sortKanbanBoard({
-          columnOrder: boards.columnOrders,
           newBoardOrder,
-          sourceId: source.droppableId,
-          destinationId: destination.droppableId,
-          sourceIndex: source.index,
-          destinationIndex: destination.index,
-          draggableId,
-          type,
           projectId,
-          boards,
+        })
+      );
+      dispatch(
+        endDragSocket({
+          type: result.type,
+          room: projectId,
+          endOrder: newBoardOrder,
+          id: draggableId,
         })
       );
     }
 
     const start = boards.board[source.droppableId];
     const finish = boards.board[destination.droppableId];
+    console.log("피니쉬", finish);
+    // console.log("뉴피니쉬", newFinish);
+    console.log("스타트", start);
+    // console.log("뉴스타트", newStart);
 
     //카드가 다른보드로 이동하지 않을 경우
     if (start === finish && type !== "column") {
@@ -139,22 +177,36 @@ const KanbanList = () => {
         cardId: newCardIds,
       };
 
-      //카드 번쩍거리는 이미지를 위해 서버로 전달하는 리덕스와 기존 배열을 변경하는 리덕스를 양쪽으로 나눠서 사용함.
-      dispatch(
-        sortKanbanCardReducer({
-          newBoard,
-        })
-      );
+      console.log("다른보드로 이동안함", newBoard);
 
+      // 카드 번쩍거리는 이미지를 위해 서버로 전달하는 리덕스와 기존 배열을 변경하는 리덕스를 양쪽으로 나눠서 사용함.
+      //디스패치 딴쪽으로 뺌.
+      // dispatch(
+      //   sortKanbanCardReducer({
+      //     endOrder: newCardIds,
+      //     endPoint: source.droppableId,
+      //   })
+      // );
       dispatch(
         sortKanbanCard({
           boardId: source.droppableId,
           newBoard,
-          startCards: start,
+          startPoint: start.cardId,
+        })
+      );
+      dispatch(
+        endDragSocket({
+          id: draggableId,
+          type: result.type,
+          room: projectId,
+          endPoint: source.droppableId,
+          endOrder: newBoard.cardId,
         })
       );
     } else if (type !== "column") {
       //카드를 드래그해서 다른 보드로 이동할 경우.
+
+      console.log("확인좀합시다", draggableId);
 
       const startCardId = Array.from(start.cardId);
       startCardId.splice(source.index, 1);
@@ -169,28 +221,32 @@ const KanbanList = () => {
         ...finish,
         cardId: finishCardId,
       };
-      console.log("피니쉬", finish);
-      console.log("뉴피니쉬", newFinish);
-      console.log("스타트", start);
-      console.log("뉴스타트", newStart);
+
+      //서버와 통신
       dispatch(
         moveSortKanbanCard({
-          startBoardId: source.droppableId,
-          startCardIds: start.cardId,
-          finishBoardId: destination.droppableId,
-          finishCardIds: finishCardId,
-          newFinish: newFinish,
-          newStartId: newStart.id,
-          newStart: newStart,
-          newFinishId: newFinish.id,
+          startPoint: newStart.id,
+          endPoint: newFinish.id,
+          endOrder: newFinish.cardId,
+          startOrder: newStart.cardId,
         })
       );
+      //여러명의 중복 드래그를 막기위해 소켓으로 보냄.
+      dispatch(
+        endDragSocket({
+          id: draggableId,
+          type: result.type,
+          room: projectId,
+          startPoint: newStart.id,
+          endPoint: newFinish.id,
+          startOrder: newStart.cardId,
+          endOrder: newFinish.cardId,
+        })
+      );
+
+      console.log("뉴피니쉬", newFinish);
+      console.log("뉴스타트", newStart);
     }
-    dispatch(
-      EndDragSocket({
-        finishBoardId: destination.droppableId,
-      })
-    );
   };
 
   const onDragStart = (result) => {

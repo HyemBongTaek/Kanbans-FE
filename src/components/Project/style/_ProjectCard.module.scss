@@ -1,0 +1,94 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+.home_card {
+  width: 340px;
+  height: 260px;
+  border: 1px solid $border_gray;
+  border-radius: 25px;
+  padding-left: 20px;
+
+  .board_status {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    .public_private {
+      width: 60px;
+      height: 25px;
+      background: #EAEBE7;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    // 즐겨찾기 공통 css
+    .board_unfavorite, .board_favorite {
+      width: 30px;
+      height: 30px;
+      margin-right: 20px;
+    }
+
+    //즐겨찾기 전
+    .board_unfavorite {
+      color: $main_gray;
+    }
+
+    //즐겨찾기 후
+    .board_favorite {
+      color: #d24444;
+    }
+
+  }
+
+
+  .title {
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+
+  .home_profile {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 50px;
+    margin-right: 20px;
+
+
+    .profile_image {
+      margin-right: 10px;
+      & > img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+
+      }
+
+      .profile_name{
+        width: 60px;
+        height: 23px;
+        background: $main_gray;
+        border-radius: 10px;
+        color: white;
+        font-size: 13px;
+        text-align: center;
+        line-height: 23px;
+        position: fixed;
+        margin: 50px 0;
+
+      }
+    }
+  }
+  .icons{
+    //border: 1px solid blue;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+    .icon{
+      @include icons($border_gray, "basic");
+      margin-left: 10px;
+      &:hover{
+        color: $main_gray;
+      }
+    }
+  }
+}

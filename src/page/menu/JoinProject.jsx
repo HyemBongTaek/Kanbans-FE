@@ -1,5 +1,5 @@
 import React from "react";
-import JoinProjectModal from "../../components/menu/project/JoinProjectModal";
+import JoinProjectModal from "../../components/Project/JoinProjectModal";
 
 const JoinProject = () => {
   return (

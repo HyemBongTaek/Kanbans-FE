@@ -13,7 +13,7 @@ import { getCookie } from "./components/menu/login/utils/cookie";
 
 import Layout from "./components/layout/Layout";
 import Main from "./page/main/Main";
-import Project from "./page/menu/Project";
+import ProjectPage from "./page/menu/ProjectPage";
 import Login from "./components/menu/login/Login";
 import Profile from "./page/menu/Profile";
 import KanbanBoards from "./page/menu/KanbanBoards";
@@ -21,7 +21,7 @@ import KaKaoLoginHandler from "./components/menu/login/KaKaoLoginHandler";
 import GoogleLoginHandler from "./components/menu/login/GoogleLoginHandler";
 import NaverLoginHandler from "./components/menu/login/NaverLoginHandler";
 import Timer from "./page/menu/Timer";
-import KanbanInvite from "./components/Kanban/KanbanInvite";
+import Invite from "./components/Invite/Invite";
 import StatusCheck from "./components/Kanban/StatusCheck";
 import KanbanCardDetail from "./page/menu/KanbanCardDetail";
 import JoinProject from "./page/menu/JoinProject";
@@ -128,7 +128,7 @@ function App() {
               path="/project/*"
               element={
                 <RequireAuth redirectTo="/">
-                  <Project openNav={NavStatus} />
+                  <ProjectPage openNav={NavStatus} />
                 </RequireAuth>
               }
             />
@@ -145,7 +145,7 @@ function App() {
             <Route path="/oauth/kakao/" element={<KaKaoLoginHandler />} />
             <Route path="/oauth/google/" element={<GoogleLoginHandler />} />
             <Route path="/oauth/naver/" element={<NaverLoginHandler />} />
-            <Route path="/test" element={<KanbanInvite />} />
+            <Route path="/invite" element={<Invite />} />
             <Route path="/tests" element={<StatusCheck />} />
             <Route path="/testss" element={<LoadingSpinner />} />
           </Routes>

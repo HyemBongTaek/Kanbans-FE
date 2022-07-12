@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import EditProfileImage from "../../components/menu/profile/EditProfileImage";
+import EditProfileImage from "../../components/Profile/EditProfileImage";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {

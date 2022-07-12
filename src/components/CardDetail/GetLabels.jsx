@@ -3,8 +3,10 @@ import styles from "./style/_GetLabels.module.scss";
 import { Icon } from "@iconify/react";
 import { deleteCardLabel } from "../../redux/Async/KanbanCardDetail";
 import { useDispatch } from "react-redux";
+import classNames from "classnames";
 
 const GetLabels = ({ item, cardId, type }) => {
+  console.log("타입", type);
   const dispatch = useDispatch();
   const deleteCardLabelClick = () => {
     dispatch(
@@ -17,43 +19,26 @@ const GetLabels = ({ item, cardId, type }) => {
 
   return (
     <>
-      <div className={type ? styles.main_wrapper : styles.wrapper}>
-        {item.color === "red" && (
-          <div className={styles.red}>
-            <div>{item.title}</div>
+      {type !== "main_label" ? (
+        <>
+          <div className={styles.wrapper}>
+            <div
+              className={classNames(styles[item.color], styles.detail_label)}
+            >
+              <div>{item.title}</div>
+            </div>
+            <Icon
+              className={styles.delete}
+              icon="akar-icons:circle-minus"
+              onClick={deleteCardLabelClick}
+            />
           </div>
-        )}
-        {item.color === "pink" && (
-          <div className={styles.pink}>
-            <div>헹굽니당</div>
-          </div>
-        )}
-        {item.color === "orange" && (
-          <div className={styles.orange}>
-            <div>헹굽니당</div>
-          </div>
-        )}
-        {item.color === "yellow" && (
-          <div className={styles.yellow}>
-            <div>헹굽니당</div>
-          </div>
-        )}
-        {item.color === "emerald_green" && (
-          <div className={styles.emerald_green}>
-            <div>헹굽니당</div>
-          </div>
-        )}
-        {item.color === "green" && (
-          <div className={styles.green}>
-            <div>헹굽니당</div>
-          </div>
-        )}
-        <Icon
-          className={styles.delete}
-          icon="akar-icons:circle-minus"
-          onClick={deleteCardLabelClick}
-        />
-      </div>
+        </>
+      ) : (
+        <div className={styles.main_wrapper}>
+          <div className={classNames(styles[item.color], styles.main_label)} />
+        </div>
+      )}
     </>
   );
 };

@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
-import styles from "./style/_KanbanInvite.module.scss";
+import styles from "./_Invite.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import Share from "../lib/share/Share";
+import Share from "../Invite/Share";
 import Logo from "../../static/image/cocoli_black.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getKanbanInviteCode } from "../../redux/Async/kanban";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
-const KanbanInvite = () => {
+const Invite = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useLocation();
@@ -28,8 +29,12 @@ const KanbanInvite = () => {
   return (
     <>
       <div className={styles.KanbanInvite}>
+        {/*<img src={Logo} alt="share_logo" />*/}
+        <div>공유하기</div>
         {inviteCode}
-        <img src={Logo} alt="share_logo" />
+        <CopyToClipboard text={inviteCode}>
+          <button>초대코드 복사하기</button>
+        </CopyToClipboard>
         <Share inviteCode={inviteCode} />
       </div>
       <div onClick={closeKanbanInviteClick} className={styles.overlay} />
@@ -37,4 +42,4 @@ const KanbanInvite = () => {
   );
 };
 
-export default KanbanInvite;
+export default Invite;

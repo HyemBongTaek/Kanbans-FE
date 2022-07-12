@@ -1,5 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Apis from "../apis";
+import {
+  moveKanbanBoardReducer,
+  sortKanbanCardMoveReducer,
+  sortKanbanCardReducer,
+} from "../Slice/kanbanSlice";
 
 //칸반보드 불러오기
 export const getKanbanBoard = createAsyncThunk(
@@ -77,7 +82,7 @@ export const changeBoardTitle = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        return { data: res.data };
+        return { data: res.data, boardId };
       }
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response);
@@ -186,57 +191,45 @@ export const statusChangeKanbanCard = createAsyncThunk(
 //칸반보드 이동
 export const sortKanbanBoard = createAsyncThunk(
   "kanban/sortKanban",
-  async ({
-    newBoardOrder,
-    sourceId,
-    destinationId,
-    sourceIndex,
-    destinationIndex,
-    draggableId,
-    type,
-    columnOrder,
-    projectId,
-  }) => {
+  async ({ newBoardOrder, projectId }, thunkAPI) => {
     try {
-      if (type === "column") {
-        const res = await Apis({
-          url: `/project/${projectId}/board-location`,
-          method: "PATCH",
-          data: {
-            boardOrder: newBoardOrder,
-          },
-        });
-        if (res.data.ok) {
-          console.log(res.data);
-          return {
-            sourceId,
-            destinationId,
-            sourceIndex,
-            destinationIndex,
-            draggableId,
-            type,
-            columnOrder,
-            newBoardOrder,
-          };
-        }
-      }
+      thunkAPI.dispatch(
+        moveKanbanBoardReducer({
+          order: newBoardOrder,
+        })
+      );
+      await Apis({
+        url: `/project/${projectId}/board-location`,
+        method: "PATCH",
+        data: {
+          boardOrder: newBoardOrder,
+        },
+      });
     } catch (err) {
-      console.log("칸반보드 이동 에러");
+      thunkAPI.rejectWithValue();
     }
   }
 );
 
+//같은 보드에서 카드끼리 이동
 export const sortKanbanCard = createAsyncThunk(
   "kanban/sortKanbanCard",
-  async ({ boardId, newBoard, startCards }) => {
+  async ({ boardId, newBoard, startPoint }, thunkAPI) => {
+    console.log("리덕스", boardId, newBoard, startPoint);
     try {
-      const res = await Apis({
+      thunkAPI.dispatch(
+        sortKanbanCardReducer({
+          endPoint: boardId,
+          endOrder: newBoard.cardId,
+        })
+      );
+      await Apis({
         url: `/board/card/location`,
         method: "PATCH",
         data: {
           start: {
             boardId,
-            cards: startCards.cardId,
+            cards: startPoint,
           },
           end: {
             boardId,
@@ -245,47 +238,44 @@ export const sortKanbanCard = createAsyncThunk(
         },
       });
     } catch (err) {
-      console.log(err);
+      thunkAPI.rejectWithValue();
     }
   }
 );
 
+//카드가 다른 보드로 이동할 경우
 export const moveSortKanbanCard = createAsyncThunk(
   "kanban/moveSortKanbanCard",
-  async ({
-    startBoardId,
-    finishBoardId,
-    finishCardIds,
-    newFinish,
-    newStartId,
-    newStart,
-    newFinishId,
-  }) => {
-    console.log("startBoardId", startBoardId);
-    console.log("finishBoardId", finishBoardId);
+  async ({ startPoint, endPoint, endOrder, startOrder }, thunkAPI) => {
+    console.log("startBoardId", startPoint);
+    console.log("finishBoardId", endOrder);
+    console.log("카드가 보드를 이동할 경우 리덕스");
     //
     try {
+      thunkAPI.dispatch(
+        sortKanbanCardMoveReducer({
+          startPoint,
+          endPoint,
+          startOrder,
+          endOrder,
+        })
+      );
       const res = await Apis({
         url: `/board/card/location`,
         method: "PATCH",
         data: {
           start: {
-            boardId: startBoardId,
-            cards: newStart.cardId,
+            boardId: startPoint,
+            cards: startOrder,
           },
           end: {
-            boardId: finishBoardId,
-            cards: finishCardIds,
+            boardId: endPoint,
+            cards: endOrder,
           },
         },
       });
       if (res.data.ok) {
-        return {
-          newFinish,
-          newStartId,
-          newStart,
-          newFinishId,
-        };
+        console.log("아니왜?", res.data);
       }
     } catch (err) {
       console.log(err);
@@ -322,6 +312,24 @@ export const getProjectUserList = createAsyncThunk(
       });
       if (res.data.ok) {
         return res.data.members;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+//프로젝트에서 참가자 제외하기
+export const deleteProjectUser = createAsyncThunk(
+  "kanban/deleteProjectUser",
+  async ({ projectId, userId }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/project/${projectId}/kick-out/${userId}`,
+        method: "DELETE",
+      });
+      if (res.data.ok) {
+        console.log(res.data);
       }
     } catch (err) {
       console.log(err);

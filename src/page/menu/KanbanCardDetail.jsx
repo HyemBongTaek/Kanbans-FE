@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "../../components/CardDetail/style/_KanbanCardDetail.module.scss";
 import CardDetailMain from "../../components/CardDetail/CardDetailMain";
-import CardDetailLeft from "../../components/CardDetail/CardDetailLeft";
+import CardDetailLeft from "../../components/CardDetail/DetailLeft/CardDetailLeft";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getKanbanCardDetail } from "../../redux/Async/KanbanCardDetail";

@@ -8,14 +8,18 @@ const Layout = (props) => {
 
   return (
     <div>
-      <Header isOpen={isOpen} toggleOpen={toggleOpen} />
-      <main className="main">
-        {isOpen ? (
-          <div className="open_nav">{props.children}</div>
-        ) : (
-          <div className="close_nav">{props.children}</div>
-        )}
+      {/*<Header isOpen={isOpen} toggleOpen={toggleOpen} />*/}
+      <Header />
+      <main className="layout_wrapper">
+        <div>{props.children}</div>
       </main>
+      {/*<main className="main">*/}
+      {/*  {isOpen ? (*/}
+      {/*    <div className="open_nav">{props.children}</div>*/}
+      {/*  ) : (*/}
+      {/*    <div className="close_nav">{props.children}</div>*/}
+      {/*  )}*/}
+      {/*</main>*/}
     </div>
   );
 };

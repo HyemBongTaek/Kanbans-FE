@@ -10,13 +10,14 @@
 //background: $main_gray;
 
 .navigation {
-  position: relative;
+  position: absolute;
   width: 70px;
   height: 350px;
   background: $main_gray;
   border-radius: 35px;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
   margin-left: 20px;
+  margin-top: 5%;
 
   ul {
     position: absolute;
@@ -27,9 +28,7 @@
     width: 100%;;
     display: flex;
     flex-direction: column;
-    .active{
-      color: #ffffff;
-    }
+
     .list {
       position: relative;
       list-style: none;
@@ -67,6 +66,12 @@
         color: #f3f3f3;
         font-weight: 500;
 
+        //&:active, &:hover{
+        //  .icons{
+        //    color: $main_gray;
+        //  }
+        //
+        //}
         .icons {
           position: relative;
           display: block;
@@ -74,6 +79,7 @@
           margin-left: -4px;
           @include icons(#ffffff, 30px);
         }
+
         .title {
           position: absolute;
           top: 50%;
@@ -90,26 +96,27 @@
         }
       }
     }
-    .indicator{
-      position: absolute;
-      left: 0;
-      width: 70px;
-      height: 70px;
-      transition: 0.5s;
-
-      &:before{
-        width: 50px;
-        height: 50px;
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%);
-        background: #333;
-        border-radius: 50%;
-        transition: 0.5s;
-
-      }
-    }
+    //.indicator{
+    //  position: absolute;
+    //  left: 0;
+    //  width: 70px;
+    //  height: 70px;
+    //  transition: 0.5s;
+    //
+    //  &:before{
+    //    width: 50px;
+    //    height: 50px;
+    //    content: '';
+    //    position: absolute;
+    //    top: 50%;
+    //    left: 50%;
+    //    transform: translate(-48%);
+    //    margin-top: -39px;
+    //    background: #ffffff;
+    //    border-radius: 50%;
+    //    transition: 0.5s;
+    //
+    //  }
+    //}
   }
 }

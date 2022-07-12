@@ -18,28 +18,30 @@ import { Switch } from "react-router-dom";
 const KanbanSlice = createSlice({
   name: "kanbanBoard",
   initialState: {
-    kanbans: [
-      {
-        // board: {},
-        // cards: {},
-        // columnOrder: [],
-      },
-    ],
+    kanbans: [],
     isFetching: false,
     errorMessage: null,
     inviteCode: "",
   },
   reducers: {
     //카드가 이동할때 번쩍거림 방지를 위해 두개로 나눠줌.
+    //같은 보드사이에서 카드를 변경할때
     sortKanbanCardReducer(state, action) {
-      const newBoard = action.payload.newBoard;
-      console.log("뉴보드", newBoard);
-      const newKanban = {
-        ...state.kanbans.board,
-        [newBoard.id]: newBoard,
-      };
-      console.log("ssss", newKanban);
-      state.kanbans.board = newKanban;
+      const items = action.payload;
+      console.log("보드에서이동", action.payload);
+      state.kanbans.board[items.endPoint].cardId = items.endOrder;
+    },
+    //카드가 보드를 이동할 경우
+    sortKanbanCardMoveReducer(state, action) {
+      console.log("카드가 보드를 이동할 경우", action.payload);
+      const items = action.payload;
+      state.kanbans.board[items.endPoint].cardId = items.endOrder;
+      state.kanbans.board[items.startPoint].cardId = items.startOrder;
+    },
+    //보드끼리 이동
+    moveKanbanBoardReducer(state, action) {
+      console.log("보드끼리의 이동", action.payload);
+      state.kanbans.columnOrders = action.payload.order;
     },
   },
   extraReducers: (builder) => {
@@ -60,13 +62,8 @@ const KanbanSlice = createSlice({
         state.errorMessage = action.payload.message;
       })
       .addCase(changeBoardTitle.fulfilled, (state, action) => {
-        const newBoard = action.payload.data.updateBoard;
-        const newKanbans = {
-          cards: state.kanbans.cards,
-          board: newBoard,
-          columnOrders: state.kanbans.columnOrders,
-        };
-        state.kanbans = newKanbans;
+        const items = action.payload;
+        console.log("확인용", current(state.kanbans.board[items.boardId]));
       })
       .addCase(deleteBoard.fulfilled, (state, action) => {
         const boardId = action.payload.boardId;
@@ -130,24 +127,6 @@ const KanbanSlice = createSlice({
       .addCase(clearAllKanbanCards.fulfilled, (state, action) => {
         state.kanbans.board[action.payload].cardId = [];
       })
-
-      .addCase(sortKanbanBoard.fulfilled, (state, action) => {
-        const items = action.payload;
-        state.kanbans.columnOrders = items.newBoardOrder;
-      })
-      .addCase(moveSortKanbanCard.fulfilled, (state, action) => {
-        const items = action.payload;
-
-        const newKanban = {
-          ...state.kanbans,
-          board: {
-            ...state.kanbans.board,
-            [items.newStartId]: items.newStart,
-            [items.newFinishId]: items.newFinish,
-          },
-        };
-        state.kanbans = newKanban;
-      })
       .addCase(checkKanbanCard.fulfilled, (state, action) => {
         const currentCard = state.kanbans.cards[action.payload.cardId];
         currentCard.check = action.payload.res.check;
@@ -167,6 +146,11 @@ const KanbanSlice = createSlice({
   },
 });
 
-export const { sortKanbanCardReducer, cardOpenReducer } = KanbanSlice.actions;
+export const {
+  sortKanbanCardReducer,
+  cardOpenReducer,
+  sortKanbanCardMoveReducer,
+  moveKanbanBoardReducer,
+} = KanbanSlice.actions;
 
 export default KanbanSlice;

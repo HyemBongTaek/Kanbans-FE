@@ -35,7 +35,7 @@
 //             <div
 //               className={styles.user_image}
 //               onClick={() => {
-//                 navigate(`/profile`, { replace: true });
+//                 navigate(`/Profile`, { replace: true });
 //               }}
 //             >
 //               <img src={items.profileImage} alt="profile_image" />
