@@ -1,0 +1,16 @@
+.home_header{
+  display: flex;
+  margin-right: 200px;
+
+  margin-top: 40px;
+
+  &> div:first-child{
+    font-size: 45px;
+    font-weight: 600;
+  }
+
+  & > div:nth-child(2){
+    margin-left: 100px;
+    margin-top: 20px;
+  }
+}

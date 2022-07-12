@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./style/_JoinProjectModal.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { joinProject } from "../../../redux/Async/projects";
+import { joinProject } from "../../redux/Async/projects";
 
 const JoinProjectModal = () => {
   const dispatch = useDispatch();

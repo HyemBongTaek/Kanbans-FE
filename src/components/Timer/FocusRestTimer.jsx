@@ -3,11 +3,11 @@ import Swal from "sweetalert2";
 import styles from "./style/_WorkTimer.module.scss";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { Icon } from "@iconify/react";
-import { isRestTimeReducer } from "../../../redux/Slice/commonSlice";
+import { isRestTimeReducer } from "../../redux/Slice/commonSlice";
 import { useDispatch } from "react-redux";
 import useSound from "use-sound";
 
-import notiSound from "../../../static/audio/Ascending 4.mp3";
+import AlarmSound from "../../static/audio/Ascending 4.mp3";
 
 const FocusRestTimer = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const FocusRestTimer = () => {
   const [soundAlarm, setSoundAlarm] = useState(false);
   const [pageSize, setPageSize] = useState(false);
 
-  const [play] = useSound(notiSound);
+  const [play] = useSound(AlarmSound);
 
   const renderTime = ({ remainingTime }) => {
     if (remainingTime === 0) {
@@ -42,7 +42,6 @@ const FocusRestTimer = () => {
         },
         1000
       );
-      // return dispatch(isRestTimeReducer(true));
     }
 
     const minutes = Math.floor(remainingTime / 60)

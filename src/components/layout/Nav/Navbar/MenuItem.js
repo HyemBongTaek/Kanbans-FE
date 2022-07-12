@@ -30,7 +30,7 @@ const icons = [
   "fa:home",
   "fa:home",
 ];
-const navigation = ["/", "/profile", "/project", "/timer", "/timer"];
+const navigation = ["/", "/Profile", "/project", "/timer", "/timer"];
 
 export const MenuItem = ({ i }) => {
   const navigate = useNavigate();

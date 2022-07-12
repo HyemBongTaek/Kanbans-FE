@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   cardInviteMembers,
   cardShowMembers,
-} from "../../redux/Async/KanbanCardDetail";
+} from "../../../redux/Async/KanbanCardDetail";
 
 const CardInviteMembers = ({ cardId, projectId, setIsAddMember }) => {
   const dispatch = useDispatch();

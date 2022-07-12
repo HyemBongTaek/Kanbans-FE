@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import SelectedDday from "../menu/utils/SelectedDday";
+import SelectedDday from "../../menu/utils/SelectedDday";
 import styles from "./style/_CardDetailLeft.module.scss";
 import AddLabel from "./AddLabel";
 import AddingLabel from "./AddingLabel";
 import CardInviteMembers from "./CardInviteMembers";
 import { useDispatch, useSelector } from "react-redux";
 import { Icon } from "@iconify/react";
-import { exitCardMember } from "../../redux/Async/KanbanCardDetail";
+import { exitCardMember } from "../../../redux/Async/KanbanCardDetail";
 
 const CardDetailLeft = ({ cardId, projectId }) => {
   const dispatch = useDispatch();

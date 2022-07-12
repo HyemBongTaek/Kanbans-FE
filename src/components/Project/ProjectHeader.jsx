@@ -1,7 +1,7 @@
 import React from "react";
 
-import styles from "../../../style/menu/_Project.module.scss";
-import SearchInput from "../../common/SearchInput";
+import styles from "./style/_ProjectHeader.module.scss";
+import SearchInput from "../common/SearchInput";
 import { useNavigate } from "react-router-dom";
 
 const ProjectHeader = () => {

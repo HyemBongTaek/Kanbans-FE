@@ -100,7 +100,7 @@ const KanbanCard = (props) => {
                       props.cards.labels.map((label) => {
                         return (
                           <GetLabels
-                            key={label.id}
+                            key={label.labelId}
                             item={label}
                             type="main_label"
                           />

@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import React, { useEffect } from "react";
-import ProjectList from "../../components/menu/project/ProjectList";
+import ProjectList from "../../components/Project/ProjectList";
 import styles from "../../style/menu/_Project.module.scss";
 import "../../style/common/commonStyle.scss";
-import ProjectHeader from "../../components/menu/project/ProjectHeader";
+import ProjectHeader from "../../components/Project/ProjectHeader";
 
-const Project = () => {
+const ProjectPage = () => {
   return (
     <div>
       <div className={styles.kanban_home}>
@@ -15,4 +15,4 @@ const Project = () => {
     </div>
   );
 };
-export default Project;
+export default ProjectPage;

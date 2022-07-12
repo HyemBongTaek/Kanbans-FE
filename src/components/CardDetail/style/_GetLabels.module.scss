@@ -13,11 +13,20 @@ $colors: ($label_red, $label_pink, $label_orange, $label_yellow, $label_emerald_
   }
 }
 .main_wrapper{
-  margin-right: 5px;
+  margin-left: 10px;
+  display: flex;
+  //margin-top: -20px;
 }
-.red{
+.main_label{
+  width: 30px;
+  height: 10px;
+  border-radius: 2px;
+}
+.detail_label{
   width: 60px;
   height: 20px;
+}
+.red{
   text-align: center;
   background: $label_red;
 }

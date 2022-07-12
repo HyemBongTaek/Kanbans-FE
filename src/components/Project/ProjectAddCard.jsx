@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
-import SwitchButton from "../../common/SwitchButton";
-import styles from "./style/_AddProjectCard.module.scss";
+import SwitchButton from "../common/SwitchButton";
+import styles from "./style/_ProjectAddCard.module.scss";
 import { Icon } from "@iconify/react";
-import { useDetectOutsideClick } from "../../../hooks/useDetectOutsideClick";
-import { addProject } from "../../../redux/Async/projects";
+import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
+import { addProject } from "../../redux/Async/projects";
 import { useDispatch } from "react-redux";
 
-const AddProjectCard = () => {
+const ProjectAddCard = () => {
   const dispatch = useDispatch();
   const createRef = useRef();
   const [create, setCreate] = useDetectOutsideClick(createRef, false);
@@ -80,4 +80,4 @@ const AddProjectCard = () => {
   );
 };
 
-export default AddProjectCard;
+export default ProjectAddCard;

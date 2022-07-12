@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from "./_EditProfile.module.scss";
 import { Icon } from "@iconify/react";
 
-import { changeUserInfo } from "../../../redux/Async/user";
+import { changeUserInfo } from "../../redux/Async/user";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingSpinner from "../utils/LoadingSpinner";
+import LoadingSpinner from "../menu/utils/LoadingSpinner";
 
 const EditProfileImage = (props) => {
   const dispatch = useDispatch();

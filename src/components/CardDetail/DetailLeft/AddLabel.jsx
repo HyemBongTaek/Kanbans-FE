@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import styles from "./style/_AddLabel.module.scss";
 import { useDispatch } from "react-redux";
-import { addProjectLabel } from "../../redux/Async/KanbanCardDetail";
+import { addProjectLabel } from "../../../redux/Async/KanbanCardDetail";
 
 //프로젝트에 라벨을 추가하는 동시에 카드에 추가함.
 const AddLabel = ({ setIsOpen, projectId, cardId }) => {

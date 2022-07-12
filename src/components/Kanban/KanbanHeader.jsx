@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const KanbanHeader = ({ projectId, title, setIsBoard, setIsMember }) => {
   const navigate = useNavigate();
   const inviteClick = () => {
-    navigate("/test", { state: projectId });
+    navigate("/invite", { state: projectId });
   };
   const BoardClickHandler = () => {
     setIsBoard(true);
@@ -29,7 +29,6 @@ const KanbanHeader = ({ projectId, title, setIsBoard, setIsMember }) => {
           <div onClick={BoardClickHandler}>Boards</div>
           <div onClick={MemberClickHandler}>Member</div>
           <div onClick={inviteClick}>invite</div>
-          <div>헹구</div>
         </div>
       </div>
     </>

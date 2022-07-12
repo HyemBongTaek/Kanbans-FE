@@ -32,19 +32,20 @@ const Header = ({ isOpen, toggleOpen }) => {
     removeCookie("cocoriLogin", { path: "/" });
     window.location.replace("/");
   };
+
   return (
     <nav className={styles.header}>
       {/*로그인 되어있지 않으면 보이지 않게 가려놓음*/}
       {token && (
         <div className={styles.header_login}>
-          <AfterLogin isOpen={isOpen} toggleOpen={toggleOpen} />
-          {/*<div>*/}
-          {/*  <LoginAfter />*/}
-          {/*<button className={styles.button} onClick={logoutHandler}>*/}
-          {/*  <Icon className={styles.icon} icon="clarity:logout-line" />*/}
-          {/*  Logout*/}
-          {/*</button>*/}
-          {/*</div>*/}
+          {/*<AfterLogin isOpen={isOpen} toggleOpen={toggleOpen} />*/}
+          <div>
+            <LoginAfter />
+            <button className={styles.button} onClick={logoutHandler}>
+              <Icon className={styles.icon} icon="clarity:logout-line" />
+              Logout
+            </button>
+          </div>
         </div>
       )}
 

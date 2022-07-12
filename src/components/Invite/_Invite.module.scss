@@ -3,6 +3,10 @@
 
 .KanbanInvite{
   @include modal_container(800px, 300px);
+  div{
+    font-size: 50px;
+    text-align: center;
+  }
 }
 
 .overlay{

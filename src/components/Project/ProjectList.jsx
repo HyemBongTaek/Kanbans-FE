@@ -1,12 +1,11 @@
-import { Icon } from "@iconify/react";
 import React, { useEffect, useRef, useState } from "react";
 
-import styles from "../../../style/menu/_Project.module.scss";
+import styles from "./style/_ProjectList.module.scss";
 import ProjectCard from "./ProjectCard";
 import { useDispatch, useSelector } from "react-redux";
-import { getProject } from "../../../redux/Async/projects";
+import { getProject } from "../../redux/Async/projects";
 
-import AddProjectCard from "./AddProjectCard";
+import ProjectAddCard from "./ProjectAddCard";
 import { useParams } from "react-router-dom";
 
 const ProjectList = () => {
@@ -22,7 +21,7 @@ const ProjectList = () => {
     <div>
       <div className={styles.home_kanban_list}>
         <div className={styles.add_kanban}>
-          <AddProjectCard />
+          <ProjectAddCard />
         </div>
         {projectList &&
           projectList?.map((project) => {
