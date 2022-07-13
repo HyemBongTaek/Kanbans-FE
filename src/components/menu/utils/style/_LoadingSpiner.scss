@@ -1,10 +1,23 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+
 .loader {
-  border: 10px solid #f3f3f3;
-  border-top: 10px solid #3498db;
+  border: 10px solid $light_gray;
+  border-top: 10px solid $main_gray;
   border-radius: 50%;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
+  margin: 40px auto;
   animation: spin 1s linear infinite;
+}
+
+.spinner {
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  margin-top: -120px;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
 }
 
 @keyframes spin {

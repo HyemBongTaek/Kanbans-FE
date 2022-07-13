@@ -69,7 +69,7 @@ const ProjectAddCard = () => {
       ) : (
         <div
           className={styles.add_kanban_style}
-          onClick={() => setCreate(!create)}
+          onClick={() => setCreate((pre) => !pre)}
           ref={createRef}
         >
           <div>새로만들기</div>

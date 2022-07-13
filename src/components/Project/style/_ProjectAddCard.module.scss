@@ -4,6 +4,7 @@
 .add_kanban_style {
   text-align: center;
   margin-top: 80px;
+  
 
   div {
     font-size: 25px;
@@ -21,7 +22,7 @@
       display: flex;
 
       .icon {
-        @include icons($main_gray, normal);
+        @include icons($main_gray, 40px);
       }
 
       input {
@@ -49,7 +50,7 @@
   .permission{
     display: flex;
     .icon {
-      @include icons($main_gray, normal);
+      @include icons($main_gray, 40px);
     }
 
   }

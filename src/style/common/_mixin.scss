@@ -1,25 +1,25 @@
 @import "./colors";
 
 @mixin icons($color, $size){
+  width: $size;
+  height: $size;
   @if $color == "white" {
     color: #ffffff;
   }@else{
     color: $color;
   }
-  @if $size == "large"{
-    width: 50px;
-    height: 50px;
-  }@else if($size =="normal"){
-    width: 40px;
-    height: 40px;
-  }@else if($size =="small"){
-    width: 20px;
-    height: 20px;
-  }
-  @else {
-    width: $size;
-    height: $size;
-  }
+
+  //}@else if($size =="normal"){
+  //  width: 40px;
+  //  height: 40px;
+  //}@else if($size =="small"){
+  //  width: 20px;
+  //  height: 20px;
+  //}
+  //@else {
+  //  width: $size;
+  //  height: $size;
+  //}
 }
 
 @mixin label_color($color){

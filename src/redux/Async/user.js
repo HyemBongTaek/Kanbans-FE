@@ -98,6 +98,7 @@ export const changeUserInfo = createAsyncThunk(
           },
         });
         if (res.data.ok) {
+          console.log(res.data);
           // thunkAPI.dispatch(getProject());
           return { data: res.data, type };
         }

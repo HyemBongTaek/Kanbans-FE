@@ -16,6 +16,6 @@
   justify-content: space-between;
 
   .delete_icon{
-    @include icons($comment_gray, "small");
+    @include icons($comment_gray, 20px);
   }
 }

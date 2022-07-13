@@ -38,7 +38,7 @@ const Member = ({ projectId }) => {
                   <img src={member.profileImage} alt="profile_image" />
                   <div>{member.name}</div>
                   <button onClick={() => deleteProjectMember({ userId })}>
-                    삭제하기
+                    제외하기
                   </button>
                 </div>
               );

@@ -10,7 +10,7 @@ const EditProfileImage = (props) => {
   const dispatch = useDispatch();
   const [profileImage, setProfileImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const userImage = props.items;
+  console.log(props);
 
   const profileImageChange = (e) => {
     setProfileImage(e.target.files[0]);
@@ -39,10 +39,12 @@ const EditProfileImage = (props) => {
     <>
       <div className={styles.edit_profile}>
         {isLoading ? (
-          <LoadingSpinner />
+          <div className={styles.loading}>
+            <LoadingSpinner />
+          </div>
         ) : (
           <label>
-            <img src={userImage} alt="profile_image" />
+            <img src={props.image} alt="profile_image" />
             <Icon
               className={styles.edit_icon}
               icon="fluent:camera-edit-20-filled"

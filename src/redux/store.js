@@ -13,6 +13,7 @@ import { kanbanApi } from "./Slice/kanbanApi";
 import SocketClient from "./SocketClient";
 import { socketMiddleware } from "./SocketMiddleWare";
 import SocketSlice from "./Slice/socketSlice";
+import TimerSlice from "./Slice/timerSlice";
 //A non-serializable value was detected in an action, in the path 오류 없애기
 // middleware: (getDefaultMiddleware) =>
 //   getDefaultMiddleware({
@@ -28,13 +29,14 @@ const reducers = combineReducers({
   kanbanSlice: KanbanSlice.reducer,
   cardDetailSlice: KanbanCardDetailSlice.reducer,
   socketSlice: SocketSlice.reducer,
+  timerSlice: TimerSlice.reducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
   // persist제외
-  blacklist: ["cardDetailSlice"],
+  blacklist: ["cardDetailSlice", "kanbanSlice"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

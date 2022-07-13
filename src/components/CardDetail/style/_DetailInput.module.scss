@@ -34,7 +34,7 @@
 
 }
 .icon {
-  @include icons($gray, "");
+  @include icons($gray, 30px);
   &:hover{
     color: $main_green;
   }

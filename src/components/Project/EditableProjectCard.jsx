@@ -5,7 +5,7 @@ import SwitchButton from "../common/SwitchButton";
 import { useDispatch } from "react-redux";
 import { updateProject } from "../../redux/Async/projects";
 
-const EditableProjectCard = ({ projectId, existingTitle }) => {
+const EditableProjectCard = ({ projectId, existingTitle, setIsEditable }) => {
   const dispatch = useDispatch();
   const [isOn, setIsOn] = useState(false);
   const [title, setTitle] = useState(existingTitle);
@@ -20,6 +20,7 @@ const EditableProjectCard = ({ projectId, existingTitle }) => {
         projectId: projectId,
       })
     );
+    setIsEditable(false);
   };
 
   return (

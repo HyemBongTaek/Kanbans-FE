@@ -10,6 +10,7 @@ const ProjectHeader = () => {
   const joinProjectClick = () => {
     navigate("/join/project/");
   };
+
   return (
     <div className={styles.home_header}>
       <div>헹구님의 프로젝트</div>

@@ -43,6 +43,15 @@ const KanbanSlice = createSlice({
       console.log("보드끼리의 이동", action.payload);
       state.kanbans.columnOrders = action.payload.order;
     },
+    //보드 타이틀 변경
+    changeBoardTitleReducer(state, action) {
+      const items = action.payload.data;
+      state.kanbans.board[items.id].title = items.title;
+    },
+    //카드 삭제
+    deleteCardReducer(state, action) {
+      console.log("카드삭제", action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -60,10 +69,6 @@ const KanbanSlice = createSlice({
         }
         state.isFetching = false;
         state.errorMessage = action.payload.message;
-      })
-      .addCase(changeBoardTitle.fulfilled, (state, action) => {
-        const items = action.payload;
-        console.log("확인용", current(state.kanbans.board[items.boardId]));
       })
       .addCase(deleteBoard.fulfilled, (state, action) => {
         const boardId = action.payload.boardId;
@@ -151,6 +156,7 @@ export const {
   cardOpenReducer,
   sortKanbanCardMoveReducer,
   moveKanbanBoardReducer,
+  changeBoardTitleReducer,
 } = KanbanSlice.actions;
 
 export default KanbanSlice;

@@ -3,7 +3,7 @@ import { getCookie, setCookie } from "../components/menu/login/utils/cookie";
 import { useCookies } from "react-cookie";
 
 const Apis = axios.create({
-  baseURL: "http://3.37.231.161:4000",
+  baseURL: "http://3.37.231.161",
 });
 
 //요청시 AccessToken 계속 보내주기

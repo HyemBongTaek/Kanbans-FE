@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Apis from "../apis";
 import {
+  changeBoardTitleReducer,
   moveKanbanBoardReducer,
   sortKanbanCardMoveReducer,
   sortKanbanCardReducer,
@@ -82,7 +83,10 @@ export const changeBoardTitle = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        return { data: res.data, boardId };
+        thunkAPI.dispatch(
+          changeBoardTitleReducer({ data: res.data.updateBoards })
+        );
+        // return { data: res.data, boardId };
       }
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response);

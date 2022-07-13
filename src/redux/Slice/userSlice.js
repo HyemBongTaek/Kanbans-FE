@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserInfo, authLogin, changeUserInfo } from "../Async/user";
-import { useNavigate } from "react-router-dom";
 import { setCookie } from "../../components/menu/login/utils/cookie";
-import sessionStorage from "redux-persist/es/storage/session";
 
 const UserSlice = createSlice({
   name: "user",

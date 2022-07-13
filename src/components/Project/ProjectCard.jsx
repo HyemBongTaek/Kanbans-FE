@@ -23,10 +23,8 @@ const ProjectCard = (props) => {
   const userInfo = useSelector((state) => state.userSlice.userInfo.id);
   const projectMemberList = useMemo(() => {
     if (items.users.length > 3) {
-      console.log("3이넘는것 같습니다");
       return items.users.slice(0, 3);
     } else {
-      console.log("3이 안넘는것 같습니당");
       return items.users;
     }
   });
@@ -101,6 +99,7 @@ const ProjectCard = (props) => {
         <div className={styles.title}>
           {isEditable ? (
             <EditableProjectCard
+              setIsEditable={setIsEditable}
               projectId={items.projectId}
               existingTitle={items.title}
             />

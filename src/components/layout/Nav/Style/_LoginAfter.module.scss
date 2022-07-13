@@ -77,7 +77,7 @@
           display: block;
           line-height: 75px;
           margin-left: -4px;
-          @include icons(#ffffff, 30px);
+          @include icons("white", 30px);
         }
 
         .title {

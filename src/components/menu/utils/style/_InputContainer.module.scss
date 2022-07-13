@@ -43,14 +43,14 @@
 }
 .icon_check{
   margin-left: 10px;
-  @include icons($gray, small);
+  @include icons($gray, 20px);
   &:hover{
-    @include icons($main_green, small);
+    @include icons($main_green, 20px);
   }
 }
 .icon_cancle{
-  @include icons($gray, small);
+  @include icons($gray, 20px);
   &:hover{
-    @include icons($main_red, small);
+    @include icons($main_red, 20px);
   }
 }

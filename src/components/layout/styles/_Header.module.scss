@@ -59,7 +59,7 @@
 
     @include button_styles(100px, 40px, $main_gray, 5px, white, 15px);
     .icon{
-      @include icons($white_font, small);
+      @include icons($white_font, 20px);
     }
   }
 }

@@ -187,9 +187,9 @@
   }
   .delete_icon{
 
-    @include icons($gray, small);
+    @include icons($gray, 20px);
     &:hover{
-      @include icons($main_gray, small);
+      @include icons($main_gray, 20px);
     }
   }
 }
