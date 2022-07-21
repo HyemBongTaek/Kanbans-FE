@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Swal from "sweetalert2";
 import styles from "./style/_WorkTimer.module.scss";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import useSound from "use-sound";
 
 import AlarmSound from "../../static/audio/Ascending 4.mp3";
+import { addTimer, getTimer } from "../../redux/Async/timer";
+import { format } from "date-fns";
 
 const FocusRestTimer = () => {
   const dispatch = useDispatch();
@@ -87,12 +89,21 @@ const FocusRestTimer = () => {
   const ClickStartHandler = () => {
     setIsPlay(!isPlay);
   };
+  const NowDate = Date.now();
+  const todayDate = useMemo(() => format(new Date(NowDate), "yyyy-MM-dd"));
 
   const complete = () => {
+    if (type === false) {
+      dispatch(
+        addTimer({
+          createdAt: todayDate,
+          time: playTime,
+        })
+      );
+    }
     setType((pre) => !pre);
     setReStart((pre) => pre + 1);
     setIsPlay(false);
-    console.log("확인", type);
   };
 
   const resetBtn = () => {

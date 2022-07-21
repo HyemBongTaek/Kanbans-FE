@@ -1,0 +1,24 @@
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
+
+.wrapper{
+  @include modal_container(500px, 300px);
+  //text-align: center;
+  top : 20%;
+}
+.layout{
+  @include overlay_container;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.cancle_button{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  margin-top: -80px;
+  cursor: pointer;
+  .icon{
+    @include icons($main_gray, 30px);
+  }
+}

@@ -4,7 +4,7 @@ import styles from "./style/_KanbanBoard.module.scss";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
 import { Icon } from "@iconify/react";
-import InputContainer from "../menu/utils/InputContainer";
+import InputContainer from "./InputContainer";
 import KanbanCard from "./KanbanCard";
 
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
@@ -32,63 +32,67 @@ const KanbanBoard = (props) => {
             {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
-            {editable ? (
-              <div>
-                <EditableInput
-                  items={props}
-                  boardTitle={boards.title}
-                  editable={editable}
-                  setEditable={setEditable}
-                  boardId={boards.id}
-                />
-              </div>
-            ) : (
-              <>
-                <div
-                  className={styles.kanban_title}
-                  {...provided.dragHandleProps}
-                >
+            <>
+              <div
+                className={styles.kanban_title}
+                {...provided.dragHandleProps}
+              >
+                {editable ? (
+                  <EditableInput
+                    items={props}
+                    boardTitle={boards.title}
+                    editable={editable}
+                    setEditable={setEditable}
+                    boardId={boards.id}
+                    projectId={boards.projectId}
+                  />
+                ) : (
                   <div onClick={() => setEditable(!editable)}>
                     {props.boards.title}
                   </div>
-                  <div ref={dropdownRef}>
-                    <Icon
-                      icon="bi:three-dots"
-                      color="#8c8c8c"
-                      height="30"
-                      onClick={dropdownClick}
+                )}
+
+                <div ref={dropdownRef}>
+                  <Icon
+                    icon="bi:three-dots"
+                    color="#8c8c8c"
+                    height="30"
+                    onClick={dropdownClick}
+                  />
+                  {isActive && (
+                    <BoardDropDown
+                      dropdownClick={dropdownClick}
+                      boardId={props.boards.id}
+                      projectId={boards.projectId}
                     />
-                    {isActive && (
-                      <BoardDropDown
-                        dropdownClick={dropdownClick}
-                        boardId={props.boards.id}
-                      />
-                    )}
-                  </div>
-                </div>
-                <Droppable droppableId={boards.id.toString()} type="card">
-                  {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps}>
-                      {boards &&
-                        props?.cards?.map((cards, index) => {
-                          const cardID = cards?.id;
-                          return (
-                            <KanbanCard
-                              key={cards.id}
-                              cards={cards}
-                              index={index}
-                              boardId={boards.id}
-                              projectId={boards.projectId}
-                            />
-                          );
-                        })}
-                      {provided.placeholder}
-                    </div>
                   )}
-                </Droppable>
-                <InputContainer type="card" boardId={props.boards.id} />
-              </>
-            )}
+                </div>
+              </div>
+              <Droppable droppableId={boards.id.toString()} type="card">
+                {(provided) => (
+                  <div ref={provided.innerRef} {...provided.droppableProps}>
+                    {boards &&
+                      props?.cards?.map((cards, index) => {
+                        return (
+                          <KanbanCard
+                            key={cards.id.toString()}
+                            cards={cards}
+                            index={index}
+                            boardId={boards.id}
+                            projectId={boards.projectId}
+                          />
+                        );
+                      })}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+              <InputContainer
+                type="card"
+                boardId={props.boards.id}
+                projectId={boards.projectId}
+              />
+            </>
           </div>
         )}
       </Draggable>

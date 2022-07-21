@@ -2,7 +2,6 @@ import React from "react";
 
 import styles from "./_Main.module.scss";
 import { useSelector } from "react-redux";
-import BigLogo from "../../static/image/big_logo.png";
 import Main_image from "../../static/image/main_image.png";
 import AuthModal from "../../components/menu/login/AuthModal";
 

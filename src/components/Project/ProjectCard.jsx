@@ -7,6 +7,7 @@ import {
   bookmarkProject,
   deleteProject,
   leaveProject,
+  updateProject,
 } from "../../redux/Async/projects";
 import EditableProjectCard from "./EditableProjectCard";
 import Swal from "sweetalert2";
@@ -19,24 +20,23 @@ const ProjectCard = (props) => {
   const [projectBookmark, setProjectBookmark] = useState(items.bookmark);
   const [isEditable, setIsEditable] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
+  const [isPermission, setIsPermission] = useState(false);
 
   const userInfo = useSelector((state) => state.userSlice.userInfo.id);
   const projectMemberList = useMemo(() => {
     if (items.users.length > 3) {
-      console.log("3이넘는것 같습니다");
       return items.users.slice(0, 3);
     } else {
-      console.log("3이 안넘는것 같습니당");
       return items.users;
     }
   });
-  console.log(projectMemberList);
   useEffect(() => {
     if (userInfo === items.owner) {
       setIsOwner(true);
     }
   }, [userInfo]);
 
+  const permission = isPermission ? "private" : "public";
   //프로젝트 즐겨찾기
   const clickBookmarkHandler = () => {
     setProjectBookmark(!projectBookmark);
@@ -85,10 +85,27 @@ const ProjectCard = (props) => {
     });
   };
 
+  const changeProject = (e) => {
+    e.preventDefault();
+    setIsPermission((pre) => !pre);
+    dispatch(
+      updateProject({
+        permission: permission,
+        projectId: items.projectId,
+      })
+    );
+  };
+
   return (
     <div className={styles.home_card}>
       <div className={styles.board_status}>
-        <div className={styles.public_private}>{items.permission}</div>
+        {isEditable ? (
+          <div className={styles.public_private} onClick={changeProject}>
+            {permission}
+          </div>
+        ) : (
+          <div className={styles.public_private}>{items.permission}</div>
+        )}
         <Icon
           onClick={clickBookmarkHandler}
           className={
@@ -101,6 +118,7 @@ const ProjectCard = (props) => {
         <div className={styles.title}>
           {isEditable ? (
             <EditableProjectCard
+              setIsEditable={setIsEditable}
               projectId={items.projectId}
               existingTitle={items.title}
             />

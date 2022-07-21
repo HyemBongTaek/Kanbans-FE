@@ -6,6 +6,8 @@ import Logo from "../../static/image/cocoli_black.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getKanbanInviteCode } from "../../redux/Async/kanban";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import Logo3 from "../../static/image/cocori03.png";
+import { Icon } from "@iconify/react";
 
 const Invite = () => {
   const dispatch = useDispatch();
@@ -30,10 +32,14 @@ const Invite = () => {
     <>
       <div className={styles.KanbanInvite}>
         {/*<img src={Logo} alt="share_logo" />*/}
-        <div>공유하기</div>
+        <div className={styles.logo}>
+          <img src={Logo3} alt="cocori_logo" />
+        </div>
         {inviteCode}
         <CopyToClipboard text={inviteCode}>
-          <button>초대코드 복사하기</button>
+          <button className={styles.copy}>
+            <Icon icon="akar-icons:copy" color="#8c8c8c" height="30" />
+          </button>
         </CopyToClipboard>
         <Share inviteCode={inviteCode} />
       </div>

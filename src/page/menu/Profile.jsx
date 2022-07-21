@@ -1,52 +1,45 @@
 import React, { useEffect, useState } from "react";
 import EditProfileImage from "../../components/Profile/EditProfileImage";
-import { useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  changeUserInfo,
-  deleteAccount,
-  getUserInfo,
-} from "../../redux/Async/user";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import styles from "./_Profile.module.scss";
+import { getUserInfo } from "../../redux/Async/user";
 import { setOpenLoginReducer } from "../../redux/Slice/commonSlice";
+import EditProfile from "../../components/Profile/EditProfile";
+import { useNavigate } from "react-router-dom";
+import { Icon } from "@iconify/react";
+import { useCookies } from "react-cookie";
 
 const Profile = () => {
   // const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(setOpenLoginReducer());
     dispatch(getUserInfo());
   }, [dispatch, getUserInfo]);
 
   const userInfo = useSelector((state) => state.userSlice.userInfo);
 
-  const [nickname, setNickname] = useState(userInfo.name);
-  const changeNickname = (e) => {
-    setNickname(e.target.value);
-  };
-
-  const nicknameChange = () => {
-    dispatch(
-      changeUserInfo({
-        type: "nickname",
-        nickname: nickname,
-      })
-    );
-  };
-
-  const deleteAccountHandler = () => {
-    dispatch(deleteAccount());
-  };
+  const { image, name, introduction } = useSelector(
+    (state) => ({
+      image: state.userSlice.userInfo.profileImage,
+      name: state.userSlice.userInfo.name,
+      introduction: state.userSlice.userInfo.introduce,
+    }),
+    shallowEqual
+  );
 
   return (
-    <div>
-      <EditProfileImage items={userInfo.profileImage} />
-      <label>
-        <input value={nickname} onChange={changeNickname} />
-      </label>
-      <button onClick={nicknameChange}>닉네임 변경하기</button>
-      <button onClick={deleteAccountHandler}>회원탈퇴하기</button>
-    </div>
+    <>
+      <div className={styles.wrapper}>
+        <EditProfileImage image={image} />
+        <div className={styles.cancle_button} onClick={() => navigate(-1)}>
+          <Icon className={styles.icon} icon="octicon:x-16" />
+        </div>
+        <EditProfile name={name} introduction={introduction} />
+      </div>
+      <div className={styles.layout} onClick={() => navigate(-1)} />
+    </>
   );
 };
 

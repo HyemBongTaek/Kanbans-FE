@@ -3,7 +3,8 @@
 
 .add_kanban_style {
   text-align: center;
-  margin-top: 80px;
+  margin-top: 65px;
+
 
   div {
     font-size: 25px;
@@ -14,14 +15,15 @@
 
 .add_project {
   height: 200px;
-  margin-top: 30px;
+  margin-left: 20px;
 
   form {
+    margin-top: 10px;
     label {
       display: flex;
 
       .icon {
-        @include icons($main_gray, normal);
+        @include icons($main_gray, 40px);
       }
 
       input {
@@ -48,24 +50,26 @@
   }
   .permission{
     display: flex;
-    .icon {
-      @include icons($main_gray, normal);
+    margin-bottom: 10px;
+    margin-top: 50px;
+    .select_permission{
+      cursor: pointer;
+      width: 5rem;
+      .icon {
+        @include icons($main_gray, 20px);
+      }
     }
 
+
   }
-  .add_button{
-    border: 1px solid $main_gray;
-    background-color: #FFFFFF;
-    color: $main_gray;
-    width: 100px;
-    height: 30px;
-    border-radius: 10px;
-    margin-left: 70px;
-    &:hover{
-      color: $white_font;
-      background-color: $main_gray;
+  .buttons{
+    display: flex;
+    justify-content: space-around;
+    margin-right: 20px;
+    margin-top: 30px;
+    button{
+    @include common_button();
     }
-  }
-}
+  }}
 
 

@@ -1,12 +1,11 @@
 import React, { useRef } from "react";
+import { useDimensions } from "../../../../hooks/useDemenstions";
+import { useCookies } from "react-cookie";
 import { motion, useCycle } from "framer-motion";
 import Navigation from "./Navigation";
 import { MenuToggle } from "./MenuToggle";
 import { Icon } from "@iconify/react";
 import styles from "../Style/_AfterLogin.module.scss";
-import { useDimensions } from "../../../../hooks/useDemenstions";
-import { useCookies } from "react-cookie";
-import sessionStorage from "redux-persist/es/storage/session";
 
 const AfterLogin = ({ isOpen, toggleOpen }) => {
   const containerRef = useRef(null);
@@ -15,7 +14,7 @@ const AfterLogin = ({ isOpen, toggleOpen }) => {
   //쿠키정의, 재정의, 쿠키제거를 한번에 넣어주지 않으면 제거가 되지 않아서 모두다 넣어줌.
   const [cookies, setCookie, removeCookie] = useCookies(["cocoriLogin"]);
   const logoutHandler = () => {
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
     removeCookie("cocoriLogin", { path: "/" });
     window.location.replace("/");
   };

@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserInfo, authLogin, changeUserInfo } from "../Async/user";
-import { useNavigate } from "react-router-dom";
 import { setCookie } from "../../components/menu/login/utils/cookie";
-import sessionStorage from "redux-persist/es/storage/session";
 
 const UserSlice = createSlice({
   name: "user",
@@ -15,6 +13,8 @@ const UserSlice = createSlice({
     builder
       .addCase(getUserInfo.fulfilled, (state, action) => {
         state.userInfo = action.payload;
+
+        console.log("유저정보", action.payload);
       })
       .addCase(authLogin.pending, (state, action) => {})
       .addCase(authLogin.fulfilled, (state, action) => {
@@ -28,7 +28,7 @@ const UserSlice = createSlice({
           expires,
         });
 
-        sessionStorage.setItem("token", JSON.stringify(accessToken));
+        localStorage.setItem("token", JSON.stringify(accessToken));
         window.location.replace("/");
       })
       .addCase(changeUserInfo.pending, (state, action) => {

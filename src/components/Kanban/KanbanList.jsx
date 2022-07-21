@@ -3,12 +3,13 @@ import styles from "./style/_KanbanBoard.module.scss";
 import { history } from "../../history";
 
 import KanbanBoard from "./KanbanBoard";
-import InputContainer from "../menu/utils/InputContainer";
+import InputContainer from "./InputContainer";
 
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  changeBoardTitle,
   getKanbanBoard,
   moveSortKanbanCard,
   sortKanbanBoard,
@@ -16,16 +17,19 @@ import {
 } from "../../redux/Async/kanban";
 import KanbanFeatures from "../menu/utils/KanbanFeatures";
 import {
+  cardAllDeleteReducer,
+  cardCheckReducer,
+  cardStatusChangeReducer,
+  createBoardReducer,
+  createCardReducer,
+  deleteBoardReducer,
+  deleteCardReducer,
   moveKanbanBoardReducer,
   sortKanbanCardMoveReducer,
   sortKanbanCardReducer,
 } from "../../redux/Slice/kanbanSlice";
 import { socket } from "../../redux/store";
-import {
-  startDragSocket,
-  endDragSocket,
-  moveResultSocket,
-} from "../../redux/Slice/socketSlice";
+import { startDragSocket, endDragSocket } from "../../redux/Slice/socketSlice";
 
 const KanbanList = () => {
   //주소에서 projectId불러오기
@@ -99,6 +103,35 @@ const KanbanList = () => {
         );
       }
     });
+    socket?.on("cardStatusResult", (payload) => {
+      console.log("카드스테이터스", payload);
+      dispatch(cardStatusChangeReducer(payload));
+    });
+    socket.on("boardCreateResult", (payload) => {
+      dispatch(createBoardReducer(payload));
+    });
+    socket.on("boardDeleteResult", (payload) => {
+      console.log("보드삭제감지", payload);
+      dispatch(deleteBoardReducer(payload));
+    });
+    socket.on("cardCreateResult", (payload) => {
+      console.log("카드추가감지", payload);
+      dispatch(createCardReducer({ data: payload }));
+    });
+    socket.on("cardDeleteResult", (payload) => {
+      dispatch(deleteCardReducer(payload));
+    });
+    socket.on("cardAllDeleteResult", (payload) => {
+      console.log("카드전체삭제", payload);
+      dispatch(cardAllDeleteReducer(payload));
+    });
+    socket.on("cardCheckResult", (payload) => {
+      dispatch(cardCheckReducer(payload));
+    });
+    socket?.on("boardTitleResult", (payload) => {
+      console.log("보드타이들", payload);
+      dispatch(changeBoardTitle(payload));
+    });
   }, []);
 
   // console.log("프로젝트아이디", projectId);
@@ -109,7 +142,6 @@ const KanbanList = () => {
   //보드 내용 불러오기
 
   const boards = useSelector((state) => state.kanbanSlice.kanbans);
-  // const boards = useCallback(data && data.kanbans);
   const { board, card, columnOrders } = useSelector((state) => ({
     board: state.kanbanSlice.kanbans.board,
     card: state.kanbanSlice.kanbans.cards,
@@ -143,7 +175,6 @@ const KanbanList = () => {
       newBoardOrder.splice(source.index, 1);
       newBoardOrder.splice(destination.index, 0, draggableId);
 
-      console.log("확인", newBoardOrder);
       dispatch(
         sortKanbanBoard({
           newBoardOrder,
@@ -279,6 +310,7 @@ const KanbanList = () => {
                 className={styles.kanban_list}
               >
                 {columnOrders &&
+                  board &&
                   columnOrders?.map((boardId, index) => {
                     const boards = board[boardId];
                     const cards = boards?.cardId?.map((cardId) => card[cardId]);
@@ -295,11 +327,7 @@ const KanbanList = () => {
                   })}
                 {provided.placeholder}
 
-                <InputContainer
-                  type="board"
-                  projectId={params.projectId}
-                  boards={boards}
-                />
+                <InputContainer type="board" projectId={params.projectId} />
               </div>
             )}
           </Droppable>

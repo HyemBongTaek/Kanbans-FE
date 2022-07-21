@@ -3,12 +3,12 @@ import { getCookie, setCookie } from "../components/menu/login/utils/cookie";
 import { useCookies } from "react-cookie";
 
 const Apis = axios.create({
-  baseURL: "http://3.37.231.161:4000",
+  baseURL: "http://3.37.231.161",
 });
 
 //요청시 AccessToken 계속 보내주기
 Apis.interceptors.request.use(function (config) {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   if (!token) {
     config.headers["accessToken"] = null;
@@ -49,10 +49,7 @@ Apis.interceptors.response.use(
             secure: true,
             expires,
           });
-          sessionStorage.setItem(
-            "token",
-            JSON.stringify(data.data.accessToken)
-          );
+          localStorage.setItem("token", JSON.stringify(data.data.accessToken));
 
           return await Apis.request(originalConfig);
         }

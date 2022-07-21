@@ -1,10 +1,10 @@
 @import "./src/style/common/mixin";
 @import "./src/style/common/colors";
 .home_card {
-  width: 340px;
-  height: 260px;
+  width: 320px;
+  height: 230px;
   border: 1px solid $border_gray;
-  border-radius: 25px;
+  border-radius: 10px;
   padding-left: 20px;
 
   .board_status {
@@ -15,9 +15,10 @@
     .public_private {
       width: 60px;
       height: 25px;
-      background: #EAEBE7;
-      border-radius: 10px;
+      font-weight: bolder;
       text-align: center;
+      line-height: 25px;
+      cursor: pointer;
     }
 
     // 즐겨찾기 공통 css
@@ -51,8 +52,9 @@
     display: flex;
     justify-content: flex-start;
     margin-top: 50px;
-    margin-right: 20px;
-
+    //border-top: 1px solid $main_gray;
+    //margin-left: -20px;
+    //margin-top: 50px;
 
     .profile_image {
       margin-right: 10px;
@@ -78,13 +80,14 @@
       }
     }
   }
+
   .icons{
     //border: 1px solid blue;
     display: flex;
     justify-content: flex-end;
     padding-right: 20px;
     .icon{
-      @include icons($border_gray, "basic");
+      @include icons($border_gray, 30px);
       margin-left: 10px;
       &:hover{
         color: $main_gray;

@@ -49,8 +49,6 @@ const CustomRouter = ({ history, ...props }) => {
 };
 
 function App() {
-  const NavStatus = useSelector((state) => state.commonSlice.openNav);
-
   //로그인이 되어있지 않는 경우 메인화면으로 돌아가게함.
   function RequireAuth({ children, redirectTo }) {
     const token = getCookie("cocoriLogin");
@@ -71,9 +69,9 @@ function App() {
   return (
     <div className="App">
       <CustomRouter history={history}>
-        <Layout openNav={NavStatus}>
+        <Layout>
           <Routes>
-            <Route path="/" element={<Main openNav={NavStatus} />} />
+            <Route path="/" element={<Main />} />
             <Route
               path="/board"
               element={
@@ -120,7 +118,7 @@ function App() {
               path="/profile"
               element={
                 <RequireAuth redirectTo="/">
-                  <Profile openNav={NavStatus} />
+                  <Profile />
                 </RequireAuth>
               }
             />
@@ -128,7 +126,7 @@ function App() {
               path="/project/*"
               element={
                 <RequireAuth redirectTo="/">
-                  <ProjectPage openNav={NavStatus} />
+                  <ProjectPage />
                 </RequireAuth>
               }
             />
@@ -136,7 +134,7 @@ function App() {
               path="/member"
               element={
                 <RequireAuth redirectTo="/">
-                  <MemberPage openNav={NavStatus} />
+                  <MemberPage />
                 </RequireAuth>
               }
             />

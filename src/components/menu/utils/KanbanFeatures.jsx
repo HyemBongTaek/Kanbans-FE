@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   changeBoardTitle,
-  clearAllKanbanCards,
+  cardAllDelete,
   deleteBoard,
 } from "../../../redux/Async/kanban";
 import ContextStore from "./ContextStore";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  boardAddSocket,
+  boardDeleteSocket,
+  cardAllDeleteSocket,
+  changeBoardTitleSocket,
+} from "../../../redux/Slice/socketSlice";
+import { socket } from "../../../redux/store";
 
 //kanban에서 사용할 context
 const KanbanFeatures = (props) => {
@@ -13,9 +20,22 @@ const KanbanFeatures = (props) => {
   const dispatch = useDispatch();
 
   //보드타이틀변경
-  const changeTitle = ({ title, boardId, editable, setEditable }) => {
+  const changeTitle = ({
+    title,
+    boardId,
+    editable,
+    setEditable,
+    projectId,
+  }) => {
     dispatch(
       changeBoardTitle({
+        boardId,
+        title,
+      })
+    );
+    dispatch(
+      changeBoardTitleSocket({
+        room: projectId,
         boardId,
         title,
       })
@@ -24,18 +44,26 @@ const KanbanFeatures = (props) => {
   };
 
   //보드 삭제
-  const deleteBoardClick = ({ boardId }) => {
+  const deleteBoardClick = ({ boardId, projectId }) => {
+    // socket.emit("join", projectId);
     dispatch(
       deleteBoard({
         boards: boards,
         boardId,
       })
     );
+    dispatch(
+      boardDeleteSocket({
+        room: projectId,
+        boardId,
+      })
+    );
   };
 
   //카드 모두 삭제
-  const clearCards = ({ boardId }) => {
-    dispatch(clearAllKanbanCards({ boardId }));
+  const clearCards = ({ boardId, projectId }) => {
+    dispatch(cardAllDelete({ boardId }));
+    dispatch(cardAllDeleteSocket({ boardId, room: projectId }));
   };
 
   return (

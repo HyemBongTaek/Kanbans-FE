@@ -33,7 +33,7 @@
     display: flex;
     //제목에 들어가는 아이콘
     .title_icon{
-      @include icons($main_gray,"");
+      @include icons($main_gray,30px);
     }
   }
 
@@ -59,7 +59,7 @@
     }
     .icon{
       margin-left: -30px;
-      @include icons($main_green, "");
+      @include icons($main_green, 30px);
       //&:hover{
       //  color: $main_green;
       //}
@@ -67,17 +67,17 @@
     .active_btn{
       border: none;
       .icon{
-        @include icons($main_gray, normally);
+        @include icons($main_gray, 50px);
       }
       &:hover{
-        @include icons($main_green, normally);
+        @include icons($main_green, 50px);
       }
     }
     .unActive_btn{
       display: none;
       &:focus{
         .icon{
-          @include icons($main_green, normally);
+          @include icons($main_green, 50px);
         }
       }
     }
@@ -202,7 +202,7 @@
     }
   }
   .comment_icon{
-    @include icons($border_gray, "small");
+    @include icons($border_gray, 20px);
     margin-right: 20px;
     &:hover{
       color: $main_gray;

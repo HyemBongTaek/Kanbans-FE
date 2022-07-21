@@ -24,7 +24,7 @@ const SelectedDday = () => {
     return (
       <>
         <button className={styles.date_input} onClick={onClick} ref={ref}>
-          {value ? value : <span>디데이를 설정해주세요</span>}
+          {value ? value : null}
         </button>
         <div onClick={savedDay}>d-day저장</div>
       </>

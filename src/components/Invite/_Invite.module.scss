@@ -2,10 +2,18 @@
 @import "./src/style/common/mixin";
 
 .KanbanInvite{
-  @include modal_container(800px, 300px);
+  text-align: center;
+  @include modal_container(550px, 400px);
+  .logo{
+    margin-top: 60px;
+  }
   div{
     font-size: 50px;
     text-align: center;
+  }
+  .copy{
+    border: none;
+    background-color: #FFFFFF;
   }
 }
 

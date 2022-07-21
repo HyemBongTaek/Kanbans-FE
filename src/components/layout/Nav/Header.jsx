@@ -14,7 +14,7 @@ import io from "socket.io-client";
 const Header = ({ isOpen, toggleOpen }) => {
   const dispatch = useDispatch();
 
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const openLoginModal = () => {
     dispatch(setOpenLoginReducer(true));
   };
@@ -25,13 +25,6 @@ const Header = ({ isOpen, toggleOpen }) => {
       dispatch(getUserInfo());
     }
   }, [getUserInfo]);
-  //쿠키정의, 재정의, 쿠키제거를 한번에 넣어주지 않으면 제거가 되지 않아서 모두다 넣어줌.
-  const [cookies, setCookie, removeCookie] = useCookies(["cocoriLogin"]);
-  const logoutHandler = () => {
-    sessionStorage.removeItem("token");
-    removeCookie("cocoriLogin", { path: "/" });
-    window.location.replace("/");
-  };
 
   return (
     <nav className={styles.header}>
@@ -41,10 +34,6 @@ const Header = ({ isOpen, toggleOpen }) => {
           {/*<AfterLogin isOpen={isOpen} toggleOpen={toggleOpen} />*/}
           <div>
             <LoginAfter />
-            <button className={styles.button} onClick={logoutHandler}>
-              <Icon className={styles.icon} icon="clarity:logout-line" />
-              Logout
-            </button>
           </div>
         </div>
       )}

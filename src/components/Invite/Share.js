@@ -52,7 +52,10 @@ const Share = ({ inviteCode }) => {
         text={` ${url} / ${inviteCode}`}
         className={styles.share_icon}
       >
-        <button>url, 초대코드 한번에 복사하기</button>
+        <button>
+          주소,코드 한번에
+          <br /> 복사
+        </button>
       </CopyToClipboard>
     </div>
   );

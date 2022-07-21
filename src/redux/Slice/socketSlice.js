@@ -1,13 +1,92 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { socket } from "../store";
+import { cardCheckReducer } from "./kanbanSlice";
 
 const SocketSlice = createSlice({
   name: "socket",
   initialState: {},
   reducers: {
+    //보드추가
+    boardAddSocket(state, action) {
+      console.log("sdsdsdsd", action.payload);
+      const items = action.payload;
+      socket.emit("boardCreate", {
+        room: items.projectId,
+        boardId: items.id,
+        title: items.title,
+      });
+    },
+    //카드추가
+    cardAddSocket(state, action) {
+      console.log("소켓확인", action.payload);
+      const items = action.payload;
+      socket.emit("cardCreate", {
+        room: items.projectId,
+        cardId: items.data.id,
+        title: items.data.title,
+        createdAt: items.data.createdAt,
+        boardId: items.boardId,
+      });
+    },
+    //보드 삭제
+    boardDeleteSocket(state, action) {
+      console.log("소켓확인", action.payload);
+      const items = action.payload;
+      socket.emit("boardDelete", {
+        room: items.room,
+        boardId: items.boardId,
+      });
+    },
+    //카드삭제
+    cardDeleteSocket(state, action) {
+      console.log("소켓확인", action.payload);
+      const items = action.payload;
+      socket.emit("cardDelete", {
+        room: items.room,
+        cardId: items.cardId,
+        boardId: items.boardId,
+      });
+    },
+    //카드 전체 삭제
+    cardAllDeleteSocket(state, action) {
+      const items = action.payload;
+      console.log("카드 전체삭제", action.payload);
+      socket.emit("cardAllDelete", {
+        room: items.room,
+        boardId: items.boardId,
+      });
+    },
+    //카드 체크박스(완료, 진행중)변경 상태
+    cardCheckSocket(state, action) {
+      console.log("소켓연결하나둘셋", action.payload);
+      const items = action.payload;
+      socket.emit("cardCheck", {
+        room: items.room,
+        check: items.check,
+        cardId: items.cardId,
+      });
+    },
+    //칸반보드 타이틀 변경 감지
+    changeBoardTitleSocket(state, action) {
+      console.log("칸반보드타이틀변경감지", action.payload);
+      const items = action.payload;
+      socket.emit("boardTitle", {
+        room: items.room,
+        title: items.title,
+        boardId: items.boardId,
+      });
+    },
+    //카드 상태 변경
+    cardStatusSocket(state, action) {
+      const items = action.payload;
+      socket.emit("cardStatus", {
+        room: items.room,
+        status: items.status,
+        cardId: items.cardId,
+      });
+    },
+    //칸반이동 소켓연결
     startDragSocket(state, action) {
-      console.log("DRAG START");
-      console.log("소켓", action.payload);
       const result = action.payload.result;
       socket.emit("dragStart", {
         type: result.type,
@@ -15,7 +94,6 @@ const SocketSlice = createSlice({
       });
     },
     endDragSocket(state, action) {
-      console.log("여기가끝입니다");
       const result = action.payload;
       console.log("아이디", result.type);
       socket.emit("dragEnd", {
@@ -28,12 +106,19 @@ const SocketSlice = createSlice({
         type: result.type,
       });
     },
-    moveResultSocket(state, action) {
-      console.log("상대방이 이동중");
-    },
   },
 });
 
-export const { startDragSocket, endDragSocket, moveResultSocket } =
-  SocketSlice.actions;
+export const {
+  startDragSocket,
+  endDragSocket,
+  boardAddSocket,
+  boardDeleteSocket,
+  cardAddSocket,
+  cardDeleteSocket,
+  cardCheckSocket,
+  cardAllDeleteSocket,
+  changeBoardTitleSocket,
+  cardStatusSocket,
+} = SocketSlice.actions;
 export default SocketSlice;

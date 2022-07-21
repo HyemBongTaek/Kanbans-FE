@@ -7,12 +7,12 @@ import {
   editCardComment,
 } from "../../redux/Async/KanbanCardDetail";
 
-const DetailCommentCard = ({ items, index }) => {
+const DetailCommentCard = ({ items, index, userId }) => {
   const dispatch = useDispatch();
 
   const [edit, setEdit] = useState(false);
   const [content, setContent] = useState(items.content);
-
+  console.log("하나", items);
   const deleteComment = () => {
     dispatch(
       deleteCardComment({
@@ -59,18 +59,22 @@ const DetailCommentCard = ({ items, index }) => {
             className={styles.comment_icon}
             icon="ant-design:smile-outlined"
           />
-          <Icon
-            className={styles.comment_icon}
-            icon="ant-design:edit-filled"
-            onClick={() => {
-              setEdit(true);
-            }}
-          />
-          <Icon
-            onClick={deleteComment}
-            className={styles.comment_icon}
-            icon="ant-design:delete-outlined"
-          />
+          {userId === items.userId && (
+            <>
+              <Icon
+                className={styles.comment_icon}
+                icon="ant-design:edit-filled"
+                onClick={() => {
+                  setEdit(true);
+                }}
+              />
+              <Icon
+                onClick={deleteComment}
+                className={styles.comment_icon}
+                icon="ant-design:delete-outlined"
+              />
+            </>
+          )}
         </div>
       </div>
     </div>

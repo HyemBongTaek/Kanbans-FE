@@ -1,6 +1,6 @@
 import { io, Socket } from "socket.io-client";
 
-const token = sessionStorage.getItem("token");
+const token = localStorage.getItem("token");
 
 export default class SocketClient {
   socket: Socket | null | undefined;

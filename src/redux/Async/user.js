@@ -64,6 +64,7 @@ export const getUserInfo = createAsyncThunk("user/getUserInfo", async () => {
       method: "GET",
     });
     if (res.data.ok) {
+      console.log("로그인유저", res.data);
       return res.data.user;
     }
   } catch (err) {
@@ -75,7 +76,7 @@ export const getUserInfo = createAsyncThunk("user/getUserInfo", async () => {
 //유저 프로필 이미지 변경
 export const changeUserInfo = createAsyncThunk(
   "user/changeProfileImage",
-  async ({ formData, nickname, type }, thunkAPI) => {
+  async ({ formData, nickname, type, introduce }, thunkAPI) => {
     console.log(formData);
     try {
       if (type === "changeImage") {
@@ -88,16 +89,17 @@ export const changeUserInfo = createAsyncThunk(
           thunkAPI.dispatch(getUserInfo());
         }
         return type;
-      }
-      if (type === "nickname") {
+      } else {
         const res = await Apis({
           url: "/user/profile",
           method: "PATCH",
           data: {
             name: nickname,
+            introduce,
           },
         });
         if (res.data.ok) {
+          console.log(res.data);
           // thunkAPI.dispatch(getProject());
           return { data: res.data, type };
         }

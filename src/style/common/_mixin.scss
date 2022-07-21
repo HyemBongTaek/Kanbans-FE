@@ -1,25 +1,25 @@
 @import "./colors";
 
 @mixin icons($color, $size){
+  width: $size;
+  height: $size;
   @if $color == "white" {
     color: #ffffff;
   }@else{
     color: $color;
   }
-  @if $size == "large"{
-    width: 50px;
-    height: 50px;
-  }@else if($size =="normal"){
-    width: 40px;
-    height: 40px;
-  }@else if($size =="small"){
-    width: 20px;
-    height: 20px;
-  }
-  @else {
-    width: $size;
-    height: $size;
-  }
+
+  //}@else if($size =="normal"){
+  //  width: 40px;
+  //  height: 40px;
+  //}@else if($size =="small"){
+  //  width: 20px;
+  //  height: 20px;
+  //}
+  //@else {
+  //  width: $size;
+  //  height: $size;
+  //}
 }
 
 @mixin label_color($color){
@@ -112,4 +112,19 @@
   right: 0;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 99;
+}
+
+@mixin common_button{
+  border: 1px solid $main_gray;
+  //color: $main_gray;
+  color: $white_font;
+  background-color: $main_gray;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  &:hover{
+    color: $main_gray;
+    background-color: #FFFFFF;
+  }
 }

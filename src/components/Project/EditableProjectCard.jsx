@@ -1,13 +1,12 @@
-// 프로젝트카드에서 사용하려고 했으나 너무 길어져서 따로 뺌.
-
 import React, { useState } from "react";
-import SwitchButton from "../common/SwitchButton";
 import { useDispatch } from "react-redux";
 import { updateProject } from "../../redux/Async/projects";
+import styles from "./style/_EditableProjectCard.module.scss";
 
-const EditableProjectCard = ({ projectId, existingTitle }) => {
+const EditableProjectCard = ({ projectId, existingTitle, setIsEditable }) => {
   const dispatch = useDispatch();
   const [isOn, setIsOn] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [title, setTitle] = useState(existingTitle);
 
   const changeProject = (e) => {
@@ -20,16 +19,25 @@ const EditableProjectCard = ({ projectId, existingTitle }) => {
         projectId: projectId,
       })
     );
+    setIsEditable(false);
+    setIsActive(false);
+    setTitle("");
+  };
+
+  const inputChangeHandler = (e) => {
+    setTitle(e.target.value);
+    setIsActive(true);
   };
 
   return (
     <div>
-      <form onSubmit={changeProject}>
+      <form className={styles.editable_card} onSubmit={changeProject}>
         <label>
-          <input value={title} onChange={(e) => setTitle(e.target.value)} />
+          <input value={title} onChange={inputChangeHandler} />
         </label>
+        {isActive && <button>등록하기</button>}
       </form>
-      <SwitchButton isOn={isOn} onClick={() => setIsOn(!isOn)} />
+      {/*<SwitchButton isOn={isOn} onClick={() => setIsOn(!isOn)} />*/}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import styles from "./style/_KanbanBoard.module.scss";
 
@@ -13,8 +13,21 @@ import { format, formatDistanceToNowStrict, parseISO } from "date-fns";
 
 import isAfter from "date-fns/isAfter";
 import GetLabels from "../CardDetail/GetLabels";
+import { socket } from "../../redux/store";
+import {
+  cardAddSocket,
+  cardCheckSocket,
+  cardDeleteSocket,
+} from "../../redux/Slice/socketSlice";
+import Apis from "../../redux/apis";
+import {
+  cardCheckReducer,
+  createCardReducer,
+} from "../../redux/Slice/kanbanSlice";
 
 const KanbanCard = (props) => {
+  const card = props.cards;
+  const projectId = props.projectId;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isStatus, setIsStatus] = useState(false);
@@ -22,9 +35,13 @@ const KanbanCard = (props) => {
   const status = props.cards?.status;
   const detailModal = () => {
     navigate(`/card/${cardId}`, {
-      state: { cardId: cardId, projectId: props.projectId },
+      state: { cardId: cardId, projectId: projectId },
     });
   };
+
+  // useEffect(() => {
+  //   socket.emit("join", projectId);
+  // }, [projectId]);
 
   const deleteCard = () => {
     dispatch(
@@ -33,17 +50,46 @@ const KanbanCard = (props) => {
         boardId: props.boardId,
       })
     );
+    dispatch(
+      cardDeleteSocket({
+        room: projectId,
+        boardId: props.boardId,
+        cardId,
+      })
+    );
   };
   const changeTime = useCallback(new Date(props.cards.createdAt.split("Z")[0]));
   const createdDate = useCallback(format(changeTime, "dd MMMM"));
 
   const completeCheckCard = () => {
-    dispatch(
-      checkKanbanCard({
-        cardId: cardId,
-        boardId: props.boardId,
-      })
+    Apis.patch(`/board/${props.boardId}/card/${cardId}/check`).then((res) =>
+      dispatch(
+        cardCheckReducer({
+          status: res.data.status,
+          check: res.data.check,
+          cardId,
+        }),
+        dispatch(
+          cardCheckSocket({
+            room: projectId,
+            check: res.data.check,
+            cardId,
+          })
+        )
+      )
     );
+    // dispatch(
+    //   checkKanbanCard({
+    //     cardId: cardId,
+    //     boardId: props.boardId,
+    //   })
+    // );
+    // dispatch(
+    //   cardCheckSocket({
+    //     room: projectId,
+    //     cardId: cardId,
+    //   })
+    // );
   };
 
   const dDay =
@@ -90,7 +136,13 @@ const KanbanCard = (props) => {
                 )}
               >
                 {isStatus && (
-                  <StatusCheck boardId={props.boardId} cardId={cardId} />
+                  <div className={styles.status}>
+                    <StatusCheck
+                      boardId={props.boardId}
+                      cardId={cardId}
+                      projectId={projectId}
+                    />
+                  </div>
                 )}
               </div>
               <div className={styles.card_contents}>
@@ -163,16 +215,21 @@ const KanbanCard = (props) => {
                     </div>
                   )}
 
-                  <div className={styles.task}>
-                    <Icon
-                      className={styles.bottom_icon}
-                      icon="fluent:task-list-ltr-20-regular"
-                    />
-                    &nbsp;2/4&nbsp;
-                  </div>
+                  {card.taskCount !== 0 && (
+                    <div className={styles.task}>
+                      <Icon
+                        className={styles.bottom_icon}
+                        icon="fluent:task-list-ltr-20-regular"
+                      />
+                      <span>
+                        {card.taskCheckCount}/{card.taskCount}
+                      </span>
+                    </div>
+                  )}
+
                   <div className={styles.task}>
                     <Icon className={styles.bottom_icon} icon="ei:comment" />
-                    &nbsp;2&nbsp;
+                    {card.commentCount}
                   </div>
                   <div onClick={deleteCard}>
                     <Icon

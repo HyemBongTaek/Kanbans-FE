@@ -1,6 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Apis from "../apis";
 import {
+  cardAllDeleteReducer,
+  cardCheckReducer,
+  cardStatusChangeReducer,
+  changeBoardTitleReducer,
+  createBoardReducer,
+  deleteBoardReducer,
+  deleteCardReducer,
   moveKanbanBoardReducer,
   sortKanbanCardMoveReducer,
   sortKanbanCardReducer,
@@ -28,29 +35,30 @@ export const getKanbanBoard = createAsyncThunk(
   }
 );
 
-// 보드 추가하기
-export const addKanbanBoard = createAsyncThunk(
-  "kanban/addKanbanBoard",
-  async ({ projectId, title }, thunkAPI) => {
-    console.log("작성", projectId, title);
-    try {
-      const res = await Apis({
-        url: `/board`,
-        method: "POST",
-        data: {
-          title,
-          projectId: projectId,
-        },
-      });
-      if (res.data.ok) {
-        thunkAPI.dispatch(getKanbanBoard({ projectId }));
-      }
-    } catch (err) {
-      console.log("작성에러", err.response);
-      return thunkAPI.rejectWithValue(err.response);
-    }
-  }
-);
+// // 보드 추가하기
+// export const addKanbanBoard = createAsyncThunk(
+//   "kanban/addKanbanBoard",
+//   async ({ projectId, title }, thunkAPI) => {
+//     console.log("작성", projectId, title);
+//     try {
+//       const res = await Apis({
+//         url: `/board`,
+//         method: "POST",
+//         data: {
+//           title,
+//           projectId: projectId,
+//         },
+//       });
+//       if (res.data.ok) {
+//         console.log("보드만들기", res.data);
+//         return thunkAPI.dispatch(createBoardReducer(res.data.newBoard));
+//       }
+//     } catch (err) {
+//       console.log("작성에러", err.response);
+//       return thunkAPI.rejectWithValue(err.response);
+//     }
+//   }
+// );
 // 보드 삭제하기
 export const deleteBoard = createAsyncThunk(
   "kanban/deleteBoard",
@@ -61,7 +69,7 @@ export const deleteBoard = createAsyncThunk(
         method: "DELETE",
       });
       if (res.data.ok) {
-        return { boardId: boardId };
+        return thunkAPI.dispatch(deleteBoardReducer({ boardId }));
       }
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response);
@@ -82,7 +90,13 @@ export const changeBoardTitle = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        return { data: res.data, boardId };
+        console.log("데이터확인", res.data);
+        thunkAPI.dispatch(
+          changeBoardTitleReducer({
+            boardId: res.data.updateBoards.id,
+            title: res.data.updateBoards.title,
+          })
+        );
       }
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response);
@@ -103,7 +117,7 @@ export const addKanbanCard = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        return { data: res.data.newCard, boardId };
+        return { data: res.data.newCard };
       }
     } catch (err) {
       console.log("에러", err);
@@ -112,8 +126,8 @@ export const addKanbanCard = createAsyncThunk(
 );
 
 //카드 전체 삭제
-export const clearAllKanbanCards = createAsyncThunk(
-  "kanban/clearAllKanbanCards",
+export const cardAllDelete = createAsyncThunk(
+  "kanban/cardAllDelete",
   async ({ boardId }, thunkAPI) => {
     try {
       const res = await Apis({
@@ -122,7 +136,7 @@ export const clearAllKanbanCards = createAsyncThunk(
       });
       if (res.data.ok) {
         console.log(res.data);
-        return boardId;
+        return thunkAPI.dispatch(cardAllDeleteReducer({ boardId }));
       }
     } catch (err) {
       return thunkAPI.rejectWithValue();
@@ -140,7 +154,12 @@ export const checkKanbanCard = createAsyncThunk(
         method: "PATCH",
       });
       if (res.data.ok) {
-        return { res: res.data, cardId };
+        return thunkAPI.dispatch(
+          cardCheckReducer({
+            res: res.data,
+            cardId,
+          })
+        );
       }
     } catch (err) {
       return thunkAPI.rejectWithValue();
@@ -158,8 +177,12 @@ export const deleteKanbanCard = createAsyncThunk(
         method: "DELETE",
       });
       if (res.data.ok) {
-        console.log("카드삭제", res.data);
-        return { boardId, cardId };
+        return thunkAPI.dispatch(
+          deleteCardReducer({
+            boardId,
+            cardId: res.data.cardId,
+          })
+        );
       }
     } catch (err) {
       return thunkAPI.rejectWithValue();
@@ -180,7 +203,14 @@ export const statusChangeKanbanCard = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        return { res: res.data, cardId };
+        console.log("카드상태변경", res.data);
+        return thunkAPI.dispatch(
+          cardStatusChangeReducer({
+            check: res.data.check,
+            status: res.data.changedStatus,
+            cardId,
+          })
+        );
       }
     } catch (err) {
       console.log(err);

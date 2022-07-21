@@ -2,11 +2,36 @@
 @import "./src/style/common/mixin";
 
 
-.join_modal{
+.join_modal {
   text-align: center;
-  @include modal_container(800px, 700px);
+  @include modal_container(550px, 400px);
+
+  .project_join {
+    margin-top: 60px;
+
+    .join_title{
+      margin-top: 20px;
+    }
+    form {
+      margin-top: 20px;
+      input {
+        width: 400px;
+        height: 40px;
+        border-radius: 5px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    button {
+      margin-top: 50px;
+      @include common_button;
+    }
+  }
 }
 
-.modal_overlay{
+.modal_overlay {
   @include overlay_container;
 }
