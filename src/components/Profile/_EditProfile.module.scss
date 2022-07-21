@@ -1,7 +1,7 @@
 @import "./src/style/common/mixin";
 @import "./src/style/common/colors";
 .edit_profile{
-
+  text-align: center;
   .edit_icon{
     @include icons($comment_gray, 40px);
     position: absolute;
@@ -9,18 +9,18 @@
     margin-top: 35px;
   }
   .loading{
+    text-align: center;
     width: 200px;
     height: 200px;
     border-radius: 100px;
-    margin-top: -120px;
-    margin-left: 140px;
+    margin: 0 auto;
   }
   img{
     width: 200px;
     height: 200px;
     border-radius: 100px;
     margin-top: -120px;
-    margin-left: 140px;
+
   }
 
 }
@@ -39,9 +39,28 @@
   input {
     border: none;
     border-bottom: 1px solid $main_gray;
+    &:focus {
+      outline: none;
+    }
   }
-  button{
+  .button{
+    border: none;
+    .icon{
+      @include icons($main_gray, 30px);
+      &:hover{
+        color: $main_green;
+      }
+    }
     @include button_styles(130px, 40px, #ffffff, 2px, $main_gray, 15px );
-    border: 1px solid $main_gray;
+    //border: 1px solid $main_gray;
   }
+}
+
+.introduce {
+  textarea{
+    resize: none;
+  }
+}
+.edit_icon{
+  @include icons($main_gray, 25px);
 }

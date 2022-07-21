@@ -18,6 +18,9 @@
   height: 20px;
   width: 280px;
   margin: auto;
+  .input{
+    background: $light_gray;
+  }
 
   label{
     display: flex;
@@ -31,6 +34,8 @@
       padding-left: 10px;
       width: 200px;
       height: 20px;
+      background-color: #ffffff;
+
       &:focus{
         outline: none;
       }

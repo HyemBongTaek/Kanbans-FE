@@ -13,6 +13,8 @@ const UserSlice = createSlice({
     builder
       .addCase(getUserInfo.fulfilled, (state, action) => {
         state.userInfo = action.payload;
+
+        console.log("유저정보", action.payload);
       })
       .addCase(authLogin.pending, (state, action) => {})
       .addCase(authLogin.fulfilled, (state, action) => {
@@ -26,7 +28,7 @@ const UserSlice = createSlice({
           expires,
         });
 
-        sessionStorage.setItem("token", JSON.stringify(accessToken));
+        localStorage.setItem("token", JSON.stringify(accessToken));
         window.location.replace("/");
       })
       .addCase(changeUserInfo.pending, (state, action) => {

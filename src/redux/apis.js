@@ -8,7 +8,7 @@ const Apis = axios.create({
 
 //요청시 AccessToken 계속 보내주기
 Apis.interceptors.request.use(function (config) {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   if (!token) {
     config.headers["accessToken"] = null;
@@ -49,10 +49,7 @@ Apis.interceptors.response.use(
             secure: true,
             expires,
           });
-          sessionStorage.setItem(
-            "token",
-            JSON.stringify(data.data.accessToken)
-          );
+          localStorage.setItem("token", JSON.stringify(data.data.accessToken));
 
           return await Apis.request(originalConfig);
         }

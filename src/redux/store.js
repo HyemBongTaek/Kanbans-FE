@@ -27,8 +27,8 @@ const reducers = combineReducers({
   projectsSlice: ProjectsSlice.reducer,
   userSlice: UserSlice.reducer,
   kanbanSlice: KanbanSlice.reducer,
-  cardDetailSlice: KanbanCardDetailSlice.reducer,
   socketSlice: SocketSlice.reducer,
+  cardDetailSlice: KanbanCardDetailSlice.reducer,
   timerSlice: TimerSlice.reducer,
 });
 
@@ -36,7 +36,7 @@ const persistConfig = {
   key: "root",
   storage,
   // persist제외
-  blacklist: ["cardDetailSlice", "kanbanSlice"],
+  blacklist: ["cardDetailSlice", "kanbanSlice", "timerSlice"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

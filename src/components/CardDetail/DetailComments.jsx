@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DetailInput from "./DetailInput";
 import styles from "./style/_KanbanCardDetail.module.scss";
-import { Icon } from "@iconify/react";
+
 import DetailCommentCard from "./DetailCommentCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getCardComment } from "../../redux/Async/KanbanCardDetail";
+import { format, formatDistanceToNowStrict, parseISO } from "date-fns";
 
 const DetailComments = ({ cardId }) => {
   const dispatch = useDispatch();
@@ -15,10 +16,12 @@ const DetailComments = ({ cardId }) => {
         cardId,
       })
     );
-  }, [dispatch]);
+  }, [cardId, dispatch]);
 
   const commentData = useSelector((state) => state.cardDetailSlice.comments);
   const myInfo = useSelector((state) => state.userSlice.userInfo);
+
+  const [commentsList, setCommentsList] = useState(commentData);
 
   return (
     <>
@@ -33,7 +36,12 @@ const DetailComments = ({ cardId }) => {
           {commentData &&
             commentData?.map((card, index) => {
               return (
-                <DetailCommentCard key={card.id} items={card} index={index} />
+                <DetailCommentCard
+                  key={card.id}
+                  items={card}
+                  index={index}
+                  userId={myInfo.id}
+                />
               );
             })}
           {/*{commentData &&*/}

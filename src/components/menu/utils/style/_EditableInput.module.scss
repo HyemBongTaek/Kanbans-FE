@@ -13,6 +13,11 @@
     padding-top: 4px;
     justify-content: space-between;
 
+    input {
+      background: $light_gray;
+      height: 20px;
+    }
+
     .icons {
       @include icons($comment_gray, 30px);
     }

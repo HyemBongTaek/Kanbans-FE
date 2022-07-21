@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import SwitchButton from "../common/SwitchButton";
 import styles from "./style/_ProjectAddCard.module.scss";
 import { Icon } from "@iconify/react";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
@@ -17,7 +16,8 @@ const ProjectAddCard = () => {
   };
 
   //프로젝트 만들기.
-  const createProject = () => {
+  const createProject = (e) => {
+    e.preventDefault();
     const permission = isOn ? "private" : "public";
 
     dispatch(
@@ -31,52 +31,72 @@ const ProjectAddCard = () => {
     setCreate(false);
   };
   return (
-    <div>
-      {create ? (
-        <div className={styles.add_project}>
-          <form>
-            <label>
-              <Icon className={styles.icon} icon="fluent:app-title-24-filled" />
-              <input
-                placeholder="title"
-                value={addTitle}
-                onChange={titleHandler}
-              />
-            </label>
-          </form>
-          <div>
-            <div className={styles.permission}>
-              <div>
-                {isOn ? (
-                  <Icon
-                    className={styles.icon}
-                    icon="heroicons-solid:lock-closed"
-                  />
-                ) : (
-                  <Icon
-                    className={styles.icon}
-                    icon="heroicons-solid:lock-open"
-                  />
-                )}
+    <>
+      <div>
+        {create ? (
+          <div className={styles.add_project}>
+            <div>
+              <div className={styles.permission}>
+                <div>
+                  {isOn ? (
+                    <div
+                      className={styles.select_permission}
+                      onClick={() => setIsOn((pre) => !pre)}
+                    >
+                      {/*<Icon*/}
+                      {/*  className={styles.icon}*/}
+                      {/*  icon="heroicons-solid:lock-closed"*/}
+                      {/*/>*/}
+                      <span>
+                        Private<title>여기?</title>
+                      </span>
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.select_permission}
+                      onClick={() => setIsOn((pre) => !pre)}
+                    >
+                      {/*<Icon*/}
+                      {/*  className={styles.icon}*/}
+                      {/*  icon="heroicons-solid:lock-open"*/}
+                      {/*/>*/}
+                      <span>Public</span>
+                    </div>
+                  )}
+                </div>
+                {/*<SwitchButton isOn={isOn} onClick={() => setIsOn(!isOn)} />*/}
               </div>
-              <SwitchButton isOn={isOn} onClick={() => setIsOn(!isOn)} />
             </div>
-            <button className={styles.add_button} onClick={createProject}>
-              만들기
-            </button>
+            <form onSubmit={createProject}>
+              <label>
+                <Icon
+                  className={styles.icon}
+                  icon="fluent:app-title-24-filled"
+                />
+                <input
+                  placeholder="title"
+                  value={addTitle}
+                  onChange={titleHandler}
+                />
+              </label>
+            </form>
+            <div className={styles.buttons}>
+              <button onClick={() => setCreate(false)}> 취소하기</button>
+              <button onClick={createProject}>만들기</button>
+            </div>
           </div>
-        </div>
-      ) : (
-        <div
-          className={styles.add_kanban_style}
-          onClick={() => setCreate((pre) => !pre)}
-          ref={createRef}
-        >
-          <div>새로만들기</div>
-          <Icon icon="bi:plus-square-fill" color="black" height="40" />
-        </div>
-      )}
-    </div>
+        ) : (
+          <div
+            className={styles.add_kanban_style}
+            onClick={() => setCreate((pre) => !pre)}
+            ref={createRef}
+          >
+            <div>새로만들기</div>
+            <Icon icon="bi:plus-square-fill" color="black" height="40" />
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

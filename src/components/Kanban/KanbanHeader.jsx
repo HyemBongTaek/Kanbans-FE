@@ -22,13 +22,15 @@ const KanbanHeader = ({ projectId, title, setIsBoard, setIsMember }) => {
     <>
       <div className={styles.kanban_header}>
         <div>{title}</div>
-        <SearchInput />
       </div>
       <div>
         <div className={styles.kanban_nav}>
           <div onClick={BoardClickHandler}>Boards</div>
           <div onClick={MemberClickHandler}>Member</div>
           <div onClick={inviteClick}>invite</div>
+          <div className={styles.input}>
+            <SearchInput />
+          </div>
         </div>
       </div>
     </>

@@ -23,14 +23,6 @@ const FocusRestTimer = () => {
 
   const [play] = useSound(AlarmSound);
 
-  useEffect(() => {
-    dispatch(
-      getTimer({
-        page: 1,
-      })
-    );
-  }, [dispatch]);
-
   const renderTime = ({ remainingTime }) => {
     if (remainingTime === 0) {
       soundAlarm && play();
@@ -98,7 +90,7 @@ const FocusRestTimer = () => {
     setIsPlay(!isPlay);
   };
   const NowDate = Date.now();
-  const todayDate = useMemo(() => format(new Date(NowDate), "yyyyMMdd"));
+  const todayDate = useMemo(() => format(new Date(NowDate), "yyyy-MM-dd"));
 
   const complete = () => {
     if (type === false) {
@@ -112,7 +104,6 @@ const FocusRestTimer = () => {
     setType((pre) => !pre);
     setReStart((pre) => pre + 1);
     setIsPlay(false);
-    console.log("확인", type);
   };
 
   const resetBtn = () => {

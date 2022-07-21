@@ -1,0 +1,19 @@
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
+
+
+.editable_card{
+
+  input{
+    border: 1px solid $main_gray;
+    width: 200px;
+    height: 30px;
+    border-radius: 5px;
+    padding-left: 10px;
+
+    &:focus{
+      outline: none;
+    }
+
+  }
+}

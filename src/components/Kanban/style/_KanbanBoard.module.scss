@@ -104,6 +104,10 @@
 .kanban_finish{
   background-color: $main_green;
 }
+.status{
+  position: absolute;
+  margin-top: -20px;
+}
 
 // 카드 label, title, task, date, d-day, comments 표시
 .card_contents {

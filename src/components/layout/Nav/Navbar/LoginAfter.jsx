@@ -35,7 +35,7 @@ const LoginAfter = () => {
   //쿠키정의, 재정의, 쿠키제거를 한번에 넣어주지 않으면 제거가 되지 않아서 모두다 넣어줌.
   const [cookies, setCookie, removeCookie] = useCookies(["cocoriLogin"]);
   const logoutHandler = () => {
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
     removeCookie("cocoriLogin", { path: "/" });
     window.location.replace("/");
   };

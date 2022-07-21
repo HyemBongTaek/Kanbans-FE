@@ -4,11 +4,10 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./_Common.module.scss";
 
-const SearchInput = () => {
-  const dispatch = useDispatch();
-
+const SearchInput = ({ isSearch, setIsSearch }) => {
   const searchHandler = (e) => {
     e.preventDefault();
+    setIsSearch(e.target.value);
   };
 
   return (

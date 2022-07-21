@@ -3,6 +3,7 @@
 
 .wrapper{
   @include modal_container(500px, 300px);
+  //text-align: center;
   top : 20%;
 }
 .layout{
@@ -16,6 +17,7 @@
   justify-content: flex-end;
   position: absolute;
   margin-top: -80px;
+  cursor: pointer;
   .icon{
     @include icons($main_gray, 30px);
   }

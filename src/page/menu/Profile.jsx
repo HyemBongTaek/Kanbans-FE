@@ -7,6 +7,7 @@ import { setOpenLoginReducer } from "../../redux/Slice/commonSlice";
 import EditProfile from "../../components/Profile/EditProfile";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { useCookies } from "react-cookie";
 
 const Profile = () => {
   // const location = useLocation();
@@ -19,24 +20,23 @@ const Profile = () => {
 
   const userInfo = useSelector((state) => state.userSlice.userInfo);
 
-  const { image, name } = useSelector(
+  const { image, name, introduction } = useSelector(
     (state) => ({
       image: state.userSlice.userInfo.profileImage,
       name: state.userSlice.userInfo.name,
+      introduction: state.userSlice.userInfo.introduce,
     }),
     shallowEqual
   );
-
-  console.log("확인", userInfo);
 
   return (
     <>
       <div className={styles.wrapper}>
         <EditProfileImage image={image} />
-        <div className={styles.cancle_button}>
+        <div className={styles.cancle_button} onClick={() => navigate(-1)}>
           <Icon className={styles.icon} icon="octicon:x-16" />
         </div>
-        <EditProfile name={name} />
+        <EditProfile name={name} introduction={introduction} />
       </div>
       <div className={styles.layout} onClick={() => navigate(-1)} />
     </>

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { getTimer } from "../Async/timer";
 
 const TimerSlice = createSlice({
@@ -9,6 +9,10 @@ const TimerSlice = createSlice({
     builder.addCase(getTimer.fulfilled, (state, action) => {
       console.log("확인", action.payload);
       state.timerList = action.payload;
+
+      // action.payload.map((day) => {
+      //   return state.day.push(day.createdAt);
+      // });
     });
   },
 });

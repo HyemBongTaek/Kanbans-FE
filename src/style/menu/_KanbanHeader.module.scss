@@ -5,8 +5,8 @@
 //KanbanHeader.tsx
 .kanban_header {
   display: flex;
-  justify-content: space-between;
-  margin-right: 20px;
+  //justify-content: space-between;
+  //margin-right: 20px;
 
 
   & > div {
@@ -18,11 +18,15 @@
 .kanban_nav{
   display: flex;
   font-size: 18px;
-  width: 300px;
+  width: 700px;
   justify-content: space-between;
   margin-top: 10px;
   margin-bottom: 10px;
   cursor: pointer;
+
+  .input{
+  margin-top: -10px;
+  }
 
   & > div{
     &:hover{
