@@ -1,0 +1,71 @@
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
+
+.timer_wrapper {
+  margin: auto;
+  width: 300px;
+  height: 500px;
+  border: none;
+
+  //border: 1px solid blue;
+  box-shadow: 11px 14px 19px -10px rgba(158, 158, 158, 0.63);
+  font-family: 'Comfortaa', 'NanumSquareRound', cursive;
+
+}
+.small_timer_wrapper{
+  width: 600px;
+  height: 300px;
+  box-shadow: 11px 14px 19px -10px rgba(158, 158, 158, 0.63);
+  display: grid;
+  grid-template-columns: repeat(2, 55% 40%);
+  margin: 30px auto;
+  .small_timer_clock{
+    margin-top: 25px;
+    margin-left: 30px;
+    max-height: 300px;
+    text-align: center;
+  }
+  .small_timer_setting{
+    display: grid;
+    margin-top: 50px;
+    grid-template-rows: repeat(4, 30px 50px 50px 50px);
+    place-items: center;
+  }
+}
+
+
+.timer_clock{
+  margin-left: 25px;
+  text-align: center;
+}
+
+.timer_setting {
+  display: grid;
+  grid-template-rows: repeat(4, 40px 50px 50px 50px);
+  place-items: center;
+  min-height: 100vh;
+
+}
+.title{
+  margin-left: 10px;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.button_minus, .button_plus {
+  border: none;
+  width: 30px;
+  height: 30px;
+  font-size: 25px;
+  border-radius: 30px;
+  margin: 0 20px 0 20px;
+}
+
+.button_session {
+  margin-right: 20px;
+  @include button_styles(100px, 30px, $main_gray, 3px, $white_font, 15px);
+}
+
+.button_break {
+  @include button_styles(100px, 30px, $white_font, 3px, $main_gray, 15px);
+}

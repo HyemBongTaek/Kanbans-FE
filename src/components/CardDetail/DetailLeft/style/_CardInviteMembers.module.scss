@@ -3,7 +3,19 @@
 
 .label_main {
   @include modal_container(300px, 300px);
-  margin-left: -10px;
+  margin-left: -30px;
+  margin-top: 100px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  .title{
+    //background-color: $main_gray;
+    //height: 30px;
+    text-align: center;
+    color: $main_gray;
+    font-size: 18px;
+    margin-top: 10px;
+    line-height: 30px;
+  }
 }
 
 .label_overlay {
@@ -15,4 +27,37 @@
   bottom: 0;
   right: 0;
   z-index: 99;
+
+}
+
+.members {
+  display: grid;
+  grid-template-columns:repeat(3, 1fr);
+  margin: 20px 0 0 10px;
+
+  .member {
+    display: flex;
+    flex-direction: column;
+
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      margin: auto;
+    }
+    label{
+      margin: 0 auto;
+    }
+  }
+}
+.invite_button{
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+  button{
+    position: fixed;
+    margin: 130px 0 0 -50px;
+    @include button_styles(100px, 30px, $main_gray, 3px, $white_font, 15px );
+  }
+
 }

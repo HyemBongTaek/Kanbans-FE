@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import styles from "./style/_KanbanCardDetail.module.scss";
+import styles from "./style/_CardDetailImage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { ImageDelete, imageUpload } from "../../redux/Async/KanbanCardDetail";
+import CardDetailImageCard from "./CardDetailImageCard";
 
 const CardDetailImage = ({ cardId }) => {
   const dispatch = useDispatch();
@@ -29,71 +30,18 @@ const CardDetailImage = ({ cardId }) => {
 
   const imageLists = useSelector((state) => state.cardDetailSlice.images);
 
-  console.log("이미지리스트", imageLists);
-  // useEffect(() => {
-  //   const handlePasteAnywhere = (e) => {
-  //     console.log(e.clipboardData.getData("file"));
-  //   };
-  //
-  //   window.addEventListener("paste", handlePasteAnywhere);
-  //
-  //   return () => {
-  //     window.removeEventListener("paste", handlePasteAnywhere);
-  //   };
-  // }, []);
-  // useEffect(() => {
-  //   const handlePasteAnywhere = (e) => {
-  //     const item = e.clipboardData.items[0];
-  //     console.log(item);
-  //   };
-  //
-  //   window.addEventListener("paste", handlePasteAnywhere);
-  //
-  //   return () => {
-  //     window.removeEventListener("paste", handlePasteAnywhere);
-  //   };
-  // }, []);
-
-  // const handlePaste = (e) => {
-  //   e.preventDefault();
-  //   const item = e.clipboardData.items[0];
-  //   console.log(item);
-  // };
-
-  const deleteClick = (el) => {
-    dispatch(
-      ImageDelete({
-        imageId: el.id,
-        cardId,
-      })
-    );
-  };
   return (
     <div>
-      {/*onPaste={handlePaste}*/}
       <input type="file" onChange={changeImage} multiple="multiple" />
       {imageLists && (
         <div className={styles.detail_attachments}>
           {imageLists?.map((el) => {
             return (
-              <div key={el.id}>
-                <img
-                  className={styles.attachments_image}
-                  src={el.url}
-                  alt="img"
-                />
-                <div onClick={() => deleteClick(el)}>삭제</div>
-              </div>
+              <CardDetailImageCard items={el} key={el.id} cardId={cardId} />
             );
           })}
         </div>
       )}
-
-      {/*<img className={styles.attachments_image} src={Test} alt="img" />*/}
-      {/*<img className={styles.attachments_image} src={Test} alt="img" />*/}
-      {/*<img className={styles.attachments_image} src={Test} alt="img" />*/}
-
-      {/*style={{ display: "none" }}*/}
     </div>
   );
 };

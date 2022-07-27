@@ -9,7 +9,7 @@ const EditProfile = ({ name, introduction }) => {
   const dispatch = useDispatch();
   const [nickname, setNickname] = useState(name);
   const [introduce, setIntroduce] = useState(introduction);
-  const [editable, setEditable] = useState(false);
+  const [nameEditable, setNameEditable] = useState(false);
   const [isActiveNickname, setIsActiveNickname] = useState(false);
   const [isActiveIntroduce, setIsActiveIntroduce] = useState(false);
   const changeNicknameHandler = (e) => {
@@ -34,7 +34,7 @@ const EditProfile = ({ name, introduction }) => {
         nickname: nickname,
       })
     );
-    setEditable((pre) => !pre);
+    setNameEditable((pre) => !pre);
     setIsActiveNickname(false);
   };
   const changeIntroduceClick = (e) => {
@@ -50,25 +50,34 @@ const EditProfile = ({ name, introduction }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["cocoriLogin"]);
   const deleteAccountHandler = () => {
     dispatch(deleteAccount());
-    localStorage.removeItem("token");
-    removeCookie("cocoriLogin", { path: "/" });
-    window.location.replace("/");
+    setTimeout(() => {
+      localStorage.removeItem("token");
+      removeCookie("cocoriLogin", { path: "/" });
+      window.location.replace("/");
+    }, 1000);
   };
 
   return (
     <>
-      <div>
-        <div className={styles.title}>User Setting</div>
-        <div>Name</div>
+      <div className={styles.profile}>
+        <div className={styles.title}>프로필</div>
+        <div className={styles.name}>이름</div>
         <div className={styles.nickname}>
-          {editable ? (
+          {nameEditable ? (
             <form onSubmit={changeNicknameClick}>
-              <input value={nickname || ""} onChange={changeNicknameHandler} />
-              {isActiveNickname && (
-                <button className={styles.button}>
-                  <Icon className={styles.icon} icon="bi:check-lg" />
-                </button>
-              )}
+              <label>
+                <input
+                  value={nickname || ""}
+                  onChange={changeNicknameHandler}
+                />
+                {isActiveNickname && (
+                  <Icon
+                    onClick={changeNicknameClick}
+                    className={styles.check_icon}
+                    icon="bi:check-lg"
+                  />
+                )}
+              </label>
             </form>
           ) : (
             <form onSubmit={changeNicknameClick}>
@@ -80,23 +89,26 @@ const EditProfile = ({ name, introduction }) => {
               <Icon
                 className={styles.edit_icon}
                 icon="akar-icons:pencil"
-                onClick={() => setEditable((pre) => !pre)}
+                onClick={() => setNameEditable((pre) => !pre)}
               />
             </form>
           )}
         </div>
         <form className={styles.introduce} onSubmit={changeIntroduceClick}>
-          <div>introduce</div>
+          <div>자기소개</div>
 
           <textarea onChange={changeIntroduceHandler} value={introduce || ""} />
           {isActiveIntroduce && (
-            <button className={styles.button} onClick={changeIntroduceClick}>
-              <Icon className={styles.icon} icon="bi:check-lg" />
-            </button>
+            <Icon
+              onClick={changeIntroduceClick}
+              className={styles.intro_check_icon}
+              icon="bi:check-lg"
+            />
           )}
         </form>
-
-        <button onClick={deleteAccountHandler}>회원탈퇴하기</button>
+        <button className={styles.delete_button} onClick={deleteAccountHandler}>
+          회원탈퇴
+        </button>
       </div>
     </>
   );

@@ -9,6 +9,7 @@ import GoogleLoginImage from "../../../static/image/google_login_image.png";
 import { KAKAO_AUTH_URL } from "./AUTH_URL";
 import { NAVER_AUTH_URL } from "./AUTH_URL";
 import { GOOGLE_AUTH_URL } from "./AUTH_URL";
+import Logo from "../../../static/image/cocori02.png";
 
 import { setOpenLoginReducer } from "../../../redux/Slice/commonSlice";
 
@@ -22,18 +23,16 @@ const AuthModal = () => {
     <>
       <div className={styles.login_modal}>
         <div className={styles.modal_header}>
-          <Icon className={styles.modal_icon} icon="octicon:x-16" />
+          <Icon
+            className={styles.modal_icon}
+            onClick={openLoginModal}
+            icon="octicon:x-16"
+          />
         </div>
 
         <div className={styles.modal_container}>
           <div className={styles.modal_logo}>
-            <Icon
-              className="main_logo"
-              icon="bi:kanban"
-              color="#545454"
-              height="70"
-            />
-            <div>Kanban</div>
+            <img src={Logo} alt="코코리 로고" />
           </div>
           <div className={styles.login_text}>로그인</div>
         </div>
@@ -42,16 +41,21 @@ const AuthModal = () => {
         </div>
 
         <div className={styles.modal_login_form}>
-          <a href={GOOGLE_AUTH_URL}>
-            <img src={GoogleLoginImage} alt="google_login" />
-          </a>
-          <a href={NAVER_AUTH_URL}>
-            <img src={NaverLoginImage} alt="naver_login" />
-          </a>
-
-          <a href={KAKAO_AUTH_URL}>
-            <img src={KaKaoLoginImage} alt="kakao_login" />
-          </a>
+          <button>
+            <a href={GOOGLE_AUTH_URL}>
+              <img src={GoogleLoginImage} alt="google_login" />
+            </a>
+          </button>
+          <button>
+            <a href={NAVER_AUTH_URL}>
+              <img src={NaverLoginImage} alt="naver_login" />
+            </a>
+          </button>
+          <button>
+            <a href={KAKAO_AUTH_URL}>
+              <img src={KaKaoLoginImage} alt="kakao_login" />
+            </a>
+          </button>
         </div>
       </div>
       <div

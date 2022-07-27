@@ -44,24 +44,32 @@ const CardInviteMembers = ({ cardId, projectId, setIsAddMember }) => {
   return (
     <>
       <div className={styles.label_main}>
-        {showMembers &&
-          showMembers.map((user) => {
-            return (
-              <div key={user.userId}>
-                <input
-                  type="checkbox"
-                  id={user.id}
-                  onChange={(e) => {
-                    changeHandler(e.currentTarget.checked, user.userId);
-                  }}
-                  checked={selectedUser.includes(user.userId) ? true : false}
-                />
-                <img src={user.profileImage} alt={"user_image"} />
-                <span>{user.name}</span>
-              </div>
-            );
-          })}
-        <button onClick={inviteMembers}>초대하기</button>
+        <div className={styles.members}>
+          {showMembers &&
+            showMembers.map((user) => {
+              return (
+                <div className={styles.member} key={user.userId}>
+                  <img src={user.profileImage} alt={"user_image"} />
+                  <label>
+                    <input
+                      type="checkbox"
+                      id={user.id}
+                      onChange={(e) => {
+                        changeHandler(e.currentTarget.checked, user.userId);
+                      }}
+                      checked={
+                        selectedUser.includes(user.userId) ? true : false
+                      }
+                    />
+                    <span>{user.name}</span>
+                  </label>
+                </div>
+              );
+            })}
+        </div>
+        <div className={styles.invite_button}>
+          <button onClick={inviteMembers}>초대하기</button>
+        </div>
       </div>
       <div
         className={styles.label_overlay}

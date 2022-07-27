@@ -43,8 +43,11 @@ const LoginAfter = () => {
   return (
     <>
       {isClose ? (
-        <div onClick={() => setIsClose((pre) => !pre)}>
-          <Icon icon="akar-icons:circle-plus" color="#8c8c8c" height="30" />
+        <div
+          className={styles.small_navigation}
+          onClick={() => setIsClose((pre) => !pre)}
+        >
+          <Icon className={styles.small_icon} icon="charm:plus" />
         </div>
       ) : (
         <div className={styles.navigation}>
@@ -84,12 +87,9 @@ const LoginAfter = () => {
             <li className={classNames(styles.list)}>
               <a>
                 <span onClick={() => setIsClose((pre) => !pre)}>
-                  <Icon
-                    className={styles.icons}
-                    icon="akar-icons:circle-minus"
-                  />
+                  <Icon className={styles.icons} icon="line-md:minus" />
                 </span>
-                <span className={styles.title}>Home</span>
+                <span className={styles.title}>Close</span>
               </a>
             </li>
 

@@ -1,5 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Apis from "../apis";
+import {
+  addProjectLabelReducer,
+  cardInviteMembersReducer,
+  deleteProjectLabelReducer,
+  imageUploadReducer,
+} from "../Slice/KanbanCardDetailSlice";
 
 //칸반카드디테일 내용 불러오기
 export const getKanbanCardDetail = createAsyncThunk(
@@ -93,11 +99,11 @@ export const getCardComment = createAsyncThunk(
         method: "GET",
       });
       if (res.data.ok) {
-        return res.data;
+        console.log(res.data);
+        return res.data.comment;
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
-      console.log(err.res.message);
+      throw thunkAPI.rejectWithValue();
     }
   }
 );
@@ -119,7 +125,7 @@ export const addCardComment = createAsyncThunk(
         return res.data.comment;
       }
     } catch (err) {
-      console.log(err);
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -138,7 +144,7 @@ export const deleteCardComment = createAsyncThunk(
         return id;
       }
     } catch (err) {
-      console.log(err);
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -160,7 +166,7 @@ export const editCardComment = createAsyncThunk(
         return res.data.comment;
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -181,7 +187,7 @@ export const addDaySelected = createAsyncThunk(
         console.log(res.data);
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -225,7 +231,7 @@ export const editContent = createAsyncThunk(
         }
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -241,12 +247,15 @@ export const imageUpload = createAsyncThunk(
         url: `/card/${cardId}/images`,
         method: "POST",
         data: formData,
+        credentials: "include",
       });
       if (res.data.ok) {
-        return res.data.images;
+        return setTimeout(() => {
+          thunkAPI.dispatch(imageUploadReducer(res.data.images));
+        }, 1000);
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -266,7 +275,7 @@ export const ImageDelete = createAsyncThunk(
         };
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -286,10 +295,10 @@ export const addProjectLabel = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        console.log(res.data);
+        return thunkAPI.dispatch(addProjectLabelReducer(res.data.label));
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -307,7 +316,7 @@ export const searchLabel = createAsyncThunk(
         return res.data.labels;
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -322,10 +331,10 @@ export const deleteProjectLabel = createAsyncThunk(
         method: "DELETE",
       });
       if (res.data.ok) {
-        return labelId;
+        return thunkAPI.dispatch(deleteProjectLabelReducer(labelId));
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -347,7 +356,7 @@ export const addCardLabels = createAsyncThunk(
         console.log(res.data);
       }
     } catch (err) {
-      console.log(err);
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -365,7 +374,7 @@ export const cardShowMembers = createAsyncThunk(
         return res.data;
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -383,10 +392,10 @@ export const cardInviteMembers = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        console.log(res.data);
+        return thunkAPI.dispatch(cardInviteMembersReducer(res.data.users));
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -404,7 +413,7 @@ export const deleteCardLabel = createAsyncThunk(
         return labelId;
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -422,7 +431,7 @@ export const exitCardMember = createAsyncThunk(
         return userId;
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );

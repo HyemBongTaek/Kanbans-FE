@@ -89,6 +89,7 @@ const DetailInput = ({ type, cardId }) => {
           <form className={styles.comments} onSubmit={addTask}>
             <label>
               <input
+                className={styles.comments_input}
                 type="text"
                 name="comments"
                 onChange={contentOnChange}

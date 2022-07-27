@@ -10,6 +10,7 @@ export const getTimer = createAsyncThunk(
         method: "GET",
       });
       if (res.data.ok) {
+        console.log(res.data);
         return res.data.alarms;
       }
     } catch (err) {

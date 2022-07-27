@@ -1,0 +1,130 @@
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
+
+
+.kanban_card, .kanban_check {
+  width: 240px;
+  height: 130px;
+  //display: flex;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 10px auto;
+  //border: 1px solid black;
+  background: #FFFFFF;
+}
+
+//체크표시 됐을 경우 전체 카드 흐리게 만들어줌.
+.kanban_check {
+  background: $white_font;
+  opacity: 0.7;
+}
+
+//카드앞에 상태를 나타내는 색
+.kanban_hold, .kanban_progress, .kanban_finish {
+  width: 100%;
+  height: 20px;
+  //border-top-left-radius: 10px;
+  //border-bottom-left-radius: 10px;
+}
+.kanban_hold{
+  background-color: $main_yellow ;
+}
+.kanban_progress{
+  background-color: $main_gray;
+}
+.kanban_finish{
+  background-color: $main_green;
+}
+.status{
+  position: absolute;
+  margin-top: -20px;
+}
+.check_icon{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 3px;
+}
+// 카드 label, title, task, date, d-day, comments 표시
+.card_contents {
+  display: flex;
+  align-content: space-between;
+  flex-direction: column;
+
+  .card_top {
+    display: flex;
+    justify-content: space-between;
+
+    .labels {
+      display: flex;
+      justify-content: flex-start;
+      width: 230px;
+      margin-top: 5px;
+      .label {
+        width: 55px;
+        height: 20px;
+        margin-right: 15px;
+      }
+    }
+
+  }
+
+  .card_title, .card_title_complete {
+    font-size: 20px;
+    margin: 0 0 5px 10px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+
+  }
+  .card_title_complete{
+    text-decoration: line-through;
+  }
+}
+
+.card_mid, .card_check_mid {
+  margin-right: 5px;
+  & > img {
+    @include profile_image("small");
+  }
+}
+//완료(체크표시) 이미지 흐리게
+.card_check_mid {
+  & > img {
+    opacity: 0.8;
+  }
+}
+.card_bottom {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0 0 10px;
+  font-size: 10px;
+
+
+  .bottom_icon {
+    @include icons($sub_black, 15px);
+    margin-top: 4px;
+  }
+
+  .date, .task, .date_check {
+    line-height: 22px;
+    display: flex;
+    height: 22px;
+    border-radius: 10px;
+    background: $light_gray;
+    margin-right: 10px;
+  }
+  .date_check {
+    opacity: 0.8;
+  }
+
+  .task {
+    color: $gray;
+  }
+  .delete_icon{
+    margin-right: 10px;
+    @include icons($gray, 20px);
+    &:hover{
+      @include icons($main_gray, 20px);
+    }
+  }
+}
+

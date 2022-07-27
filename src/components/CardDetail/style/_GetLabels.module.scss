@@ -25,29 +25,29 @@ $colors: ($label_red, $label_pink, $label_orange, $label_yellow, $label_emerald_
 .detail_label{
   width: 60px;
   height: 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
 }
 .red{
-  text-align: center;
   background: $label_red;
 }
 .pink{
-  @extend .red;
+
   background: $label_pink;
 }
 .orange{
-  @extend .red;
   background: $label_orange;
 }
 .yellow{
-  @extend .red;
   background: $label_yellow;
 }
 .emerald_green{
-  @extend .red;
   background: $label_emerald_green;
 }
 .green{
-  @extend .red;
   background: $label_green;
 }
 

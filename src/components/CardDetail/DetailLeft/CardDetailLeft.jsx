@@ -7,10 +7,10 @@ import CardInviteMembers from "./CardInviteMembers";
 import { useDispatch, useSelector } from "react-redux";
 import { Icon } from "@iconify/react";
 import { exitCardMember } from "../../../redux/Async/KanbanCardDetail";
+import { Tooltip } from "../../Tooltip";
 
 const CardDetailLeft = ({ cardId, projectId }) => {
   const dispatch = useDispatch();
-  const [isDay, setIsDay] = useState(false);
   const [isAddLabel, setIsAddLabel] = useState(false);
   const [isAddingLabel, setIsAddingLabel] = useState(false);
   const [isAddMember, setIsAddMember] = useState(false);
@@ -41,15 +41,17 @@ const CardDetailLeft = ({ cardId, projectId }) => {
                   <div className={styles.profile} key={user.id}>
                     <div className={styles.user_image}>
                       <img src={user.profileImage} />
-                      <Icon
-                        onClick={() =>
-                          exitCardMembersHandler({
-                            userId: user.id,
-                          })
-                        }
-                        className={styles.user_icon}
-                        icon="akar-icons:circle-minus"
-                      />
+                      <Tooltip content="맴버 카드에서 제외하기">
+                        <Icon
+                          onClick={() =>
+                            exitCardMembersHandler({
+                              userId: user.id,
+                            })
+                          }
+                          className={styles.user_icon}
+                          icon="akar-icons:circle-minus"
+                        />
+                      </Tooltip>
                     </div>
                     <div className={styles.name}>{user.name}</div>
                   </div>
@@ -57,6 +59,7 @@ const CardDetailLeft = ({ cardId, projectId }) => {
               })
             : cardMembers}
         </div>
+
         {isAddLabel && (
           <AddLabel
             setIsOpen={setIsAddLabel}
@@ -64,6 +67,10 @@ const CardDetailLeft = ({ cardId, projectId }) => {
             projectId={projectId}
           />
         )}
+
+        <li onClick={() => setIsAddMember(true)}>
+          <a>카드에 멤버추가하기</a>
+        </li>
         <li onClick={() => setIsAddLabel(true)}>
           <a>새로운 라벨 추가하기</a>
         </li>
@@ -78,9 +85,7 @@ const CardDetailLeft = ({ cardId, projectId }) => {
           <a>라벨 추가하기</a>
         </li>
         <li>
-          <a>
-            <SelectedDday />
-          </a>
+          <SelectedDday />
         </li>
         {isAddMember && (
           <CardInviteMembers
@@ -89,13 +94,6 @@ const CardDetailLeft = ({ cardId, projectId }) => {
             setIsAddMember={setIsAddMember}
           />
         )}
-
-        <li onClick={() => setIsAddMember(true)}>
-          <a>카드에 멤버추가하기</a>
-        </li>
-        <li>
-          <a>라벨</a>
-        </li>
       </ul>
     </>
   );

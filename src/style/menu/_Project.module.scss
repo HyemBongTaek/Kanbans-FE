@@ -1,9 +1,16 @@
-@import "../common/navStyle";
+
 @import "../common/colors";
 @import "../common/mixin";
 
 .kanban_home {
-  height: 90vh;
+  height: 100vh;
+  //display: flex;
+  //flex-direction: column;
+  //align-items: center;
 
-  @include scroll_design("y");
+  @include scroll_design("y", 25px, #ffffff);
+  //.header{
+  //  align-self: flex-start;
+  //  margin-left: 10%;
+  //}
 }

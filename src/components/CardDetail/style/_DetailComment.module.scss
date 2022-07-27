@@ -1,0 +1,74 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+
+.comment_profile{
+  img {
+    @include profile_image("normal");
+  }
+  div {
+    padding-top: 3px;
+    padding-left: 5px;
+    span{
+      font-size: 12px;
+      color: $comment_gray;
+    }
+
+  }
+}
+.comment_input{
+  display: flex;
+  @extend .comment_profile;
+
+}
+.comment_box{
+  margin-top: 10px;
+  height: 50vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    border: 1px solid $border_gray;
+  }
+}
+.comment_wrapper{
+  display: flex;
+  @extend .comment_profile;
+  .comment_content{
+    margin-left: 5px;
+  }
+  .icon{
+    display: flex;
+    justify-content: flex-end;
+  }
+  .content{
+    width: 460px;
+    height: 30px;
+    background: #FFFFFF;
+    border: 1px solid #898A8D;
+    border-radius: 5px;
+    line-height: 30px;
+    margin-right: 10px;
+
+    .edit_input{
+      width: 470px;
+      height: 28px;
+      border-radius: 5px;
+
+    }
+    input {
+      border: none;
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+  .comment_icon{
+    @include icons($border_gray, 20px);
+    margin-right: 20px;
+    &:hover{
+      color: $main_gray;
+    }
+  }
+}

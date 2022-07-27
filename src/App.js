@@ -21,11 +21,9 @@ import KaKaoLoginHandler from "./components/menu/login/KaKaoLoginHandler";
 import GoogleLoginHandler from "./components/menu/login/GoogleLoginHandler";
 import NaverLoginHandler from "./components/menu/login/NaverLoginHandler";
 import Timer from "./page/menu/Timer";
-import Invite from "./components/Invite/Invite";
-import StatusCheck from "./components/Kanban/StatusCheck";
+import Invite from "./components/Kanban/KanbanInvite/Invite";
 import KanbanCardDetail from "./page/menu/KanbanCardDetail";
 import JoinProject from "./page/menu/JoinProject";
-import LoadingSpinner from "./components/menu/utils/LoadingSpinner";
 import MemberPage from "./page/menu/MemberPage";
 
 import { history } from "./history";
@@ -52,11 +50,13 @@ function App() {
   //로그인이 되어있지 않는 경우 메인화면으로 돌아가게함.
   function RequireAuth({ children, redirectTo }) {
     const token = getCookie("cocoriLogin");
+    // const token = localStorage.getItem("token");
     return token ? children : <Navigate to={redirectTo} />;
   }
   //로그인으로 다시넘어가게
   function LoginAuth({ children, redirectTo }) {
     const token = getCookie("cocoriLogin");
+    // const token = localStorage.getItem("token");
     return token ? children : <Navigate to={redirectTo} />;
   }
 
@@ -110,7 +110,7 @@ function App() {
               path="/timer"
               element={
                 <RequireAuth redirectTo="/">
-                  <Timer />{" "}
+                  <Timer />
                 </RequireAuth>
               }
             />
@@ -144,8 +144,6 @@ function App() {
             <Route path="/oauth/google/" element={<GoogleLoginHandler />} />
             <Route path="/oauth/naver/" element={<NaverLoginHandler />} />
             <Route path="/invite" element={<Invite />} />
-            <Route path="/tests" element={<StatusCheck />} />
-            <Route path="/testss" element={<LoadingSpinner />} />
           </Routes>
         </Layout>
       </CustomRouter>

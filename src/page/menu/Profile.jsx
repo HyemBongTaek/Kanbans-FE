@@ -33,8 +33,12 @@ const Profile = () => {
     <>
       <div className={styles.wrapper}>
         <EditProfileImage image={image} />
-        <div className={styles.cancle_button} onClick={() => navigate(-1)}>
-          <Icon className={styles.icon} icon="octicon:x-16" />
+        <div className={styles.cancle_button}>
+          <Icon
+            className={styles.icon}
+            onClick={() => navigate(-1)}
+            icon="octicon:x-16"
+          />
         </div>
         <EditProfile name={name} introduction={introduction} />
       </div>

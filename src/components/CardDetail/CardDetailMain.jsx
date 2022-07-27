@@ -79,6 +79,7 @@ const CardDetailMain = ({ cardContent, cardLabel }) => {
 
   return (
     <>
+      {/*등록된 라벨 표시*/}
       <div>
         <div className={styles.label}>
           {cardLabel &&
@@ -92,6 +93,8 @@ const CardDetailMain = ({ cardContent, cardLabel }) => {
               );
             })}
         </div>
+
+        {/*타이틀*/}
         <div className={styles.title}>
           <Icon
             className={styles.title_icon}
@@ -110,14 +113,14 @@ const CardDetailMain = ({ cardContent, cardLabel }) => {
               onChange={useCallback((e) => setTitle(e.target.value))}
             />
           </label>
-          <button
+          <Icon
+            onClick={editTitle}
             className={titleActive ? styles.active_btn : styles.unActive_btn}
-          >
-            <Icon className={styles.icon} icon="bi:check-lg" />
-          </button>
+            icon="bi:check-lg"
+          />
         </form>
-      </div>
-      <div>
+
+        {/*서브타이틀*/}
         <div className={styles.title}>
           <Icon
             className={styles.title_icon}
@@ -134,18 +137,15 @@ const CardDetailMain = ({ cardContent, cardLabel }) => {
               value={subTitle || ""}
               onChange={useCallback((e) => setSubTitle(e.target.value))}
             />
-            <button
-              className={
-                subTitleActive ? styles.active_btn : styles.unActive_btn
-              }
-              onSubmit={editSubTitle}
-            >
-              <Icon className={styles.icon} icon="bi:check-lg" />
-            </button>
           </label>
+          <Icon
+            className={subTitleActive ? styles.active_btn : styles.unActive_btn}
+            onClick={editSubTitle}
+            icon="bi:check-lg"
+          />
         </form>
-      </div>
-      <div>
+
+        {/*설명칸*/}
         <div className={styles.title}>
           <Icon
             className={styles.title_icon}
@@ -162,18 +162,17 @@ const CardDetailMain = ({ cardContent, cardLabel }) => {
               value={description || ""}
               onChange={useCallback((e) => setDescription(e.target.value))}
             />
-            <button
-              className={
-                descriptionActive ? styles.active_btn : styles.unActive_btn
-              }
-              onSubmit={editDescription}
-            >
-              <Icon className={styles.icon} icon="bi:check-lg" />
-            </button>
           </label>
+          <Icon
+            onClick={editDescription}
+            className={
+              descriptionActive ? styles.active_btn : styles.unActive_btn
+            }
+            icon="bi:check-lg"
+          />
         </form>
-      </div>
-      <div>
+
+        {/*사진넣기*/}
         <div className={styles.title}>
           <Icon
             className={styles.title_icon}
@@ -181,11 +180,9 @@ const CardDetailMain = ({ cardContent, cardLabel }) => {
           />
           Attachments
         </div>
-        <div>
-          <CardDetailImage cardId={cardContent.id} />
-        </div>
-      </div>
-      <div>
+        <CardDetailImage cardId={cardContent.id} />
+
+        {/*진행목록 진행바*/}
         <div className={styles.title}>
           <Icon
             className={styles.title_icon}
@@ -193,9 +190,9 @@ const CardDetailMain = ({ cardContent, cardLabel }) => {
           />
           Tasks
         </div>
-        <div>
-          <CardProgressBar cardId={cardContent.id} />
-        </div>
+        <CardProgressBar cardId={cardContent.id} />
+
+        {/*코멘트*/}
         <div className={styles.title}>
           <Icon
             className={styles.title_icon}
@@ -203,9 +200,7 @@ const CardDetailMain = ({ cardContent, cardLabel }) => {
           />
           Comments
         </div>
-        <div>
-          <DetailComments cardId={cardContent.id} />
-        </div>
+        <DetailComments />
       </div>
     </>
   );

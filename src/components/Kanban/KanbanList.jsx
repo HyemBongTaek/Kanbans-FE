@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./style/_KanbanBoard.module.scss";
+import styles from "./style/_KanbanList.module.scss";
 import { history } from "../../history";
 
 import KanbanBoard from "./KanbanBoard";
@@ -72,11 +72,9 @@ const KanbanList = () => {
     });
 
     socket?.on("duplicatedDrag", ({ message }) => {
-      console.log("드레그중복");
       console.log(message);
     });
     socket.on("moveResult", (payload) => {
-      console.log("카드움직임 발견", payload);
       if (payload.type === "card" && payload.startOrder !== null) {
         dispatch(
           sortKanbanCardMoveReducer({
@@ -104,43 +102,32 @@ const KanbanList = () => {
       }
     });
     socket?.on("cardStatusResult", (payload) => {
-      console.log("카드스테이터스", payload);
       dispatch(cardStatusChangeReducer(payload));
     });
     socket.on("boardCreateResult", (payload) => {
       dispatch(createBoardReducer(payload));
     });
     socket.on("boardDeleteResult", (payload) => {
-      console.log("보드삭제감지", payload);
       dispatch(deleteBoardReducer(payload));
     });
     socket.on("cardCreateResult", (payload) => {
-      console.log("카드추가감지", payload);
       dispatch(createCardReducer({ data: payload }));
     });
     socket.on("cardDeleteResult", (payload) => {
       dispatch(deleteCardReducer(payload));
     });
     socket.on("cardAllDeleteResult", (payload) => {
-      console.log("카드전체삭제", payload);
       dispatch(cardAllDeleteReducer(payload));
     });
     socket.on("cardCheckResult", (payload) => {
       dispatch(cardCheckReducer(payload));
     });
     socket?.on("boardTitleResult", (payload) => {
-      console.log("보드타이들", payload);
       dispatch(changeBoardTitle(payload));
     });
   }, []);
 
-  // console.log("프로젝트아이디", projectId);
-  // const leaveSocket = () => {
-  //   socket.emit("leave", projectId);
-  //   socket.disconnect();
-  // };
   //보드 내용 불러오기
-
   const boards = useSelector((state) => state.kanbanSlice.kanbans);
   const { board, card, columnOrders } = useSelector((state) => ({
     board: state.kanbanSlice.kanbans.board,
@@ -160,7 +147,6 @@ const KanbanList = () => {
   //칸반보드 이동(카드이동, 보드이동)
   const onDragEnd = (result) => {
     const { destination, source, draggableId, type } = result;
-    console.log("결과", result);
     if (!destination) {
       return;
     }
@@ -193,10 +179,6 @@ const KanbanList = () => {
 
     const start = boards.board[source.droppableId];
     const finish = boards.board[destination.droppableId];
-    console.log("피니쉬", finish);
-    // console.log("뉴피니쉬", newFinish);
-    console.log("스타트", start);
-    // console.log("뉴스타트", newStart);
 
     //카드가 다른보드로 이동하지 않을 경우
     if (start === finish && type !== "column") {
@@ -207,17 +189,6 @@ const KanbanList = () => {
         ...start,
         cardId: newCardIds,
       };
-
-      console.log("다른보드로 이동안함", newBoard);
-
-      // 카드 번쩍거리는 이미지를 위해 서버로 전달하는 리덕스와 기존 배열을 변경하는 리덕스를 양쪽으로 나눠서 사용함.
-      //디스패치 딴쪽으로 뺌.
-      // dispatch(
-      //   sortKanbanCardReducer({
-      //     endOrder: newCardIds,
-      //     endPoint: source.droppableId,
-      //   })
-      // );
       dispatch(
         sortKanbanCard({
           boardId: source.droppableId,
@@ -236,9 +207,6 @@ const KanbanList = () => {
       );
     } else if (type !== "column") {
       //카드를 드래그해서 다른 보드로 이동할 경우.
-
-      console.log("확인좀합시다", draggableId);
-
       const startCardId = Array.from(start.cardId);
       startCardId.splice(source.index, 1);
       const newStart = {
@@ -274,14 +242,10 @@ const KanbanList = () => {
           endOrder: newFinish.cardId,
         })
       );
-
-      console.log("뉴피니쉬", newFinish);
-      console.log("뉴스타트", newStart);
     }
   };
 
   const onDragStart = (result) => {
-    console.log("움직입니당", result);
     dispatch(
       startDragSocket({
         result,
@@ -317,7 +281,7 @@ const KanbanList = () => {
 
                     return (
                       <KanbanBoard
-                        key={boards.id}
+                        key={boards.id.toString()}
                         boards={boards}
                         cards={cards}
                         index={index}
@@ -337,4 +301,4 @@ const KanbanList = () => {
   );
 };
 
-export default KanbanList;
+export default React.memo(KanbanList);

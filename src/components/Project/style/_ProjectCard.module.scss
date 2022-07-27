@@ -1,8 +1,9 @@
 @import "./src/style/common/mixin";
 @import "./src/style/common/colors";
+
 .home_card {
-  width: 320px;
-  height: 230px;
+  width: 300px;
+  height: 200px;
   border: 1px solid $border_gray;
   border-radius: 10px;
   padding-left: 20px;
@@ -47,7 +48,14 @@
     font-weight: bold;
     margin-top: 5px;
   }
-
+.finish_edit{
+  margin-top: 62px;
+  @include button_styles(80px, 30px, $main_gray, 5px, $white_font, 15px);
+  &:hover{
+    background-color: $white_font;
+    color: $main_gray;
+  }
+}
   .home_profile {
     display: flex;
     justify-content: flex-start;
@@ -58,14 +66,15 @@
 
     .profile_image {
       margin-right: 10px;
-      & > img {
+      margin-top: -10px;
+
+      img {
         width: 50px;
         height: 50px;
         border-radius: 50px;
-
       }
 
-      .profile_name{
+      .profile_name {
         width: 60px;
         height: 23px;
         background: $main_gray;
@@ -81,15 +90,19 @@
     }
   }
 
-  .icons{
+  .icons {
     //border: 1px solid blue;
     display: flex;
     justify-content: flex-end;
     padding-right: 20px;
-    .icon{
-      @include icons($border_gray, 30px);
+    margin-top: 10px;
+
+    .icon {
+      @include icons($border_gray, 25px);
       margin-left: 10px;
-      &:hover{
+      margin-top: -30px;
+
+      &:hover {
         color: $main_gray;
       }
     }

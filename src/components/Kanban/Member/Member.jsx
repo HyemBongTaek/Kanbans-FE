@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  changeOwner,
+  changeOwnerDB,
   deleteProjectUser,
   getProjectUserList,
 } from "../../../redux/Async/kanban";
 import styles from "./_Member.module.scss";
+import MemberCard from "./MemberCard";
 
-const Member = ({ projectId }) => {
+const Member = ({ projectId, user }) => {
   const dispatch = useDispatch();
+  const [isOwner, setIsOwner] = useState(false);
   useEffect(() => {
     dispatch(
       getProjectUserList({
@@ -17,31 +21,42 @@ const Member = ({ projectId }) => {
   }, [dispatch]);
   const memberList = useSelector((state) => state.kanbanSlice.members);
 
-  const deleteProjectMember = ({ userId }) => {
-    dispatch(
-      deleteProjectUser({
-        projectId,
-        userId,
-      })
-    );
-  };
+  const [members, setMembers] = useState(memberList);
+
+  useEffect(() => {
+    setMembers(memberList);
+  }, [memberList]);
+  console.log(user, "유저");
   console.log("맴버", memberList);
+
+  const owner =
+    memberList &&
+    memberList
+      .filter((member) => member.owner === 1)
+      .reduce((acc, cur) => (acc, cur), {});
+  useEffect(() => {
+    if (owner && user && owner.id === user.id) {
+      setIsOwner(true);
+    } else {
+      return setIsOwner(false);
+    }
+  }, [memberList, owner]);
+
   return (
     <>
       <div>
-        <div>
-          {memberList &&
-            memberList.map((member) => {
-              const userId = member.id;
+        <div className={styles.members}>
+          {members &&
+            members.map((member) => {
               return (
-                <div className={styles.card} key={userId}>
-                  <img src={member.profileImage} alt="profile_image" />
-                  <div>{member.name}</div>
-                  <div>{member.introduce}</div>
-                  <button onClick={() => deleteProjectMember({ userId })}>
-                    제외하기
-                  </button>
-                </div>
+                <MemberCard
+                  isOwner={isOwner}
+                  member={member}
+                  setIsOwner={setIsOwner}
+                  projectId={projectId}
+                  key={member.id.toString()}
+                  userId={user.id}
+                />
               );
             })}
         </div>

@@ -1,0 +1,22 @@
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
+
+.KanbanInvite{
+  text-align: center;
+  @include modal_container(550px, 400px);
+  .logo{
+    margin-top: 60px;
+  }
+  div{
+    font-size: 50px;
+    text-align: center;
+  }
+  .copy{
+    border: none;
+    background-color: #FFFFFF;
+  }
+}
+
+.overlay{
+  @include overlay_container;
+}

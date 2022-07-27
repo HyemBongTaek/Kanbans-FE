@@ -5,9 +5,10 @@ import {
   cardCheckReducer,
   cardStatusChangeReducer,
   changeBoardTitleReducer,
-  createBoardReducer,
+  changeOwnerReducer,
   deleteBoardReducer,
   deleteCardReducer,
+  deleteProjectUserReducer,
   moveKanbanBoardReducer,
   sortKanbanCardMoveReducer,
   sortKanbanCardReducer,
@@ -23,7 +24,7 @@ export const getKanbanBoard = createAsyncThunk(
         method: "GET",
       });
       if (res.data.ok) {
-        console.log(res.data);
+        console.log("확인", res.data);
         return res.data;
       }
     } catch (err) {
@@ -35,38 +36,17 @@ export const getKanbanBoard = createAsyncThunk(
   }
 );
 
-// // 보드 추가하기
-// export const addKanbanBoard = createAsyncThunk(
-//   "kanban/addKanbanBoard",
-//   async ({ projectId, title }, thunkAPI) => {
-//     console.log("작성", projectId, title);
-//     try {
-//       const res = await Apis({
-//         url: `/board`,
-//         method: "POST",
-//         data: {
-//           title,
-//           projectId: projectId,
-//         },
-//       });
-//       if (res.data.ok) {
-//         console.log("보드만들기", res.data);
-//         return thunkAPI.dispatch(createBoardReducer(res.data.newBoard));
-//       }
-//     } catch (err) {
-//       console.log("작성에러", err.response);
-//       return thunkAPI.rejectWithValue(err.response);
-//     }
-//   }
-// );
 // 보드 삭제하기
 export const deleteBoard = createAsyncThunk(
   "kanban/deleteBoard",
-  async ({ boardId, boards }, thunkAPI) => {
+  async ({ boardId, boards, cardOrder }, thunkAPI) => {
     try {
       const res = await Apis({
         url: `/board/${boardId}`,
-        method: "DELETE",
+        method: "POST",
+        data: {
+          cardIds: cardOrder,
+        },
       });
       if (res.data.ok) {
         return thunkAPI.dispatch(deleteBoardReducer({ boardId }));
@@ -90,7 +70,6 @@ export const changeBoardTitle = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        console.log("데이터확인", res.data);
         thunkAPI.dispatch(
           changeBoardTitleReducer({
             boardId: res.data.updateBoards.id,
@@ -128,11 +107,14 @@ export const addKanbanCard = createAsyncThunk(
 //카드 전체 삭제
 export const cardAllDelete = createAsyncThunk(
   "kanban/cardAllDelete",
-  async ({ boardId }, thunkAPI) => {
+  async ({ boardId, cardOrder }, thunkAPI) => {
     try {
       const res = await Apis({
         url: `/board/${boardId}/cards`,
-        method: "DELETE",
+        method: "POST",
+        data: {
+          cardIds: cardOrder,
+        },
       });
       if (res.data.ok) {
         console.log(res.data);
@@ -341,6 +323,7 @@ export const getProjectUserList = createAsyncThunk(
         method: "GET",
       });
       if (res.data.ok) {
+        console.log("redux확인", res.data);
         return res.data.members;
       }
     } catch (err) {
@@ -359,10 +342,36 @@ export const deleteProjectUser = createAsyncThunk(
         method: "DELETE",
       });
       if (res.data.ok) {
-        console.log(res.data);
+        thunkAPI.dispatch(
+          deleteProjectUserReducer({
+            userId,
+          })
+        );
       }
     } catch (err) {
       console.log(err);
+    }
+  }
+);
+
+//프로젝트 owner변경하기
+export const changeOwnerDB = createAsyncThunk(
+  "kanban/changeOwner",
+  async ({ projectId, sender, receiver }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/project/${projectId}/change-owner`,
+        method: "PATCH",
+        data: {
+          sender,
+          receiver,
+        },
+      });
+      if (res.data.ok) {
+        thunkAPI.dispatch(changeOwnerReducer({ sender, receiver }));
+      }
+    } catch (err) {
+      thunkAPI.rejectWithValue(err);
     }
   }
 );

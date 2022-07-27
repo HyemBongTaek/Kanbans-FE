@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Apis from "../apis";
 import Swal from "sweetalert2";
+import { updateProjectReducer } from "../Slice/projectsSlice";
 
 export const getProject = createAsyncThunk("project/getProject", async () => {
   try {
@@ -95,13 +96,18 @@ export const updateProject = createAsyncThunk(
         method: "PATCH",
         data: {
           title: title,
-          permission: permission,
+          permission: permission ? "public" : "private",
         },
       });
       if (res.data.ok) {
-        console.log("수정완료", res.data);
-        // thunkAPI.dispatch(getProject());
-        return res;
+        console.log("확인좀", res.data);
+        return thunkAPI.dispatch(
+          updateProjectReducer({
+            title,
+            permission: permission ? "public" : "private",
+            projectId,
+          })
+        );
       }
     } catch (err) {
       console.log("수정도중 오류가 발생하였습니다.");

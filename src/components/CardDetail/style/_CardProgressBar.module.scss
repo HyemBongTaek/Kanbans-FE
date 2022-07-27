@@ -1,13 +1,14 @@
 @import "./src/style/common/mixin";
 @import "./src/style/common/colors";
 
-
-
 //DetailCommentCard.jsx
 .progress_bar{
   width: 520px;
   background: #C4C4C4;
   height: 25px;
+}
+.progress_area{
+  margin-bottom: 10px;
 }
 
 //ProgressCard.jsx

@@ -4,11 +4,12 @@
 
 .date_input{
   border: none;
-  height: 20px;
-  font-size: 20px;
+
   background-color: #ffffff;
 
-  a{
-    font-size: 13px;
+  span{
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 10px;
   }
 }

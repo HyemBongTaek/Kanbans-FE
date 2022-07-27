@@ -24,6 +24,7 @@ const JoinProjectModal = () => {
         inviteCode: isCode,
       })
     );
+    navigate(-1);
   };
   return (
     <>

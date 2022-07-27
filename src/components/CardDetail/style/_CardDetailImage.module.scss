@@ -1,0 +1,34 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+.detail_attachments {
+  width: 525px;
+  height: 180px;
+  background-color: $white_font;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+}
+
+
+//CardDetailImage.jsx
+.attachments_modal{
+  @include modal_container(640px, 640px);
+  border-radius: 0;
+  img{
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+    max-height: 640px;
+  }
+}
+.layout{
+  @include overlay_container;
+  background-color: rgba(0, 0, 0, 0.0);
+}
+
+.attachments_image {
+  cursor: zoom-in;
+  width: 150px;
+  height: 120px;
+  margin-right: 10px;
+}

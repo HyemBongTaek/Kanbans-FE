@@ -17,6 +17,8 @@ const KanbanBoard = (props) => {
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const boards = props.boards;
 
+  console.log(props);
+
   const dropdownClick = () => setIsActive(!isActive);
   return (
     <>
@@ -63,6 +65,7 @@ const KanbanBoard = (props) => {
                     <BoardDropDown
                       dropdownClick={dropdownClick}
                       boardId={props.boards.id}
+                      cardOrder={props.boards.cardId}
                       projectId={boards.projectId}
                     />
                   )}
@@ -75,7 +78,7 @@ const KanbanBoard = (props) => {
                       props?.cards?.map((cards, index) => {
                         return (
                           <KanbanCard
-                            key={cards.id.toString()}
+                            key={cards.id}
                             cards={cards}
                             index={index}
                             boardId={boards.id}
@@ -100,4 +103,4 @@ const KanbanBoard = (props) => {
   );
 };
 
-export default KanbanBoard;
+export default React.memo(KanbanBoard);

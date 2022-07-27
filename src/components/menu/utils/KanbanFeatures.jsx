@@ -44,12 +44,13 @@ const KanbanFeatures = (props) => {
   };
 
   //보드 삭제
-  const deleteBoardClick = ({ boardId, projectId }) => {
+  const deleteBoardClick = ({ boardId, projectId, cardOrder }) => {
     // socket.emit("join", projectId);
     dispatch(
       deleteBoard({
         boards: boards,
         boardId,
+        cardOrder,
       })
     );
     dispatch(
@@ -61,8 +62,8 @@ const KanbanFeatures = (props) => {
   };
 
   //카드 모두 삭제
-  const clearCards = ({ boardId, projectId }) => {
-    dispatch(cardAllDelete({ boardId }));
+  const clearCards = ({ boardId, projectId, cardOrder }) => {
+    dispatch(cardAllDelete({ boardId, cardOrder }));
     dispatch(cardAllDeleteSocket({ boardId, room: projectId }));
   };
 
