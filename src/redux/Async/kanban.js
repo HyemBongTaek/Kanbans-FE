@@ -5,9 +5,11 @@ import {
   cardCheckReducer,
   cardStatusChangeReducer,
   changeBoardTitleReducer,
+  changeOwnerReducer,
   createBoardReducer,
   deleteBoardReducer,
   deleteCardReducer,
+  deleteProjectUserReducer,
   moveKanbanBoardReducer,
   sortKanbanCardMoveReducer,
   sortKanbanCardReducer,
@@ -341,6 +343,7 @@ export const getProjectUserList = createAsyncThunk(
         method: "GET",
       });
       if (res.data.ok) {
+        console.log("redux확인", res.data);
         return res.data.members;
       }
     } catch (err) {
@@ -359,10 +362,36 @@ export const deleteProjectUser = createAsyncThunk(
         method: "DELETE",
       });
       if (res.data.ok) {
-        console.log(res.data);
+        thunkAPI.dispatch(
+          deleteProjectUserReducer({
+            userId,
+          })
+        );
       }
     } catch (err) {
       console.log(err);
+    }
+  }
+);
+
+//프로젝트 owner변경하기
+export const changeOwnerDB = createAsyncThunk(
+  "kanban/changeOwner",
+  async ({ projectId, sender, receiver }, thunkAPI) => {
+    try {
+      const res = await Apis({
+        url: `/project/${projectId}/change-owner`,
+        method: "PATCH",
+        data: {
+          sender,
+          receiver,
+        },
+      });
+      if (res.data.ok) {
+        thunkAPI.dispatch(changeOwnerReducer({ sender, receiver }));
+      }
+    } catch (err) {
+      thunkAPI.rejectWithValue(err);
     }
   }
 );

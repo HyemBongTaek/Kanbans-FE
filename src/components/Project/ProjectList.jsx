@@ -21,8 +21,10 @@ const ProjectList = () => {
   const [isSearch, setIsSearch] = useState("");
 
   return (
-    <div>
-      <SearchInput isSearch={isSearch} setIsSearch={setIsSearch} />
+    <div className={styles.kanban_list}>
+      <div className={styles.search_bar}>
+        <SearchInput isSearch={isSearch} setIsSearch={setIsSearch} />
+      </div>
       <div className={styles.home_kanban_list}>
         <div className={styles.add_kanban}>
           <ProjectAddCard />

@@ -7,12 +7,14 @@ import ProjectHeader from "../../components/Project/ProjectHeader";
 
 const ProjectPage = () => {
   return (
-    <div>
+    <>
       <div className={styles.kanban_home}>
-        <ProjectHeader />
+        <div className={styles.header}>
+          <ProjectHeader />
+        </div>
         <ProjectList />
       </div>
-    </div>
+    </>
   );
 };
 export default ProjectPage;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./style/_KanbanCardDetail.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { ImageDelete, imageUpload } from "../../redux/Async/KanbanCardDetail";
+import CardDetailImageCard from "./CardDetailImageCard";
 
 const CardDetailImage = ({ cardId }) => {
   const dispatch = useDispatch();
@@ -60,14 +61,6 @@ const CardDetailImage = ({ cardId }) => {
   //   console.log(item);
   // };
 
-  const deleteClick = (el) => {
-    dispatch(
-      ImageDelete({
-        imageId: el.id,
-        cardId,
-      })
-    );
-  };
   return (
     <div>
       {/*onPaste={handlePaste}*/}
@@ -76,14 +69,7 @@ const CardDetailImage = ({ cardId }) => {
         <div className={styles.detail_attachments}>
           {imageLists?.map((el) => {
             return (
-              <div key={el.id}>
-                <img
-                  className={styles.attachments_image}
-                  src={el.url}
-                  alt="img"
-                />
-                <div onClick={() => deleteClick(el)}>삭제</div>
-              </div>
+              <CardDetailImageCard items={el} key={el.id} cardId={cardId} />
             );
           })}
         </div>

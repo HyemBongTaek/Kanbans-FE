@@ -1,8 +1,22 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+
 .home_header{
   display: flex;
-  margin-right: 200px;
+  margin-top: 20px;
+  span{
+    font-size: 30px;
+  }
 
-  margin-top: 40px;
+  .join_project{
+    button{
+      @include button_styles(160px, 40px, $comment_gray, 5px, $white_font, 20px);
+      margin: -20px 0 0 -50px;
+      &:hover{
+        @include button_styles(160px, 40px, $main_gray, 5px, $white_font, 20px);
+      }
+    }
+  }
 
   &> div:first-child{
     font-size: 45px;

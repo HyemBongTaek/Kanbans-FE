@@ -1,8 +1,6 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../menu/utils/style/_InputContainer.module.scss";
 import { useDispatch } from "react-redux";
-import { addKanbanBoard } from "../../redux/Async/kanban";
-import { addKanbanCard } from "../../redux/Async/kanban";
 import { Icon } from "@iconify/react";
 import { socket } from "../../redux/store";
 import { boardAddSocket, cardAddSocket } from "../../redux/Slice/socketSlice";
@@ -28,26 +26,14 @@ const InputContainer = ({ type, boardId, projectId }) => {
   };
 
   const addCards = () => {
-    // if (boardId === undefined) {
-    //   return;
-    // } else {
-    //   dispatch(addKanbanCard({ title, boardId }));
-    // }
-    // setTitle("");
-    // setOpen(false);
     Apis.post(`/board/${boardId}/card`, {
       title,
       boardId,
-    }).then(
-      (res) =>
-        dispatch(
-          createCardReducer({ boardId, data: res.data.newCard }),
-          dispatch(
-            cardAddSocket({ boardId, data: res.data.newCard, projectId })
-          )
-        )
-      //   dispatch(createCardReducer({ boardId, data: res.data.newCard })),
-      // dispatch(cardAddSocket({ boardId, data: res.data.newCard }))
+    }).then((res) =>
+      dispatch(
+        createCardReducer({ boardId, data: res.data.newCard }),
+        dispatch(cardAddSocket({ boardId, data: res.data.newCard, projectId }))
+      )
     );
     setTitle("");
     setOpen(false);
@@ -144,4 +130,4 @@ const InputContainer = ({ type, boardId, projectId }) => {
   );
 };
 
-export default InputContainer;
+export default React.memo(InputContainer);

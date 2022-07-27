@@ -75,7 +75,7 @@ const KanbanBoard = (props) => {
                       props?.cards?.map((cards, index) => {
                         return (
                           <KanbanCard
-                            key={cards.id.toString()}
+                            key={cards.id}
                             cards={cards}
                             index={index}
                             boardId={boards.id}
@@ -100,4 +100,4 @@ const KanbanBoard = (props) => {
   );
 };
 
-export default KanbanBoard;
+export default React.memo(KanbanBoard);

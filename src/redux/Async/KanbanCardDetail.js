@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Apis from "../apis";
+import { imageUploadReducer } from "../Slice/KanbanCardDetailSlice";
 
 //칸반카드디테일 내용 불러오기
 export const getKanbanCardDetail = createAsyncThunk(
@@ -243,7 +244,11 @@ export const imageUpload = createAsyncThunk(
         data: formData,
       });
       if (res.data.ok) {
-        return res.data.images;
+        console.log("이미지업로드", res.data);
+        return setTimeout(() => {
+          thunkAPI.dispatch(imageUploadReducer(res.data.images));
+        }, 1000);
+        // return res.data.images;
       }
     } catch (err) {
       thunkAPI.rejectWithValue();

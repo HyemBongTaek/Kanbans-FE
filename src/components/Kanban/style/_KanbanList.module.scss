@@ -1,0 +1,22 @@
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
+
+
+.kanban_list {
+  width: 95vw;
+  overflow-x: scroll;
+  padding-bottom: 10px;
+  height: 78vh;
+  overflow-y: auto;
+  display: flex;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    border: 1px solid $border_gray;
+  }
+}
+

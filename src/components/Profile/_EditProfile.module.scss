@@ -1,21 +1,25 @@
 @import "./src/style/common/mixin";
 @import "./src/style/common/colors";
-.edit_profile{
+
+.edit_profile {
   text-align: center;
-  .edit_icon{
+
+  .edit_icon {
     @include icons($comment_gray, 40px);
     position: absolute;
     margin-left: -55px;
     margin-top: 35px;
   }
-  .loading{
+
+  .loading {
     text-align: center;
     width: 200px;
     height: 200px;
     border-radius: 100px;
     margin: 0 auto;
   }
-  img{
+
+  img {
     width: 200px;
     height: 200px;
     border-radius: 100px;
@@ -25,42 +29,95 @@
 
 }
 
-.title{
-  font-size: 30px;
-  font-weight: bolder;
+.profile {
+  margin-left: 20px;
   color: $main_gray;
+  display: flex;
+  flex-direction: column;
 
+  .title {
+    font-size: 30px;
+    font-weight: bolder;
+  }
+
+  .name {
+    margin-top: 25px;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: bolder;
+  }
+
+  .nickname {
+    input {
+      font-size: 20px;
+      border: none;
+      border-bottom: 1px solid $main_gray;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+      .check_icon {
+        position: absolute;
+        @include icons($main_gray, 25px);
+        margin-left: -30px;
+        margin-top: -5px;
+
+        &:hover {
+          color: $main_green;
+        }
+
+    }
+  }
 }
 
-.nickname{
-  font-size: 30px;
-  font-weight: bold;
 
-  input {
-    border: none;
-    border-bottom: 1px solid $main_gray;
-    &:focus {
+.introduce {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bolder;
+
+
+  textarea {
+   margin-top: 5px;
+    resize: none;
+    width: 500px;
+    height: 150px;
+    font-size: 15px;
+    border-radius: 5px;
+    &:focus{
       outline: none;
     }
   }
-  .button{
-    border: none;
-    .icon{
-      @include icons($main_gray, 30px);
-      &:hover{
-        color: $main_green;
-      }
-    }
-    @include button_styles(130px, 40px, #ffffff, 2px, $main_gray, 15px );
-    //border: 1px solid $main_gray;
+}
+.delete_button{
+  border: none;
+  @include button_styles(80px, 40px, $comment_gray, 5px, $white_font, 13px);
+  margin-top: 10px;
+
+
+  &:hover{
+    @include button_styles(80px, 40px, $main_red, 5px, $white_font, 13px);
   }
 }
 
-.introduce {
-  textarea{
-    resize: none;
-  }
-}
-.edit_icon{
+.edit_icon {
+  position: absolute;
+  margin-left: -30px;
+  margin-top: -5px;
   @include icons($main_gray, 25px);
+}
+.intro_check_icon{
+
+  border: none;
+  position: absolute;
+  margin-top: 140px;
+  margin-left: -30px;
+  &:focus{
+    outline: none;
+  }
+  &:hover{
+    @include icons($main_green, 25px);
+  }
 }

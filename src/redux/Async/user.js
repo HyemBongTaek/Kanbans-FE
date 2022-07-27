@@ -113,7 +113,7 @@ export const changeUserInfo = createAsyncThunk(
 // 회원탈퇴
 export const deleteAccount = createAsyncThunk(
   "user/deleteAccount",
-  async (data, thunkAPI) => {
+  async (thunkAPI) => {
     try {
       const res = await Apis({
         url: "user/sign-out",

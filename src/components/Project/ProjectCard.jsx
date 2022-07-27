@@ -12,7 +12,7 @@ import {
 import EditableProjectCard from "./EditableProjectCard";
 import Swal from "sweetalert2";
 
-const ProjectCard = (props) => {
+const ProjectCard = React.memo(function ProjectCard(props) {
   const dispatch = useDispatch();
   const { items } = props;
 
@@ -21,6 +21,12 @@ const ProjectCard = (props) => {
   const [isEditable, setIsEditable] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
   const [isPermission, setIsPermission] = useState(false);
+  useEffect(() => {
+    const permission = items.permission;
+    setIsPermission(permission === "private");
+  }, [items]);
+
+  console.log("확인", isPermission);
 
   const userInfo = useSelector((state) => state.userSlice.userInfo.id);
   const projectMemberList = useMemo(() => {
@@ -36,7 +42,6 @@ const ProjectCard = (props) => {
     }
   }, [userInfo]);
 
-  const permission = isPermission ? "private" : "public";
   //프로젝트 즐겨찾기
   const clickBookmarkHandler = () => {
     setProjectBookmark(!projectBookmark);
@@ -85,12 +90,11 @@ const ProjectCard = (props) => {
     });
   };
 
-  const changeProject = (e) => {
-    e.preventDefault();
-    setIsPermission((pre) => !pre);
+  const changeProject = () => {
+    setIsPermission(!isPermission);
     dispatch(
       updateProject({
-        permission: permission,
+        permission: isPermission,
         projectId: items.projectId,
       })
     );
@@ -101,10 +105,12 @@ const ProjectCard = (props) => {
       <div className={styles.board_status}>
         {isEditable ? (
           <div className={styles.public_private} onClick={changeProject}>
-            {permission}
+            {isPermission ? <span>private</span> : <span>public</span>}
           </div>
         ) : (
-          <div className={styles.public_private}>{items.permission}</div>
+          <div className={styles.public_private}>
+            {isPermission ? <span>private</span> : <span>public</span>}
+          </div>
         )}
         <Icon
           onClick={clickBookmarkHandler}
@@ -132,33 +138,42 @@ const ProjectCard = (props) => {
             </div>
           )}
         </div>
-        <div
-          className={styles.home_profile}
-          onClick={() =>
-            navigate(`/board/${items.projectId}`, { state: items.title })
-          }
-        >
-          {projectMemberList &&
-            projectMemberList?.map((profile) => {
-              return (
-                <div className={styles.profile_image} key={profile.userId}>
-                  <img src={profile.profileImageURL} alt="profile_image" />
-                </div>
-              );
-            })}
-          {projectMemberList.length === 3 && (
-            <div className={styles.profile_image}>
-              <Icon
-                icon="ph:dots-three-circle-light"
-                color="#545454"
-                height="58"
-              />
-            </div>
-          )}
-        </div>
+        {isEditable ? (
+          <button
+            onClick={() => setIsEditable((pre) => !pre)}
+            className={styles.finish_edit}
+          >
+            끝내기
+          </button>
+        ) : (
+          <div
+            className={styles.home_profile}
+            onClick={() =>
+              navigate(`/board/${items.projectId}`, { state: items.title })
+            }
+          >
+            {projectMemberList &&
+              projectMemberList?.map((profile) => {
+                return (
+                  <div className={styles.profile_image} key={profile.userId}>
+                    <img src={profile.profileImageURL} alt="profile_image" />
+                  </div>
+                );
+              })}
+            {projectMemberList.length > 3 && (
+              <div className={styles.profile_image}>
+                <Icon
+                  icon="ph:dots-three-circle-light"
+                  color="#545454"
+                  height="58"
+                />
+              </div>
+            )}
+          </div>
+        )}
       </div>
       {/*오너일 경우 수정하기와 삭제하기, 아닐경우는 방 나가기가 나옴*/}
-      {isOwner ? (
+      {isOwner && !isEditable && (
         <div className={styles.icons}>
           <Icon
             className={styles.icon}
@@ -171,13 +186,14 @@ const ProjectCard = (props) => {
             onClick={exitProjectHandler}
           />
         </div>
-      ) : (
+      )}
+      {!isOwner && !isEditable && (
         <div className={styles.icons} onClick={exitProjectHandler}>
-          <Icon className={styles.icon} icon="system-uicons:exit-right" />
+          <Icon className={styles.icon} icon="majesticons:door-exit-line" />
         </div>
       )}
     </div>
   );
-};
+});
 
 export default ProjectCard;

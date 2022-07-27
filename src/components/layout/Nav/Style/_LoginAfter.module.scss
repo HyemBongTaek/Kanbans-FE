@@ -9,14 +9,32 @@
 //box-sizing: border-box;
 //background: $main_gray;
 
+//네비게이션 축소한 경우
+.small_navigation{
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background: $main_gray;
+  border-radius: 40px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+  margin-left: 1.5%;
+  margin-top: 5%;
+  .small_icon{
+    margin-left: 20px;
+    margin-top: 20px;
+    @include icons($white_font, 30px);
+  }
+}
+
+//네비게이션 더보기 누른경우
 .navigation {
   position: absolute;
   width: 70px;
-  height: 350px;
+  height: 400px;
   background: $main_gray;
-  border-radius: 35px;
+  border-radius: 40px;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
-  margin-left: 20px;
+  margin-left: 1.5%;
   margin-top: 5%;
 
   ul {
@@ -76,8 +94,8 @@
           position: relative;
           display: block;
           line-height: 75px;
-          margin-left: -4px;
-          @include icons("white", 30px);
+          margin-left: -6px;
+          @include icons("white", 35px);
         }
 
         .title {
