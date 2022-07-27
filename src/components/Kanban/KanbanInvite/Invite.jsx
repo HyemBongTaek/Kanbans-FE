@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import styles from "./_Invite.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import Share from "../Invite/Share";
-import Logo from "../../static/image/cocoli_black.png";
+import Share from "./Share";
+import Logo from "../../../static/image/cocori02.png";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getKanbanInviteCode } from "../../redux/Async/kanban";
+import { getKanbanInviteCode } from "../../../redux/Async/kanban";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import Logo3 from "../../static/image/cocori03.png";
 import { Icon } from "@iconify/react";
 
 const Invite = () => {
@@ -33,7 +32,7 @@ const Invite = () => {
       <div className={styles.KanbanInvite}>
         {/*<img src={Logo} alt="share_logo" />*/}
         <div className={styles.logo}>
-          <img src={Logo3} alt="cocori_logo" />
+          <img src={Logo} alt="cocori_logo" />
         </div>
         {inviteCode}
         <CopyToClipboard text={inviteCode}>

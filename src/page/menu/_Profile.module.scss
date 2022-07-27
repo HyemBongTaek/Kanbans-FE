@@ -2,13 +2,16 @@
 @import "./src/style/common/mixin";
 
 .wrapper{
-  @include modal_container(500px, 300px);
+  @include modal_container(600px, 500px);
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.4);
   //text-align: center;
   top : 20%;
+  left: 25%;
+
 }
 .layout{
   @include overlay_container;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .cancle_button{

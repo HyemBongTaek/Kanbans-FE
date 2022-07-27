@@ -47,9 +47,7 @@ const ProjectAddCard = () => {
                       {/*  className={styles.icon}*/}
                       {/*  icon="heroicons-solid:lock-closed"*/}
                       {/*/>*/}
-                      <span>
-                        Private<title>여기?</title>
-                      </span>
+                      <span>Private</span>
                     </div>
                   ) : (
                     <div
@@ -64,7 +62,6 @@ const ProjectAddCard = () => {
                     </div>
                   )}
                 </div>
-                {/*<SwitchButton isOn={isOn} onClick={() => setIsOn(!isOn)} />*/}
               </div>
             </div>
             <form onSubmit={createProject}>

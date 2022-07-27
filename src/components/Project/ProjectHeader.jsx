@@ -18,8 +18,13 @@ const ProjectHeader = () => {
 
   return (
     <div className={styles.home_header}>
-      <div>{userName}님의 프로젝트</div>
-      <div onClick={joinProjectClick}>참가하기</div>
+      <div>
+        {userName}
+        <span>님의 프로젝트</span>
+      </div>
+      <div className={styles.join_project}>
+        <button onClick={joinProjectClick}>초대코드 입력</button>
+      </div>
       {/*<div>*/}
       {/*  <SearchInput />*/}
       {/*</div>*/}

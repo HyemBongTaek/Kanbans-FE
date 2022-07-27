@@ -28,7 +28,15 @@ const KanbanCardDetailSlice = createSlice({
     label: [],
     saveLabel: [],
   },
-  reducers: {},
+  reducers: {
+    imageUploadReducer(state, action) {
+      console.log("이미지 업로드", action.payload);
+      // state.images.unshift(action.payload);
+      const newImages = [...action.payload, ...state.images];
+
+      state.images = newImages;
+    },
+  },
   extraReducers: (builder) => {
     builder
       //칸반보드 카드 상세보기 눌렀을 경우 데이터 불러오기
@@ -93,9 +101,11 @@ const KanbanCardDetailSlice = createSlice({
 
         state.tasks = newTasks;
       })
-      .addCase(imageUpload.fulfilled, (state, action) => {
-        state.images.unshift(action.payload);
-      })
+      // .addCase(imageUpload.fulfilled, (state, action) => {
+      //   setTimeout(() => {
+      //     state.images.unshift(action.payload);
+      //   }, 1000);
+      // })
       .addCase(ImageDelete.fulfilled, (state, action) => {
         const deleteImages = state.images?.filter(
           (el) => el.id !== action.payload.imageId
@@ -132,6 +142,6 @@ const KanbanCardDetailSlice = createSlice({
   },
 });
 
-export const {} = KanbanCardDetailSlice.actions;
+export const { imageUploadReducer } = KanbanCardDetailSlice.actions;
 
 export default KanbanCardDetailSlice;

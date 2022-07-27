@@ -21,7 +21,7 @@ import KaKaoLoginHandler from "./components/menu/login/KaKaoLoginHandler";
 import GoogleLoginHandler from "./components/menu/login/GoogleLoginHandler";
 import NaverLoginHandler from "./components/menu/login/NaverLoginHandler";
 import Timer from "./page/menu/Timer";
-import Invite from "./components/Invite/Invite";
+import Invite from "./components/Kanban/KanbanInvite/Invite";
 import StatusCheck from "./components/Kanban/StatusCheck";
 import KanbanCardDetail from "./page/menu/KanbanCardDetail";
 import JoinProject from "./page/menu/JoinProject";

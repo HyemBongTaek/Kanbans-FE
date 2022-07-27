@@ -1,47 +1,41 @@
-import { Icon } from "@iconify/react";
-import React, { useCallback, useEffect, useState } from "react";
-
-import styles from "./style/_KanbanBoard.module.scss";
-
-import { Draggable } from "react-beautiful-dnd";
-import classNames from "classnames";
-import { useDispatch } from "react-redux";
-import { checkKanbanCard, deleteKanbanCard } from "../../redux/Async/kanban";
-import StatusCheck from "./StatusCheck";
+import React, { useCallback, useState } from "react";
+import styles from "./style/_KanbanCard.module.scss";
 import { useNavigate } from "react-router-dom";
-import { format, formatDistanceToNowStrict, parseISO } from "date-fns";
+import { useDispatch } from "react-redux";
 
-import isAfter from "date-fns/isAfter";
-import GetLabels from "../CardDetail/GetLabels";
-import { socket } from "../../redux/store";
+import Apis from "../../redux/apis";
+import { deleteKanbanCard } from "../../redux/Async/kanban";
 import {
-  cardAddSocket,
   cardCheckSocket,
   cardDeleteSocket,
 } from "../../redux/Slice/socketSlice";
-import Apis from "../../redux/apis";
-import {
-  cardCheckReducer,
-  createCardReducer,
-} from "../../redux/Slice/kanbanSlice";
+import { cardCheckReducer } from "../../redux/Slice/kanbanSlice";
+
+import classNames from "classnames";
+import { Icon } from "@iconify/react";
+import { Draggable } from "react-beautiful-dnd";
+import { format, formatDistanceToNowStrict, parseISO } from "date-fns";
+import isAfter from "date-fns/isAfter";
+
+import StatusCheck from "./StatusCheck";
+import GetLabels from "../CardDetail/GetLabels";
 
 const KanbanCard = (props) => {
-  const card = props.cards;
-  const projectId = props.projectId;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isStatus, setIsStatus] = useState(false);
+
+  const card = props.cards;
+  const projectId = props.projectId;
   const cardId = props.cards?.id;
   const status = props.cards?.status;
+
+  const [isStatus, setIsStatus] = useState(false);
+
   const detailModal = () => {
     navigate(`/card/${cardId}`, {
       state: { cardId: cardId, projectId: projectId },
     });
   };
-
-  // useEffect(() => {
-  //   socket.emit("join", projectId);
-  // }, [projectId]);
 
   const deleteCard = () => {
     dispatch(
@@ -58,9 +52,11 @@ const KanbanCard = (props) => {
       })
     );
   };
+
   const changeTime = useCallback(new Date(props.cards.createdAt.split("Z")[0]));
   const createdDate = useCallback(format(changeTime, "dd MMMM"));
 
+  //데이터 받은 값을 소켓에 바로 넘겨주기 위해 분리해서 따로 뺌.
   const completeCheckCard = () => {
     Apis.patch(`/board/${props.boardId}/card/${cardId}/check`).then((res) =>
       dispatch(
@@ -78,18 +74,6 @@ const KanbanCard = (props) => {
         )
       )
     );
-    // dispatch(
-    //   checkKanbanCard({
-    //     cardId: cardId,
-    //     boardId: props.boardId,
-    //   })
-    // );
-    // dispatch(
-    //   cardCheckSocket({
-    //     room: projectId,
-    //     cardId: cardId,
-    //   })
-    // );
   };
 
   const dDay =
@@ -159,19 +143,21 @@ const KanbanCard = (props) => {
                         );
                       })}
                   </div>
-
-                  <Icon
-                    onClick={completeCheckCard}
-                    icon={
-                      props.cards.check
-                        ? "akar-icons:check-box-fill"
-                        : "akar-icons:check-box"
-                    }
-                    color={props.cards.check ? "#01CD6B" : "#545454"}
-                    height="30"
-                  />
+                  <div className={styles.check_icon}>
+                    <Icon
+                      onClick={completeCheckCard}
+                      icon={
+                        props.cards.check
+                          ? "akar-icons:check-box-fill"
+                          : "akar-icons:check-box"
+                      }
+                      color={props.cards.check ? "#01CD6B" : "#545454"}
+                      height="30"
+                    />
+                  </div>
                   {/* <Icon icon= color="#545454" height="30" /> */}
                 </div>
+
                 <div
                   className={
                     props.cards.check
@@ -187,11 +173,7 @@ const KanbanCard = (props) => {
                         ? styles.card_check_mid
                         : styles.card_mid
                     }
-                  >
-                    {/*<img src={Profile} alt="profile_img" />*/}
-                    {/*<img src={Profile} alt="profile_img" />*/}
-                    {/*<img src={Profile} alt="profile_img" />*/}
-                  </div>
+                  ></div>
                 </div>
 
                 <div className={styles.card_bottom}>
@@ -203,35 +185,47 @@ const KanbanCard = (props) => {
                     <Icon className={styles.bottom_icon} icon="uit:calender" />
                     {createdDate}
                   </div>
-                  {props.cards.dDay && (
-                    <div
-                      className={
-                        props.cards.check ? styles.date_check : styles.date
-                      }
-                    >
-                      <Icon className={styles.bottom_icon} icon="bi:clock" />
-                      &nbsp;{dateAfter ? " D+" : "D-"}
-                      {dDay}&nbsp;
-                    </div>
-                  )}
-
-                  {card.taskCount !== 0 && (
-                    <div className={styles.task}>
-                      <Icon
-                        className={styles.bottom_icon}
-                        icon="fluent:task-list-ltr-20-regular"
-                      />
-                      <span>
-                        {card.taskCheckCount}/{card.taskCount}
-                      </span>
-                    </div>
-                  )}
-
-                  <div className={styles.task}>
-                    <Icon className={styles.bottom_icon} icon="ei:comment" />
-                    {card.commentCount}
+                  <div
+                    className={
+                      props.cards.check ? styles.date_check : styles.date
+                    }
+                  >
+                    {props.cards.dDay && (
+                      <>
+                        <Icon className={styles.bottom_icon} icon="bi:clock" />
+                        <span>
+                          {" "}
+                          &nbsp;{dateAfter ? " D+" : "D-"}
+                          {dDay}&nbsp;
+                        </span>
+                      </>
+                    )}
                   </div>
-                  <div onClick={deleteCard}>
+                  <div className={styles.task}>
+                    {card.taskCount !== 0 && (
+                      <>
+                        <Icon
+                          className={styles.bottom_icon}
+                          icon="fluent:task-list-ltr-20-regular"
+                        />
+                        <span>
+                          {card.taskCheckCount}/{card.taskCount}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                  <div className={styles.task}>
+                    {card.commentCount !== 0 && (
+                      <>
+                        <Icon
+                          className={styles.bottom_icon}
+                          icon="ei:comment"
+                        />
+                        <span> {card.commentCount}</span>
+                      </>
+                    )}
+                  </div>
+                  <div className={styles.delete_card} onClick={deleteCard}>
                     <Icon
                       className={styles.delete_icon}
                       icon="ant-design:delete-outlined"
@@ -247,4 +241,4 @@ const KanbanCard = (props) => {
   );
 };
 
-export default KanbanCard;
+export default React.memo(KanbanCard);

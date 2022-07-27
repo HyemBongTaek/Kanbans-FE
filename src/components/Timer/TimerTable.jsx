@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Chart as ChartJS } from "chart.js/auto";
@@ -9,11 +9,12 @@ import { getTimer } from "../../redux/Async/timer";
 const TimerTable = () => {
   const dispatch = useDispatch();
   const timeList = useSelector((state) => state.timerSlice.timerList);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     dispatch(
       getTimer({
-        page: 1,
+        page: page,
       })
     );
   }, [dispatch]);
@@ -23,7 +24,7 @@ const TimerTable = () => {
     labels: timeList && timeList.map((time) => time.createdAt),
     datasets: [
       {
-        label: "study Time",
+        label: "study Time (시간)",
         data: timeList && timeList.map((el) => el.time / 60 / 60),
         backgroundColor: [
           "#ffbb11",
