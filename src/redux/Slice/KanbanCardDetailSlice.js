@@ -7,13 +7,11 @@ import {
   deleteCardComment,
   deleteCardLabel,
   deleteCardTask,
-  deleteProjectLabel,
   editCardComment,
   exitCardMember,
   getCardComment,
   getKanbanCardDetail,
   ImageDelete,
-  imageUpload,
   searchLabel,
 } from "../Async/KanbanCardDetail";
 
@@ -30,18 +28,29 @@ const KanbanCardDetailSlice = createSlice({
   },
   reducers: {
     imageUploadReducer(state, action) {
-      console.log("이미지 업로드", action.payload);
-      // state.images.unshift(action.payload);
       const newImages = [...action.payload, ...state.images];
-
       state.images = newImages;
+    },
+    addProjectLabelReducer(state, action) {
+      state.saveLabel.push(action.payload);
+    },
+    deleteProjectLabelReducer(state, action) {
+      const deleteLabel = state.label.filter(
+        (label) => label.id !== action.payload
+      );
+      state.label = [...deleteLabel];
+    },
+    cardInviteMembersReducer(state, action) {
+      state.users.push(...action.payload);
+    },
+    addCardLabelsReducer(state, action) {
+      state.saveLabel.push(...action.payload);
     },
   },
   extraReducers: (builder) => {
     builder
       //칸반보드 카드 상세보기 눌렀을 경우 데이터 불러오기
       .addCase(getKanbanCardDetail.fulfilled, (state, action) => {
-        console.log("카드디테일내용불러오기", action.payload);
         state.card = action.payload.card;
         state.tasks = action.payload.tasks;
         state.images = action.payload.images;
@@ -49,10 +58,7 @@ const KanbanCardDetailSlice = createSlice({
         state.users = action.payload.users;
       })
       .addCase(addCardTask.fulfilled, (state, action) => {
-        const newTasks = [...state.tasks];
-        newTasks.push(action.payload);
-
-        state.tasks = newTasks;
+        state.tasks.unshift(action.payload);
       })
       .addCase(deleteCardTask.fulfilled, (state, action) => {
         const newTasks = state.tasks.filter(
@@ -62,8 +68,12 @@ const KanbanCardDetailSlice = createSlice({
         state.tasks = newTasks;
       })
       .addCase(getCardComment.fulfilled, (state, action) => {
-        state.comments = action.payload.comment;
+        state.comments = action.payload;
       })
+      .addCase(getCardComment.rejected, (state, action) => {
+        state.comments = [];
+      })
+
       .addCase(addCardComment.fulfilled, (state, action) => {
         state.comments.unshift(action.payload);
       })
@@ -87,11 +97,9 @@ const KanbanCardDetailSlice = createSlice({
         state.comments = newComments;
       })
       .addCase(checkCardTask.fulfilled, (state, action) => {
-        console.log(action.payload);
         const findIndex = state.tasks.findIndex(
           (task) => task.id === action.payload.task.id
         );
-        console.log(findIndex);
 
         let newTasks = state.tasks;
         newTasks[findIndex] = {
@@ -101,11 +109,6 @@ const KanbanCardDetailSlice = createSlice({
 
         state.tasks = newTasks;
       })
-      // .addCase(imageUpload.fulfilled, (state, action) => {
-      //   setTimeout(() => {
-      //     state.images.unshift(action.payload);
-      //   }, 1000);
-      // })
       .addCase(ImageDelete.fulfilled, (state, action) => {
         const deleteImages = state.images?.filter(
           (el) => el.id !== action.payload.imageId
@@ -115,19 +118,12 @@ const KanbanCardDetailSlice = createSlice({
       .addCase(searchLabel.fulfilled, (state, action) => {
         state.label = action.payload;
       })
-      .addCase(deleteProjectLabel.fulfilled, (state, action) => {
-        const newDeleteProjectLabel = state.saveLabel?.filter(
-          (el) => el.id !== action.payload
-        );
-        state.label = newDeleteProjectLabel;
-      })
       .addCase(cardShowMembers.fulfilled, (state, action) => {
         state.showMembers = action.payload.members;
       })
 
       //카드에 등록되어 있는 라벨 삭제
       .addCase(deleteCardLabel.fulfilled, (state, action) => {
-        console.log(current(state.saveLabel));
         const deleteLabel = state.saveLabel?.filter(
           (label) => label.id !== action.payload
         );
@@ -142,6 +138,12 @@ const KanbanCardDetailSlice = createSlice({
   },
 });
 
-export const { imageUploadReducer } = KanbanCardDetailSlice.actions;
+export const {
+  imageUploadReducer,
+  addProjectLabelReducer,
+  deleteProjectLabelReducer,
+  cardInviteMembersReducer,
+  addCardLabelsReducer,
+} = KanbanCardDetailSlice.actions;
 
 export default KanbanCardDetailSlice;

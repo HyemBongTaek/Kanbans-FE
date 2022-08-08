@@ -8,7 +8,6 @@ const SocketSlice = createSlice({
   reducers: {
     //보드추가
     boardAddSocket(state, action) {
-      console.log("sdsdsdsd", action.payload);
       const items = action.payload;
       socket.emit("boardCreate", {
         room: items.projectId,
@@ -18,7 +17,6 @@ const SocketSlice = createSlice({
     },
     //카드추가
     cardAddSocket(state, action) {
-      console.log("소켓확인", action.payload);
       const items = action.payload;
       socket.emit("cardCreate", {
         room: items.projectId,
@@ -30,7 +28,6 @@ const SocketSlice = createSlice({
     },
     //보드 삭제
     boardDeleteSocket(state, action) {
-      console.log("소켓확인", action.payload);
       const items = action.payload;
       socket.emit("boardDelete", {
         room: items.room,
@@ -39,7 +36,6 @@ const SocketSlice = createSlice({
     },
     //카드삭제
     cardDeleteSocket(state, action) {
-      console.log("소켓확인", action.payload);
       const items = action.payload;
       socket.emit("cardDelete", {
         room: items.room,
@@ -50,7 +46,6 @@ const SocketSlice = createSlice({
     //카드 전체 삭제
     cardAllDeleteSocket(state, action) {
       const items = action.payload;
-      console.log("카드 전체삭제", action.payload);
       socket.emit("cardAllDelete", {
         room: items.room,
         boardId: items.boardId,
@@ -58,7 +53,6 @@ const SocketSlice = createSlice({
     },
     //카드 체크박스(완료, 진행중)변경 상태
     cardCheckSocket(state, action) {
-      console.log("소켓연결하나둘셋", action.payload);
       const items = action.payload;
       socket.emit("cardCheck", {
         room: items.room,
@@ -68,7 +62,6 @@ const SocketSlice = createSlice({
     },
     //칸반보드 타이틀 변경 감지
     changeBoardTitleSocket(state, action) {
-      console.log("칸반보드타이틀변경감지", action.payload);
       const items = action.payload;
       socket.emit("boardTitle", {
         room: items.room,
@@ -95,7 +88,6 @@ const SocketSlice = createSlice({
     },
     endDragSocket(state, action) {
       const result = action.payload;
-      console.log("아이디", result.type);
       socket.emit("dragEnd", {
         id: result.id,
         startOrder: result.startOrder,

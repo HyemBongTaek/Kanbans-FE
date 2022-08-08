@@ -1,6 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Apis from "../apis";
-import { imageUploadReducer } from "../Slice/KanbanCardDetailSlice";
+import {
+  addCardLabelsReducer,
+  addProjectLabelReducer,
+  cardInviteMembersReducer,
+  deleteProjectLabelReducer,
+  imageUploadReducer,
+} from "../Slice/KanbanCardDetailSlice";
 
 //칸반카드디테일 내용 불러오기
 export const getKanbanCardDetail = createAsyncThunk(
@@ -16,7 +22,6 @@ export const getKanbanCardDetail = createAsyncThunk(
       }
     } catch (err) {
       thunkAPI.rejectWithValue();
-      console.log("데이터를 불러오는 도중에 에러가 발생하였습니다.");
     }
   }
 );
@@ -39,7 +44,7 @@ export const addCardTask = createAsyncThunk(
         return res.data.task;
       }
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   }
 );
@@ -57,7 +62,7 @@ export const deleteCardTask = createAsyncThunk(
         return { res: res.data, id };
       }
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   }
 );
@@ -66,7 +71,6 @@ export const deleteCardTask = createAsyncThunk(
 export const checkCardTask = createAsyncThunk(
   "KanbanCardDetail/checkCardTask",
   async ({ id, check }, thunkAPI) => {
-    console.log("이거 체크", check);
     try {
       const res = await Apis({
         url: `/task/${id}`,
@@ -79,7 +83,7 @@ export const checkCardTask = createAsyncThunk(
         return res.data;
       }
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   }
 );
@@ -94,11 +98,10 @@ export const getCardComment = createAsyncThunk(
         method: "GET",
       });
       if (res.data.ok) {
-        return res.data;
+        return res.data.comment;
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
-      console.log(err.res.message);
+      throw thunkAPI.rejectWithValue();
     }
   }
 );
@@ -120,7 +123,7 @@ export const addCardComment = createAsyncThunk(
         return res.data.comment;
       }
     } catch (err) {
-      console.log(err);
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -135,11 +138,10 @@ export const deleteCardComment = createAsyncThunk(
         method: "DELETE",
       });
       if (res.data.ok) {
-        console.log(res.data);
         return id;
       }
     } catch (err) {
-      console.log(err);
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -157,11 +159,10 @@ export const editCardComment = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        console.log(res.data);
         return res.data.comment;
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -179,10 +180,9 @@ export const addDaySelected = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        console.log(res.data);
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -191,7 +191,6 @@ export const addDaySelected = createAsyncThunk(
 export const editContent = createAsyncThunk(
   "KanbanCardDetail/editContent",
   async ({ cardId, title, subTitle, description, type }, thunkAPI) => {
-    console.log("타입", subTitle);
     try {
       switch (type) {
         case "title": {
@@ -202,7 +201,6 @@ export const editContent = createAsyncThunk(
               title,
             },
           });
-          return console.log(res.data);
         }
         case "subTitle": {
           const res = await Apis({
@@ -212,7 +210,6 @@ export const editContent = createAsyncThunk(
               subtitle: subTitle,
             },
           });
-          return console.log(res.data);
         }
         case "description": {
           const res = await Apis({
@@ -222,11 +219,10 @@ export const editContent = createAsyncThunk(
               description,
             },
           });
-          return console.log(res.data);
         }
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -234,24 +230,21 @@ export const editContent = createAsyncThunk(
 //카드 디테일 이미지 업로드
 export const imageUpload = createAsyncThunk(
   "kanbanCardDetail/imageUpload",
-  async ({ cardId, formData }, thunkAPI) => {
-    console.log(formData);
-    console.log(cardId);
+  async ({ cardId, formData, projectId }, thunkAPI) => {
     try {
       const res = await Apis({
-        url: `/card/${cardId}/images`,
+        url: `/card/${cardId}/images?projectId=${projectId}`,
         method: "POST",
         data: formData,
+        credentials: "include",
       });
       if (res.data.ok) {
-        console.log("이미지업로드", res.data);
         return setTimeout(() => {
           thunkAPI.dispatch(imageUploadReducer(res.data.images));
         }, 1000);
-        // return res.data.images;
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -271,7 +264,7 @@ export const ImageDelete = createAsyncThunk(
         };
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -280,7 +273,6 @@ export const ImageDelete = createAsyncThunk(
 export const addProjectLabel = createAsyncThunk(
   "kanbanCardDetail/AddLabel",
   async ({ projectId, cardId, content, color }, thunkAPI) => {
-    console.log("확인합니당", projectId, cardId, content, color);
     try {
       const res = await Apis({
         url: `/project/${projectId}/card/${cardId}/label`,
@@ -291,10 +283,10 @@ export const addProjectLabel = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        console.log(res.data);
+        return thunkAPI.dispatch(addProjectLabelReducer(res.data.label));
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -312,7 +304,7 @@ export const searchLabel = createAsyncThunk(
         return res.data.labels;
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -327,10 +319,10 @@ export const deleteProjectLabel = createAsyncThunk(
         method: "DELETE",
       });
       if (res.data.ok) {
-        return labelId;
+        return thunkAPI.dispatch(deleteProjectLabelReducer(labelId));
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -339,7 +331,6 @@ export const deleteProjectLabel = createAsyncThunk(
 export const addCardLabels = createAsyncThunk(
   "KanbanCardDetail/addCardLabel",
   async ({ cardId, labelId }, thunkAPI) => {
-    console.log(labelId);
     try {
       const res = await Apis({
         url: `/card/${cardId}/label`,
@@ -349,10 +340,10 @@ export const addCardLabels = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        console.log(res.data);
+        return thunkAPI.dispatch(addCardLabelsReducer(res.data.label));
       }
     } catch (err) {
-      console.log(err);
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -370,7 +361,7 @@ export const cardShowMembers = createAsyncThunk(
         return res.data;
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -388,10 +379,10 @@ export const cardInviteMembers = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        console.log(res.data);
+        return thunkAPI.dispatch(cardInviteMembersReducer(res.data.users));
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -409,7 +400,7 @@ export const deleteCardLabel = createAsyncThunk(
         return labelId;
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -427,7 +418,7 @@ export const exitCardMember = createAsyncThunk(
         return userId;
       }
     } catch (err) {
-      thunkAPI.rejectWithValue();
+      throw thunkAPI.rejectWithValue(err);
     }
   }
 );

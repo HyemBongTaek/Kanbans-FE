@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProgressCard from "./ProgressCard";
 import DetailInput from "./DetailInput";
 import styles from "./style/_CardProgressBar.module.scss";
 import { useSelector } from "react-redux";
 
-const CardProgressBar = ({ cardId }) => {
+const CardProgressBar = ({ cardId, setIsProgressCheck, isProgressCheck }) => {
   const progressData = useSelector((state) => state.cardDetailSlice.tasks);
 
   //진행바 진행율 구하기.
@@ -25,7 +25,7 @@ const CardProgressBar = ({ cardId }) => {
   });
 
   return (
-    <div>
+    <>
       <div className={styles.progress_bar}>
         <div
           style={{
@@ -37,17 +37,32 @@ const CardProgressBar = ({ cardId }) => {
       </div>
 
       <div className={styles.progress_area}>
-        {progressData &&
-          progressData?.map((task) => {
-            return (
-              <ProgressCard
-                key={task.id}
-                items={task}
-                checkCount={checkCount}
-                setCheckCount={setCheckCount}
-              />
-            );
-          })}
+        {/*task 모두 보기 또는 task 체크 안된 목록만 보기 */}
+        {isProgressCheck
+          ? progressData &&
+            progressData
+              .filter((task) => task.check === false)
+              .map((task) => {
+                return (
+                  <ProgressCard
+                    key={task.id}
+                    items={task}
+                    checkCount={checkCount}
+                    setCheckCount={setCheckCount}
+                  />
+                );
+              })
+          : progressData &&
+            progressData?.map((task) => {
+              return (
+                <ProgressCard
+                  key={task.id}
+                  items={task}
+                  checkCount={checkCount}
+                  setCheckCount={setCheckCount}
+                />
+              );
+            })}
       </div>
       <DetailInput
         type="progress"
@@ -55,8 +70,8 @@ const CardProgressBar = ({ cardId }) => {
         checkCount={checkCount}
         setCheckCount={setCheckCount}
       />
-    </div>
+    </>
   );
 };
 
-export default CardProgressBar;
+export default React.memo(CardProgressBar);

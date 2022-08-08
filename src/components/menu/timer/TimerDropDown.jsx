@@ -8,8 +8,6 @@ const TimerDropDown = (setIsTime) => {
     setIsActive((prev) => !prev);
   }, []);
 
-  console.log(isActive);
-
   const onSelectItem = useCallback((e) => {
     setIsTime(e.target.value);
     setIsActive((prev) => !prev);

@@ -4,7 +4,8 @@
 
 .detail_left{
   margin-top: -75px;
-  font-size: 18px;
+  font-size: 15px;
+  font-weight: bold;
   li{
     width: 200px;
     height: 50px;
@@ -19,21 +20,23 @@
   .member{
     border: none;
     height: 25px;
-    margin-bottom: 0;
+    font-size: 16px;
+    margin: 0 0 0 -10px;
+    font-weight: bolder;
   }
+
   .user{
     display: flex;
 
     .profile{
-      .members_icon{
-      }
+      margin: 0 10px 10px 0;
       .user_image{
         img{
           @include profile_image("large");
         }
         .user_icon{
-          position: fixed;
-          margin-left: -13px;
+          cursor: pointer;
+          margin-left: -15px;
         }
       }
 
@@ -43,5 +46,10 @@
       }
     }
 
+  }
+  .icon{
+    margin: 10px 5px 0 0;
+    cursor: pointer;
+    @include icons($main_gray, 30px);
   }
 }

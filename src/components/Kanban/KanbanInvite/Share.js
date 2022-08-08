@@ -24,7 +24,7 @@ const Share = ({ inviteCode }) => {
     };
   }, []);
   //배포전 임시 확인용
-  const url = "https://www.naver.com/";
+  const url = "http://cocori.site/";
   return (
     <div className={styles.share_button}>
       <button className={styles.share_icon}>

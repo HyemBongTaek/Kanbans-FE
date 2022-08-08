@@ -1,7 +1,7 @@
 // // import React, { useEffect, useRef, useState } from "react";
 // // import { useDispatch } from "react-redux";
 // // import { isRestTimeReducer } from "../../../redux/Slice/commonSlice";
-// // import styles from "./style/_WorkTimer.module.scss";
+// // import styles from "./style/_FocusTimer.module.scss";
 // //
 // // // notification sound
 // // import notiSound from "../../../static/audio/Ascending 4.mp3";
@@ -232,7 +232,7 @@
 // // export default WorkTimer;
 //
 //
-// import "./style/_WorkTimer.module.scss";
+// import "./style/_FocusTimer.module.scss";
 // import { useState } from "react";
 // import { CountdownCircleTimer } from "react-countdown-circle-timer";
 //

@@ -14,7 +14,7 @@ function createWindow() {
       enableRemoteModule: true,
     },
   });
-  window.loadURL("http://localhost:3000");
+  window.loadURL("http://cocori.site/");
 }
 app.whenReady().then(() => {
   createWindow();

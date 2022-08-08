@@ -45,7 +45,6 @@ const KanbanList = () => {
   //페이지를 떠나거나 뒤로갈 경우 소켓 자동으로 해제되게 만들었음.
   useEffect(() => {
     return history.listen(() => {
-      console.log("액션확인", history.action);
       socket.emit("leave", projectId);
       socket.disconnect();
     });
@@ -59,24 +58,18 @@ const KanbanList = () => {
   }, [params]);
 
   useEffect(() => {
-    socket?.on("connect", () => {
-      console.log("소켓연결완료");
-    });
+    socket?.on("connect", () => {});
 
     socket?.on("connect_error", (err) => {
-      console.log("에러메세지", err.message);
+      console.log(err);
     });
 
     socket?.on("isDrag", (payload) => {
       setIsDrag(payload);
     });
 
-    socket?.on("duplicatedDrag", ({ message }) => {
-      console.log("드레그중복");
-      console.log(message);
-    });
+    socket?.on("duplicatedDrag", ({ message }) => {});
     socket.on("moveResult", (payload) => {
-      console.log("카드움직임 발견", payload);
       if (payload.type === "card" && payload.startOrder !== null) {
         dispatch(
           sortKanbanCardMoveReducer({
@@ -149,7 +142,6 @@ const KanbanList = () => {
   //칸반보드 이동(카드이동, 보드이동)
   const onDragEnd = (result) => {
     const { destination, source, draggableId, type } = result;
-    console.log("결과", result);
     if (!destination) {
       return;
     }
@@ -281,10 +273,9 @@ const KanbanList = () => {
                   columnOrders?.map((boardId, index) => {
                     const boards = board[boardId];
                     const cards = boards?.cardId?.map((cardId) => card[cardId]);
-
                     return (
                       <KanbanBoard
-                        key={boards.id.toString()}
+                        key={boards.id}
                         boards={boards}
                         cards={cards}
                         index={index}
@@ -304,4 +295,4 @@ const KanbanList = () => {
   );
 };
 
-export default React.memo(KanbanList);
+export default KanbanList;

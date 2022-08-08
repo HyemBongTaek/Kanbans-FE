@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
+import styles from "./style/_TimerTable.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Chart as ChartJS } from "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
 import { getTimer } from "../../redux/Async/timer";
 
-const TimerTable = () => {
+const TimerTable = ({ setIsTable }) => {
   const dispatch = useDispatch();
   const timeList = useSelector((state) => state.timerSlice.timerList);
   const [page, setPage] = useState(1);
@@ -25,14 +25,8 @@ const TimerTable = () => {
     datasets: [
       {
         label: "study Time (시간)",
-        data: timeList && timeList.map((el) => el.time / 60 / 60),
-        backgroundColor: [
-          "#ffbb11",
-          // "#C0C0C0",
-          // "#50AF95",
-          // "#f3ba2f",
-          // "#2a71d0",
-        ],
+        data: timeList && timeList.map((el) => (el.time / 60 / 60).toFixed(2)),
+        backgroundColor: ["#ffbb11"],
       },
     ],
   };
@@ -54,21 +48,10 @@ const TimerTable = () => {
           },
         }}
       />
+      <div className={styles.chart_button}>
+        <button onClick={() => setIsTable((pre) => !pre)}>차트 접어두기</button>
+      </div>
     </>
-
-    // <div>
-    //   <div>테이블</div>
-    //   {timeList
-    //     ? timeList.map((list) => {
-    //         return (
-    //           <ul key={list.id}>
-    //             <li>{list.createdAt}</li>
-    //             <li>{list.time}</li>
-    //           </ul>
-    //         );
-    //       })
-    //     : timeList}
-    // </div>
   );
 };
 

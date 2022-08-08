@@ -3,7 +3,7 @@
 
 .add_button{
   border: none;
-  width: 280px;
+  width: 230px;
   height: 40px;
   margin: auto;
   text-align: center;
@@ -16,8 +16,8 @@
 
 .add_form{
   height: 20px;
-  width: 280px;
-  margin: auto;
+  width: 230px;
+  //margin: auto;
   .input{
     background: $light_gray;
   }
@@ -25,7 +25,6 @@
   label{
     display: flex;
     justify-content: space-between;
-    padding-top: 5px;
     height: 30px;
     border: 1px solid $comment_gray;
     border-radius: 5px;

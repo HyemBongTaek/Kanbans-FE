@@ -5,14 +5,7 @@ import { useDispatch } from "react-redux";
 import { deleteProjectLabel } from "../../../redux/Async/KanbanCardDetail";
 
 //프로젝트 전체의 라벨 색 나타내는 컴포넌트
-const LabelColors = ({
-  item,
-  seletedLabel,
-  setSelectedLabel,
-  projectId,
-  main_label,
-  type,
-}) => {
+const LabelColors = ({ item, seletedLabel, setSelectedLabel, projectId }) => {
   const dispatch = useDispatch();
   const changeHandler = (checked, id) => {
     if (checked) {
@@ -22,7 +15,6 @@ const LabelColors = ({
       setSelectedLabel(seletedLabel.filter((el) => el !== id));
     }
   };
-  console.log(seletedLabel);
 
   const deleteLabel = () => {
     dispatch(
@@ -36,95 +28,23 @@ const LabelColors = ({
   return (
     <>
       <div className={styles.label_color}>
-        {item && item.color === "red" && (
-          <div className={styles.red}>
-            <input
-              key={item.id}
-              type="checkbox"
-              id={item.id}
-              onChange={(e) => {
-                changeHandler(e.currentTarget.checked, item.id);
-              }}
-              checked={seletedLabel.includes(item.id) ? true : false}
-            />
-            <div>{item.title}</div>
-          </div>
-        )}
-        {item && item.color === "pink" && (
-          <div className={styles.pink}>
-            <input
-              key={item.id}
-              type="checkbox"
-              id={item.id}
-              onChange={(e) => {
-                changeHandler(e.currentTarget.checked, item.id);
-              }}
-              checked={seletedLabel.includes(item.id) ? true : false}
-            />
-            <div>{item.title}</div>
-          </div>
-        )}
-        {item && item.color === "orange" && (
-          <div className={styles.orange}>
-            <input
-              key={item.id}
-              type="checkbox"
-              id={item.id}
-              onChange={(e) => {
-                changeHandler(e.currentTarget.checked, item.id);
-              }}
-              checked={seletedLabel.includes(item.id) ? true : false}
-            />
-            <div>{item.title}</div>
-          </div>
-        )}
-        {item && item.color === "yellow" && (
-          <div className={styles.yellow}>
-            <input
-              key={item.id}
-              type="checkbox"
-              id={item.id}
-              onChange={(e) => {
-                changeHandler(e.currentTarget.checked, item.id);
-              }}
-              checked={seletedLabel.includes(item.id) ? true : false}
-            />
-            <div>{item.title}</div>
-          </div>
-        )}
-        {item && item.color === "emerald_green" && (
-          <div className={styles.emerald_green}>
-            <input
-              key={item.id}
-              type="checkbox"
-              id={item.id}
-              onChange={(e) => {
-                changeHandler(e.currentTarget.checked, item.id);
-              }}
-              checked={seletedLabel.includes(item.id) ? true : false}
-            />
-            <div>{item.title}</div>
-          </div>
-        )}
-        {item && item.color === "green" && (
-          <div className={styles.green}>
-            <input
-              key={item.id}
-              type="checkbox"
-              id={item.id}
-              onChange={(e) => {
-                changeHandler(e.currentTarget.checked, item.id);
-              }}
-              checked={seletedLabel.includes(item.id) ? true : false}
-            />
-            <div>{item.title}</div>
-          </div>
-        )}
-        <Icon
-          className={styles.icon}
-          icon="ant-design:delete-outlined"
-          onClick={deleteLabel}
-        />
+        <label className={styles[item.color]}>
+          <input
+            key={item.id}
+            type="checkbox"
+            id={item.id}
+            onChange={(e) => {
+              changeHandler(e.currentTarget.checked, item.id);
+            }}
+            checked={seletedLabel.includes(item.id) ? true : false}
+          />
+          <div className={styles.title}>{item.title}</div>
+          <Icon
+            className={styles.icon}
+            icon="ant-design:delete-outlined"
+            onClick={deleteLabel}
+          />
+        </label>
       </div>
     </>
   );

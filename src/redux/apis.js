@@ -32,7 +32,6 @@ Apis.interceptors.response.use(
 
     if (err.response && err.response.status === 401) {
       const refreshToken = getCookie("cocoriLogin");
-      console.log(originalConfig);
       try {
         const data = await axios({
           url: `http://3.37.231.161:4000/oauth/refresh`,
@@ -55,6 +54,7 @@ Apis.interceptors.response.use(
         }
       } catch (err) {
         console.log("refresh토큰 에러");
+        throw err;
       }
       return Promise.reject(err);
     }

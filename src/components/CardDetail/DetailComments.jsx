@@ -1,27 +1,39 @@
 import React, { useEffect, useState } from "react";
-import DetailInput from "./DetailInput";
-import styles from "./style/_KanbanCardDetail.module.scss";
+import styles from "./style/_DetailComment.module.scss";
 
-import DetailCommentCard from "./DetailCommentCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getCardComment } from "../../redux/Async/KanbanCardDetail";
-import { format, formatDistanceToNowStrict, parseISO } from "date-fns";
 
-const DetailComments = ({ cardId }) => {
+import DetailCommentCard from "./DetailCommentCard";
+import DetailInput from "./DetailInput";
+import { useLocation } from "react-router-dom";
+
+const DetailComments = () => {
   const dispatch = useDispatch();
+
+  const location = useLocation();
+  const cardId = location.state.cardId;
 
   useEffect(() => {
     dispatch(
       getCardComment({
-        cardId,
+        cardId: cardId,
       })
     );
-  }, [cardId, dispatch]);
+  }, [dispatch]);
 
-  const commentData = useSelector((state) => state.cardDetailSlice.comments);
+  const commentList = useSelector((state) => state.cardDetailSlice.comments);
+
+  const [commentData, setCommentData] = useState(commentList);
   const myInfo = useSelector((state) => state.userSlice.userInfo);
 
-  const [commentsList, setCommentsList] = useState(commentData);
+  useEffect(() => {
+    if (commentList) {
+      setCommentData(commentList);
+    } else {
+      setCommentData(null);
+    }
+  }, [cardId, commentList]);
 
   return (
     <>
@@ -44,15 +56,10 @@ const DetailComments = ({ cardId }) => {
                 />
               );
             })}
-          {/*{commentData &&*/}
-          {/*  Object.keys(commentData)?.map((key, value) => {*/}
-          {/*    console.log("카아아드", { [key]: value });*/}
-          {/*    // return <DetailCommentCard key={card.id} items={card} />;*/}
-          {/*  })}*/}
         </div>
       </div>
     </>
   );
 };
 
-export default DetailComments;
+export default React.memo(DetailComments);

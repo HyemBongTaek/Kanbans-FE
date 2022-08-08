@@ -3,8 +3,9 @@ import styles from "./style/_EditableInput.module.scss";
 import { Icon } from "@iconify/react";
 import classNames from "classnames";
 import ContextStore from "./ContextStore";
-import { socket } from "../../../redux/store";
-
+import { changeBoardTitle } from "../../../redux/Async/kanban";
+import { changeBoardTitleSocket } from "../../../redux/Slice/socketSlice";
+import { useDispatch } from "react-redux";
 const EditableInput = ({
   boardTitle,
   editable,
@@ -12,39 +13,53 @@ const EditableInput = ({
   boardId,
   projectId,
 }) => {
+  const dispatch = useDispatch();
   const [title, setTitle] = useState(boardTitle);
-  const { changeTitle } = useContext(ContextStore);
+  // const { changeTitle } = useContext(ContextStore);
+
+  const [isActive, setIsActive] = useState(false);
 
   const titleChangeHandler = (e) => {
+    e.preventDefault();
     setTitle(e.target.value);
+    setIsActive(true);
   };
-  // useEffect(() => {
-  //   socket.emit("join", projectId);
-  // }, [projectId]);
+
+  const changeTitle = (e) => {
+    e.preventDefault();
+    dispatch(
+      changeBoardTitle({
+        boardId,
+        title,
+      })
+    );
+    dispatch(
+      changeBoardTitleSocket({
+        room: projectId,
+        boardId,
+        title,
+      })
+    );
+    setEditable(false);
+  };
 
   return (
     <>
-      <form className={styles.editable}>
+      <form className={styles.editable} onSubmit={changeTitle}>
         <label>
           <input value={title} onChange={titleChangeHandler} />
           <div>
+            {isActive && (
+              <Icon
+                onClick={changeTitle}
+                className={classNames(styles.icons, styles.icons_check)}
+                icon="akar-icons:check"
+              />
+            )}
             <Icon
               className={classNames(styles.icons, styles.icons_x)}
               icon="heroicons-outline:x"
               onClick={() => setEditable(!editable)}
-            />
-            <Icon
-              onClick={() =>
-                changeTitle({
-                  title,
-                  boardId,
-                  setEditable,
-                  editable,
-                  projectId,
-                })
-              }
-              className={classNames(styles.icons, styles.icons_check)}
-              icon="akar-icons:check"
             />
           </div>
         </label>

@@ -1,2 +1,10 @@
 @import "./src/style/common/colors";
 @import "./src/style/common/mixin";
+
+.chart_button{
+  display: flex;
+  justify-content: center;
+  button{
+    @include button_styles(150px, 30px, $main_gray, 3px, $white_font, 15px);
+  }
+}

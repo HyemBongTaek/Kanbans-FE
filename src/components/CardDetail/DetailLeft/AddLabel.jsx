@@ -25,7 +25,8 @@ const AddLabel = ({ setIsOpen, projectId, cardId }) => {
     isColor.unshift(value);
   };
 
-  const addLabelClick = () => {
+  const addLabelClick = (e) => {
+    e.preventDefault();
     dispatch(
       addProjectLabel({
         projectId,
@@ -40,10 +41,13 @@ const AddLabel = ({ setIsOpen, projectId, cardId }) => {
   return (
     <>
       <div className={styles.label_main}>
-        <div className={styles.label_content}>
-          <form className={styles.label_form}>
-            <label>
-              <div className={styles.label_colors}>
+        <div className={styles.label_title}>
+          <div>라벨등록하기</div>
+        </div>
+        <form className={styles.label_colors} onSubmit={addLabelClick}>
+          <label>
+            <div className={styles.label}>
+              <div className={styles.label_color}>
                 <input
                   type="radio"
                   value="red"
@@ -53,7 +57,7 @@ const AddLabel = ({ setIsOpen, projectId, cardId }) => {
                 />
                 <div className={styles.label_red} />
               </div>
-              <div className={styles.label_colors}>
+              <div className={styles.label_color}>
                 <input
                   type="radio"
                   value="pink"
@@ -63,7 +67,7 @@ const AddLabel = ({ setIsOpen, projectId, cardId }) => {
                 />
                 <div className={styles.label_pink} />
               </div>
-              <div className={styles.label_colors}>
+              <div className={styles.label_color}>
                 <input
                   type="radio"
                   value="orange"
@@ -73,7 +77,7 @@ const AddLabel = ({ setIsOpen, projectId, cardId }) => {
                 />
                 <div className={styles.label_orange} />
               </div>
-              <div className={styles.label_colors}>
+              <div className={styles.label_color}>
                 <input
                   type="radio"
                   value="yellow"
@@ -83,7 +87,7 @@ const AddLabel = ({ setIsOpen, projectId, cardId }) => {
                 />
                 <div className={styles.label_yellow} />
               </div>
-              <div className={styles.label_colors}>
+              <div className={styles.label_color}>
                 <input
                   type="radio"
                   value="emerald_green"
@@ -93,7 +97,7 @@ const AddLabel = ({ setIsOpen, projectId, cardId }) => {
                 />
                 <div className={styles.label_emerald_green} />
               </div>
-              <div className={styles.label_colors}>
+              <div className={styles.label_color}>
                 <input
                   type="radio"
                   value="green"
@@ -103,18 +107,22 @@ const AddLabel = ({ setIsOpen, projectId, cardId }) => {
                 />
                 <div className={styles.label_green} />
               </div>
-              <input
-                type="text"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-              />
-              <button type="button" onClick={addLabelClick}>
-                라벨 추가하기
-              </button>
-            </label>
-          </form>
+            </div>
+          </label>
+        </form>
+        <div className={styles.label_bottom}>
+          <div>라벨은 한글5글자 영어 10글자 이내로 적어주세요</div>
+          <input
+            type="text"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
+          <button type="button" onClick={addLabelClick}>
+            라벨 추가하기
+          </button>
         </div>
       </div>
+
       <div className={styles.label_overlay} onClick={() => setIsOpen(false)} />
     </>
   );

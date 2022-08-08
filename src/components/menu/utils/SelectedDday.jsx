@@ -17,16 +17,24 @@ const SelectedDday = () => {
     dDaySetting && parseISO(dDaySetting)
   );
 
-  console.log("sss", parseISO(dDaySetting));
-  console.log("셀렉티드", selectedDay);
+  useEffect(() => {
+    if (selectedDay !== null) {
+      dispatch(
+        addDaySelected({
+          cardId,
+          dDay: selectedDay,
+        })
+      );
+    }
+  }, [selectedDay, dispatch]);
 
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
     return (
       <>
-        <button className={styles.date_input} onClick={onClick} ref={ref}>
-          {value ? value : null}
-        </button>
-        <div onClick={savedDay}>d-day저장</div>
+        <div className={styles.date_input} onClick={onClick} ref={ref}>
+          {value ? <span>{value}</span> : <span>D-day 설정하기</span>}
+        </div>
+        {/*<div onClick={savedDay}>d-day저장</div>*/}
       </>
     );
   });

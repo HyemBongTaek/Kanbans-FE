@@ -28,7 +28,6 @@ const KanbanSlice = createSlice({
   reducers: {
     //보드 추가
     createBoardReducer(state, action) {
-      console.log(action.payload);
       state.kanbans.board[action.payload.id] = action.payload;
       if (state.kanbans.columnOrders === undefined) {
         state.kanbans.columnOrders = [action.payload.id.toString()];
@@ -114,9 +113,7 @@ const KanbanSlice = createSlice({
     },
     //카드 owner 변경하기
     changeOwnerReducer(state, action) {
-      console.log("카드 오너 변경하기", action.payload);
       const items = action.payload;
-      console.log(current(state.members[items.sender]));
       state.members[items.sender].owner = 0;
       state.members[items.receiver].owner = 1;
     },

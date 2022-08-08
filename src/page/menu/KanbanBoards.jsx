@@ -9,7 +9,6 @@ import MemberPage from "./MemberPage";
 const KanbanBoards = () => {
   const params = useParams();
   const { state } = useLocation();
-  console.log("uss", params, state);
 
   const [isBoard, setIsBoard] = useState(true);
   const [isMember, setIsMember] = useState(false);

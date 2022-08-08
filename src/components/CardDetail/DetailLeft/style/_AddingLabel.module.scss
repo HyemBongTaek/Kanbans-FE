@@ -5,9 +5,37 @@
 .label_main {
   @include modal_container(300px, 300px);
   margin-left: -10px;
-  .orange{
-    border: 1px solid blue;
+
+  .labels{
+    display: grid;
+    grid-template-rows: repeat(3, 30% 55% 15%);
+    margin: 0 auto;
+
+
+  .label_title{
+    margin: 20px 0 10px 0;
+    text-align: center;
+    font-size: 20px;
   }
+  .labels{
+    display: grid;
+    width: 100%;
+    justify-content: center;
+    grid-template-columns: repeat(2, 120px);
+    grid-template-rows: repeat(5, 30px);
+    grid-row-gap: 10px;
+    overflow: auto;
+    @include scroll_design("y", 10px, #ffffff);
+  }
+  }
+  .label_button{
+    text-align: center;
+    margin-top: -10px;
+    button{
+      @include button_styles(100px, 30px, $main_gray, 3px, $white_font, 15px);
+    }
+  }
+
 }
 .label_overlay {
   box-sizing: border-box;

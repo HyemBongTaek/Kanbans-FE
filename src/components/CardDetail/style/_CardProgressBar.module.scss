@@ -1,21 +1,39 @@
 @import "./src/style/common/mixin";
 @import "./src/style/common/colors";
 
-
-
 //DetailCommentCard.jsx
 .progress_bar{
-  width: 520px;
+  width: 525px;
   background: #C4C4C4;
   height: 25px;
+}
+.progress_area{
+  width: 525px;
+  margin-bottom: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  @include scroll_design("y", 10px, #ffffff);
 }
 
 //ProgressCard.jsx
 .progress_card{
   display: flex;
   justify-content: space-between;
+  margin-right: 20px;
+  margin-top: 5px;
+  //border-bottom: 1px solid $comment_gray;
+  &:hover{
+    background-color: $light_gray;
+    .delete_icon{
+      visibility: visible;
+    }
+  }
 
   .delete_icon{
+    visibility: hidden;
+    cursor: pointer;
     @include icons($comment_gray, 20px);
+
   }
+
 }

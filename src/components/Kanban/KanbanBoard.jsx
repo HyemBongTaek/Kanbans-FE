@@ -63,11 +63,18 @@ const KanbanBoard = (props) => {
                     <BoardDropDown
                       dropdownClick={dropdownClick}
                       boardId={props.boards.id}
+                      cardOrder={props.boards.cardId}
                       projectId={boards.projectId}
                     />
                   )}
                 </div>
               </div>
+              <InputContainer
+                type="card"
+                boardId={props.boards.id}
+                projectId={boards.projectId}
+              />
+
               <Droppable droppableId={boards.id.toString()} type="card">
                 {(provided) => (
                   <div ref={provided.innerRef} {...provided.droppableProps}>
@@ -87,11 +94,6 @@ const KanbanBoard = (props) => {
                   </div>
                 )}
               </Droppable>
-              <InputContainer
-                type="card"
-                boardId={props.boards.id}
-                projectId={boards.projectId}
-              />
             </>
           </div>
         )}

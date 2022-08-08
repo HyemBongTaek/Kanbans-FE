@@ -1,0 +1,76 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+
+.comment_profile{
+  img {
+    @include profile_image("normal");
+  }
+  div {
+    padding-top: 3px;
+    padding-left: 5px;
+    span{
+      font-size: 12px;
+      color: $comment_gray;
+    }
+
+  }
+}
+.comment_input{
+  display: flex;
+  @extend .comment_profile;
+
+}
+.comment_box{
+  margin-top: 5px;
+  height: 50vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    border: 1px solid $border_gray;
+  }
+}
+.comment_wrapper{
+  display: flex;
+  @extend .comment_profile;
+  .comment_content{
+    margin-left: 5px;
+    .title{
+      margin: -5px 0px 1px -5px;
+    }
+  }
+  .icon{
+    display: flex;
+    justify-content: flex-end;
+  }
+    .edit_input{
+      background: #FFFFFF;
+      border: 1px solid #898A8D;
+      border-radius: 5px;
+      width: 465px;
+      height: 30px;
+      padding-top: 5px;
+      max-height: 200px;
+      &:focus{
+        outline: none;
+      }
+    }
+    textarea{
+      border: none;
+      overflow-y: hidden;
+      resize: none;
+      &:focus{
+        outline: none;
+      }
+    }
+
+  .comment_icon{
+    @include icons($border_gray, 20px);
+    margin: -5px 0 -3px 10px;
+    &:hover{
+      color: $main_gray;
+    }
+  }
+}

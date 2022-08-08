@@ -26,8 +26,6 @@ const ProjectCard = React.memo(function ProjectCard(props) {
     setIsPermission(permission === "private");
   }, [items]);
 
-  console.log("확인", isPermission);
-
   const userInfo = useSelector((state) => state.userSlice.userInfo.id);
   const projectMemberList = useMemo(() => {
     if (items.users.length > 3) {
@@ -138,14 +136,7 @@ const ProjectCard = React.memo(function ProjectCard(props) {
             </div>
           )}
         </div>
-        {isEditable ? (
-          <button
-            onClick={() => setIsEditable((pre) => !pre)}
-            className={styles.finish_edit}
-          >
-            끝내기
-          </button>
-        ) : (
+        {!isEditable && (
           <div
             className={styles.home_profile}
             onClick={() =>
@@ -160,12 +151,13 @@ const ProjectCard = React.memo(function ProjectCard(props) {
                   </div>
                 );
               })}
-            {projectMemberList.length > 3 && (
+            {items.users.length > 3 && (
               <div className={styles.profile_image}>
                 <Icon
+                  style={{ marginTop: "-2px" }}
                   icon="ph:dots-three-circle-light"
                   color="#545454"
-                  height="58"
+                  height="60"
                 />
               </div>
             )}

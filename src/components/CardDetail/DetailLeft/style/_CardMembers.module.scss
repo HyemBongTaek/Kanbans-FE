@@ -1,0 +1,34 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+
+
+.container {
+  @include modal_container(300px, 300px);
+  margin-top: 50px;
+  .title{
+    margin: 20px 0 20px 0;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .members {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    .profile {
+      text-align: center;
+      .user_image {
+        img {
+          @include profile_image("large");
+        }
+        .user_icon{
+          margin-left: -15px;
+        }
+      }
+    }
+  }
+}
+
+.overlay {
+  @include overlay_container;
+  background-color: rgba(0, 0, 0, 0.0);
+}

@@ -3,12 +3,11 @@
 
 
 .kanban_card, .kanban_check {
-  width: 240px;
+  width: 235px;
   height: 130px;
   //display: flex;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   margin: 10px auto;
-  //border: 1px solid black;
   background: #FFFFFF;
 }
 
@@ -68,11 +67,11 @@
   }
 
   .card_title, .card_title_complete {
-    font-size: 20px;
-    margin: 0 0 5px 10px;
+    font-size: 19px;
+    height: 50px;
+    margin: -3px 0 5px 10px;
     font-weight: bold;
-    display: flex;
-    justify-content: space-between;
+
 
   }
   .card_title_complete{
@@ -81,9 +80,10 @@
 }
 
 .card_mid, .card_check_mid {
-  margin-right: 5px;
+  margin-top: 5px;
   & > img {
-    @include profile_image("small");
+    margin-right: 5px;
+    @include profile_image(20px);
   }
 }
 //완료(체크표시) 이미지 흐리게
@@ -94,23 +94,24 @@
 }
 .card_bottom {
   display: flex;
-  justify-content: space-between;
-  margin: 20px 0 0 10px;
-  font-size: 10px;
+  justify-content: flex-start;
+  margin: 0 0 5px 10px;
+  font-size: 11px;
+  color: $main_gray;
 
 
   .bottom_icon {
-    @include icons($sub_black, 15px);
+    @include icons($sub_black, 10px);
     margin-top: 4px;
   }
 
-  .date, .task, .date_check {
-    line-height: 22px;
+  .date, .task, .date_check, {
+    line-height: 20px;
     display: flex;
-    height: 22px;
+    height: 23px;
     border-radius: 10px;
     background: $light_gray;
-    margin-right: 10px;
+    margin-right: 5px;
   }
   .date_check {
     opacity: 0.8;
@@ -120,10 +121,10 @@
     color: $gray;
   }
   .delete_icon{
-    margin-right: 10px;
-    @include icons($gray, 20px);
+    @include icons($gray, 15px);
+    margin-top: 2px;
     &:hover{
-      @include icons($main_gray, 20px);
+      @include icons($main_gray, 15px);
     }
   }
 }

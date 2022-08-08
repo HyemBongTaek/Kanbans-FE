@@ -1,10 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import {
-  addProject,
-  deleteProject,
-  getProject,
-  updateProject,
-} from "../Async/projects";
+import { addProject, getProject, updateProject } from "../Async/projects";
 import commonSlice from "./commonSlice";
 
 const ProjectsSlice = createSlice({
@@ -24,6 +19,9 @@ const ProjectsSlice = createSlice({
         state.projects[index].permission = items.permission;
       }
     },
+    addProjectReducer(state, action) {
+      state.projects.push(action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getProject.fulfilled, (state, action) => {
@@ -31,5 +29,6 @@ const ProjectsSlice = createSlice({
     });
   },
 });
-export const { updateProjectReducer } = ProjectsSlice.actions;
+export const { updateProjectReducer, addProjectReducer } =
+  ProjectsSlice.actions;
 export default ProjectsSlice;

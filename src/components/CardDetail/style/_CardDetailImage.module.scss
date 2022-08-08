@@ -1,0 +1,78 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+
+
+.detail_image {
+  .input_upload {
+
+    display: flex;
+    justify-content: flex-end;
+
+    label {
+      margin-top: -30px;
+      line-height: 30px;
+      text-align: center;
+      @include button_styles(120px, 30px, $main_gray, 3px, $white_font, 15px);
+
+      &:active {
+        border: 2px solid $comment_gray;
+      }
+    }
+
+    input {
+      display: none;
+
+    }
+  }
+
+}
+
+.detail_attachments {
+  margin-top: 5px;
+  width: 525px;
+  height: 150px;
+  background-color: $white_font;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  @include scroll_design("x", 10px, #ffffff);
+}
+
+
+//CardDetailImage.jsx
+.attachments_modal {
+  @include modal_container(640px, 640px);
+  border-radius: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+    max-height: 640px;
+  }
+}
+
+.image {
+  position: relative;
+  margin-left: 10px;
+  margin-top: 10px;
+
+  .delete_icon {
+    position: absolute;
+    margin: -30px 0 0 130px;
+    cursor: pointer;
+    @include icons($main_gray, 20px);
+  }
+}
+
+.layout {
+  @include overlay_container;
+  background-color: rgba(0, 0, 0, 0.0);
+}
+
+.attachments_image {
+  cursor: zoom-in;
+  width: 150px;
+  height: 120px;
+
+}

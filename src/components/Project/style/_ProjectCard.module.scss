@@ -48,14 +48,7 @@
     font-weight: bold;
     margin-top: 5px;
   }
-.finish_edit{
-  margin-top: 62px;
-  @include button_styles(80px, 30px, $main_gray, 5px, $white_font, 15px);
-  &:hover{
-    background-color: $white_font;
-    color: $main_gray;
-  }
-}
+
   .home_profile {
     display: flex;
     justify-content: flex-start;

@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import styles from "./style/_KanbanCardDetail.module.scss";
+import styles from "./style/_CardDetailImage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { ImageDelete, imageUpload } from "../../redux/Async/KanbanCardDetail";
 import CardDetailImageCard from "./CardDetailImageCard";
+import { useLocation } from "react-router-dom";
 
 const CardDetailImage = ({ cardId }) => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const [image, setImage] = useState(null);
+
+  const projectId = location.state.projectId;
 
   const changeImage = (e) => {
     e.preventDefault();
@@ -23,6 +27,7 @@ const CardDetailImage = ({ cardId }) => {
         imageUpload({
           formData,
           cardId,
+          projectId,
         })
       );
     }
@@ -30,41 +35,18 @@ const CardDetailImage = ({ cardId }) => {
 
   const imageLists = useSelector((state) => state.cardDetailSlice.images);
 
-  console.log("이미지리스트", imageLists);
-  // useEffect(() => {
-  //   const handlePasteAnywhere = (e) => {
-  //     console.log(e.clipboardData.getData("file"));
-  //   };
-  //
-  //   window.addEventListener("paste", handlePasteAnywhere);
-  //
-  //   return () => {
-  //     window.removeEventListener("paste", handlePasteAnywhere);
-  //   };
-  // }, []);
-  // useEffect(() => {
-  //   const handlePasteAnywhere = (e) => {
-  //     const item = e.clipboardData.items[0];
-  //     console.log(item);
-  //   };
-  //
-  //   window.addEventListener("paste", handlePasteAnywhere);
-  //
-  //   return () => {
-  //     window.removeEventListener("paste", handlePasteAnywhere);
-  //   };
-  // }, []);
-
-  // const handlePaste = (e) => {
-  //   e.preventDefault();
-  //   const item = e.clipboardData.items[0];
-  //   console.log(item);
-  // };
-
   return (
-    <div>
-      {/*onPaste={handlePaste}*/}
-      <input type="file" onChange={changeImage} multiple="multiple" />
+    <div className={styles.detail_image}>
+      <div className={styles.input_upload}>
+        <label htmlFor="image_file">이미지 업로드</label>
+        <input
+          type="file"
+          id="image_file"
+          onChange={changeImage}
+          multiple="multiple"
+        />
+      </div>
+
       {imageLists && (
         <div className={styles.detail_attachments}>
           {imageLists?.map((el) => {
@@ -74,12 +56,6 @@ const CardDetailImage = ({ cardId }) => {
           })}
         </div>
       )}
-
-      {/*<img className={styles.attachments_image} src={Test} alt="img" />*/}
-      {/*<img className={styles.attachments_image} src={Test} alt="img" />*/}
-      {/*<img className={styles.attachments_image} src={Test} alt="img" />*/}
-
-      {/*style={{ display: "none" }}*/}
     </div>
   );
 };

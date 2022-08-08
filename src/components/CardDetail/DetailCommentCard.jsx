@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import styles from "./style/_KanbanCardDetail.module.scss";
+import styles from "./style/_DetailComment.module.scss";
 import { Icon } from "@iconify/react";
 import { useDispatch } from "react-redux";
 import {
   deleteCardComment,
   editCardComment,
 } from "../../redux/Async/KanbanCardDetail";
+import Tooltip from "../Tooltip";
+import TextareaAutosize from "react-textarea-autosize";
 
 const DetailCommentCard = ({ items, index, userId }) => {
   const dispatch = useDispatch();
 
   const [edit, setEdit] = useState(false);
   const [content, setContent] = useState(items.content);
-  console.log("하나", items);
+
   const deleteComment = () => {
     dispatch(
       deleteCardComment({
@@ -36,43 +38,48 @@ const DetailCommentCard = ({ items, index, userId }) => {
   };
 
   return (
-    <div className={styles.comment_card}>
+    <div className={styles.comment_wrapper}>
       <img src={items.profileImage} alt="profile_image" />
-      <div>
-        <a>{items.name}</a> <span>May 5, 2022 at 5:31 PM</span>
+      <div className={styles.comment_content}>
+        <div className={styles.title}>
+          <a>{items.name}</a> <span>{items.createdAt}</span>
+        </div>
         <form className={styles.content} onSubmit={editCardClick}>
-          <label>
-            {/*수정 누르지 않을경우 readOnly 사용하여 수정 불가능하게 막음*/}
-            {edit ? (
-              <input
-                className={styles.edit_input}
-                value={content}
-                onChange={editChangeHandler}
-              />
-            ) : (
-              <input value={content} readOnly />
-            )}
-          </label>
+          {/*수정 누르지 않을경우 readOnly 사용하여 수정 불가능하게 막음*/}
+          {edit ? (
+            <TextareaAutosize
+              className={styles.edit_input}
+              value={content}
+              onChange={editChangeHandler}
+            />
+          ) : (
+            <TextareaAutosize
+              className={styles.edit_input}
+              value={content}
+              readOnly
+            />
+          )}
         </form>
-        <div>
-          <Icon
-            className={styles.comment_icon}
-            icon="ant-design:smile-outlined"
-          />
+        <div className={styles.icon}>
           {userId === items.userId && (
             <>
-              <Icon
-                className={styles.comment_icon}
-                icon="ant-design:edit-filled"
-                onClick={() => {
-                  setEdit(true);
-                }}
-              />
-              <Icon
-                onClick={deleteComment}
-                className={styles.comment_icon}
-                icon="ant-design:delete-outlined"
-              />
+              <Tooltip content="수정하기">
+                <Icon
+                  className={styles.comment_icon}
+                  icon="ant-design:edit-filled"
+                  onClick={() => {
+                    setEdit(true);
+                  }}
+                />
+              </Tooltip>
+
+              <Tooltip content="삭제하기">
+                <Icon
+                  onClick={deleteComment}
+                  className={styles.comment_icon}
+                  icon="ant-design:delete-outlined"
+                />
+              </Tooltip>
             </>
           )}
         </div>

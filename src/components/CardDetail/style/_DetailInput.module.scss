@@ -1,6 +1,7 @@
 @import "./src/style/common/colors";
 @import "./src/style/common/mixin";
 
+//DetailComments.jsx, DetailCommentCard.jsx
 .comments, .progress_form {
   width: 480px;
   border: 1px solid $comment_gray;
@@ -19,6 +20,13 @@
       }
     }
   }
+}
+.comments{
+  width: 470px;
+  margin-top: -5px;
+}
+.progress_form{
+  width: 520px;
 }
 
 .progress_area{
@@ -39,10 +47,4 @@
     color: $main_green;
   }
 }
-
-
-
-
-
-// comments css
 

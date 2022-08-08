@@ -26,8 +26,6 @@ const Member = ({ projectId, user }) => {
   useEffect(() => {
     setMembers(memberList);
   }, [memberList]);
-  console.log(user, "유저");
-  console.log("맴버", memberList);
 
   const owner =
     memberList &&
@@ -45,6 +43,7 @@ const Member = ({ projectId, user }) => {
   return (
     <>
       <div>
+        <div className={styles.title}>Members</div>
         <div className={styles.members}>
           {members &&
             members.map((member) => {
