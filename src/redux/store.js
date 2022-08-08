@@ -9,7 +9,6 @@ import ProjectsSlice from "./Slice/projectsSlice";
 import UserSlice from "./Slice/userSlice";
 import KanbanSlice from "./Slice/kanbanSlice";
 import KanbanCardDetailSlice from "./Slice/KanbanCardDetailSlice";
-import { kanbanApi } from "./Slice/kanbanApi";
 import SocketClient from "./SocketClient";
 import { socketMiddleware } from "./SocketMiddleWare";
 import SocketSlice from "./Slice/socketSlice";
@@ -47,7 +46,7 @@ const store = configureStore(
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: false,
-      }).concat(kanbanApi.middleware),
+      }),
   },
   [socketMiddleware(socket)]
 );

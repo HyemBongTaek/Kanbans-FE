@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./style/_CardDetailImage.module.scss";
 import { ImageDelete } from "../../redux/Async/KanbanCardDetail";
 import { useDispatch } from "react-redux";
+import { Icon } from "@iconify/react";
 
 const CardDetailImageCard = ({ items, cardId }) => {
   const dispatch = useDispatch();
@@ -27,9 +28,15 @@ const CardDetailImageCard = ({ items, cardId }) => {
           />
         </>
       )}
-      <div onClick={() => setIsModal((pre) => !pre)}>
-        <img className={styles.attachments_image} src={items.url} alt="img" />
-        <div onClick={deleteClick}>삭제</div>
+      <div className={styles.image}>
+        <div onClick={() => setIsModal((pre) => !pre)}>
+          <img className={styles.attachments_image} src={items.url} alt="img" />
+        </div>
+        <Icon
+          onClick={deleteClick}
+          className={styles.delete_icon}
+          icon="ant-design:delete-outlined"
+        />
       </div>
     </>
   );

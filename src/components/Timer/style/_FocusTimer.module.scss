@@ -67,5 +67,6 @@
 }
 
 .button_break {
+  margin-right: 20px;
   @include button_styles(100px, 30px, $white_font, 3px, $main_gray, 15px);
 }

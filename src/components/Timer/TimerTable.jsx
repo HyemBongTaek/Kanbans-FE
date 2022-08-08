@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import styles from "./style/_TimerTable.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Chart as ChartJS } from "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
@@ -48,7 +48,9 @@ const TimerTable = ({ setIsTable }) => {
           },
         }}
       />
-      <button onClick={() => setIsTable((pre) => !pre)}>차트 접어두기</button>
+      <div className={styles.chart_button}>
+        <button onClick={() => setIsTable((pre) => !pre)}>차트 접어두기</button>
+      </div>
     </>
   );
 };

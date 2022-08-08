@@ -6,7 +6,8 @@ import {
   deleteCardComment,
   editCardComment,
 } from "../../redux/Async/KanbanCardDetail";
-import { DivTooltip } from "../Tooltip";
+import Tooltip from "../Tooltip";
+import TextareaAutosize from "react-textarea-autosize";
 
 const DetailCommentCard = ({ items, index, userId }) => {
   const dispatch = useDispatch();
@@ -40,25 +41,29 @@ const DetailCommentCard = ({ items, index, userId }) => {
     <div className={styles.comment_wrapper}>
       <img src={items.profileImage} alt="profile_image" />
       <div className={styles.comment_content}>
-        <a>{items.name}</a> <span>{items.createdAt}</span>
+        <div className={styles.title}>
+          <a>{items.name}</a> <span>{items.createdAt}</span>
+        </div>
         <form className={styles.content} onSubmit={editCardClick}>
-          <label>
-            {/*수정 누르지 않을경우 readOnly 사용하여 수정 불가능하게 막음*/}
-            {edit ? (
-              <input
-                className={styles.edit_input}
-                value={content}
-                onChange={editChangeHandler}
-              />
-            ) : (
-              <input value={content} readOnly />
-            )}
-          </label>
+          {/*수정 누르지 않을경우 readOnly 사용하여 수정 불가능하게 막음*/}
+          {edit ? (
+            <TextareaAutosize
+              className={styles.edit_input}
+              value={content}
+              onChange={editChangeHandler}
+            />
+          ) : (
+            <TextareaAutosize
+              className={styles.edit_input}
+              value={content}
+              readOnly
+            />
+          )}
         </form>
         <div className={styles.icon}>
           {userId === items.userId && (
             <>
-              <DivTooltip content="수정하기">
+              <Tooltip content="수정하기">
                 <Icon
                   className={styles.comment_icon}
                   icon="ant-design:edit-filled"
@@ -66,15 +71,15 @@ const DetailCommentCard = ({ items, index, userId }) => {
                     setEdit(true);
                   }}
                 />
-              </DivTooltip>
+              </Tooltip>
 
-              <DivTooltip content="삭제하기">
+              <Tooltip content="삭제하기">
                 <Icon
                   onClick={deleteComment}
                   className={styles.comment_icon}
                   icon="ant-design:delete-outlined"
                 />
-              </DivTooltip>
+              </Tooltip>
             </>
           )}
         </div>

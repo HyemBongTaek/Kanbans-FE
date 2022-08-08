@@ -14,8 +14,6 @@ const ProjectHeader = () => {
 
   const userName = useSelector((state) => state.userSlice.userInfo.name);
 
-  console.log(userName);
-
   return (
     <div className={styles.home_header}>
       <div>

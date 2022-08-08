@@ -1,19 +1,20 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { statusChangeKanbanCard } from "../../redux/Async/kanban";
 import { useDispatch } from "react-redux";
-import classNames from "classnames";
+import { statusChangeKanbanCard } from "../../redux/Async/kanban";
+
+import { motion } from "framer-motion";
 import { cardStatusSocket } from "../../redux/Slice/socketSlice";
+import Tooltip from "../Tooltip";
 
 const StatusCheck = ({ boardId, cardId, projectId }) => {
   const dispatch = useDispatch();
-  console.log(boardId, cardId);
 
   const statusButton = [
     { value: "progress", color: "#3F4650" },
     { value: "hold", color: "#EACC57" },
     { value: "finish", color: "#01cd6b" },
   ];
+
   const sideVariants = {
     closed: {
       transition: {
@@ -64,23 +65,25 @@ const StatusCheck = ({ boardId, cardId, projectId }) => {
         {statusButton.map((status, index) => {
           return (
             <>
-              <motion.button
-                value={status.value}
-                onClick={statusClick}
-                style={{
-                  backgroundColor: `${status.color}`,
-                  width: "20px",
-                  height: "20px",
-                  borderRadius: "10px",
-                  border: "none",
-                  marginRight: "5px",
-                }}
-                key={index}
-                whileTap={{ scale: 0.5 }}
-                transition={{ duration: 0.5 }}
-                whileHover={{ scale: 1.1 }}
-                variants={itemVariants}
-              />
+              <Tooltip content={status.value} type="black">
+                <motion.button
+                  value={status.value}
+                  onClick={statusClick}
+                  style={{
+                    backgroundColor: `${status.color}`,
+                    width: "20px",
+                    height: "20px",
+                    borderRadius: "10px",
+                    border: "none",
+                    marginRight: "5px",
+                  }}
+                  key={index}
+                  whileTap={{ scale: 0.5 }}
+                  transition={{ duration: 0.5 }}
+                  whileHover={{ scale: 1.1 }}
+                  variants={itemVariants}
+                />
+              </Tooltip>
             </>
           );
         })}

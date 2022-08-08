@@ -2,24 +2,15 @@ import React from "react";
 
 import ReactTooltip from "react-tooltip";
 
-export const DivTooltip = ({ content, color, children }) => {
+const Tooltip = ({ content, color, children }) => {
   return (
     <>
-      <a data-tip={content}>
+      <a data-tip={content} style={{ textAlign: "center" }}>
         {children}
-        <ReactTooltip place="top" type={color} effect="float" />
       </a>
+      <ReactTooltip place="top" type={color} effect="float" />
     </>
   );
 };
 
-export const Tooltip = ({ content, color, children }) => {
-  return (
-    <>
-      <a data-tip={content}>
-        {children}
-        <ReactTooltip place="top" type={color} effect="float" />
-      </a>
-    </>
-  );
-};
+export default Tooltip;

@@ -8,3 +8,11 @@
   height: 400px;
   margin: auto;
 }
+.button_table{
+  display: flex;
+  justify-content: center;
+  margin: 30px auto;
+  button{
+    @include button_styles(150px, 30px, $main_gray, 3px, $white_font, 15px);
+  }
+}

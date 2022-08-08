@@ -13,10 +13,7 @@ const UserSlice = createSlice({
     builder
       .addCase(getUserInfo.fulfilled, (state, action) => {
         state.userInfo = action.payload;
-
-        console.log("유저정보", action.payload);
       })
-      .addCase(authLogin.pending, (state, action) => {})
       .addCase(authLogin.fulfilled, (state, action) => {
         const refreshToken = action.payload.refreshToken;
         const accessToken = action.payload.accessToken;

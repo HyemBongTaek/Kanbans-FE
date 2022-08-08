@@ -5,8 +5,6 @@ import { authLogin, kakaoLogin } from "../../../redux/Async/user";
 
 const KaKaoLoginHandler = () => {
   const code = new URL(window.location.href).searchParams.get("code");
-  console.log("아아아아아아아아앙");
-  console.log("code", code);
   const dispatch = useDispatch();
 
   useEffect(() => {

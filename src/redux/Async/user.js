@@ -17,10 +17,7 @@ export const authLogin = createAsyncThunk(
             return res.data;
           }
         } catch (err) {
-          console.log(
-            "카카오 로그인 도중 에러가 발생하였습니다. 다시 시도해주세요."
-          );
-          return false;
+          throw err;
         }
         break;
       }
@@ -33,9 +30,7 @@ export const authLogin = createAsyncThunk(
             return res.data;
           }
         } catch (err) {
-          console.log(
-            "구글 로그인 도중 에러가 발생하였습니다. 다시 시도해주세요."
-          );
+          throw err;
         }
         break;
       }
@@ -48,8 +43,7 @@ export const authLogin = createAsyncThunk(
             return res.data;
           }
         } catch (err) {
-          console.log("에러");
-          return thunkAPI.rejectWithValue();
+          throw err;
         }
       }
     }
@@ -64,12 +58,10 @@ export const getUserInfo = createAsyncThunk("user/getUserInfo", async () => {
       method: "GET",
     });
     if (res.data.ok) {
-      console.log("로그인유저", res.data);
       return res.data.user;
     }
   } catch (err) {
-    console.log("회원정보를 불러오는 중에 오류가 발생했습니다.");
-    return false;
+    throw err;
   }
 });
 
@@ -77,7 +69,6 @@ export const getUserInfo = createAsyncThunk("user/getUserInfo", async () => {
 export const changeUserInfo = createAsyncThunk(
   "user/changeProfileImage",
   async ({ formData, nickname, type, introduce }, thunkAPI) => {
-    console.log(formData);
     try {
       if (type === "changeImage") {
         const res = await Apis({
@@ -99,13 +90,11 @@ export const changeUserInfo = createAsyncThunk(
           },
         });
         if (res.data.ok) {
-          console.log(res.data);
-          // thunkAPI.dispatch(getProject());
           return { data: res.data, type };
         }
       }
     } catch (err) {
-      console.log("프로필 변경중 오류가 발생하였습니다.");
+      throw err;
     }
   }
 );
@@ -119,11 +108,8 @@ export const deleteAccount = createAsyncThunk(
         url: "user/sign-out",
         method: "DELETE",
       });
-      if (res.data.ok) {
-        console.log("회원탈퇴", res.data);
-      }
     } catch (err) {
-      console.log("회원탈퇴 중 오류가 발생하였습니다.");
+      throw err;
     }
   }
 );

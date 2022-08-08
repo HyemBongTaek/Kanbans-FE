@@ -39,13 +39,14 @@ const CardInviteMembers = ({ cardId, projectId, setIsAddMember }) => {
         members: selectedUser,
       })
     );
+    setIsAddMember(false);
   };
 
   return (
     <>
       <div className={styles.label_main}>
         <div className={styles.members}>
-          {showMembers &&
+          {showMembers && showMembers.length > 0 ? (
             showMembers.map((user) => {
               return (
                 <div className={styles.member} key={user.userId}>
@@ -65,11 +66,18 @@ const CardInviteMembers = ({ cardId, projectId, setIsAddMember }) => {
                   </label>
                 </div>
               );
-            })}
+            })
+          ) : (
+            <div className={styles.no_member}>
+              카드에 추가할 맴버가 없습니다
+            </div>
+          )}
         </div>
-        <div className={styles.invite_button}>
-          <button onClick={inviteMembers}>초대하기</button>
-        </div>
+        {showMembers && showMembers.length > 0 && (
+          <div className={styles.invite_button}>
+            <button onClick={inviteMembers}>초대하기</button>
+          </div>
+        )}
       </div>
       <div
         className={styles.label_overlay}

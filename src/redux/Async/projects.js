@@ -1,7 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Apis from "../apis";
 import Swal from "sweetalert2";
-import { updateProjectReducer } from "../Slice/projectsSlice";
+import {
+  addProjectReducer,
+  updateProjectReducer,
+} from "../Slice/projectsSlice";
 
 export const getProject = createAsyncThunk("project/getProject", async () => {
   try {
@@ -10,12 +13,10 @@ export const getProject = createAsyncThunk("project/getProject", async () => {
       method: "GET",
     });
     if (res.data.ok) {
-      console.log("데이터", res.data);
       return { data: res.data };
     }
   } catch (err) {
-    console.log(err);
-    return false;
+    throw err;
   }
 });
 
@@ -32,12 +33,10 @@ export const addProject = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        console.log(res.data);
-        thunkAPI.dispatch(getProject());
+        return thunkAPI.dispatch(addProjectReducer(res.data.project));
       }
-      return res;
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   }
 );
@@ -54,13 +53,12 @@ export const bookmarkProject = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        console.log(res.data);
         //북마크가 우선순위로 변하기 때문에 다시한번 불러와준다.
         thunkAPI.dispatch(getProject());
       }
       return res;
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   }
 );
@@ -74,14 +72,11 @@ export const deleteProject = createAsyncThunk(
         method: "DELETE",
       });
       if (res.data.ok) {
-        console.log(res.data);
         thunkAPI.dispatch(getProject());
       }
       return res;
     } catch (err) {
-      console.log(
-        "project를 삭제하는 도중 에러가 발생했습니다. 다시 시도해주세요"
-      );
+      throw err;
     }
   }
 );
@@ -89,7 +84,6 @@ export const deleteProject = createAsyncThunk(
 export const updateProject = createAsyncThunk(
   "project/updateProject",
   async ({ title, projectId, permission }, thunkAPI) => {
-    console.log("수정", title, permission, projectId);
     try {
       const res = await Apis({
         url: `/project/${projectId}`,
@@ -100,7 +94,6 @@ export const updateProject = createAsyncThunk(
         },
       });
       if (res.data.ok) {
-        console.log("확인좀", res.data);
         return thunkAPI.dispatch(
           updateProjectReducer({
             title,
@@ -110,7 +103,7 @@ export const updateProject = createAsyncThunk(
         );
       }
     } catch (err) {
-      console.log("수정도중 오류가 발생하였습니다.");
+      throw err;
     }
   }
 );
@@ -128,7 +121,7 @@ export const leaveProject = createAsyncThunk(
       }
       return res;
     } catch (err) {
-      console.log("project 떠나기 도중 오류가 발생했습니다.");
+      throw err;
     }
   }
 );
@@ -137,7 +130,6 @@ export const leaveProject = createAsyncThunk(
 export const joinProject = createAsyncThunk(
   "project/joinProject",
   async ({ inviteCode }, thunkAPI) => {
-    console.log("코드", inviteCode);
     try {
       const res = await Apis({
         url: `/project/join`,
@@ -146,9 +138,6 @@ export const joinProject = createAsyncThunk(
           inviteCode,
         },
       });
-      if (res.data.ok) {
-        console.log(res.data);
-      }
     } catch (err) {
       thunkAPI.rejectWithValue();
     }

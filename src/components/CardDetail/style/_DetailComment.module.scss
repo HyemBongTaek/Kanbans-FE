@@ -21,7 +21,7 @@
 
 }
 .comment_box{
-  margin-top: 10px;
+  margin-top: 5px;
   height: 50vh;
   overflow-y: scroll;
   &::-webkit-scrollbar {
@@ -37,36 +37,38 @@
   @extend .comment_profile;
   .comment_content{
     margin-left: 5px;
+    .title{
+      margin: -5px 0px 1px -5px;
+    }
   }
   .icon{
     display: flex;
     justify-content: flex-end;
   }
-  .content{
-    width: 460px;
-    height: 30px;
-    background: #FFFFFF;
-    border: 1px solid #898A8D;
-    border-radius: 5px;
-    line-height: 30px;
-    margin-right: 10px;
-
     .edit_input{
-      width: 470px;
-      height: 28px;
+      background: #FFFFFF;
+      border: 1px solid #898A8D;
       border-radius: 5px;
-
-    }
-    input {
-      border: none;
+      width: 465px;
+      height: 30px;
+      padding-top: 5px;
+      max-height: 200px;
       &:focus{
         outline: none;
       }
     }
-  }
+    textarea{
+      border: none;
+      overflow-y: hidden;
+      resize: none;
+      &:focus{
+        outline: none;
+      }
+    }
+
   .comment_icon{
     @include icons($border_gray, 20px);
-    margin-right: 20px;
+    margin: -5px 0 -3px 10px;
     &:hover{
       color: $main_gray;
     }

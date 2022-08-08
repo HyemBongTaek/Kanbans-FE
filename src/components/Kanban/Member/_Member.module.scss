@@ -1,11 +1,16 @@
 @import "./src/style/common/colors";
 @import "./src/style/common/mixin";
+.title{
+ font-size: 30px;
+  margin-top: 20px;
+}
 .members{
   display: grid;
   width: 1500px;
   font-family: "NanumSquareRound", serif;
-  margin-top: 100px;
+  margin-top: 20px;
   grid-template-columns:repeat(4, 1fr);
+  grid-row-gap: 30px;
   .card{
     width: 300px;
     height: 200px;

@@ -20,13 +20,8 @@ const KanbanFeatures = (props) => {
   const dispatch = useDispatch();
 
   //보드타이틀변경
-  const changeTitle = ({
-    title,
-    boardId,
-    editable,
-    setEditable,
-    projectId,
-  }) => {
+  const changeTitle = ({ title, boardId, setEditable, projectId }, e) => {
+    e.preventDefault();
     dispatch(
       changeBoardTitle({
         boardId,

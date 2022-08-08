@@ -112,7 +112,6 @@ const FocusTimer = ({ isTable }) => {
 
   const changeTime = (e) => {
     const btnText = e.target.innerHTML;
-    console.log(btnText);
     if (btnText === "-" && playTime > 60 && !type) {
       setPlayTime((pre) => pre - 60);
     } else if (btnText === "+" && !type) {

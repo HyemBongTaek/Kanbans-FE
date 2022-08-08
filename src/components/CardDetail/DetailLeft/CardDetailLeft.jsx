@@ -7,17 +7,20 @@ import CardInviteMembers from "./CardInviteMembers";
 import { useDispatch, useSelector } from "react-redux";
 import { Icon } from "@iconify/react";
 import { exitCardMember } from "../../../redux/Async/KanbanCardDetail";
-import { Tooltip } from "../../Tooltip";
+import Tooltip from "../../Tooltip";
+import CardMembers from "./CardMembers";
 
 const CardDetailLeft = ({ cardId, projectId }) => {
   const dispatch = useDispatch();
   const [isAddLabel, setIsAddLabel] = useState(false);
   const [isAddingLabel, setIsAddingLabel] = useState(false);
+  const [isMembers, setIsMembers] = useState(false);
   const [isAddMember, setIsAddMember] = useState(false);
 
   const cardMembers = useSelector((state) => state.cardDetailSlice.users);
-  const myInfo = useSelector((state) => state.userSlice.userInfo);
-  console.log(myInfo);
+
+  const memberList =
+    cardMembers.length > 3 ? cardMembers.slice(0, 3) : cardMembers;
 
   const exitCardMembersHandler = ({ userId }) => {
     dispatch(
@@ -35,8 +38,8 @@ const CardDetailLeft = ({ cardId, projectId }) => {
           <a>Members</a>
         </li>
         <div className={styles.user}>
-          {cardMembers
-            ? cardMembers.map((user) => {
+          {memberList
+            ? memberList.map((user) => {
                 return (
                   <div className={styles.profile} key={user.id}>
                     <div className={styles.user_image}>
@@ -58,6 +61,21 @@ const CardDetailLeft = ({ cardId, projectId }) => {
                 );
               })
             : cardMembers}
+          {isMembers && (
+            <CardMembers
+              setIsMembers={setIsMembers}
+              memberList={cardMembers}
+              cardId={cardId}
+              projectId={projectId}
+            />
+          )}
+          {cardMembers.length > 3 && (
+            <Icon
+              className={styles.icon}
+              onClick={() => setIsMembers(true)}
+              icon="bx:dots-horizontal-rounded"
+            />
+          )}
         </div>
 
         {isAddLabel && (
@@ -82,7 +100,7 @@ const CardDetailLeft = ({ cardId, projectId }) => {
           />
         )}
         <li onClick={() => setIsAddingLabel(true)}>
-          <a>라벨 추가하기</a>
+          <a>프로젝트 라벨 추가/삭제하기</a>
         </li>
         <li>
           <SelectedDday />

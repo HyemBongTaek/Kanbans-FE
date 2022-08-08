@@ -17,8 +17,6 @@ const KanbanBoard = (props) => {
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const boards = props.boards;
 
-  console.log(props);
-
   const dropdownClick = () => setIsActive(!isActive);
   return (
     <>
@@ -71,6 +69,12 @@ const KanbanBoard = (props) => {
                   )}
                 </div>
               </div>
+              <InputContainer
+                type="card"
+                boardId={props.boards.id}
+                projectId={boards.projectId}
+              />
+
               <Droppable droppableId={boards.id.toString()} type="card">
                 {(provided) => (
                   <div ref={provided.innerRef} {...provided.droppableProps}>
@@ -90,11 +94,6 @@ const KanbanBoard = (props) => {
                   </div>
                 )}
               </Droppable>
-              <InputContainer
-                type="card"
-                boardId={props.boards.id}
-                projectId={boards.projectId}
-              />
             </>
           </div>
         )}

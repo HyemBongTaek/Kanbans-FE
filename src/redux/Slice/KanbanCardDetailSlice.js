@@ -2,19 +2,16 @@ import { createSlice, current } from "@reduxjs/toolkit";
 import {
   addCardComment,
   addCardTask,
-  cardInviteMembers,
   cardShowMembers,
   checkCardTask,
   deleteCardComment,
   deleteCardLabel,
   deleteCardTask,
-  deleteProjectLabel,
   editCardComment,
   exitCardMember,
   getCardComment,
   getKanbanCardDetail,
   ImageDelete,
-  imageUpload,
   searchLabel,
 } from "../Async/KanbanCardDetail";
 
@@ -46,6 +43,9 @@ const KanbanCardDetailSlice = createSlice({
     cardInviteMembersReducer(state, action) {
       state.users.push(...action.payload);
     },
+    addCardLabelsReducer(state, action) {
+      state.saveLabel.push(...action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -58,10 +58,7 @@ const KanbanCardDetailSlice = createSlice({
         state.users = action.payload.users;
       })
       .addCase(addCardTask.fulfilled, (state, action) => {
-        const newTasks = [...state.tasks];
-        newTasks.push(action.payload);
-
-        state.tasks = newTasks;
+        state.tasks.unshift(action.payload);
       })
       .addCase(deleteCardTask.fulfilled, (state, action) => {
         const newTasks = state.tasks.filter(
@@ -100,11 +97,9 @@ const KanbanCardDetailSlice = createSlice({
         state.comments = newComments;
       })
       .addCase(checkCardTask.fulfilled, (state, action) => {
-        console.log(action.payload);
         const findIndex = state.tasks.findIndex(
           (task) => task.id === action.payload.task.id
         );
-        console.log(findIndex);
 
         let newTasks = state.tasks;
         newTasks[findIndex] = {
@@ -129,7 +124,6 @@ const KanbanCardDetailSlice = createSlice({
 
       //카드에 등록되어 있는 라벨 삭제
       .addCase(deleteCardLabel.fulfilled, (state, action) => {
-        console.log(current(state.saveLabel));
         const deleteLabel = state.saveLabel?.filter(
           (label) => label.id !== action.payload
         );
@@ -149,6 +143,7 @@ export const {
   addProjectLabelReducer,
   deleteProjectLabelReducer,
   cardInviteMembersReducer,
+  addCardLabelsReducer,
 } = KanbanCardDetailSlice.actions;
 
 export default KanbanCardDetailSlice;

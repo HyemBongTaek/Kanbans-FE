@@ -7,9 +7,9 @@ import { useDispatch } from "react-redux";
 import { editContent } from "../../redux/Async/KanbanCardDetail";
 import CardDetailImage from "./CardDetailImage";
 import GetLabels from "./GetLabels";
+import classNames from "classnames";
 
 const CardDetailMain = ({ cardContent, cardLabel }) => {
-  //input 한번에 관리.
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState(cardContent.title);
@@ -25,6 +25,7 @@ const CardDetailMain = ({ cardContent, cardLabel }) => {
   const [titleActive, setTitleActive] = useState(false);
   const [subTitleActive, setSubTitleActive] = useState(false);
   const [descriptionActive, setDescriptionActive] = useState(false);
+  const [isProgressCheck, setIsProgressCheck] = useState(false);
 
   const isActiveButton = ({ type }) => {
     if (type === "description") {
@@ -126,7 +127,7 @@ const CardDetailMain = ({ cardContent, cardLabel }) => {
             className={styles.title_icon}
             icon="fluent:app-title-20-filled"
           />
-          subTitle
+          SubTitle
         </div>
         <form className={styles.title_form} onSubmit={editSubTitle}>
           <label>
@@ -151,7 +152,7 @@ const CardDetailMain = ({ cardContent, cardLabel }) => {
             className={styles.title_icon}
             icon="fluent:app-title-20-filled"
           />
-          description
+          Description
         </div>
         <form className={styles.title_form} onSubmit={editDescription}>
           <label className={styles.title_textarea}>
@@ -173,7 +174,7 @@ const CardDetailMain = ({ cardContent, cardLabel }) => {
         </form>
 
         {/*사진넣기*/}
-        <div className={styles.title}>
+        <div className={classNames(styles.title, styles.attachments)}>
           <Icon
             className={styles.title_icon}
             icon="fluent:app-title-20-filled"
@@ -183,14 +184,29 @@ const CardDetailMain = ({ cardContent, cardLabel }) => {
         <CardDetailImage cardId={cardContent.id} />
 
         {/*진행목록 진행바*/}
-        <div className={styles.title}>
-          <Icon
-            className={styles.title_icon}
-            icon="fluent:app-title-20-filled"
-          />
-          Tasks
+        <div className={classNames(styles.title, styles.progress_bar)}>
+          <div className={styles.progress_title}>
+            <Icon
+              className={styles.title_icon}
+              icon="fluent:app-title-20-filled"
+            />
+            <div>Tasks</div>
+          </div>
+          <div onClick={() => setIsProgressCheck((pre) => !pre)}>
+            {isProgressCheck ? (
+              <button className={styles.progress_button}>모든 목록보기</button>
+            ) : (
+              <button className={styles.progress_button}>
+                미완료 목록보기
+              </button>
+            )}
+          </div>
         </div>
-        <CardProgressBar cardId={cardContent.id} />
+        <CardProgressBar
+          cardId={cardContent.id}
+          setIsProgressCheck={setIsProgressCheck}
+          isProgressCheck={isProgressCheck}
+        />
 
         {/*코멘트*/}
         <div className={styles.title}>
@@ -206,4 +222,4 @@ const CardDetailMain = ({ cardContent, cardLabel }) => {
   );
 };
 
-export default CardDetailMain;
+export default React.memo(CardDetailMain);

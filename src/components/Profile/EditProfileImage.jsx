@@ -10,11 +10,9 @@ const EditProfileImage = (props) => {
   const dispatch = useDispatch();
   const [profileImage, setProfileImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(props);
 
   const profileImageChange = (e) => {
     setProfileImage(e.target.files[0]);
-    console.log("확인", profileImage);
   };
 
   useEffect(() => {
@@ -22,7 +20,6 @@ const EditProfileImage = (props) => {
       setIsLoading(true);
       const formData = new FormData();
       formData.append("profileImage", profileImage);
-      console.log("프로필", formData);
       dispatch(
         changeUserInfo({
           type: "changeImage",

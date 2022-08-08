@@ -72,7 +72,7 @@ const ProjectAddCard = () => {
                 />
                 <input
                   placeholder="title"
-                  value={addTitle}
+                  value={addTitle || ""}
                   onChange={titleHandler}
                 />
               </label>

@@ -2,37 +2,34 @@
 @import "./src/style/common/mixin";
 
 .kanban_board {
-  width: 280px;
-  min-width: 280px;
+  width: 250px;
+  min-width: 250px;
   height: 75vh;
   //border: 1px solid #3F4650;
   border-radius: 10px;
   margin-right: 20px;
   overflow-y: auto;
+  overflow-x: hidden;
   z-index: auto;
   background: $light_gray;
-
-  &::-webkit-scrollbar {
-    width: 15px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    border: 1px solid $border_gray;
-  }
+  @include scroll_design("y", 10px, #FFFFFF);
 
   & > div {
-    margin-bottom: 15px;
+    //border: 1px solid blue;
   }
 
   .kanban_title{
-    font-size: 30px;
+    font-size: 23px;
     font-weight: 600;
-    margin-left: 20px;
-    margin-bottom: 10px;
+    padding-top: 10px;
     display: flex;
+    background: $light_gray;
     justify-content: space-between;
-    margin-right: 10px;
+    margin-left: 10px;
+
+
+    //border: 1px solid blue;
+
     .kanban_count {
       font-size: 20px;
       margin-left: 10px;
@@ -44,4 +41,5 @@
     height: 770px;
 
   }
+
 }

@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import classNames from "classnames";
 
 const GetLabels = ({ item, cardId, type }) => {
-  console.log("타입", type);
   const dispatch = useDispatch();
   const deleteCardLabelClick = () => {
     dispatch(

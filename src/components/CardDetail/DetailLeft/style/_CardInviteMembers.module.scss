@@ -7,6 +7,7 @@
   margin-top: 100px;
   overflow-y: auto;
   overflow-x: hidden;
+  @include scroll_design("y", 10px, #ffffff);
   .title{
     //background-color: $main_gray;
     //height: 30px;
@@ -32,8 +33,11 @@
 
 .members {
   display: grid;
+  width: 300px;
   grid-template-columns:repeat(3, 1fr);
-  margin: 20px 0 0 10px;
+  row-gap: 15px;
+  max-height: 250px;
+  margin: 20px auto;
 
   .member {
     display: flex;
@@ -50,13 +54,17 @@
     }
   }
 }
-.invite_button{
-  width: 100%;
-  margin-top: 20px;
+.no_member{
+  width: 300px;
+  margin-top: 10px;
   text-align: center;
+}
+.invite_button{
+  text-align: center;
+  position: fixed;
+  width: 300px;
+  margin: 50px auto;
   button{
-    position: fixed;
-    margin: 130px 0 0 -50px;
     @include button_styles(100px, 30px, $main_gray, 3px, $white_font, 15px );
   }
 

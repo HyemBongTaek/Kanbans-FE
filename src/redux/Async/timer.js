@@ -10,7 +10,6 @@ export const getTimer = createAsyncThunk(
         method: "GET",
       });
       if (res.data.ok) {
-        console.log(res.data);
         return res.data.alarms;
       }
     } catch (err) {
@@ -21,7 +20,6 @@ export const getTimer = createAsyncThunk(
 export const addTimer = createAsyncThunk(
   "timer/addTimer",
   async ({ time, createdAt }, thunkAPI) => {
-    console.log(createdAt, time);
     try {
       const res = await Apis({
         url: `/alarm`,

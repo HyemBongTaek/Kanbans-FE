@@ -8,53 +8,82 @@ $colors: ($label_red, $label_pink, $label_orange, $label_yellow, $label_emerald_
 .label_main {
   @include modal_container(300px, 300px);
   margin-left: -10px;
+  display: grid;
+  grid-template-rows: repeat(3, 20% 30% 50%);
+}
+.label_title{
+  margin-top: 20px;
+  font-size: 20px;
+  text-align: center;
 }
 
-.label_form {
-
+.label_colors {
   label {
-    .label_colors{
-      display: flex;
-      margin-top: 10px;
+    .label {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
 
-    .label_red {
-      width: 100px;
-      height: 20px;
-      border: none;
-      background-color: $label_red;
+      .label_color {
+        display: flex;
+        margin-top: 10px;
 
-      &:focus {
-        outline: none;
+        .label_red {
+          width: 100px;
+          height: 20px;
+          border: none;
+          background-color: $label_red;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        .label_pink {
+          @extend .label_red;
+          background-color: $label_pink;
+        }
+
+        .label_orange {
+          @extend .label_red;
+          background-color: $label_orange;
+        }
+
+        .label_yellow {
+          @extend .label_red;
+          background-color: $label_yellow;
+        }
+
+        .label_emerald_green {
+          @extend .label_red;
+          background-color: $label_emerald_green;
+        }
+
+        .label_green {
+          @extend .label_red;
+          background-color: $label_green;
+        }
       }
     }
-
-    .label_pink {
-      @extend .label_red;
-      background-color: $label_pink;
-    }
-
-    .label_orange {
-      @extend .label_red;
-      background-color: $label_orange;
-    }
-
-    .label_yellow {
-      @extend .label_red;
-      background-color: $label_yellow;
-    }
-
-    .label_emerald_green {
-      @extend .label_red;
-      background-color: $label_emerald_green;
-    }
-
-    .label_green {
-      @extend .label_red;
-      background-color: $label_green;
-    }
-  }
   }
 }
+.label_bottom{
+  display: grid;
+  margin: 20px auto;
+  place-items: center;
+  div{
+    font-size: 10px;
+    margin-bottom: 5px;
+  }
+
+  input{
+    @include input_styles(250px, 20px, $main_gray, 3px, $main_gray, 15px, $main_gray);
+  }
+  button{
+    margin-top: 10px;
+    @include button_styles(110px, 30px, $main_gray, 3px, $white_font, 15px);
+  }
+}
+
 
 .label_overlay {
   box-sizing: border-box;

@@ -34,7 +34,11 @@ const KanbanCardDetail = () => {
         <div className={styles.header} />
         <div className={styles.main}>
           <div>
-            <CardDetailMain cardContent={cardContent} cardLabel={cardLabel} />
+            <CardDetailMain
+              cardContent={cardContent}
+              cardLabel={cardLabel}
+              projectId={projectId}
+            />
           </div>
           <div>
             <CardDetailLeft cardId={cardId} projectId={projectId} />

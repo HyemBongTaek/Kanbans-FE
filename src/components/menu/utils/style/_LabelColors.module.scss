@@ -6,7 +6,21 @@
 .div_style{
   width: 100px;
   height: 20px;
+  border-radius: 5px;
   display: flex;
+  .title{
+    width: 70px;
+  }
+  .icon{
+    visibility: hidden;
+    cursor: pointer;
+    @include icons($main_gray, 20px);
+  }
+  &:hover{
+    .icon{
+      visibility: visible;
+    }
+  }
 }
 .red{
   @extend .div_style;

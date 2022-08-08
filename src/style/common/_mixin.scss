@@ -44,7 +44,25 @@
     width: 30px;
     height: 30px;
     border-radius: 30px;
+  }@else{
+    width: $size;
+    height: $size;
+    border-radius: $size;
   }
+}
+
+@mixin input_styles($width, $height, $color, $borderRadius, $fontColor, $fontSize, $borderColor){
+  width: $width;
+  height: $height;
+  color: $color;
+  border-radius: $borderRadius;
+  @if $borderColor{
+    border: 1px solid $borderColor;
+  }
+  &:focus{
+    outline: none;
+  }
+
 }
 
 @mixin button_styles($width, $height, $color, $borderRadius, $fontColor, $fontSize){
@@ -68,6 +86,7 @@
 }
   &::-webkit-scrollbar {
     width: $width;
+    height: $width;
 
   }
 

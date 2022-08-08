@@ -33,18 +33,30 @@ const AddingLabel = ({ setIsAddingLabel, cardId, projectId }) => {
   return (
     <>
       <div className={styles.label_main}>
-        {label_list &&
-          label_list.map((item) => {
-            return (
-              <LabelColors
-                item={item}
-                projectId={projectId}
-                setSelectedLabel={setSelectedLabel}
-                seletedLabel={selectedLabel}
-              />
-            );
-          })}
-        <button onClick={addCardLabel}>등록하기</button>
+        <div className={styles.labels}>
+          <div className={styles.label_title}>
+            <span>
+              프로젝트에 등록되어있는 <br />
+              라벨 등록/삭제하기
+            </span>
+          </div>
+          <div className={styles.labels}>
+            {label_list &&
+              label_list.map((item) => {
+                return (
+                  <LabelColors
+                    item={item}
+                    projectId={projectId}
+                    setSelectedLabel={setSelectedLabel}
+                    seletedLabel={selectedLabel}
+                  />
+                );
+              })}
+          </div>
+        </div>
+        <div className={styles.label_button}>
+          <button onClick={addCardLabel}>등록하기</button>
+        </div>
       </div>
       <div
         className={styles.label_overlay}

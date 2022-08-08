@@ -39,7 +39,8 @@ const InputContainer = ({ type, boardId, projectId }) => {
     setOpen(false);
   };
 
-  const addsHandler = () => {
+  const addsHandler = (e) => {
+    e.preventDefault();
     Apis.post("/board", {
       title,
       projectId,

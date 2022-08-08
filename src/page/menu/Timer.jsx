@@ -14,8 +14,11 @@ const Timer = () => {
             <TimerTable setIsTable={setIsTable} />
           </div>
         ) : (
-          <div onClick={() => setIsTable((pre) => !pre)}>
-            Focus Time 기록 확인하기
+          <div
+            className={styles.button_table}
+            onClick={() => setIsTable((pre) => !pre)}
+          >
+            <button>시간 확인하기</button>
           </div>
         )}
         <FocusTimer isTable={isTable} />

@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 const MemberPage = ({ projectId }) => {
   const user = useSelector((state) => state.userSlice.userInfo);
-  console.log("유저", user);
   return (
     <div>
       <Member projectId={projectId} user={user} />

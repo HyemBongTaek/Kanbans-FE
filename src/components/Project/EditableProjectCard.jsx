@@ -35,8 +35,18 @@ const EditableProjectCard = ({ projectId, existingTitle, setIsEditable }) => {
         <label>
           <input value={title} onChange={inputChangeHandler} />
         </label>
-        {isActive && <button>등록하기</button>}
       </form>
+      {isActive && (
+        <button className={styles.add_button} onClick={changeProject}>
+          등록하기
+        </button>
+      )}
+      <button
+        onClick={() => setIsEditable((pre) => !pre)}
+        className={styles.finish_button}
+      >
+        끝내기
+      </button>
       {/*<SwitchButton isOn={isOn} onClick={() => setIsOn(!isOn)} />*/}
     </div>
   );

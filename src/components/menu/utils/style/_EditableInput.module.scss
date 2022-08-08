@@ -2,13 +2,14 @@
 @import "./src/style/common/colors";
 
 .editable {
-  height: 40px;
+  height:30px;
   width: 250px;
-  margin: 10px auto;
+  margin: 0 auto;
   border: 1px solid $border_gray;
   border-radius: 10px;
 
   label {
+    width: 200px;
     display: flex;
     padding-top: 4px;
     justify-content: space-between;
@@ -19,7 +20,7 @@
     }
 
     .icons {
-      @include icons($comment_gray, 30px);
+      @include icons($comment_gray, 20px);
     }
     .icons_x{
       &:hover{
@@ -27,6 +28,7 @@
       }
     }
      .icons_check{
+       margin-left: -30px;
        &:hover{
          color: $main_green;
        }

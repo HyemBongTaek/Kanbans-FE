@@ -17,3 +17,18 @@
 
   }
 }
+.add_button{
+  margin: 62px 20px 0 0;
+  @include button_styles(80px, 30px, $main_gray, 5px, $white_font, 15px);
+  &:hover{
+    background-color: $white_font;
+    color: $main_gray;
+  }
+}
+.finish_button{
+  @include button_styles(80px, 30px, $light_gray, 5px, $main_gray, 15px);
+  &:hover{
+    background-color: $main_gray;
+    color: $light_gray;
+  }
+}

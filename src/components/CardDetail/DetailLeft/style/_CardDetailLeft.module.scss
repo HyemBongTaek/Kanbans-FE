@@ -22,6 +22,7 @@
     height: 25px;
     font-size: 16px;
     margin: 0 0 0 -10px;
+    font-weight: bolder;
   }
 
   .user{
@@ -34,10 +35,9 @@
           @include profile_image("large");
         }
         .user_icon{
-
+          cursor: pointer;
           margin-left: -15px;
         }
-
       }
 
       .name{
@@ -46,5 +46,10 @@
       }
     }
 
+  }
+  .icon{
+    margin: 10px 5px 0 0;
+    cursor: pointer;
+    @include icons($main_gray, 30px);
   }
 }

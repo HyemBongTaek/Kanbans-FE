@@ -54,7 +54,7 @@ const KanbanCard = (props) => {
   };
 
   const changeTime = useCallback(new Date(props.cards.createdAt.split("Z")[0]));
-  const createdDate = useCallback(format(changeTime, "dd MMMM"));
+  const createdDate = useCallback(format(changeTime, "dd MMM"));
 
   //데이터 받은 값을 소켓에 바로 넘겨주기 위해 분리해서 따로 뺌.
   const completeCheckCard = () => {
@@ -93,14 +93,15 @@ const KanbanCard = (props) => {
   const dateAfter =
     props.cards?.dDay && isAfter(new Date(), parseISO(props.cards.dDay));
 
+  //카드에 제목이 길경우 저 길이 까지만 자르기
+  const title = card.title.trim().substr(0, 15);
+
+  const members = card.users && card.users.slice(0, 5);
+
   return (
     <>
       {cardId && (
-        <Draggable
-          draggableId={cardId.toString()}
-          index={props.index}
-          key={cardId}
-        >
+        <Draggable draggableId={cardId} index={props.index} key={cardId}>
           {/*완료(체크표시)가 된 경우에는 흐리게 변경해준다*/}
           {(provided) => (
             <div
@@ -155,9 +156,7 @@ const KanbanCard = (props) => {
                       height="30"
                     />
                   </div>
-                  {/* <Icon icon= color="#545454" height="30" /> */}
                 </div>
-
                 <div
                   className={
                     props.cards.check
@@ -166,14 +165,32 @@ const KanbanCard = (props) => {
                   }
                   onClick={detailModal}
                 >
-                  {props.cards.title}
+                  {title}
                   <div
                     className={
                       props.cards.check
                         ? styles.card_check_mid
                         : styles.card_mid
                     }
-                  ></div>
+                  >
+                    {members &&
+                      members.map((user) => {
+                        return (
+                          <img
+                            key={user.id}
+                            src={user.profileImage}
+                            alt="card member"
+                          />
+                        );
+                      })}
+                    {members && card.users.length > 4 && (
+                      <Icon
+                        icon="ph:dots-three-circle-light"
+                        color="#545454"
+                        height="20"
+                      />
+                    )}
+                  </div>
                 </div>
 
                 <div className={styles.card_bottom}>
@@ -194,15 +211,14 @@ const KanbanCard = (props) => {
                       <>
                         <Icon className={styles.bottom_icon} icon="bi:clock" />
                         <span>
-                          {" "}
                           &nbsp;{dateAfter ? " D+" : "D-"}
                           {dDay}&nbsp;
                         </span>
                       </>
                     )}
                   </div>
-                  <div className={styles.task}>
-                    {card.taskCount !== 0 && (
+                  {card.taskCount !== 0 && (
+                    <div className={styles.task}>
                       <>
                         <Icon
                           className={styles.bottom_icon}
@@ -212,19 +228,16 @@ const KanbanCard = (props) => {
                           {card.taskCheckCount}/{card.taskCount}
                         </span>
                       </>
-                    )}
-                  </div>
-                  <div className={styles.task}>
-                    {card.commentCount !== 0 && (
-                      <>
-                        <Icon
-                          className={styles.bottom_icon}
-                          icon="ei:comment"
-                        />
-                        <span> {card.commentCount}</span>
-                      </>
-                    )}
-                  </div>
+                    </div>
+                  )}
+
+                  {card.commentCount !== 0 && (
+                    <div className={styles.task}>
+                      <Icon className={styles.bottom_icon} icon="ei:comment" />
+                      <span> {card.commentCount}</span>
+                    </div>
+                  )}
+
                   <div className={styles.delete_card} onClick={deleteCard}>
                     <Icon
                       className={styles.delete_icon}

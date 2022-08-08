@@ -3,10 +3,14 @@ import styles from "./style/_CardDetailImage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { ImageDelete, imageUpload } from "../../redux/Async/KanbanCardDetail";
 import CardDetailImageCard from "./CardDetailImageCard";
+import { useLocation } from "react-router-dom";
 
 const CardDetailImage = ({ cardId }) => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const [image, setImage] = useState(null);
+
+  const projectId = location.state.projectId;
 
   const changeImage = (e) => {
     e.preventDefault();
@@ -23,6 +27,7 @@ const CardDetailImage = ({ cardId }) => {
         imageUpload({
           formData,
           cardId,
+          projectId,
         })
       );
     }
@@ -31,8 +36,17 @@ const CardDetailImage = ({ cardId }) => {
   const imageLists = useSelector((state) => state.cardDetailSlice.images);
 
   return (
-    <div>
-      <input type="file" onChange={changeImage} multiple="multiple" />
+    <div className={styles.detail_image}>
+      <div className={styles.input_upload}>
+        <label htmlFor="image_file">이미지 업로드</label>
+        <input
+          type="file"
+          id="image_file"
+          onChange={changeImage}
+          multiple="multiple"
+        />
+      </div>
+
       {imageLists && (
         <div className={styles.detail_attachments}>
           {imageLists?.map((el) => {

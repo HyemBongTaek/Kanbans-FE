@@ -45,7 +45,6 @@ const KanbanList = () => {
   //페이지를 떠나거나 뒤로갈 경우 소켓 자동으로 해제되게 만들었음.
   useEffect(() => {
     return history.listen(() => {
-      console.log("액션확인", history.action);
       socket.emit("leave", projectId);
       socket.disconnect();
     });
@@ -59,21 +58,17 @@ const KanbanList = () => {
   }, [params]);
 
   useEffect(() => {
-    socket?.on("connect", () => {
-      console.log("소켓연결완료");
-    });
+    socket?.on("connect", () => {});
 
     socket?.on("connect_error", (err) => {
-      console.log("에러메세지", err.message);
+      console.log(err);
     });
 
     socket?.on("isDrag", (payload) => {
       setIsDrag(payload);
     });
 
-    socket?.on("duplicatedDrag", ({ message }) => {
-      console.log(message);
-    });
+    socket?.on("duplicatedDrag", ({ message }) => {});
     socket.on("moveResult", (payload) => {
       if (payload.type === "card" && payload.startOrder !== null) {
         dispatch(
@@ -278,10 +273,9 @@ const KanbanList = () => {
                   columnOrders?.map((boardId, index) => {
                     const boards = board[boardId];
                     const cards = boards?.cardId?.map((cardId) => card[cardId]);
-
                     return (
                       <KanbanBoard
-                        key={boards.id.toString()}
+                        key={boards.id}
                         boards={boards}
                         cards={cards}
                         index={index}
@@ -301,4 +295,4 @@ const KanbanList = () => {
   );
 };
 
-export default React.memo(KanbanList);
+export default KanbanList;
