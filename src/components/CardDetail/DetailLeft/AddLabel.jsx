@@ -8,15 +8,6 @@ const AddLabel = ({ setIsOpen, projectId, cardId }) => {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
 
-  // const labelColorButton = [
-  //   { color: "red" },
-  //   { color: "pink" },
-  //   { color: "orange" },
-  //   { color: "yellow" },
-  //   { color: "emerald_green" },
-  //   { color: "green" },
-  // ];
-  //
   const [isColor, setIsColor] = useState([]);
   const [selectData, setSelectData] = useState(false);
   const handleChange = (e) => {

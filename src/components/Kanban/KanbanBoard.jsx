@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./style/_KanbanBoard.module.scss";
 
 import { Draggable, Droppable } from "react-beautiful-dnd";
@@ -17,7 +17,20 @@ const KanbanBoard = (props) => {
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const boards = props.boards;
 
-  const dropdownClick = () => setIsActive(!isActive);
+  const dropdownClick = () => setIsActive((pre) => !pre);
+
+  //아래로 스크롤 내려가고 채팅 올라올 시 자동으로 스크롤 아래로 내려주기.
+  const endRef = useRef(null);
+
+  const scrollToBottom = () => {
+    if (endRef && endRef.current) {
+      endRef.current.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
+
+  useEffect(scrollToBottom, [props]);
   return (
     <>
       <Draggable
@@ -69,11 +82,6 @@ const KanbanBoard = (props) => {
                   )}
                 </div>
               </div>
-              <InputContainer
-                type="card"
-                boardId={props.boards.id}
-                projectId={boards.projectId}
-              />
 
               <Droppable droppableId={boards.id.toString()} type="card">
                 {(provided) => (
@@ -95,6 +103,11 @@ const KanbanBoard = (props) => {
                 )}
               </Droppable>
             </>
+            <InputContainer
+              type="card"
+              boardId={props.boards.id}
+              projectId={boards.projectId}
+            />
           </div>
         )}
       </Draggable>

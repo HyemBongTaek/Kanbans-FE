@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import EditProfileImage from "../../components/Profile/EditProfileImage";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import styles from "./_Profile.module.scss";

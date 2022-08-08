@@ -19,6 +19,8 @@ import isAfter from "date-fns/isAfter";
 
 import StatusCheck from "./StatusCheck";
 import GetLabels from "../CardDetail/GetLabels";
+import Swal from "sweetalert2";
+import { deleteProject, leaveProject } from "../../redux/Async/projects";
 
 const KanbanCard = (props) => {
   const dispatch = useDispatch();
@@ -38,19 +40,33 @@ const KanbanCard = (props) => {
   };
 
   const deleteCard = () => {
-    dispatch(
-      deleteKanbanCard({
-        cardId: cardId,
-        boardId: props.boardId,
-      })
-    );
-    dispatch(
-      cardDeleteSocket({
-        room: projectId,
-        boardId: props.boardId,
-        cardId,
-      })
-    );
+    Swal.fire({
+      title: `${card.title}를 삭제하시겠습니까?`,
+      text: `${card.title}를 삭제하시면 다시 복구할 수 없습니다.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(
+          deleteKanbanCard({
+            cardId: cardId,
+            boardId: props.boardId,
+          })
+        );
+        dispatch(
+          cardDeleteSocket({
+            room: projectId,
+            boardId: props.boardId,
+            cardId,
+          })
+        );
+
+        Swal.fire(`${card.title}을 삭제하였습니다.`, "", "success");
+      }
+    });
   };
 
   const changeTime = useCallback(new Date(props.cards.createdAt.split("Z")[0]));

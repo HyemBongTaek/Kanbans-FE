@@ -3,14 +3,16 @@
 .dropdown{
   width: 285px;
   height: 140px;
-  position: absolute;
+  position: fixed;
   font-size: 20px;
+  margin: -10px 0 0 -50px;
   background-color: #ffffff;
   z-index: 100;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 
   & > div{
+    cursor: pointer;
     text-align: center;
     font-size: 15px;
     line-height: 70px;
@@ -18,5 +20,17 @@
 
   & > div:first-child{
     border-bottom: 1px solid $white_font;
+    &:hover{
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      background-color: $light_gray;
+    }
+  }
+  & > div:nth-child(2){
+   &:hover{
+     border-bottom-left-radius: 10px;
+     border-bottom-right-radius: 10px;
+     background-color: $light_gray;
+   }
   }
 }

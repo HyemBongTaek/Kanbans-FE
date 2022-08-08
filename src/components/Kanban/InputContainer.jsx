@@ -16,12 +16,14 @@ const InputContainer = ({ type, boardId, projectId }) => {
   const inputRef = useRef();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     socket.emit("join", projectId);
   }, [projectId]);
 
   const titleOnChange = (e) => {
+    setIsActive(true);
     setTitle(e.target.value);
   };
 
@@ -36,6 +38,7 @@ const InputContainer = ({ type, boardId, projectId }) => {
       )
     );
     setTitle("");
+    setIsActive(false);
     setOpen(false);
   };
 
@@ -57,6 +60,7 @@ const InputContainer = ({ type, boardId, projectId }) => {
   const cancleClick = () => {
     setOpen(false);
     setTitle("");
+    inputRef.current.focus();
   };
 
   // 외부클릭 감지
@@ -87,13 +91,16 @@ const InputContainer = ({ type, boardId, projectId }) => {
             ref={inputRef}
           >
             <label>
-              <input value={title || ""} onChange={titleOnChange} />
-              <div>
-                <Icon
-                  className={styles.icon_check}
-                  onClick={addsHandler}
-                  icon="bi:check-lg"
-                />
+              <input value={title || ""} onChange={titleOnChange} autoFocus />
+              <div className={styles.icons}>
+                {isActive && (
+                  <Icon
+                    className={styles.icon_check}
+                    onClick={addsHandler}
+                    icon="bi:check-lg"
+                  />
+                )}
+
                 <Icon
                   className={styles.icon_cancle}
                   onClick={cancleClick}
@@ -110,13 +117,17 @@ const InputContainer = ({ type, boardId, projectId }) => {
                 className={styles.input}
                 value={title || ""}
                 onChange={titleOnChange}
+                autoFocus
               />
-              <div>
-                <Icon
-                  className={styles.icon_check}
-                  onClick={addCards}
-                  icon="bi:check-lg"
-                />
+              <div className={styles.icons}>
+                {isActive && (
+                  <Icon
+                    className={styles.icon_check}
+                    onClick={addCards}
+                    icon="bi:check-lg"
+                  />
+                )}
+
                 <Icon
                   className={styles.icon_cancle}
                   onClick={cancleClick}
