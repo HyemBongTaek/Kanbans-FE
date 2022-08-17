@@ -10,4 +10,4 @@ Front-end |Back-end|Back-end|
 <img width= "150px" src="https://avatars.githubusercontent.com/u/85723134?v=4"/></br><a href='https://github.com/hyemin085'>박혜민</a></br>|<img width= "150px" src="https://avatars.githubusercontent.com/u/88937864?v=4"/></br><a href='https://github.com/poseson92'>김봉진</a>|<img width= "150px" src="https://avatars.githubusercontent.com/u/48742487?v=4"/></br><a href='https://github.com/choice91'>이선택</a>
 
 
-<iframe width="1280" height="621" src="https://www.youtube.com/embed/-_psWkpC5r8" title="cocori" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Video Label](http://img.youtube.com/vi/-_psWkpC5r8/0.jpg)](https://youtu.be/-_psWkpC5r8)
