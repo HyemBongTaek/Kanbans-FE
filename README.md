@@ -1,5 +1,13 @@
 ![cocoli](https://user-images.githubusercontent.com/85723134/169466740-5ca1f0a0-6e3a-44ca-b6ee-646c021497f9.png)
 
+## 프로젝트 소개
+
+코코리는 coworker collaboration remember의 줄임말로
+동료와 함께 협업하고 기록하자는 의미에서 코코리라고 이름지었습니다. 
+코코리는 시간관리를 위한 뽀모도로 타이머와 
+프로젝트에 맴버를 추가해 함께 사용 가능한 보드를 제공합니다. 
+
+
 ## 참여인원 및 프로젝트 기간
 - 2022-05-01~
 
@@ -10,14 +18,6 @@ Front-end/Design/PM |Back-end|Back-end|
 ## 코코리 소개영상
 [![Video Label](http://img.youtube.com/vi/-_psWkpC5r8/0.jpg)](https://youtu.be/-_psWkpC5r8)
 
-
-
-## 프로젝트 소개
-
-코코리는 coworker collaboration remember의 줄임말로
-동료와 함께 협업하고 기록하자는 의미에서 코코리라고 이름지었습니다. 
-코코리는 시간관리를 위한 뽀모도로 타이머와 
-프로젝트에 맴버를 추가해 함께 사용 가능한 보드를 제공합니다. 
 
 
 ## 사용한 기술
