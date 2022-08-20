@@ -23,14 +23,14 @@ const KAKAOShareButton = ({ inviteCode }) => {
         imageUrl:
           "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbzGQZp%2FbtrDThRmiDj%2FnCkeIKWiIdQqJ4nY8ziQ0k%2Fimg.png",
         link: {
-          webUrl: "http://cocori.site/",
+          webUrl: "https://cocori.site/",
         },
       },
       buttons: [
         {
           title: "웹으로 보기",
           link: {
-            webUrl: "http://cocori.site/",
+            webUrl: "https://cocori.site/",
           },
         },
       ],

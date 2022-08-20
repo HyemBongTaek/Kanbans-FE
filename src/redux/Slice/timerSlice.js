@@ -7,7 +7,8 @@ const TimerSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getTimer.fulfilled, (state, action) => {
-      state.timerList = action.payload;
+      state.timerList = action.payload.alarms;
+      state.timerTotal = action.payload.allAlarm;
     });
   },
 });

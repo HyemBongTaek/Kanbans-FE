@@ -5,10 +5,12 @@ import ReactTooltip from "react-tooltip";
 const Tooltip = ({ content, color, children }) => {
   return (
     <>
-      <a data-tip={content} style={{ textAlign: "center" }}>
+      <ReactTooltip style={{ textAlign: "center" }} />
+      <a data-tip={content} data-iscapture="true">
         {children}
       </a>
-      <ReactTooltip place="top" type={color} effect="float" />
+
+      {/*<ReactTooltip place="top" type={color} effect="solid" />*/}
     </>
   );
 };

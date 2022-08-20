@@ -4,12 +4,11 @@
 
 .detail_image {
   .input_upload {
-
     display: flex;
     justify-content: flex-end;
 
     label {
-      margin-top: -30px;
+      margin: -30px 10px 0;
       line-height: 30px;
       text-align: center;
       @include button_styles(120px, 30px, $main_gray, 3px, $white_font, 15px);

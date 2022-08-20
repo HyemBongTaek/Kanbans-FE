@@ -3,8 +3,8 @@
 
 .card_detail_container {
   width: 830px;
-  height: 1000px;
-  max-height: 81%;
+  height: 800px;
+  max-height: 800px;
   position: absolute;
   top: 5%;
   left: 15%;
@@ -46,7 +46,7 @@
     display: flex;
 
     label {
-      width: 520px;
+      width: 525px;
       height: 30px;
       font-size: 20px;
       background-color: $white_font;
@@ -55,7 +55,7 @@
     }
 
     input {
-      width: 500px;
+      width: 520px;
       height: 25px;
       font-size: 20px;
       background-color: $white_font;
@@ -88,7 +88,7 @@
     }
 
     .title_textarea {
-      width: 520px;
+      width: 525px;
       height: 80px;
       display: flex;
 
@@ -115,6 +115,7 @@
     display: flex;
   }
   .progress_button{
+    margin-right: 10px;
     @include button_styles(130px, 30px, $main_gray, 3px, $white_font, 15px );
   }
 }
@@ -124,9 +125,10 @@
 .main {
   display: grid;
   padding-top: 50px;
-  padding-left: 20px;
+  margin-left: 30px;
   height: 72vh;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 535px 300px);
+  overflow-x: hidden;
   overflow-y: auto;
   //스크롤바 디자인
   &::-webkit-scrollbar {

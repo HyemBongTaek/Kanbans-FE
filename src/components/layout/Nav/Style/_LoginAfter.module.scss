@@ -17,7 +17,7 @@
   background: $main_gray;
   border-radius: 40px;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
-  margin-left: 1.5%;
+  margin-left: 23px;
   margin-top: 5%;
   .small_icon{
     margin-left: 20px;
@@ -34,7 +34,7 @@
   background: $main_gray;
   border-radius: 40px;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
-  margin-left: 1.5%;
+  margin-left: 23px;
   margin-top: 5%;
 
   ul {
@@ -53,13 +53,11 @@
       width: 70px;
       height: 70px;
       z-index: 1;
-      //justify-content: center;
-      //text-align: center;
       color: #FFFFFF;
       &:hover a .title{
         opacity: 1;
         visibility: visible;
-        transform: translateX(-25px) translateY(-50%);
+        transform: translateX(0px) translateY(-50%);
 
       }
       & > a .title::before{
@@ -84,17 +82,11 @@
         color: #f3f3f3;
         font-weight: 500;
 
-        //&:active, &:hover{
-        //  .icons{
-        //    color: $main_gray;
-        //  }
-        //
-        //}
         .icons {
           position: relative;
           display: block;
           line-height: 75px;
-          margin-left: -6px;
+          margin: 10px 0 0 18px;
           @include icons("white", 35px);
         }
 
@@ -114,27 +106,6 @@
         }
       }
     }
-    //.indicator{
-    //  position: absolute;
-    //  left: 0;
-    //  width: 70px;
-    //  height: 70px;
-    //  transition: 0.5s;
-    //
-    //  &:before{
-    //    width: 50px;
-    //    height: 50px;
-    //    content: '';
-    //    position: absolute;
-    //    top: 50%;
-    //    left: 50%;
-    //    transform: translate(-48%);
-    //    margin-top: -39px;
-    //    background: #ffffff;
-    //    border-radius: 50%;
-    //    transition: 0.5s;
-    //
-    //  }
-    //}
+
   }
 }

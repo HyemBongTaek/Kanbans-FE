@@ -114,6 +114,11 @@ const KanbanCard = (props) => {
 
   const members = card.users && card.users.slice(0, 5);
 
+  const labels =
+    card.labels && card.labels.length > 5
+      ? card.labels.slice(0, 5)
+      : card.labels;
+
   return (
     <>
       {cardId && (
@@ -150,7 +155,7 @@ const KanbanCard = (props) => {
                 <div className={props.cards.labels && styles.card_top}>
                   <div className={styles.labels}>
                     {props.cards.labels &&
-                      props.cards.labels.map((label) => {
+                      labels.map((label) => {
                         return (
                           <GetLabels
                             key={label.labelId}
@@ -233,7 +238,7 @@ const KanbanCard = (props) => {
                       </>
                     )}
                   </div>
-                  {card.taskCount !== 0 && (
+                  {card.taskCount !== 0 && card.taskCount && (
                     <div className={styles.task}>
                       <>
                         <Icon
@@ -247,7 +252,7 @@ const KanbanCard = (props) => {
                     </div>
                   )}
 
-                  {card.commentCount !== 0 && (
+                  {card.commentCount !== 0 && card.commentCount && (
                     <div className={styles.task}>
                       <Icon className={styles.bottom_icon} icon="ei:comment" />
                       <span> {card.commentCount}</span>

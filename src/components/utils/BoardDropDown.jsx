@@ -8,6 +8,7 @@ const BoardDropDown = ({ boardId, projectId, cardOrder }) => {
   return (
     <>
       <div className={styles.dropdown}>
+        <div className={styles.bubble} />
         <div
           onClick={() => deleteBoardClick({ boardId, projectId, cardOrder })}
         >

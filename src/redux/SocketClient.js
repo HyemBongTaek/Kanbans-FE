@@ -6,7 +6,7 @@ export default class SocketClient {
   socket: Socket | null | undefined;
 
   connect() {
-    this.socket = io.connect("http://3.37.231.161:4000", {
+    this.socket = io.connect("https://cocorikanbans.site", {
       extraHeaders: {
         authorization: `Bearer ${JSON.parse(token)}`,
       },

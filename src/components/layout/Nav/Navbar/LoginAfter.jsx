@@ -14,9 +14,6 @@ const LoginAfter = () => {
   const navigation = ["/profile", "/project", "/timer"];
 
   const [isClose, setIsClose] = useState(false);
-  const [isNav, setIsNav] = useState(false);
-  const [isOn, setIsOn] = useState(false);
-
   const sideVariants = {
     closed: {
       transition: {

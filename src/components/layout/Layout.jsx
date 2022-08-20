@@ -4,8 +4,6 @@ import "./styles/_Layout.scss";
 import { useCycle } from "framer-motion";
 
 const Layout = (props) => {
-  const [isOpen, toggleOpen] = useCycle(false, true);
-
   return (
     <div>
       {/*<Header isOpen={isOpen} toggleOpen={toggleOpen} />*/}

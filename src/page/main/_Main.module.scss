@@ -1,26 +1,112 @@
 @import "./src/style/common/colors";
 @import "./src/style/common/mixin";
+@import "./src/style/utils";
 
-.main{
-  display: grid;
-  grid-template-columns: repeat(2, 50% 50%);
-  margin-left: 100px;
-  .big_title{
-    margin-top: 150px;
-    font-size: 70px;
-    color: $bold_gray;
-    font-family: "Jalnan", "NanumSquare", serif;
-    span{
-      color: $sub_black;
+.main::-webkit-scrollbar{
+  display: none;
+}
+.main {
+  height: 95vh;
+  overflow-y: scroll;
+  //@include scroll_design("y", 15px, #ffffff);
+
+  .main_background {
+    margin-left: 5%;
+    display: grid;
+    height: 100vh;
+    grid-template-columns: repeat(2, 50% 50%);
+
+    .big_title {
+      margin-top: 150px;
+      font-size: 70px;
+      color: $bold_gray;
+      font-family: "Jalnan", "NanumSquare", serif;
+
+      span {
+        color: $sub_black;
+      }
+    }
+
+    .sub_title {
+      margin-top: 50px;
+      font-family: "NanumSquareRound", serif;
+      font-size: 30px;
+      color: $bold_gray;
+
+      span {
+        color: $sub_black;
+      }
+    }
+
+    .mobile_content {
+      visibility: hidden;
+    }
+
+    button {
+      cursor: pointer;
+      @include button_styles(120px, 50px, $main_gray, 3px, $white_font, 15px);
+    }
+
+  }
+
+  .second_background {
+    height: 100vh;
+    div{
+      margin: 0 auto;
     }
   }
-  .sub_title{
-    margin-top: 50px;
-    font-family: "NanumSquareRound", serif;
-    font-size: 30px;
-    color: $bold_gray;
-    span{
-      color: $sub_black;
+
+  .third_background {
+    height: 100vh;
+  }
+}
+
+.image {
+  margin: 3rem 0 0 -4rem;
+}
+
+
+@include mobile {
+  .main {
+    margin-top: -10vh;
+    margin-left: -40vw;
+   .second_background{
+     display: none;
+   }
+    .third_background{
+      display: none;
+    }
+
+    .main_background {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(2, 1fr);
+
+      .big_title {
+        color: $bold_gray;
+        font-size: 40px;
+        font-family: "Jalnan", "NanumSquare", serif;
+
+        span {
+          color: $sub_black;
+        }
+      }
+
+      .sub_title {
+        margin-top: 30px;
+        font-family: "NanumSquareRound", serif;
+        font-size: 20px;
+        color: $bold_gray;
+
+        span {
+          color: $sub_black;
+        }
+      }
+
+      .mobile_content {
+        font-size: 13px;
+        visibility: visible;
+      }
     }
   }
 

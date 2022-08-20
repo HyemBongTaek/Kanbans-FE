@@ -2,6 +2,14 @@
 @import "./src/style/common/mixin";
 
 //DetailComments.jsx, DetailCommentCard.jsx
+
+.task_button{
+  text-align: center;
+  button{
+    margin: 0 auto;
+    @include button_styles(120px, 30px, $main_gray, 5px, $white_font, 15px);
+  }
+}
 .comments, .progress_form {
   width: 480px;
   border: 1px solid $comment_gray;

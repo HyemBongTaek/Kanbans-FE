@@ -4,12 +4,12 @@ import styles from "./style/_KanbanBoard.module.scss";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
 import { Icon } from "@iconify/react";
-import InputContainer from "./InputContainer";
+import InputContainer from "../utils/InputContainer";
 import KanbanCard from "./KanbanCard";
 
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
-import EditableInput from "../menu/utils/EditableInput";
-import BoardDropDown from "../menu/utils/BoardDropDown";
+import EditableInput from "../utils/EditableInput";
+import BoardDropDown from "../utils/BoardDropDown";
 
 const KanbanBoard = (props) => {
   const dropdownRef = useRef(null);
@@ -65,7 +65,7 @@ const KanbanBoard = (props) => {
                   </div>
                 )}
 
-                <div ref={dropdownRef}>
+                <div className={styles.dropdown} ref={dropdownRef}>
                   <Icon
                     icon="bi:three-dots"
                     color="#8c8c8c"
@@ -98,16 +98,17 @@ const KanbanBoard = (props) => {
                           />
                         );
                       })}
+
                     {provided.placeholder}
+                    <InputContainer
+                      type="card"
+                      boardId={props.boards.id}
+                      projectId={boards.projectId}
+                    />
                   </div>
                 )}
               </Droppable>
             </>
-            <InputContainer
-              type="card"
-              boardId={props.boards.id}
-              projectId={boards.projectId}
-            />
           </div>
         )}
       </Draggable>

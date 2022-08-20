@@ -1,27 +1,28 @@
-const { app, BrowserWindow } = require("electron");
-const path = require("path");
-function createWindow() {
-  const window = new BrowserWindow({
-    width: 1500,
-    height: 1000,
-    // resizable: false,
-    minWidth: 1500,
-    minHeight: 1000,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      //토큰유지
-      enableRemoteModule: true,
-    },
-  });
-  window.loadURL("http://cocori.site/");
-}
-app.whenReady().then(() => {
-  createWindow();
-});
-app.on("window-all-closed", function () {
-  if (process.platform !== "darwin") app.quit();
-});
+// const { app, BrowserWindow } = require("electron");
+// const path = require("path");
+//
+// function createWindow() {
+//   const window = new BrowserWindow({
+//     width: 1500,
+//     height: 1000,
+//     // resizable: false,
+//     minWidth: 1500,
+//     minHeight: 1000,
+//     webPreferences: {
+//       nodeIntegration: true,
+//       contextIsolation: false,
+//       //토큰유지
+//       enableRemoteModule: true,
+//     },
+//   });
+//   window.loadURL("https://cocori.site/");
+// }
+// app.whenReady().then(() => {
+//   createWindow();
+// });
+// app.on("window-all-closed", function () {
+//   if (process.platform !== "darwin") app.quit();
+// });
 
 // const url = require("url");
 //

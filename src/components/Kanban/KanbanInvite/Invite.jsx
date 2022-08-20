@@ -30,17 +30,23 @@ const Invite = () => {
   return (
     <>
       <div className={styles.KanbanInvite}>
-        {/*<img src={Logo} alt="share_logo" />*/}
         <div className={styles.logo}>
           <img src={Logo} alt="cocori_logo" />
         </div>
-        {inviteCode}
-        <CopyToClipboard text={inviteCode}>
-          <button className={styles.copy}>
-            <Icon icon="akar-icons:copy" color="#8c8c8c" height="30" />
-          </button>
-        </CopyToClipboard>
-        <Share inviteCode={inviteCode} />
+        <div className={styles.invite_code}>
+          {inviteCode}
+          <CopyToClipboard text={inviteCode}>
+            <Icon
+              className={styles.copy}
+              icon="akar-icons:copy"
+              color="#8c8c8c"
+              height="30"
+            />
+          </CopyToClipboard>
+        </div>
+        <div className={styles.share_icons}>
+          <Share inviteCode={inviteCode} />
+        </div>
       </div>
       <div onClick={closeKanbanInviteClick} className={styles.overlay} />
     </>

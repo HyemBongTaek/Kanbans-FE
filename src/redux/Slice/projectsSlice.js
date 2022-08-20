@@ -22,6 +22,9 @@ const ProjectsSlice = createSlice({
     addProjectReducer(state, action) {
       state.projects.push(action.payload);
     },
+    joinProjectReducer(state, action) {
+      state.projects.push(action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getProject.fulfilled, (state, action) => {
@@ -29,6 +32,6 @@ const ProjectsSlice = createSlice({
     });
   },
 });
-export const { updateProjectReducer, addProjectReducer } =
+export const { updateProjectReducer, addProjectReducer, joinProjectReducer } =
   ProjectsSlice.actions;
 export default ProjectsSlice;

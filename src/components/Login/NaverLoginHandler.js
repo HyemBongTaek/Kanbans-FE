@@ -1,20 +1,18 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { authLogin, kakaoLogin } from "../../../redux/Async/user";
+import { authLogin } from "../../redux/Async/user";
 
-const KaKaoLoginHandler = () => {
+const NaverLoginHandler = () => {
   const code = new URL(window.location.href).searchParams.get("code");
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(
       authLogin({
+        types: "naver",
         code: code,
-        types: "kakao",
       })
     );
   }, [dispatch, code]);
 };
 
-export default KaKaoLoginHandler;
+export default NaverLoginHandler;

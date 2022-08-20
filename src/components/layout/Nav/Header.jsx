@@ -5,11 +5,7 @@ import { getUserInfo } from "../../../redux/Async/user";
 import styles from "../styles/_Header.module.scss";
 import { setOpenLoginReducer } from "../../../redux/Slice/commonSlice";
 
-import AfterLogin from "./Navbar/AfterLogin";
-import { getCookie } from "../../menu/login/utils/cookie";
-import { useCookies } from "react-cookie";
 import LoginAfter from "./Navbar/LoginAfter";
-import io from "socket.io-client";
 
 const Header = ({ isOpen, toggleOpen }) => {
   const dispatch = useDispatch();

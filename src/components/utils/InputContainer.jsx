@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import styles from "../menu/utils/style/_InputContainer.module.scss";
+import styles from "./style/_InputContainer.module.scss";
 import { useDispatch } from "react-redux";
 import { Icon } from "@iconify/react";
 import { socket } from "../../redux/store";
 import { boardAddSocket, cardAddSocket } from "../../redux/Slice/socketSlice";
-import axios from "axios";
 import Apis from "../../redux/apis";
 import {
   createBoardReducer,

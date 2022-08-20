@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { authLogin } from "../../../redux/Async/user";
+import { authLogin } from "../../redux/Async/user";
 
 const GoogleLoginHandler = () => {
   const code = new URL(window.location.href).searchParams.get("code");

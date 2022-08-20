@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserInfo, authLogin, changeUserInfo } from "../Async/user";
-import { setCookie } from "../../components/menu/login/utils/cookie";
+import { setCookie } from "../../components/Login/utils/cookie";
 
 const UserSlice = createSlice({
   name: "user",

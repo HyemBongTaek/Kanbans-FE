@@ -4,7 +4,7 @@ import { format, parseISO } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./style/_SelectedDday.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { addDaySelected } from "../../../redux/Async/KanbanCardDetail";
+import { addDaySelected } from "../../redux/Async/KanbanCardDetail";
 import { useParams } from "react-router-dom";
 
 const SelectedDday = () => {

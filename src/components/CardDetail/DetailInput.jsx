@@ -52,14 +52,21 @@ const DetailInput = ({ type, cardId }) => {
     });
   };
 
+  const progressCancle = () => {
+    setIsOpen(false);
+    setContent({
+      progress: "",
+    });
+  };
+
   return (
     <>
       <div className={styles.detail_input}>
         {/*progress바 부분 인풋*/}
         {!isOpen && (
-          <div>
+          <div className={styles.task_button}>
             {type === "progress" && (
-              <div onClick={() => setIsOpen(!isOpen)}>+ Add Task </div>
+              <button onClick={() => setIsOpen(!isOpen)}>+ Add Task </button>
             )}
           </div>
         )}
@@ -80,7 +87,7 @@ const DetailInput = ({ type, cardId }) => {
               <Icon
                 className={styles.icon}
                 icon="heroicons-outline:x"
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={progressCancle}
               />
             </label>
           </form>
