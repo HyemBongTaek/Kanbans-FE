@@ -2,15 +2,22 @@
 @import "./src/style/common/mixin";
 
 
-.share_button{
+.share_button {
   display: flex;
   width: 500px;
   justify-content: space-between;
   margin: auto;
-  .share_icon{
-    width: 80px;
-    height: 80px;
+
+  .share_icon {
+    width: 70px;
+    height: 70px;
     border: none;
-    background: #ffffff;
+    background-color: #ffffff;
+  }
+  .copy_button{
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: $light_gray;
   }
 }

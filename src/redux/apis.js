@@ -1,9 +1,9 @@
 import axios from "axios";
-import { getCookie, setCookie } from "../components/menu/login/utils/cookie";
+import { getCookie, setCookie } from "../components/Login/utils/cookie";
 import { useCookies } from "react-cookie";
 
 const Apis = axios.create({
-  baseURL: "http://3.37.231.161",
+  baseURL: "https://cocorikanbans.site",
 });
 
 //요청시 AccessToken 계속 보내주기
@@ -34,7 +34,7 @@ Apis.interceptors.response.use(
       const refreshToken = getCookie("cocoriLogin");
       try {
         const data = await axios({
-          url: `http://3.37.231.161:4000/oauth/refresh`,
+          url: `https://cocorikanbans.site/oauth/refresh`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${refreshToken}`,
@@ -53,7 +53,6 @@ Apis.interceptors.response.use(
           return await Apis.request(originalConfig);
         }
       } catch (err) {
-        console.log("refresh토큰 에러");
         throw err;
       }
       return Promise.reject(err);

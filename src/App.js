@@ -1,29 +1,21 @@
 import React, { useLayoutEffect, useState } from "react";
 import "./App.scss";
 
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Router,
-  Routes,
-} from "react-router-dom";
-import { useSelector } from "react-redux";
-import { getCookie } from "./components/menu/login/utils/cookie";
+import { Navigate, Route, Router, Routes } from "react-router-dom";
+import { getCookie } from "./components/Login/utils/cookie";
 
 import Layout from "./components/layout/Layout";
 import Main from "./page/main/Main";
 import ProjectPage from "./page/menu/ProjectPage";
-import Login from "./components/menu/login/Login";
+import Login from "./components/Login/Login";
 import Profile from "./page/menu/Profile";
 import KanbanBoards from "./page/menu/KanbanBoards";
-import KaKaoLoginHandler from "./components/menu/login/KaKaoLoginHandler";
-import GoogleLoginHandler from "./components/menu/login/GoogleLoginHandler";
-import NaverLoginHandler from "./components/menu/login/NaverLoginHandler";
+import KaKaoLoginHandler from "./components/Login/KaKaoLoginHandler";
+import GoogleLoginHandler from "./components/Login/GoogleLoginHandler";
+import NaverLoginHandler from "./components/Login/NaverLoginHandler";
 import Timer from "./page/menu/Timer";
 import Invite from "./components/Kanban/KanbanInvite/Invite";
 import KanbanCardDetail from "./page/menu/KanbanCardDetail";
-import JoinProject from "./page/menu/JoinProject";
 import MemberPage from "./page/menu/MemberPage";
 
 import { history } from "./history";
@@ -50,13 +42,11 @@ function App() {
   //로그인이 되어있지 않는 경우 메인화면으로 돌아가게함.
   function RequireAuth({ children, redirectTo }) {
     const token = getCookie("cocoriLogin");
-    // const token = localStorage.getItem("token");
     return token ? children : <Navigate to={redirectTo} />;
   }
   //로그인으로 다시넘어가게
   function LoginAuth({ children, redirectTo }) {
     const token = getCookie("cocoriLogin");
-    // const token = localStorage.getItem("token");
     return token ? children : <Navigate to={redirectTo} />;
   }
 
@@ -138,7 +128,6 @@ function App() {
                 </RequireAuth>
               }
             />
-            <Route path="/join/project/" element={<JoinProject />} />
             <Route path="/login" element={<Login />} />
             <Route path="/oauth/kakao/" element={<KaKaoLoginHandler />} />
             <Route path="/oauth/google/" element={<GoogleLoginHandler />} />

@@ -1,15 +1,8 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import {
-  deleteBoard,
   getKanbanBoard,
-  addKanbanCard,
-  checkKanbanCard,
-  statusChangeKanbanCard,
   getKanbanInviteCode,
-  cardAllDelete,
   getProjectUserList,
-  deleteProjectUser,
-  changeOwnerDB,
 } from "../Async/kanban";
 
 const KanbanSlice = createSlice({
@@ -53,7 +46,7 @@ const KanbanSlice = createSlice({
       const items = action.payload.data;
       state.kanbans.cards = {
         ...state.kanbans.cards,
-        [items.id]: items,
+        [items.id]: { ...items },
       };
       state.kanbans.board[items.boardId].cardId.push(items.id);
     },

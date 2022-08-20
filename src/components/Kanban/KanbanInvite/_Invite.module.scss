@@ -4,17 +4,43 @@
 .KanbanInvite{
   text-align: center;
   @include modal_container(550px, 400px);
+  display: grid;
+  grid-template-rows: repeat(4, 30% 30% 40%);
+
   .logo{
-    margin-top: 60px;
+    margin-top: 45px;
   }
-  div{
-    font-size: 50px;
+  .invite_code{
+    width: 200px;
+    height: 50px;
+    margin: 28px auto;
+    padding-right: 20px;
+    border: 1px solid $comment_gray;
+    border-radius: 30px;
+    font-size: 20px;
     text-align: center;
+    line-height: 50px;
+    &:hover{
+      background-color: $light_gray;
+    }
+    .copy{
+      position: absolute;
+      margin-top: 10px;
+      @include icons($main_gray, 25px);
+      margin-left: 5px;
+      cursor: pointer;
+      background-color: #FFFFFF;
+      &:hover{
+        background-color: $light_gray;
+      }
+    }
+
   }
-  .copy{
-    border: none;
-    background-color: #FFFFFF;
+  .share_icons{
+    margin-top: -5px;
+    cursor: pointer;
   }
+
 }
 
 .overlay{

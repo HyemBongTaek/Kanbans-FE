@@ -6,11 +6,11 @@ export const getTimer = createAsyncThunk(
   async ({ page }, thunkAPI) => {
     try {
       const res = await Apis({
-        url: `/alarm?page=1`,
+        url: `/alarm?page=${page}`,
         method: "GET",
       });
       if (res.data.ok) {
-        return res.data.alarms;
+        return res.data;
       }
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response);

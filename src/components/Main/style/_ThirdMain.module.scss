@@ -1,0 +1,12 @@
+@import "./src/style/common/mixin";
+@import "./src/style/common/colors";
+
+.third_main{
+  width: 100%;
+  img{
+    width: 1200px;
+    height: 750px;
+   margin-left: 200px;
+    margin-top: 70px;
+  }
+}

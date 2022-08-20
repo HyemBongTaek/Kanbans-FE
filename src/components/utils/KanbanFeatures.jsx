@@ -3,7 +3,7 @@ import {
   changeBoardTitle,
   cardAllDelete,
   deleteBoard,
-} from "../../../redux/Async/kanban";
+} from "../../redux/Async/kanban";
 import ContextStore from "./ContextStore";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,8 +11,7 @@ import {
   boardDeleteSocket,
   cardAllDeleteSocket,
   changeBoardTitleSocket,
-} from "../../../redux/Slice/socketSlice";
-import { socket } from "../../../redux/store";
+} from "../../redux/Slice/socketSlice";
 
 //kanban에서 사용할 context
 const KanbanFeatures = (props) => {
@@ -40,7 +39,6 @@ const KanbanFeatures = (props) => {
 
   //보드 삭제
   const deleteBoardClick = ({ boardId, projectId, cardOrder }) => {
-    // socket.emit("join", projectId);
     dispatch(
       deleteBoard({
         boards: boards,

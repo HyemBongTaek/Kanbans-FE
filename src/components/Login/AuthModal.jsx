@@ -1,17 +1,17 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import styles from "./_AuthModal.module.scss";
-import NaverLoginImage from "../../../static/image/naver_login_image.png";
+import styles from "./style/_AuthModal.module.scss";
+import NaverLoginImage from "../../static/image/naver_login_image.png";
 
 import { Icon } from "@iconify/react";
-import KaKaoLoginImage from "../../../static/image/kakao_login_image.png";
-import GoogleLoginImage from "../../../static/image/google_login_image.png";
+import KaKaoLoginImage from "../../static/image/kakao_login_image.png";
+import GoogleLoginImage from "../../static/image/google_login_image.png";
 import { KAKAO_AUTH_URL } from "./AUTH_URL";
 import { NAVER_AUTH_URL } from "./AUTH_URL";
 import { GOOGLE_AUTH_URL } from "./AUTH_URL";
-import Logo from "../../../static/image/cocori02.png";
+import Logo from "../../static/image/cocori02.png";
 
-import { setOpenLoginReducer } from "../../../redux/Slice/commonSlice";
+import { setOpenLoginReducer } from "../../redux/Slice/commonSlice";
 
 const AuthModal = () => {
   const dispatch = useDispatch();

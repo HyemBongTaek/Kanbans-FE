@@ -23,8 +23,7 @@ const Share = ({ inviteCode }) => {
       document.body.removeChild(script);
     };
   }, []);
-  //배포전 임시 확인용
-  const url = "http://cocori.site/";
+  const url = "https://cocori.site/";
   return (
     <div className={styles.share_button}>
       <button className={styles.share_icon}>
@@ -48,13 +47,11 @@ const Share = ({ inviteCode }) => {
       <EmailShareButton url={url} className={styles.share_icon}>
         <EmailIcon default={inviteCode} />
       </EmailShareButton>
-      <CopyToClipboard
-        text={` ${url} / ${inviteCode}`}
-        className={styles.share_icon}
-      >
-        <button>
-          주소,코드 한번에
-          <br /> 복사
+      <CopyToClipboard text={` ${url} / ${inviteCode}`}>
+        <button className={styles.copy_button}>
+          주소/코드
+          <br />
+          복사하기
         </button>
       </CopyToClipboard>
     </div>

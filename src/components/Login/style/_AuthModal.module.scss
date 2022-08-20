@@ -4,10 +4,10 @@
 .login_modal {
   text-align: center;
   @include modal_container(700px, 650px);
+  margin-left: 15%;
 
 
   .modal_header {
-
     display: flex;
     justify-content: flex-end;
     background: $main_gray;
@@ -24,7 +24,6 @@
   }
 
   .modal_container {
-    text-align: center;
 
     .modal_logo {
       margin: 65px auto;
@@ -50,10 +49,10 @@
   }
 
   .modal_login_form {
-    margin-top: 60px;
+    margin: 60px 0 0 -70px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    align-items: center;
 
     button {
       height: 50px;

@@ -1,0 +1,33 @@
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
+@import "./src/style/utils";
+.dots{
+  position: fixed;
+  top: 45%;
+  right: 100px;
+
+  .dots_style{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 20px;
+    height: 100px;
+    .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 10px;
+      border: 1px solid $main_gray;
+      transition-duration: 1000s;
+      transition: background-color 0.5s;
+    }
+    .black{
+      background-color: $main_gray;
+    }
+  }
+}
+@include mobile {
+  .dots{
+    display: none;
+  }
+}

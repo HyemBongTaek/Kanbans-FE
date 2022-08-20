@@ -3,6 +3,7 @@ import Apis from "../apis";
 import Swal from "sweetalert2";
 import {
   addProjectReducer,
+  joinProjectReducer,
   updateProjectReducer,
 } from "../Slice/projectsSlice";
 
@@ -138,6 +139,9 @@ export const joinProject = createAsyncThunk(
           inviteCode,
         },
       });
+      if (res.data.ok) {
+        return thunkAPI.dispatch(joinProjectReducer(res.data.data));
+      }
     } catch (err) {
       thunkAPI.rejectWithValue();
     }

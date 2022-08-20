@@ -1,5 +1,6 @@
 @import "./src/style/common/mixin";
 @import "./src/style/common/colors";
+@import "./src/style/utils";
 
 
 .background{
@@ -54,6 +55,8 @@
 .header_not_login{
   display: flex;
   justify-content: flex-end;
+  margin-right: 30px;
+
   .button{
     margin: 5px 10px 0 5px;
 
@@ -63,4 +66,10 @@
     }
   }
 }
+}
+
+@include mobile{
+  .header_not_login{
+    visibility: hidden;
+  }
 }

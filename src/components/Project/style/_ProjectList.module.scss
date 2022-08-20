@@ -1,6 +1,6 @@
 @import "./src/style/common/mixin";
 @import "./src/style/common/colors";
-
+@import "./src/style/utils";
 
 .kanban_list{
   .search_bar{
@@ -27,5 +27,16 @@
       border-radius: 25px;
 
     }
+  }
+}
+
+@include  tablet{
+  .search_bar{
+    visibility: hidden;
+  }
+}
+@include mobile{
+  .search_bar{
+    visibility: hidden;
   }
 }

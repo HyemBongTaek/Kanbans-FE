@@ -1,15 +1,15 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./style/_KanbanBoard.module.scss";
 
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
 import { Icon } from "@iconify/react";
-import InputContainer from "./InputContainer";
+import InputContainer from "../utils/InputContainer";
 import KanbanCard from "./KanbanCard";
 
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
-import EditableInput from "../menu/utils/EditableInput";
-import BoardDropDown from "../menu/utils/BoardDropDown";
+import EditableInput from "../utils/EditableInput";
+import BoardDropDown from "../utils/BoardDropDown";
 
 const KanbanBoard = (props) => {
   const dropdownRef = useRef(null);
@@ -17,7 +17,20 @@ const KanbanBoard = (props) => {
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const boards = props.boards;
 
-  const dropdownClick = () => setIsActive(!isActive);
+  const dropdownClick = () => setIsActive((pre) => !pre);
+
+  //아래로 스크롤 내려가고 채팅 올라올 시 자동으로 스크롤 아래로 내려주기.
+  const endRef = useRef(null);
+
+  const scrollToBottom = () => {
+    if (endRef && endRef.current) {
+      endRef.current.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
+
+  useEffect(scrollToBottom, [props]);
   return (
     <>
       <Draggable
@@ -52,7 +65,7 @@ const KanbanBoard = (props) => {
                   </div>
                 )}
 
-                <div ref={dropdownRef}>
+                <div className={styles.dropdown} ref={dropdownRef}>
                   <Icon
                     icon="bi:three-dots"
                     color="#8c8c8c"
@@ -69,11 +82,6 @@ const KanbanBoard = (props) => {
                   )}
                 </div>
               </div>
-              <InputContainer
-                type="card"
-                boardId={props.boards.id}
-                projectId={boards.projectId}
-              />
 
               <Droppable droppableId={boards.id.toString()} type="card">
                 {(provided) => (
@@ -90,7 +98,13 @@ const KanbanBoard = (props) => {
                           />
                         );
                       })}
+
                     {provided.placeholder}
+                    <InputContainer
+                      type="card"
+                      boardId={props.boards.id}
+                      projectId={boards.projectId}
+                    />
                   </div>
                 )}
               </Droppable>

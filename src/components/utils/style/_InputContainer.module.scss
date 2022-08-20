@@ -17,9 +17,16 @@
 .add_form{
   height: 20px;
   width: 230px;
-  //margin: auto;
+  margin: 0 auto;
+  padding-bottom: 10px;
   .input{
+    padding-top: 3px;
     background: $light_gray;
+
+  }
+  .icons{
+    display: flex;
+    margin: 3px 0 0 -5px;
   }
 
   label{
@@ -29,7 +36,9 @@
     border: 1px solid $comment_gray;
     border-radius: 5px;
     input{
+      padding-top: 3px;
       border: none;
+      border-radius: 10px;
       padding-left: 10px;
       width: 200px;
       height: 20px;

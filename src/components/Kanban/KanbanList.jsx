@@ -3,7 +3,7 @@ import styles from "./style/_KanbanList.module.scss";
 import { history } from "../../history";
 
 import KanbanBoard from "./KanbanBoard";
-import InputContainer from "./InputContainer";
+import InputContainer from "../utils/InputContainer";
 
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useParams } from "react-router-dom";
@@ -15,7 +15,7 @@ import {
   sortKanbanBoard,
   sortKanbanCard,
 } from "../../redux/Async/kanban";
-import KanbanFeatures from "../menu/utils/KanbanFeatures";
+import KanbanFeatures from "../utils/KanbanFeatures";
 import {
   cardAllDeleteReducer,
   cardCheckReducer,

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import SelectedDday from "../../menu/utils/SelectedDday";
+import SelectedDday from "../../utils/SelectedDday";
 import styles from "./style/_CardDetailLeft.module.scss";
 import AddLabel from "./AddLabel";
 import AddingLabel from "./AddingLabel";
@@ -7,7 +7,7 @@ import CardInviteMembers from "./CardInviteMembers";
 import { useDispatch, useSelector } from "react-redux";
 import { Icon } from "@iconify/react";
 import { exitCardMember } from "../../../redux/Async/KanbanCardDetail";
-import Tooltip from "../../Tooltip";
+
 import CardMembers from "./CardMembers";
 
 const CardDetailLeft = ({ cardId, projectId }) => {
@@ -44,17 +44,16 @@ const CardDetailLeft = ({ cardId, projectId }) => {
                   <div className={styles.profile} key={user.id}>
                     <div className={styles.user_image}>
                       <img src={user.profileImage} />
-                      <Tooltip content="맴버 카드에서 제외하기">
-                        <Icon
-                          onClick={() =>
-                            exitCardMembersHandler({
-                              userId: user.id,
-                            })
-                          }
-                          className={styles.user_icon}
-                          icon="akar-icons:circle-minus"
-                        />
-                      </Tooltip>
+
+                      <Icon
+                        onClick={() =>
+                          exitCardMembersHandler({
+                            userId: user.id,
+                          })
+                        }
+                        className={styles.user_icon}
+                        icon="akar-icons:circle-minus"
+                      />
                     </div>
                     <div className={styles.name}>{user.name}</div>
                   </div>

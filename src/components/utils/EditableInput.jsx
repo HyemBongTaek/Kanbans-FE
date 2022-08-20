@@ -3,8 +3,8 @@ import styles from "./style/_EditableInput.module.scss";
 import { Icon } from "@iconify/react";
 import classNames from "classnames";
 import ContextStore from "./ContextStore";
-import { changeBoardTitle } from "../../../redux/Async/kanban";
-import { changeBoardTitleSocket } from "../../../redux/Slice/socketSlice";
+import { changeBoardTitle } from "../../redux/Async/kanban";
+import { changeBoardTitleSocket } from "../../redux/Slice/socketSlice";
 import { useDispatch } from "react-redux";
 const EditableInput = ({
   boardTitle,

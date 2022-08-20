@@ -1,10 +1,38 @@
 @import "./src/style/common/colors";
 @import "./src/style/common/mixin";
 
+
+.chart{
+
+
+
+
+  }
+
+
 .chart_button{
   display: flex;
-  justify-content: center;
+ justify-content: space-around;
   button{
+
     @include button_styles(150px, 30px, $main_gray, 3px, $white_font, 15px);
   }
+  .icon{
+    cursor: pointer;
+    @include icons($comment_gray, 30px);
+  }
+  .left_icon{
+    margin-right: 100px;
+    visibility: hidden;
+  }
+  .right_icon{
+    margin-left: 100px;
+  }
+  .active{
+    visibility: visible;
+  }
+  .un_visibility{
+    visibility: hidden;
+  }
+
 }

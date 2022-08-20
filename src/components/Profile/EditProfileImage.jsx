@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 
 import { changeUserInfo } from "../../redux/Async/user";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingSpinner from "../menu/utils/LoadingSpinner";
+import LoadingSpinner from "../utils/LoadingSpinner";
 
 const EditProfileImage = (props) => {
   const dispatch = useDispatch();

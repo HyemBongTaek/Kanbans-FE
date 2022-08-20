@@ -1,18 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Apis from "../apis";
-import { getProject } from "./projects";
 import axios from "axios";
 
 //카카오로그인
 export const authLogin = createAsyncThunk(
   "user/kakaoLogin",
   async ({ code, types }, thunkAPI) => {
+    const baseURL = "https://cocorikanbans.site/oauth";
     switch (types) {
       case "kakao": {
         try {
-          const res = await axios.get(
-            `http://3.37.231.161:4000/oauth/kakao/?code=${code}`
-          );
+          const res = await axios.get(`${baseURL}/kakao/?code=${code}`);
           if (res.data.ok) {
             return res.data;
           }
@@ -23,9 +21,7 @@ export const authLogin = createAsyncThunk(
       }
       case "google": {
         try {
-          const res = await axios.get(
-            `http://3.37.231.161:4000/oauth/google/?code=${code}`
-          );
+          const res = await axios.get(`${baseURL}/google/?code=${code}`);
           if (res.data.ok) {
             return res.data;
           }
@@ -36,9 +32,7 @@ export const authLogin = createAsyncThunk(
       }
       case "naver": {
         try {
-          const res = await axios.get(
-            `http://3.37.231.161:4000/oauth/naver/?code=${code}`
-          );
+          const res = await axios.get(`${baseURL}/naver/?code=${code}`);
           if (res.data.ok) {
             return res.data;
           }

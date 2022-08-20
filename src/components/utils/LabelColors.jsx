@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./style/_LabelColors.module.scss";
 import { Icon } from "@iconify/react";
 import { useDispatch } from "react-redux";
-import { deleteProjectLabel } from "../../../redux/Async/KanbanCardDetail";
+import { deleteProjectLabel } from "../../redux/Async/KanbanCardDetail";
 
 //프로젝트 전체의 라벨 색 나타내는 컴포넌트
 const LabelColors = ({ item, seletedLabel, setSelectedLabel, projectId }) => {

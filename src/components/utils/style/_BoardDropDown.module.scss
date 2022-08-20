@@ -1,0 +1,54 @@
+@import "./src/style/common/colors";
+@import "./src/style/common/mixin";
+
+.dropdown{
+  //@include modal_container(285px, 140px);
+  position: absolute;
+  width: 220px;
+  height: 140px;
+  font-size: 20px;
+  background-color: #ffffff;
+  z-index: 100;
+  margin-left: -190px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+
+  .bubble{
+    //width: 50px;
+    //height: 50px;
+    //position: absolute;
+    //margin-top: 50px;
+    //margin-left: 0px;
+    //width: 0;
+    //height: 0;
+    //border-bottom: 30px solid transparent;
+    //border-top: 30px solid transparent;
+    //border-left: 50px solid skyblue;
+    //border-right: 50px solid transparent;
+    //transform: rotate(180deg);
+
+
+  }
+  & > div{
+    cursor: pointer;
+    text-align: center;
+    font-size: 15px;
+    line-height: 70px;
+  }
+
+  & > div:first-child{
+    border-bottom: 1px solid $white_font;
+    &:hover{
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      background-color: $light_gray;
+    }
+  }
+  & > div:nth-child(2){
+   &:hover{
+     border-bottom-left-radius: 10px;
+     border-bottom-right-radius: 10px;
+     background-color: $light_gray;
+   }
+  }
+}

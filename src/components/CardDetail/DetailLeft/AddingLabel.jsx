@@ -5,7 +5,7 @@ import {
   searchLabel,
 } from "../../../redux/Async/KanbanCardDetail";
 import styles from "./style/_AddingLabel.module.scss";
-import LabelColors from "../../menu/utils/LabelColors";
+import LabelColors from "../../utils/LabelColors";
 
 //프로젝트에 등록되어 있는 라벨을 선택해서 카드에 등록하기
 const AddingLabel = ({ setIsAddingLabel, cardId, projectId }) => {

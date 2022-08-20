@@ -14,6 +14,7 @@ const DetailCommentCard = ({ items, index, userId }) => {
 
   const [edit, setEdit] = useState(false);
   const [content, setContent] = useState(items.content);
+  const [isActive, setIsActive] = useState(false);
 
   const deleteComment = () => {
     dispatch(
@@ -24,6 +25,7 @@ const DetailCommentCard = ({ items, index, userId }) => {
   };
   const editChangeHandler = (e) => {
     setContent(e.target.value);
+    setIsActive(true);
   };
   const editCardClick = (e) => {
     e.preventDefault();
@@ -47,11 +49,22 @@ const DetailCommentCard = ({ items, index, userId }) => {
         <form className={styles.content} onSubmit={editCardClick}>
           {/*수정 누르지 않을경우 readOnly 사용하여 수정 불가능하게 막음*/}
           {edit ? (
-            <TextareaAutosize
-              className={styles.edit_input}
-              value={content}
-              onChange={editChangeHandler}
-            />
+            <>
+              <label className={styles.edit_label}>
+                <TextareaAutosize
+                  className={styles.edit_input}
+                  value={content}
+                  onChange={editChangeHandler}
+                />
+                {isActive && (
+                  <Icon
+                    className={styles.check_icon}
+                    icon="bi:check-lg"
+                    onClick={editCardClick}
+                  />
+                )}
+              </label>
+            </>
           ) : (
             <TextareaAutosize
               className={styles.edit_input}
@@ -61,7 +74,7 @@ const DetailCommentCard = ({ items, index, userId }) => {
           )}
         </form>
         <div className={styles.icon}>
-          {userId === items.userId && (
+          {userId === items.userId && !edit && (
             <>
               <Tooltip content="수정하기">
                 <Icon
