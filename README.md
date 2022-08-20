@@ -26,4 +26,6 @@ Front-end/Design/PM |Back-end|Back-end|
 
 ## 아키텍쳐
 
+![cocori아키텍쳐](https://user-images.githubusercontent.com/85723134/185744565-8ac0d4f5-dfa6-48d8-9bb1-7ea9176252ef.jpg)
+
 ## 협업
