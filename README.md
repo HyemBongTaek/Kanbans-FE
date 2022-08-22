@@ -8,7 +8,9 @@
 프로젝트에 맴버를 추가해 함께 사용 가능한 보드를 제공합니다. 
 
 자세한 소개는 
-https://github.com/HyemBongTaek/Kanbans-FE.wiki.git 를 참고해주세요
+https://github.com/HyemBongTaek/Kanbans-FE/wiki 를 참고해주세요
+
+
 
 
 ## 참여인원 및 프로젝트 기간
