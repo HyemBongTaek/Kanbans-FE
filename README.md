@@ -32,3 +32,6 @@ Front-end/Design/PM |Back-end|Back-end|
 
 ## 협업
 
+![image](https://user-images.githubusercontent.com/85723134/185864144-a96aab63-d602-4bdc-8cb3-f80f58dbb523.png)
+
+
