@@ -19,6 +19,12 @@
     text-align: center;
     padding-top: 5px;
 
+    &:hover{
+      .button{
+        visibility: visible;
+      }
+    }
+
     .owner{
       position: absolute;
       @include icons("", 40px);
@@ -49,9 +55,12 @@
       margin: 10px auto;
       color: $main_gray;
       font-size: 15px;
-      //border: 1px solid $main_gray;
-      //border-radius: 5px;
       min-height: 50px;
+    }
+    .button{
+      visibility: hidden;
+      margin: -50px 10px 0 0;
+      @include button_styles(130px, 30px, $white_font, 3px, $main_gray, 15px);
     }
   }
 }

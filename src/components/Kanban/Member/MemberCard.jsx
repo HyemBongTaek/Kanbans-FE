@@ -35,8 +35,12 @@ const MemberCard = ({ member, projectId, isOwner, userId, setIsOwner }) => {
       <div className={styles.introduce}>{member.introduce}</div>
       {isOwner && (
         <>
-          <button onClick={deleteProjectMember}>제외하기</button>
-          <button onClick={changeOwner}>Owner 변경하기</button>
+          <button className={styles.button} onClick={deleteProjectMember}>
+            제외하기
+          </button>
+          <button className={styles.button} onClick={changeOwner}>
+            Owner 변경하기
+          </button>
         </>
       )}
     </div>

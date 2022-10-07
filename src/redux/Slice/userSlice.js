@@ -21,7 +21,6 @@ const UserSlice = createSlice({
         expires.setDate(expires.getDate() + 14);
         setCookie("cocoriLogin", refreshToken, {
           path: "/",
-          // secure: false,
           expires,
         });
 

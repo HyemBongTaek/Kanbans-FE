@@ -104,7 +104,6 @@ const Main = () => {
             모바일에서는 cocori 사이트의 사용이 불가합니다. 컴퓨터로 접속해
             주세요.
           </div>
-          {/*<button>코코리 앱으로 사용하기</button>*/}
         </div>
         <div className={styles.image}>
           <img src={Main_image} alt="main_image" />
