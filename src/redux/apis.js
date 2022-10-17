@@ -38,6 +38,7 @@ Apis.interceptors.response.use(
           method: "GET",
           headers: {
             Authorization: `Bearer ${refreshToken}`,
+            withCredentials: true,
           },
         });
         if (data) {

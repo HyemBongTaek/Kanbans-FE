@@ -13,7 +13,6 @@ const TimerTable = ({ setIsTable }) => {
   const timeList = useSelector((state) => state.timerSlice.timerList);
   const timeLength = useSelector((state) => state.timerSlice.timerTotal);
 
-  console.log(timeLength);
   const [page, setPage] = useState(1);
   const [isLength, setIsLength] = useState(0);
 
