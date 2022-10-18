@@ -26,7 +26,7 @@ Front-end/Design/PM |Back-end|Back-end|
 
 
 ## 사용한 기술
-#### frontEnd -<img src="https://img.shields.io/badge/React-339933?style=flat-square&logo=React&logoColor=white"/></a><img src="https://img.shields.io/badge/-Redux Toolkit-764ABC?style=flat&logo=Redux">
+<img src="https://img.shields.io/badge/React-339933?style=flat-square&logo=React&logoColor=white"/></a> <img src="https://img.shields.io/badge/-Redux Toolkit-764ABC?style=flat&logo=Redux">
 
 ## 아키텍쳐
 
